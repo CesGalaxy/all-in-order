@@ -4,6 +4,7 @@ import "./globals.css";
 import {Providers} from "@/app/providers";
 import type React from "react";
 import Navbar from "@/app/navbar";
+import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
 
 const kanit = Kanit({weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin"]});
 
@@ -18,10 +19,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     // Preload user data while rendering the layout
+    getMaybeMyProfile();
 
     return (
         <html lang="en">
-        <body className={kanit.className + " dark bg-background text-foreground"}>
+        <body className={kanit.className + " bg-background text-foreground"}>
         <Providers>
 
             <div className="w-full h-screen flex flex-col items-stretch justify-stretch">

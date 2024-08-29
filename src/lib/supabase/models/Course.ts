@@ -11,7 +11,9 @@ export default interface Course {
     created_at: string;
 }
 
-export const getMyCoursesAndSubjects = cache(async (): Promise<(Course & { subjects: Subject[] })[]> => {
+export type CourseWithSubjects = Course & { subjects: Subject[] };
+
+export const getMyCoursesWithSubjects = cache(async (): Promise<CourseWithSubjects[]> => {
     const supabase = createSupabaseServerClient();
 
     const { data } = await supabase
