@@ -1,4 +1,4 @@
-import { getTopicDocumentByName } from "@/lib/supabase/storage/topic_documents";
+import { getTopicDocumentByName, updateTopicDocument } from "@/lib/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
 import { getTopicByIdWithSubjectAndCourse } from "@/lib/supabase/models/Topic";
 import MDEditor from "@/features/markdown/MDEditor";
@@ -8,7 +8,11 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
 }) {
     const docName = atob(decodeURIComponent(docNameEncoded));
     const topic = required(await getTopicByIdWithSubjectAndCourse(parseInt(topicId)), "/topics/" + topicId);
-    const document = required(await getTopicDocumentByName(parseInt(topicId), docName), "/topics/" + topicId);
+    const document = required(await getTopicDocumentByName(topic.id, docName), "/topics/" + topicId);
 
-    return <MDEditor docName={docName} initialContent={await document.text()} />
+    return <MDEditor
+        docName={docName}
+        initialContent={await document.text()}
+        saveContent={updateTopicDocument.bind(null, topic.id, docName)}
+    />;
 }

@@ -2,6 +2,8 @@ import { getTopicDocumentByName } from "@/lib/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
 import UserLocationInDashboard from "@/app/app/_UserLocationInDashboard";
 import { getTopicByIdWithSubjectAndCourse } from "@/lib/supabase/models/Topic";
+import { Link } from "@nextui-org/link";
+import { Link as TransitionLink } from "next-view-transitions";
 
 export default async function Page({ params: { topicId, docNameEncoded } }: {
     params: { topicId: string, docNameEncoded: string }
@@ -23,6 +25,9 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
                 <h2 className="text-4xl">{docName}</h2>
                 <hr/>
                 <br/>
+                <Link as={TransitionLink} href={`/topics/${topicId}/docs/${docNameEncoded}/edit`}>
+                    Edit
+                </Link>
             </div>
         </div>
     </div>

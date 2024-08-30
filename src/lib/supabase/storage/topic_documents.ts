@@ -39,3 +39,17 @@ export async function createTopicDocument(topic_id: number, name: string) {
 
     revalidatePath("/topics/[topic_id]");
 }
+
+export async function updateTopicDocument(topic_id: number, name: string, content: string) {
+    const supabase = createSupabaseServerClient();
+
+    const { data, error } = await supabase.storage
+        .from("topic_documents")
+        .update(`${topic_id}/${name}`, content);
+
+    console.log(error, data)
+
+    revalidatePath(`/topics/${topic_id}/docs/${btoa(name)}`);
+
+    return !error;
+}
