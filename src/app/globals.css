@@ -26,6 +26,6 @@
     all: initial;
 }
 
-.revert-tailwind > *, .revert-tailwind-only-child > * {
+.revert-tailwind > *, .revert-tailwind-only-child > :not(.yes-tailwind) {
     all: revert;
 }

@@ -4,7 +4,7 @@ import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-export const getTopicDocumentByName = cache(async (topic_id: number, name: string) => {
+export const getTopicDocument = cache(async (topic_id: number, name: string) => {
     const supabase = createSupabaseServerClient();
 
     const { data } = await supabase.storage
@@ -37,7 +37,7 @@ export async function createTopicDocument(topic_id: number, name: string) {
         return error;
     }
 
-    revalidatePath("/topics/[topic_id]");
+    revalidatePath("/topics/" + topic_id);
 }
 
 export async function updateTopicDocument(topic_id: number, name: string, content: string) {
@@ -50,6 +50,20 @@ export async function updateTopicDocument(topic_id: number, name: string, conten
     console.log(error, data)
 
     revalidatePath(`/topics/${topic_id}/docs/${btoa(name)}`);
+
+    return !error;
+}
+
+export async function renameTopicDocument(topic_id: number, oldName: string, newName: string) {
+    const supabase = createSupabaseServerClient();
+
+    const { data, error } = await supabase.storage
+        .from("topic_documents")
+        .move(`${topic_id}/${oldName}`, `${topic_id}/${newName}`);
+
+    console.log(error, data)
+
+    revalidatePath(`/topics/${topic_id}`);
 
     return !error;
 }

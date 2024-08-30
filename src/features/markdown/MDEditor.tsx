@@ -48,6 +48,13 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
         return () => window.removeEventListener("beforeunload", unloadCallback);
     }, []);
 
+    useEffect(() => {
+        // Save the content every minute
+        const saveInterval = setInterval(() => saveContent?.(content), 1000 * 60);
+
+        return () => clearInterval(saveInterval);
+    }, []);
+
     const save = () => saveContent?.(content).then(success => success
         ? toast("Saved successfully!", { type: "success" })
         : toast("Failed to save!", { type: "error" })
