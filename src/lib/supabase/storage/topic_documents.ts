@@ -31,8 +31,6 @@ export async function createTopicDocument(topic_id: number, name: string) {
         .from("topic_documents")
         .upload(`${topic_id}/${name}.md`, "");
 
-    console.log(error, data)
-
     if (error) {
         return error;
     }

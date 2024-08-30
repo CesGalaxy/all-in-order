@@ -13,6 +13,7 @@ export default async function Navbar() {
         <NavbarBrand>
             {/*<p className="font-bold text-inherit">ACME</p>*/}
             <Link href="/">
+                {/* TODO: Set priority={true} */}
                 <Image src={LogoNameCol} alt="ACME" height={64}/>
             </Link>
         </NavbarBrand>

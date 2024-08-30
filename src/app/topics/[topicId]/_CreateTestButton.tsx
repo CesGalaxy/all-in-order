@@ -1,39 +1,44 @@
 "use client";
 
-import { IconFilePlus, IconUpload } from "@tabler/icons-react";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { IconTextPlus } from "@tabler/icons-react";
+import { Button } from "@nextui-org/button";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Input } from "@nextui-org/input";
 import { useState } from "react";
-import { createTopicDocument } from "@/lib/supabase/storage/topic_documents";
+import { Input, Textarea } from "@nextui-org/input";
+import { createTopicTest } from "@/lib/supabase/models/TopicTest";
 
-export default function CreateDocumentButton({ topicId }: { topicId: number }) {
+export default function CreateTestButton({ topicId }: { topicId: number }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [error, setError] = useState<string>();
 
     return <>
-        <ButtonGroup>
-            <Button startContent={<IconFilePlus/>} color="primary" onPress={onOpen}>Create a new document</Button>
-            <Button startContent={<IconUpload/>}>Upload a document</Button>
-        </ButtonGroup>
+        <Button color="primary" startContent={<IconTextPlus />} onClick={onOpen}>Create Test</Button>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             placement="top-center"
         >
             <ModalContent>{(onClose) => <>
-                <ModalHeader className="flex flex-col gap-1">Create document</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">Create test</ModalHeader>
                 <ModalBody>
                     <Input
                         autoFocus
-                        label="Document name"
-                        placeholder="Enter the name of the new document"
+                        label="Test name"
+                        placeholder="Enter the name of the new test"
                         variant="bordered"
-                        validate={(value) => value.length > 0 ? null : "Please enter a name for the document"}
+                        validate={(value) => value.length > 0 ? null : "Please enter a name for the test"}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         isRequired
+                    />
+                    <Textarea
+                        label="Test description"
+                        placeholder="Enter a description for the test"
+                        variant="bordered"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     {error && <p className="text-red-500">{error}</p>}
                 </ModalBody>
@@ -42,7 +47,7 @@ export default function CreateDocumentButton({ topicId }: { topicId: number }) {
                         Cancel
                     </Button>
                     <Button color="primary" onPress={async () => {
-                        let error = await createTopicDocument(topicId, name);
+                        const error = await createTopicTest(topicId, name, description);
 
                         error ? setError(error.message) : onClose();
                     }}>
@@ -52,5 +57,5 @@ export default function CreateDocumentButton({ topicId }: { topicId: number }) {
             </>
             }</ModalContent>
         </Modal>
-    </>
+    </>;
 }
