@@ -6,12 +6,19 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { ChoiceQuestionAnswerTooltip } from "@/features/question/questions/ChoiceQuestion";
+import { FillTheGapQuestionAnswerTooltip } from "@/features/question/questions/FillTheGapQuestion";
+
+const QUESTION_ANSWER_TOOLTIPS = {
+    "choice": ChoiceQuestionAnswerTooltip,
+    "fill_the_gap": FillTheGapQuestionAnswerTooltip
+};
 
 export default function QuestionSimpleCard({ question }: { question: TopicTestQuestion }) {
+    const AnswerTooltip = QUESTION_ANSWER_TOOLTIPS[question.data.type];
     return <Card>
         <CardHeader className="flex-col gap-2">
             <h3 className="text-xl text-foreground">{question.data.title}</h3>
-            <small className="text-focus">{question.data.type.toUpperCase()}</small>
+            <small className="text-focus">{question.data.type.toUpperCase().replaceAll("_", " ")}</small>
         </CardHeader>
         <CardFooter>
             <ButtonGroup className="w-full">
@@ -22,7 +29,7 @@ export default function QuestionSimpleCard({ question }: { question: TopicTestQu
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent>
-                        <ChoiceQuestionAnswerTooltip question={question.data}/>
+                        <AnswerTooltip question={question.data as never}/>
                     </PopoverContent>
                 </Popover>
                 <Button isIconOnly>

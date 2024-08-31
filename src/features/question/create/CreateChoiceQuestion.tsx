@@ -28,7 +28,7 @@ export default function CreateChoiceQuestion({ title }: { title: string }) {
         list_type: listType,
         correct_choices: choices.filter(([_, correct]) => correct).map(([choice]) => choice),
         wrong_choices: choices.filter(([_, correct]) => !correct).map(([choice]) => choice)
-    } : undefined), [choices, listType, title]);
+    } : undefined), [choices, listType, setQuestion, title]);
 
     return <div className="grid grid-cols-1 gap-4">
         {choices.map(([choice, correct], i) => <div key={i} className="flex gap-2">

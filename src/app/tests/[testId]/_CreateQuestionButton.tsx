@@ -11,6 +11,12 @@ import { Question } from "@/features/question/BaseQuestion";
 import CreateChoiceQuestion from "@/features/question/create/CreateChoiceQuestion";
 import { toast } from "react-toastify";
 import { PostgrestError } from "@supabase/supabase-js";
+import CreateFillTheGapQuestion from "@/features/question/create/CreateFillTheGapQuestion";
+
+const QUESTION_CREATORS = {
+    "choice": CreateChoiceQuestion,
+    "fill_the_gap": CreateFillTheGapQuestion
+};
 
 export interface CreateQuestionButtonProps {
     create: (data: object) => Promise<PostgrestError | undefined>
@@ -19,7 +25,7 @@ export interface CreateQuestionButtonProps {
 export default function CreateQuestionButton({ create }: CreateQuestionButtonProps) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const [name, setname] = useState("");
+    const [name, setName] = useState("");
     const [error, setError] = useState<string>();
 
     const [questionType, setQuestionType] = useState<Question["type"]>("choice");
@@ -28,10 +34,7 @@ export default function CreateQuestionButton({ create }: CreateQuestionButtonPro
 
     const validData = useMemo(() => question && name.length > 0, [question, name]);
 
-    const QuestionCreator = useMemo(() => ({
-        "choice": CreateChoiceQuestion,
-        // "fill_the_gap": CreateFillTheGapQuestion
-    }[questionType]), [questionType]);
+    const QuestionCreator = useMemo(() => QUESTION_CREATORS[questionType], [questionType]);
 
     return <>
         <Button color="primary" startContent={<IconTextPlus/>} onClick={onOpen}>
@@ -54,6 +57,7 @@ export default function CreateQuestionButton({ create }: CreateQuestionButtonPro
                             isRequired
                         >
                             <SelectItem key="choice" value="choice">Choice question</SelectItem>
+                            <SelectItem key="fill_the_gap" value="fill_the_gap">Fill the gap</SelectItem>
                         </Select>
                         <Input
                             autoFocus
@@ -62,7 +66,7 @@ export default function CreateQuestionButton({ create }: CreateQuestionButtonPro
                             variant="bordered"
                             validate={(value) => value.length > 0 ? null : "Please enter a title for the document"}
                             value={name}
-                            onChange={(e) => setname(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                             isRequired
                         />
                     </div>

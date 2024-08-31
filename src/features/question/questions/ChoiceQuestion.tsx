@@ -3,7 +3,7 @@ import { BaseQuestion } from "@/features/question/BaseQuestion";
 export interface ChoiceQuestion extends BaseQuestion {
     type: "choice";
     list_type: "none" | "alphabet" | "number" | "roman";
-    correct_choices: string | string[];
+    correct_choices: string[];
     wrong_choices: string[];
 }
 
