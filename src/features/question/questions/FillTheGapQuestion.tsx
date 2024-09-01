@@ -1,5 +1,5 @@
-import { BaseQuestion } from "@/features/question/BaseQuestion";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { BaseQuestion } from "@/features/question/Question";
 
 export interface FillTheGapQuestion extends BaseQuestion {
     type: "fill_the_gap";
@@ -14,6 +14,10 @@ export type FillTheGapQuestionGap = {
     { type: "text", answers: string[] }
     | { type: "choice", choices: [string, boolean][] }
     );
+
+export interface FillTheGapQuestionAnswer {
+    answers: string[];
+}
 
 export function FillTheGapQuestionAnswerTooltip({ question }: { question: FillTheGapQuestion }) {
     return <ul className="flex items-start gap-2">

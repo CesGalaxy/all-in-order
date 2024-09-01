@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import QuestionCreationContext from "@/features/question/QuestionCreationContext";
-import { Question } from "@/features/question/BaseQuestion";
+import { Question } from "@/features/question/Question";
 import CreateChoiceQuestion from "@/features/question/create/CreateChoiceQuestion";
 import { toast } from "react-toastify";
 import { PostgrestError } from "@supabase/supabase-js";

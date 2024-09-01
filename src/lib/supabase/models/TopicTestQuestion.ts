@@ -2,7 +2,7 @@
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Question } from "@/features/question/BaseQuestion";
+import { Question } from "@/features/question/Question";
 
 export default interface TopicTestQuestion {
     id: number;

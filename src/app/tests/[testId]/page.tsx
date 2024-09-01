@@ -12,6 +12,7 @@ import {
 import CreateQuestionButton from "@/app/tests/[testId]/_CreateQuestionButton";
 import { createTopicTestQuestion } from "@/lib/supabase/models/TopicTestQuestion";
 import QuestionSimpleCard from "@/app/tests/[testId]/_QuestionSimpleCard";
+import { Link } from "@nextui-org/link";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
     const test = required(await getTopicTestByIdWithQuestions(parseInt(testId)));
@@ -23,7 +24,9 @@ export default async function Page({ params: { testId } }: { params: { testId: s
         <header className="px-16 w-full flex items-center gap-8">
             <TestSelector tests={tests} testId={testId}/>
             <ButtonGroup>
-                <Button color="primary" startContent={<IconPlayerPlay/>}>Start test</Button>
+                <Button color="primary" startContent={<IconPlayerPlay/>} as={Link} href={test.id + "/attempt"}>
+                    Start test
+                </Button>
                 <Button startContent={<IconPencil/>}>Edit</Button>
                 <Button color="danger" startContent={<IconTrash/>}>Delete</Button>
             </ButtonGroup>

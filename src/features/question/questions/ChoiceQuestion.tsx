@@ -1,10 +1,14 @@
-import { BaseQuestion } from "@/features/question/BaseQuestion";
+import { BaseQuestion } from "@/features/question/Question";
 
 export interface ChoiceQuestion extends BaseQuestion {
     type: "choice";
     list_type: "none" | "alphabet" | "number" | "roman";
     correct_choices: string[];
     wrong_choices: string[];
+}
+
+export interface ChoiceQuestionAnswer {
+    selected_choices: string[];
 }
 
 export function ChoiceQuestionAnswerTooltip({ question }: { question: ChoiceQuestion }) {

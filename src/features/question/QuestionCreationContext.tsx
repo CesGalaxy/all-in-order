@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { Question } from "@/features/question/BaseQuestion";
+import { Question } from "@/features/question/Question";
 
 export interface QuestionCreationContextData {
     question?: Question;
