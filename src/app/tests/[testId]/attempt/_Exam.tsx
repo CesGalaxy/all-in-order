@@ -20,11 +20,11 @@ export default function Exam({ testName, testDescription, questions, randomSeeds
     questions: Question[],
     randomSeeds: number[],
 }) {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(1);
     const [answers, setAnswers] = useState<(Answer | null)[]>(new Array(questions.length).fill(null));
 
     const question = useMemo(() => questions[currentQuestionIndex], [currentQuestionIndex, questions]);
-    const AnswerComponent = QuestionsAnswers[question.type];
+    const AnswerComponent = useMemo(() => QuestionsAnswers[question.type], [question.type]);
 
     return <div className="w-full h-full flex items-stretch gap-4 px-8 pb-8">
         <div className="bg-content2 text-content2-foreground w-full h-full flex-grow rounded-xl p-4 flex flex-col gap-4">

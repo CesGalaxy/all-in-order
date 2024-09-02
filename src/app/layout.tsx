@@ -26,9 +26,9 @@ export default function RootLayout({
 
     return <ViewTransitions>
         <html lang="en">
-        <body className={kanit.className + " bg-background text-foreground"}>
+        <body className={kanit.className + " bg-background text-foreground w-full h-screen"}>
         <Providers>
-            <div className="w-full h-screen flex flex-col items-stretch justify-stretch">
+            <div className="w-full h-full flex flex-col items-stretch justify-stretch">
                 <header>
                     <Navbar/>
                 </header>

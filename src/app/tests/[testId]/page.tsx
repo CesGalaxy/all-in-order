@@ -3,7 +3,6 @@ import { getAllTopicTests, getTopicTestByIdWithQuestions } from "@/lib/supabase/
 import TestSelector from "@/app/tests/[testId]/_TestSelector";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import {
-    IconChevronDown,
     IconPencil,
     IconPlayerPlay,
     IconSparkles,
@@ -13,6 +12,7 @@ import CreateQuestionButton from "@/app/tests/[testId]/_CreateQuestionButton";
 import { createTopicTestQuestion } from "@/lib/supabase/models/TopicTestQuestion";
 import QuestionSimpleCard from "@/app/tests/[testId]/_QuestionSimpleCard";
 import { Link } from "@nextui-org/link";
+import AskToAIButton from "@/app/tests/[testId]/_AskToAiButton";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
     const test = required(await getTopicTestByIdWithQuestions(parseInt(testId)));
@@ -33,10 +33,7 @@ export default async function Page({ params: { testId } }: { params: { testId: s
             <div>
                 <CreateQuestionButton create={createAction}/>
             </div>
-            <ButtonGroup>
-                <Button startContent={<IconSparkles/>}>Ask to AI</Button>
-                <Button isIconOnly><IconChevronDown/></Button>
-            </ButtonGroup>
+            <AskToAIButton test={test} />
         </header>
         <div className="w-full h-full flex-grow px-16 grid grid-cols-4 gap-8">
             <div className="w-full h-full col-span-3">
@@ -56,7 +53,11 @@ export default async function Page({ params: { testId } }: { params: { testId: s
                         {test.questions.map(question => <QuestionSimpleCard key={question.id} question={question}/>)}
                     </div>}
             </div>
-            {test.name}
+            <div className="w-full h-full">
+                <h2 className="text-4xl">Recent attempts</h2>
+                <hr/>
+                <br/>
+            </div>
         </div>
     </div>
 }

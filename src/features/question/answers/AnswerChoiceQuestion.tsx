@@ -8,7 +8,7 @@ import { useQuestionAnswerContext } from "@/features/question/QuestionAnswerCont
 export default function AnswerChoiceQuestion({ question, randomSeed }: { question: ChoiceQuestion, randomSeed: number }) {
     const isMultipleChoice = question.correct_choices.length > 1;
 
-    const {setAnswer} = useQuestionAnswerContext();
+    const {setAnswer, answer} = useQuestionAnswerContext<ChoiceQuestionAnswer>();
 
     // Shuffle the choices
     const choices = useMemo(() => [
@@ -24,7 +24,7 @@ export default function AnswerChoiceQuestion({ question, randomSeed }: { questio
             .reverse(),
         [question.correct_choices, question.wrong_choices, randomSeed]);
 
-    const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
+    const [selectedChoices, setSelectedChoices] = useState<string[]>(answer?.selected_choices || []);
 
     const selectChoice = (choice: string) => {
         // If already selected, remove it
@@ -37,11 +37,15 @@ export default function AnswerChoiceQuestion({ question, randomSeed }: { questio
         } else {
             setSelectedChoices([choice]);
         }
-
-        if (choices.length > 0) {
-            setAnswer({ selected_choices: selectedChoices } satisfies ChoiceQuestionAnswer);
-        }
     }
+
+    useEffect(() => {
+        if (selectedChoices.length > 0) {
+            if (selectedChoices.join() !== answer?.selected_choices.join()) setAnswer({ selected_choices: selectedChoices });
+        } else {
+            if (answer !== null) setAnswer(null);
+        }
+    }, [answer, choices.length, selectedChoices, setAnswer]);
 
     return <div className="w-full h-full flex flex-col gap-4 p-2">
         <h1 className="text-center w-full text-xl text-default-500">
