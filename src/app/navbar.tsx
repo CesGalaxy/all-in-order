@@ -6,11 +6,22 @@ import Image from "next/image";
 import ProfileAvatar from "@/app/_ProfileAvatar";
 import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
 import { getTranslations } from "next-intl/server";
+import { Locale } from "@/i18n/config";
+import { setUserLocale } from "@/lib/services/locale";
+import { revalidatePath } from "next/cache";
+import ToggleLocale from "@/app/_ToggleLocale";
 
 export default async function Navbar() {
     const profile = await getMaybeMyProfile();
 
     const t = await getTranslations();
+
+    async function updateLocale(locale: Locale) {
+        "use server";
+
+        await setUserLocale(locale);
+        revalidatePath("/");
+    }
 
     return <Nav shouldHideOnScroll>
         <NavbarBrand>
@@ -38,6 +49,7 @@ export default async function Navbar() {
             </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
+            <ToggleLocale updateLocale={updateLocale} />
             {profile
                 ? <>
                     <NavbarItem>
