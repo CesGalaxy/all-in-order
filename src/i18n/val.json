@@ -1,1 +1,54 @@
-{}
+{
+  "AI": {
+    "chat_with": "Parla amb l'IA",
+    "tools": "Ferramentes amb IA"
+  },
+  "App": {
+    "calendar": "Calendari",
+    "documents": "Documents",
+    "resources": "Recursos",
+    "tasks": "Tasques",
+    "tests": "Tests"
+  },
+  "Auth": {
+    "login": "Accedeix",
+    "logout": "Tanca sessió",
+    "sign_up": "Crear compte",
+    "signed_in_as": "Accedint com a {identity}"
+  },
+  "Dash": {
+    "Topic": {
+      "create_doc": "Crear document",
+      "create_doc_new": "Crear un nou document",
+      "create_test": "Crear test",
+      "no_documents": "No s'han trobat documents",
+      "no_documents_yet": "No hi han documents en aquest tema.",
+      "no_tests": "No s'han trobat tests",
+      "no_tests_details": "No hi han tests en aquest tema.",
+      "upload_doc": "Pujar documents"
+    },
+    "my_content": {
+      "courses": "Els meus cursos"
+    }
+  },
+  "Global": {
+    "android": "Android",
+    "cancel": "Cancel·la",
+    "create": "Crea",
+    "dashboard": "Inici",
+    "download": "Descarregar",
+    "open": "Obrir",
+    "settings": "Preferències",
+    "start": "Començar",
+    "web": "Web",
+    "web_version": "Versió web"
+  },
+  "Home": {
+    "create_resumes_with_ai": "Crea resums amb l'IA"
+  },
+  "Social": {
+    "Profile": {
+      "avatar_alt": "Avatar de {name}"
+    }
+  }
+}

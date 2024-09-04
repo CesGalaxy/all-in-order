@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectSettingsService">
     <option name="localesDirectory" value="C:\Users\cesga\Desktop\1Week1Project\all-in-order\src\i18n" />
-    <option name="filePattern" value="(en|es).json" />
+    <option name="filePattern" value="(en|es|val).json" />
     <option name="defaultNamespace" value="" />
     <option name="flavorTemplate" value="t" />
   </component>
