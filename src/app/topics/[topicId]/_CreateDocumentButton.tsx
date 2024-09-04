@@ -6,16 +6,21 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { createTopicDocument } from "@/lib/supabase/storage/topic_documents";
+import { useTranslations } from "next-intl";
 
 export default function CreateDocumentButton({ topicId }: { topicId: number }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [name, setName] = useState("");
     const [error, setError] = useState<string>();
 
+    const t = useTranslations();
+
     return <>
         <ButtonGroup>
-            <Button startContent={<IconFilePlus/>} color="primary" onPress={onOpen}>Create a new document</Button>
-            <Button startContent={<IconUpload/>}>Upload a document</Button>
+            <Button startContent={<IconFilePlus/>} color="primary" onPress={onOpen}>
+                {t("Dash.Topic.create_doc_new")}
+            </Button>
+            <Button startContent={<IconUpload/>}>{t("Dash.Topic.upload_doc")}</Button>
         </ButtonGroup>
         <Modal
             isOpen={isOpen}
@@ -23,7 +28,7 @@ export default function CreateDocumentButton({ topicId }: { topicId: number }) {
             placement="top-center"
         >
             <ModalContent>{(onClose) => <>
-                <ModalHeader className="flex flex-col gap-1">Create document</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">{t("Dash.Topic.create_doc")}</ModalHeader>
                 <ModalBody>
                     <Input
                         autoFocus
@@ -39,14 +44,14 @@ export default function CreateDocumentButton({ topicId }: { topicId: number }) {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="danger" variant="flat" onPress={onClose}>
-                        Cancel
+                        {t("Global.cancel")}
                     </Button>
                     <Button color="primary" onPress={async () => {
                         let error = await createTopicDocument(topicId, name);
 
                         error ? setError(error.message) : onClose();
                     }}>
-                        Create
+                        {t("Global.create")}
                     </Button>
                 </ModalFooter>
             </>

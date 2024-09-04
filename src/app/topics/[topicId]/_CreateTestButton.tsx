@@ -6,6 +6,7 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 import { useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { createTopicTest } from "@/lib/supabase/models/TopicTest";
+import { useTranslations } from "next-intl";
 
 export default function CreateTestButton({ topicId }: { topicId: number }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -13,15 +14,17 @@ export default function CreateTestButton({ topicId }: { topicId: number }) {
     const [description, setDescription] = useState("");
     const [error, setError] = useState<string>();
 
+    const t = useTranslations();
+
     return <>
-        <Button color="primary" startContent={<IconTextPlus />} onClick={onOpen}>Create Test</Button>
+        <Button color="primary" startContent={<IconTextPlus />} onClick={onOpen}>{t("Dash.Topic.create_test")}</Button>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             placement="top-center"
         >
             <ModalContent>{(onClose) => <>
-                <ModalHeader className="flex flex-col gap-1">Create test</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">{t("Dash.Topic.create_test")}</ModalHeader>
                 <ModalBody>
                     <Input
                         autoFocus
@@ -44,14 +47,14 @@ export default function CreateTestButton({ topicId }: { topicId: number }) {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="danger" variant="flat" onPress={onClose}>
-                        Cancel
+                        {t("Global.cancel")}
                     </Button>
                     <Button color="primary" onPress={async () => {
                         const error = await createTopicTest(topicId, name, description);
 
                         error ? setError(error.message) : onClose();
                     }}>
-                        Create
+                        {t("Global.create")}
                     </Button>
                 </ModalFooter>
             </>

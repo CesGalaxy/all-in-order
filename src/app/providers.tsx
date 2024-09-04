@@ -1,16 +1,13 @@
-'use client'
+import { ProvidersClient } from "@/app/providers.client";
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
-import {NextUIProvider} from "@nextui-org/system";
-import { useRouter } from "next/navigation";
-import { ToastContainer } from "react-toastify";
+export default async function Providers({ children }: { children: React.ReactNode }) {
+    const messages = await getMessages();
 
-export function Providers({children}: { children: React.ReactNode }) {
-    const router = useRouter();
-
-    return (
-        <NextUIProvider navigate={router.push} className="w-full h-full">
-            <ToastContainer position="bottom-right" />
+    return <NextIntlClientProvider messages={messages}>
+        <ProvidersClient>
             {children}
-        </NextUIProvider>
-    )
+        </ProvidersClient>
+    </NextIntlClientProvider>;
 }

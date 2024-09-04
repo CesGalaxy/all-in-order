@@ -5,32 +5,35 @@ import LogoNameCol from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import ProfileAvatar from "@/app/_ProfileAvatar";
 import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
+import { getTranslations } from "next-intl/server";
 
 export default async function Navbar() {
     const profile = await getMaybeMyProfile();
+
+    const t = await getTranslations();
 
     return <Nav shouldHideOnScroll>
         <NavbarBrand>
             {/*<p className="font-bold text-inherit">ACME</p>*/}
             <Link href="/">
                 {/* TODO: Set priority={true} */}
-                <Image src={LogoNameCol} alt="ACME" height={64}/>
+                <Image src={LogoNameCol} alt="All In Order" height={64}/>
             </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-                <Link color="foreground" href="#">
-                    Features
-                </Link>
-            </NavbarItem>
+            {/*<NavbarItem>*/}
+            {/*    <Link color="foreground" href="#">*/}
+            {/*        Features*/}
+            {/*    </Link>*/}
+            {/*</NavbarItem>*/}
             <NavbarItem isActive>
                 <Link href="#" aria-current="page">
-                    Customers
+                    {t('Global.web')}
                 </Link>
             </NavbarItem>
             <NavbarItem>
-                <Link color="foreground" href="#">
-                    Integrations
+                <Link color="foreground" href="/">
+                    {t('Global.android')}
                 </Link>
             </NavbarItem>
         </NavbarContent>
@@ -38,17 +41,21 @@ export default async function Navbar() {
             {profile
                 ? <>
                     <NavbarItem>
-                        <Button as={Link} color="primary" href="/app">Dashboard</Button>
+                        <Button as={Link} color="primary" href="/app">
+                            {t('Global.dashboard')}
+                        </Button>
                     </NavbarItem>
-                    <ProfileAvatar profile={profile} />
+                    <ProfileAvatar profile={profile}/>
                 </>
                 : <>
                     <NavbarItem className="hidden lg:flex">
-                        <Link as={Link} href="/login">Login</Link>
+                        <Link as={Link} href="/login">
+                            {t('Auth.login')}
+                        </Link>
                     </NavbarItem>
                     <NavbarItem>
                         <Button as={Link} color="primary" href="/register" variant="flat">
-                            Sign Up
+                            {t('Auth.sign_up')}
                         </Button>
                     </NavbarItem>
                 </>}

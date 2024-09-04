@@ -4,8 +4,11 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { Avatar } from "@nextui-org/avatar";
 import Profile from "@/lib/supabase/models/Profile";
 import { createSupabaseClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {
+    const t = useTranslations();
+
     return <Dropdown placement="bottom-end">
         <DropdownTrigger>
             <Avatar
@@ -16,17 +19,21 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 name={profile.name}
                 size="sm"
                 src={profile.avatar_url || "https://www.gravatar.com/avatar/0?d=mp&f=y"}
+                alt={t('Social.Profile.avatar_alt', { name: profile.name })}
             />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile">
-                <p className="font-semibold">Signed in as {profile.name}</p>
+                <p className="font-semibold">{t('Auth.signed_in_as', { identity: profile.name })}</p>
             </DropdownItem>
-            <DropdownItem key="settings">My courses</DropdownItem>
-            <DropdownItem key="configurations">Settings</DropdownItem>
-            <DropdownItem key="logout" color="danger"
-                          onClick={() => createSupabaseClient().auth.signOut().then(() => location.reload())}>
-                Log Out
+            <DropdownItem key="settings">{t('Dash.my_content.courses')}</DropdownItem>
+            <DropdownItem key="configurations">{t('Global.settings')}</DropdownItem>
+            <DropdownItem
+                key="logout"
+                color="danger"
+                onClick={() => createSupabaseClient().auth.signOut().then(() => location.reload())}
+            >
+                {t('Auth.logout')}
             </DropdownItem>
         </DropdownMenu>
     </Dropdown>;
