@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type React from "react";
-import Navbar from "@/app/navbar";
 import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
 
 import "./globals.css";
@@ -17,9 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
+                                       children, navbar
                                    }: Readonly<{
     children: React.ReactNode;
+    navbar: React.ReactNode;
 }>) {
     // Preload user data while rendering the layout
     getMaybeMyProfile();
@@ -29,9 +29,7 @@ export default function RootLayout({
         <body className={kanit.className + " bg-background text-foreground w-full h-screen"}>
         <Providers>
             <div className="w-full h-full flex flex-col items-stretch justify-stretch">
-                <header>
-                    <Navbar/>
-                </header>
+                {navbar}
                 <main className="flex-grow w-full h-full min-h-0">
                     {children}
                 </main>

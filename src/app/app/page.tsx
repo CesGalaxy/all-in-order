@@ -1,5 +1,5 @@
 import { getMyProfile } from "@/lib/supabase/models/Profile";
-import { getMyCoursesWithSubjects } from "@/lib/supabase/models/Course";
+import { getMyCoursesWithSubjectsWithTopics } from "@/lib/supabase/models/Course";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
 import getHexColor from "@/lib/utils/color";
@@ -7,7 +7,7 @@ import { Link } from "@nextui-org/link";
 
 export default async function Page() {
     const profile = await getMyProfile();
-    const courses = await getMyCoursesWithSubjects();
+    const courses = await getMyCoursesWithSubjectsWithTopics();
 
     return (
         <ul className="w-full h-full flex flex-col flex-wrap items-center justify-center gap-16">

@@ -32,7 +32,6 @@
     }
   },
   "Global": {
-    "android": "Android",
     "cancel": "Cancel·la",
     "create": "Crea",
     "dashboard": "Inici",
@@ -40,7 +39,6 @@
     "open": "Obrir",
     "settings": "Preferències",
     "start": "Començar",
-    "web": "Web",
     "web_version": "Versió web"
   },
   "Home": {

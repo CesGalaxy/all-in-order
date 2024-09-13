@@ -6,7 +6,7 @@ import CreateDocumentButton from "@/app/topics/[topicId]/_CreateDocumentButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Button, ButtonGroup } from "@nextui-org/button";
-import { IconEye, IconPencil, IconPlayerPlay, IconTrash } from "@tabler/icons-react";
+import { IconEye, IconPlayerPlay, IconTrash } from "@tabler/icons-react";
 import { getAllTopicTests } from "@/lib/supabase/models/TopicTest";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import { getTranslations } from "next-intl/server";
@@ -81,9 +81,6 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                                     </Button>
                                     <Button isIconOnly as={Link} href={`/tests/${test.id}`}>
                                         <IconEye />
-                                    </Button>
-                                    <Button isIconOnly as={Link} href={`/tests/${test.id}/edit`}>
-                                        <IconPencil />
                                     </Button>
                                     <Button color="danger" isIconOnly>
                                         <IconTrash />

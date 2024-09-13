@@ -32,7 +32,6 @@
     }
   },
   "Global": {
-    "android": "Android",
     "cancel": "Cancel",
     "create": "Create",
     "dashboard": "Dashboard",
@@ -40,7 +39,6 @@
     "open": "Open",
     "settings": "Settings",
     "start": "Start",
-    "web": "Web",
     "web_version": "Web Version"
   },
   "Home": {

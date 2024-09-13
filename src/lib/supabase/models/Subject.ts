@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { cache } from "react";
 import Course from "@/lib/supabase/models/Course";
+import Topic from "@/lib/supabase/models/Topic";
 
 export default interface Subject {
     id: number;
@@ -12,6 +13,7 @@ export default interface Subject {
 }
 
 export type SubjectWithCourse = Subject & { course: Course };
+export type SubjectWithTopics = Subject & { topics: Topic[] };
 
 export const getSubjectById = cache(async (id: number): Promise<Subject | null> => {
     const client = createSupabaseServerClient();
