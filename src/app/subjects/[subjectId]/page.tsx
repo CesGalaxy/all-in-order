@@ -13,7 +13,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
 
     return <div className="w-full h-full grid grid-cols-4 gap-8 px-16 py-8">
         <div className="w-full h-full">
-            <h2 className="text-4xl">{t('App.resources')}</h2>
+            <h2 className="text-4xl">{t("App.topics")}</h2>
             <hr/>
             <br/>
             <ul className="flex flex-col items-stretch justify-start gap-8">

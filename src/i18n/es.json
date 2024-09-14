@@ -8,7 +8,8 @@
     "documents": "Documentos",
     "resources": "Recursos",
     "tasks": "Tareas",
-    "tests": "Tests"
+    "tests": "Tests",
+    "topics": "Temas"
   },
   "Auth": {
     "login": "Acceder",
