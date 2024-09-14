@@ -13,10 +13,10 @@ export default async function Page({ params: { testId } }: { params: { testId: s
 
     return <div className="w-full h-full pt-4">
         <Exam
-            testName={test.name}
-            testDescription={test.description}
+            test={test}
             questions={test.questions.map(question => question.data)}
             randomSeeds={randomSeeds}
+            startedAt={startTime}
         />
     </div>;
 }

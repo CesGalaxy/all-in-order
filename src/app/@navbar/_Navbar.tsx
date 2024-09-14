@@ -20,10 +20,13 @@ export interface NavbarProps {
 
 export const BREADCRUMBS = {
     subjects: { href: "/subjects", children: "Subjects" },
+    subject: (id: string, name: string) => ({ href: `/subjects/${id}`, children: name }),
     agenda: { href: "/agenda", children: "Agenda" },
     docs: { href: "/content", children: "Documents" },
-    dash: { href: "/app", children: "Dashboard" }
-} satisfies Record<string, BreadcrumbItemProps>
+    dash: { href: "/app", children: "Dashboard" },
+    topics: { href: "/topics", children: "Topics" },
+    topic: (id: string, name: string) => ({ href: `/topics/${id}`, children: name }),
+} satisfies Record<string, BreadcrumbItemProps | ((...props: any[]) => BreadcrumbItemProps)>;
 
 export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProps) {
     const profile = await getMaybeMyProfile();
