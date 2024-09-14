@@ -3,13 +3,24 @@
 import { Button, ButtonGroup } from "@nextui-org/button";
 import {
     IconAt,
-    IconBold, IconChevronDown,
-    IconChevronLeft, IconDeviceFloppy, IconDownload, IconEdit, IconEye,
+    IconBold,
+    IconChevronDown,
+    IconChevronLeft,
+    IconDeviceFloppy,
+    IconDownload,
+    IconEdit,
+    IconEye,
     IconHeading,
-    IconItalic, IconLayoutGrid, IconLink,
+    IconItalic,
+    IconLayoutGrid,
+    IconLink,
     IconList,
     IconListCheck,
-    IconListNumbers, IconMaximize, IconMoodSmile, IconPhoto, IconQuote
+    IconListNumbers,
+    IconMaximize,
+    IconMoodSmile,
+    IconPhoto,
+    IconQuote
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Converter } from "showdown";
@@ -63,28 +74,29 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
         toast("Failed to save!", { type: "error" });
     });
 
-    return <div className="w-full h-full flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4">
+    return <div
+        className="w-full h-full flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
         <header className="flex items-center justify-between">
             <nav className="flex gap-4 items-center">
                 <Button radius="full" isIconOnly variant="light" onClick={() => router.back()}>
                     <IconChevronLeft/>
                 </Button>
-                <h2 className="text-3xl">{docName}</h2>
+                <h2 className="text-3xl vt-name-[doc-name]">{docName}</h2>
             </nav>
             <nav className="flex items-center gap-4">
                 <ButtonGroup>
                     <Button variant="flat" isIconOnly>
-                        <IconDownload />
+                        <IconDownload/>
                     </Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button color="primary" startContent={<IconDeviceFloppy />} onClick={save}>
+                    <Button color="primary" startContent={<IconDeviceFloppy/>} onClick={save}>
                         Save
                     </Button>
                     <Dropdown>
                         <DropdownTrigger>
                             <Button color="primary" isIconOnly>
-                                <IconChevronDown />
+                                <IconChevronDown/>
                             </Button>
                         </DropdownTrigger>
                         <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
@@ -99,7 +111,8 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
                 </ButtonGroup>
             </nav>
         </header>
-        <div className="h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0">
+        <div
+            className="h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0">
             <form className="w-full h-full" action="">
                 <textarea
                     className="w-full h-full px-4 py-8 bg-transparent text-content3-foreground outline-none m-0"
@@ -108,65 +121,66 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
                     name="content"
                 />
             </form>
-            <div className="w-full h-full overflow-auto revert-tailwind-only-child px-4" dangerouslySetInnerHTML={{ __html: html }} />
+            <div className="w-full h-full overflow-auto revert-tailwind-only-child px-4 vt-name-[doc-content]"
+                 dangerouslySetInnerHTML={{ __html: html }}/>
         </div>
         <footer className="bg-content3 rounded-full flex items-center justify-between">
             <nav className="flex items-center gap-4">
                 <ButtonGroup>
                     <Button radius="full" isIconOnly>
-                        <IconBold />
+                        <IconBold/>
                     </Button>
                     <Button isIconOnly>
-                        <IconItalic />
+                        <IconItalic/>
                     </Button>
                     <Button isIconOnly>
-                        <IconHeading />
-                    </Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button isIconOnly>
-                        <IconList />
-                    </Button>
-                    <Button isIconOnly>
-                        <IconListNumbers />
-                    </Button>
-                    <Button isIconOnly>
-                        <IconListCheck />
+                        <IconHeading/>
                     </Button>
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button isIconOnly>
-                        <IconLink />
+                        <IconList/>
                     </Button>
                     <Button isIconOnly>
-                        <IconPhoto />
+                        <IconListNumbers/>
                     </Button>
                     <Button isIconOnly>
-                        <IconAt />
-                    </Button>
-                    <Button isIconOnly>
-                        <IconMoodSmile />
+                        <IconListCheck/>
                     </Button>
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button isIconOnly>
-                        <IconLayoutGrid />
+                        <IconLink/>
                     </Button>
                     <Button isIconOnly>
-                        <IconQuote />
+                        <IconPhoto/>
+                    </Button>
+                    <Button isIconOnly>
+                        <IconAt/>
+                    </Button>
+                    <Button isIconOnly>
+                        <IconMoodSmile/>
+                    </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                    <Button isIconOnly>
+                        <IconLayoutGrid/>
+                    </Button>
+                    <Button isIconOnly>
+                        <IconQuote/>
                     </Button>
                 </ButtonGroup>
             </nav>
             <nav className="flex items-center gap-4">
                 <ButtonGroup>
                     <Button isIconOnly>
-                        <IconEdit />
+                        <IconEdit/>
                     </Button>
                     <Button isIconOnly>
-                        <IconEye />
+                        <IconEye/>
                     </Button>
                     <Button radius="full" isIconOnly>
-                        <IconMaximize />
+                        <IconMaximize/>
                     </Button>
                 </ButtonGroup>
             </nav>

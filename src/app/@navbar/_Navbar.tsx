@@ -10,7 +10,7 @@ import { Locale } from "@/i18n/config";
 import { setUserLocale } from "@/lib/services/locale";
 import { revalidatePath } from "next/cache";
 import ToggleLocale from "@/app/@navbar/_ToggleLocale";
-import { BreadcrumbItem, BreadcrumbItemProps, Breadcrumbs } from "@nextui-org/breadcrumbs";
+import { BreadcrumbItemProps } from "@nextui-org/breadcrumbs";
 import NavbarBreadcrumbs from "@/app/@navbar/_Breadcrumbs";
 
 export interface NavbarProps {
@@ -37,14 +37,12 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
         revalidatePath("/");
     }
 
-    console.log(breadcrumbs);
-
     return <header className="w-full">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
             <NavbarBrand>
                 {/*<p className="font-bold text-inherit">ACME</p>*/}
                 <Link href="/">
-                    <Image src={LogoNameCol} alt="All In Order" height={64} priority />
+                    <Image src={LogoNameCol} alt="All In Order" height={64} priority/>
                 </Link>
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-8" justify="center">
@@ -65,7 +63,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
-                <ToggleLocale updateLocale={updateLocale} />
+                <ToggleLocale updateLocale={updateLocale}/>
                 {profile
                     ? <>
                         <NavbarItem>
@@ -89,6 +87,6 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
                     </>}
             </NavbarContent>
         </Nav>
-        {breadcrumbs && <NavbarBreadcrumbs items={breadcrumbs} />}
+        {breadcrumbs && <NavbarBreadcrumbs items={breadcrumbs}/>}
     </header>;
 }

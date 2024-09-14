@@ -1,7 +1,7 @@
 "use server";
 
 import { cache } from "react";
-import { getMaybeUser, getUser } from "@/lib/helpers/user";
+import { getMaybeUser } from "@/lib/helpers/user";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
