@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type React from "react";
-import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/models/Profile";
 
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.min.css';

@@ -1,10 +1,10 @@
 import required from "@/lib/helpers/required";
-import { getTopicTestByIdWithQuestions } from "@/lib/supabase/models/TopicTest";
+import { getTopicTestByIdWQuestions } from "@/supabase/models/TopicTest";
 import { redirect } from "next/navigation";
 import Exam from "@/app/tests/[testId]/attempt/_Exam";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
-    const test = required(await getTopicTestByIdWithQuestions(parseInt(testId)));
+    const test = required(await getTopicTestByIdWQuestions(parseInt(testId)));
 
     if (test.questions.length === 0) redirect("/tests/" + testId);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import TopicTest from "@/lib/supabase/models/TopicTest";
+import TopicTest from "@/supabase/models/TopicTest";
 import { Select, SelectItem } from "@nextui-org/select";
 
 export default function TestSelector({ tests, testId }: { tests: TopicTest[], testId: string }) {

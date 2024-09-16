@@ -1,6 +1,6 @@
 import { getTopicDocument, updateTopicDocument } from "@/lib/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
-import { getTopicByIdWithSubjectAndCourse } from "@/lib/supabase/models/Topic";
+import { getTopicByIdWithSubjectAndCourse } from "@/supabase/models/Topic";
 import MDEditor from "@/features/markdown/MDEditor";
 
 export default async function Page({ params: { topicId, docNameEncoded } }: {

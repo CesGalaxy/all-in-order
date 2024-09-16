@@ -1,6 +1,6 @@
 "use client";
 
-import TopicTestQuestion from "@/lib/supabase/models/TopicTestQuestion";
+import TopicTestQuestion from "@/supabase/models/TopicTestQuestion";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
@@ -24,7 +24,7 @@ export default function QuestionSimpleCard({ question }: { question: TopicTestQu
             <ButtonGroup className="w-full">
                 <Popover backdrop="blur">
                     <PopoverTrigger>
-                        <Button color="primary" startContent={<IconEye />} className="w-full">
+                        <Button color="primary" startContent={<IconEye/>} className="w-full">
                             View answer
                         </Button>
                     </PopoverTrigger>
@@ -33,10 +33,10 @@ export default function QuestionSimpleCard({ question }: { question: TopicTestQu
                     </PopoverContent>
                 </Popover>
                 <Button isIconOnly>
-                    <IconPencil />
+                    <IconPencil/>
                 </Button>
                 <Button color="danger" isIconOnly>
-                    <IconTrash />
+                    <IconTrash/>
                 </Button>
             </ButtonGroup>
         </CardFooter>

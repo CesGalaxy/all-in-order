@@ -4,7 +4,7 @@ import { Link } from "@nextui-org/link";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import ProfileAvatar from "@/app/@navbar/_ProfileAvatar";
-import { getMaybeMyProfile } from "@/lib/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/models/Profile";
 import { getTranslations } from "next-intl/server";
 import { Locale } from "@/i18n/config";
 import { setUserLocale } from "@/lib/services/locale";

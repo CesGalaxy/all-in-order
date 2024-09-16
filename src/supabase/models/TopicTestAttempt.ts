@@ -1,28 +1,20 @@
 "use server";
 
 import type { Answer } from "@/features/question/Question";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { PostgrestError } from "@supabase/supabase-js";
 import { cache } from "react";
+import { Tables } from "@/supabase/database";
+import getSupabase from "@/supabase/server";
 
-export default interface TopicTestAttempt {
-    id: number;
-    test_id: number;
-    profile_id: number;
-    answers: Answer[];
-    score: number;
-    started_at: number;
-    ended_at: number;
-}
+export type TopicTestAttempt = Tables<"topic_test_attempts"> & { answers: Answer[] };
 
 export const getTopicTestAttempts = cache(async (topicTestId: number): Promise<TopicTestAttempt[] | null> => {
-    const supabase = createSupabaseServerClient();
-
-    const { data } = await supabase
+    const { data } = await getSupabase()
         .from("topic_test_attempts")
         .select("*")
-        .eq("test_id", topicTestId);
+        .eq("test_id", topicTestId)
+        .returns<TopicTestAttempt[]>();
 
     return data;
 });
@@ -35,25 +27,22 @@ export async function createTopicTestAttemptAndReturn(
     startedAt: number,
     endedAt: number,
 ): Promise<number | PostgrestError> {
-    const supabase = createSupabaseServerClient();
-
-    const { error, data } = await supabase
+    const { error, data } = await getSupabase()
         .from("topic_test_attempts")
         .insert({
             test_id: topicTestId,
             profile_id: profileId,
             answers,
             score,
-            started_at: new Date(startedAt),
-            ended_at: new Date(endedAt),
+            started_at: new Date(startedAt).toISOString(),
+            ended_at: new Date(endedAt).toISOString(),
         })
         .select("id")
         .maybeSingle();
 
     if (error) return error;
-    if (!data) throw new Error("WTF! Failed to create topic test attempt");
 
     revalidatePath("/topics/" + topicTestId);
 
-    return data.id;
+    return data!.id;
 }

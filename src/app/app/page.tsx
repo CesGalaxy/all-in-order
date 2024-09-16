@@ -1,4 +1,4 @@
-import { getMyProfile } from "@/lib/supabase/models/Profile";
+import { getMyProfile } from "@/supabase/models/Profile";
 import { getMyCoursesWithSubjectsWithTopics } from "@/lib/supabase/models/Course";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";

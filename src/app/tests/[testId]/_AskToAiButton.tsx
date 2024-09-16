@@ -3,19 +3,23 @@
 import { Button, ButtonGroup } from "@nextui-org/button";
 import {
     IconChevronDown,
-    IconMessageCog, IconMessagePlus,
-    IconPaperclip, IconPlayerStopFilled,
-    IconSend, IconShare,
-    IconSparkles, IconTextPlus
+    IconMessageCog,
+    IconMessagePlus,
+    IconPaperclip,
+    IconPlayerStopFilled,
+    IconSend,
+    IconShare,
+    IconSparkles,
+    IconTextPlus
 } from "@tabler/icons-react";
-import { TopicTestWithQuestions } from "@/lib/supabase/models/TopicTest";
+import { TopicTestWQuestions } from "@/supabase/models/TopicTest";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Input } from "@nextui-org/input";
 import { useChat } from "ai/react";
 import { useRef } from "react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 
-export default function AskToAIButton({ test }: { test: TopicTestWithQuestions }) {
+export default function AskToAIButton({ test }: { test: TopicTestWQuestions }) {
     const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat({
         api: `/api/ai/chat`,
     });
@@ -34,9 +38,9 @@ export default function AskToAIButton({ test }: { test: TopicTestWithQuestions }
                     <Button isIconOnly><IconChevronDown/></Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                    <DropdownItem startContent={<IconTextPlus />}>Create questions</DropdownItem>
-                    <DropdownItem startContent={<IconMessagePlus />}>Open chat</DropdownItem>
-                    <DropdownItem startContent={<IconShare />}>Share context</DropdownItem>
+                    <DropdownItem startContent={<IconTextPlus/>}>Create questions</DropdownItem>
+                    <DropdownItem startContent={<IconMessagePlus/>}>Open chat</DropdownItem>
+                    <DropdownItem startContent={<IconShare/>}>Share context</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
         </ButtonGroup>

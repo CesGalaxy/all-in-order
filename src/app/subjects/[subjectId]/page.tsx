@@ -1,8 +1,8 @@
 import required from "@/lib/helpers/required";
-import { getSubjectById } from "@/lib/supabase/models/Subject";
+import { getSubjectById } from "@/supabase/models/Subject";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
-import { getTopicsBySubjectId } from "@/lib/supabase/models/Topic";
+import { getTopicsBySubjectId } from "@/supabase/models/Topic";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";

@@ -1,6 +1,6 @@
 import { getTopicDocument } from "@/lib/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
-import { getTopicByIdWithSubjectAndCourse } from "@/lib/supabase/models/Topic";
+import { getTopicByIdWithSubjectAndCourse } from "@/supabase/models/Topic";
 import { Converter } from "showdown";
 import { Button } from "@nextui-org/button";
 import { IconMaximize, IconPencil } from "@tabler/icons-react";

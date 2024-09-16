@@ -20,7 +20,7 @@ export default function CalendarDay({ date, selected, onSelect }: CalendarDayPro
 
     return <section className="w-full h-full flex flex-col items-stretch justify-stretch m-0 p-0" onClick={onSelect}>
         <header
-            className={`${color} px-1 font-bold font-mono`}>
+            className={`${color} px-1 font-bold font-mono cursor-pointer`}>
             {date.getDate()}
         </header>
         <ul className="w-full h-full flex-grow">

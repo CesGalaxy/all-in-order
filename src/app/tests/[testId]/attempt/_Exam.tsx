@@ -11,7 +11,7 @@ import AnswerFillTheGapQuestion from "@/features/question/answers/AnswerFillTheG
 import TimePassed from "@/app/tests/[testId]/attempt/_TimePassed";
 import { useTransitionRouter } from "next-view-transitions";
 import finish_attempt from "@/app/tests/[testId]/attempt/submit";
-import TopicTest from "@/lib/supabase/models/TopicTest";
+import TopicTest from "@/supabase/models/TopicTest";
 import { toast } from "react-toastify";
 
 export const QuestionsAnswers = {

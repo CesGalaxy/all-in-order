@@ -1,12 +1,16 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { cache } from "react";
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+import { Database } from "@/supabase/database";
+
+const getSupabase = cache(createSupabaseServerClient);
 
 export function createSupabaseServerClient() {
     const cookieStore = cookies()
 
     // Create a server's supabase client with newly configured cookie,
     // which could be used to maintain user's session
-    return createServerClient(
+    return createServerClient<Database>(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
@@ -29,3 +33,5 @@ export function createSupabaseServerClient() {
         }
     )
 }
+
+export default getSupabase;

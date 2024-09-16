@@ -2,8 +2,8 @@
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
-import Profile from "@/lib/supabase/models/Profile";
-import { createSupabaseClient } from "@/lib/supabase/client";
+import Profile from "@/supabase/models/Profile";
+import { createSupabaseClient } from "@/supabase/client";
 import { useTranslations } from "next-intl";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {

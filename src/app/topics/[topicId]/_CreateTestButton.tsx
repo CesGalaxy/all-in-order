@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
-import { createTopicTest } from "@/lib/supabase/models/TopicTest";
+import { createTopicTest } from "@/supabase/models/TopicTest";
 import { useTranslations } from "next-intl";
 
 export default function CreateTestButton({ topicId }: { topicId: number }) {
@@ -17,7 +17,7 @@ export default function CreateTestButton({ topicId }: { topicId: number }) {
     const t = useTranslations();
 
     return <>
-        <Button color="primary" startContent={<IconTextPlus />} onClick={onOpen}>{t("Dash.Topic.create_test")}</Button>
+        <Button color="primary" startContent={<IconTextPlus/>} onClick={onOpen}>{t("Dash.Topic.create_test")}</Button>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}

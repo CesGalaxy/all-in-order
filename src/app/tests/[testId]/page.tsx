@@ -1,19 +1,19 @@
 import required from "@/lib/helpers/required";
-import { getAllTopicTests, getTopicTestByIdWithQuestions } from "@/lib/supabase/models/TopicTest";
+import { getAllTopicTests, getTopicTestByIdWQuestions } from "@/supabase/models/TopicTest";
 import TestSelector from "@/app/tests/[testId]/_TestSelector";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconPencil, IconPlayerPlay, IconSparkles, IconTrash } from "@tabler/icons-react";
 import CreateQuestionButton from "@/app/tests/[testId]/_CreateQuestionButton";
-import { createTopicTestQuestion } from "@/lib/supabase/models/TopicTestQuestion";
+import { createTopicTestQuestion } from "@/supabase/models/TopicTestQuestion";
 import QuestionSimpleCard from "@/app/tests/[testId]/_QuestionSimpleCard";
 import { Link } from "@nextui-org/link";
 import AskToAIButton from "@/app/tests/[testId]/_AskToAiButton";
-import { getTopicTestAttempts } from "@/lib/supabase/models/TopicTestAttempt";
+import { getTopicTestAttempts } from "@/supabase/models/TopicTestAttempt";
 import Section from "@/components/Section";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
-    const test = required(await getTopicTestByIdWithQuestions(parseInt(testId)));
+    const test = required(await getTopicTestByIdWQuestions(parseInt(testId)));
     const attempts = required(await getTopicTestAttempts(test.id), "/topic/" + test.topic_id);
 
     const tests = required(await getAllTopicTests(test.topic_id), "/topic/" + test.topic_id);

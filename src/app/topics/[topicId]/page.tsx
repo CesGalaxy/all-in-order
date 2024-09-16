@@ -1,12 +1,12 @@
 import required from "@/lib/helpers/required";
-import { getTopicByIdWithSubjectAndCourse } from "@/lib/supabase/models/Topic";
+import { getTopicByIdWithSubjectAndCourse } from "@/supabase/models/Topic";
 import { getAllTopicDocuments } from "@/lib/supabase/storage/topic_documents";
 import CreateDocumentButton from "@/app/topics/[topicId]/_CreateDocumentButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEye, IconPlayerPlay, IconTrash } from "@tabler/icons-react";
-import { getAllTopicTests } from "@/lib/supabase/models/TopicTest";
+import { getAllTopicTests } from "@/supabase/models/TopicTest";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
