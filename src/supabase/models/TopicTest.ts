@@ -9,7 +9,7 @@ import { TopicTestQuestion } from "@/supabase/models/TopicTestQuestion";
 export type TopicTest = Tables<"topic_tests">;
 export type TopicTestWQuestions = TopicTest & { questions: TopicTestQuestion[] };
 
-export const getTopicTestByIdWQuestions = cache(async (id: number): Promise<TopicTestWQuestions | null> => {
+export const getTopicTestWQuestions = cache(async (id: number): Promise<TopicTestWQuestions | null> => {
     const { data } = await getSupabase()
         .from("topic_tests")
         .select("*, questions:topic_test_questions(*)")

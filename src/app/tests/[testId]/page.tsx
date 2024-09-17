@@ -1,5 +1,5 @@
 import required from "@/lib/helpers/required";
-import { getAllTopicTests, getTopicTestByIdWQuestions } from "@/supabase/models/TopicTest";
+import { getAllTopicTests, getTopicTestWQuestions } from "@/supabase/models/TopicTest";
 import TestSelector from "@/app/tests/[testId]/_TestSelector";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconPencil, IconPlayerPlay, IconSparkles, IconTrash } from "@tabler/icons-react";
@@ -13,7 +13,7 @@ import Section from "@/components/Section";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
-    const test = required(await getTopicTestByIdWQuestions(parseInt(testId)));
+    const test = required(await getTopicTestWQuestions(parseInt(testId)));
     const attempts = required(await getTopicTestAttempts(test.id), "/topic/" + test.topic_id);
 
     const tests = required(await getAllTopicTests(test.topic_id), "/topic/" + test.topic_id);

@@ -1,12 +1,12 @@
 "use client";
 
-import TopicTestQuestion from "@/supabase/models/TopicTestQuestion";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { ChoiceQuestionAnswerTooltip } from "@/features/question/questions/ChoiceQuestion";
 import { FillTheGapQuestionAnswerTooltip } from "@/features/question/questions/FillTheGapQuestion";
+import { TopicTestQuestion } from "@/supabase/models";
 
 const QUESTION_ANSWER_TOOLTIPS = {
     "choice": ChoiceQuestionAnswerTooltip,

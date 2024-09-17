@@ -19,7 +19,7 @@ const QUESTION_CREATORS = {
 };
 
 export interface CreateQuestionButtonProps {
-    create: (data: object) => Promise<PostgrestError | undefined>
+    create: (data: Question) => Promise<PostgrestError | undefined>
 }
 
 export default function CreateQuestionButton({ create }: CreateQuestionButtonProps) {

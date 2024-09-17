@@ -9,7 +9,7 @@ export type Subject = Tables<"subjects">;
 export type SubjectWCourse = Subject & { course: Course };
 export type SubjectWTopics = Subject & { topics: Topic[] };
 
-export const getSubjectById = cache(async (id: number): Promise<Subject | null> => {
+export const getSubject = cache(async (id: number): Promise<Subject | null> => {
     const { data } = await getSupabase()
         .from("subjects")
         .select()

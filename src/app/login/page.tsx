@@ -1,10 +1,10 @@
-import {Card, CardBody, CardHeader} from "@nextui-org/card";
-import {Input} from "@nextui-org/input";
-import {Button} from "@nextui-org/button";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Input } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
 import { z } from "zod";
 import { FORM_SCHEMAS, getFormFields } from "@/lib/helpers/form";
 import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/supabase/server";
 
 const AUTH_SCHEMA = z.object({
     email: FORM_SCHEMAS.EMAIL,
@@ -47,9 +47,9 @@ export default function Page() {
             </CardHeader>
             <CardBody>
                 <form action={action_auth_login}>
-                    <Input isRequired label="Email" placeholder="someone@example.com" type="email" name="email" />
+                    <Input isRequired label="Email" placeholder="someone@example.com" type="email" name="email"/>
                     <br/>
-                    <Input isRequired label="Password" placeholder="" type="password" name="password" />
+                    <Input isRequired label="Password" placeholder="" type="password" name="password"/>
                     <br/>
                     <Button color="primary" className="w-full" type="submit">Login</Button>
                 </form>

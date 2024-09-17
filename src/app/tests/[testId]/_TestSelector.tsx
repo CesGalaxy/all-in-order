@@ -1,7 +1,7 @@
 "use client";
 
-import TopicTest from "@/supabase/models/TopicTest";
 import { Select, SelectItem } from "@nextui-org/select";
+import { TopicTest } from "@/supabase/models";
 
 export default function TestSelector({ tests, testId }: { tests: TopicTest[], testId: string }) {
     return <Select selectedKeys={[testId]} className="w-full" aria-label="Select test">

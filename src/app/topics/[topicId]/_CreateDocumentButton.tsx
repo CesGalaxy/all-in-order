@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
-import { createTopicDocument } from "@/lib/supabase/storage/topic_documents";
+import { createTopicDocument } from "@/supabase/storage/topic_documents";
 import { useTranslations } from "next-intl";
 
 export default function CreateDocumentButton({ topicId }: { topicId: number }) {

@@ -1,9 +1,9 @@
 "use client";
 
-import Topic from "@/supabase/models/Topic";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import { IconList } from "@tabler/icons-react";
+import { Topic } from "@/supabase/models";
 
 export default function SubjectTopicsDropdown({ topics }: { topics: Topic[] }) {
     return <Dropdown>

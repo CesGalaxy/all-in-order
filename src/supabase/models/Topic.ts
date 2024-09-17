@@ -6,7 +6,7 @@ import { SubjectWCourse } from "@/supabase/models/Subject";
 export type Topic = Tables<"topics">;
 export type Topic_WSubjectACourse = Topic & { subject: SubjectWCourse };
 
-export const getTopicById = cache(async (id: number): Promise<Topic | null> => {
+export const getTopic = cache(async (id: number): Promise<Topic | null> => {
     const { data } = await getSupabase()
         .from("topics")
         .select()
@@ -16,7 +16,7 @@ export const getTopicById = cache(async (id: number): Promise<Topic | null> => {
     return data || null;
 });
 
-export const getTopicByIdWithSubjectAndCourse = cache(async (id: number): Promise<Topic_WSubjectACourse | null> => {
+export const getTopicWithSubjectAndCourse = cache(async (id: number): Promise<Topic_WSubjectACourse | null> => {
     const { data } = await getSupabase()
         .from("topics")
         .select(`*, subject:subjects!inner(*, course:courses!inner(*))`)
@@ -27,7 +27,7 @@ export const getTopicByIdWithSubjectAndCourse = cache(async (id: number): Promis
 });
 
 // TODO: Remove "Id" from function name
-export const getTopicsBySubjectId = cache(async (subject_id: number): Promise<Topic[]> => {
+export const getTopicsBySubject = cache(async (subject_id: number): Promise<Topic[]> => {
     const { data } = await getSupabase()
         .from("topics")
         .select()

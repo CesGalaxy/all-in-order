@@ -1,15 +1,15 @@
 import required from "@/lib/helpers/required";
-import { getSubjectById } from "@/supabase/models/Subject";
+import { getSubject } from "@/supabase/models/Subject";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
-import { getTopicsBySubjectId } from "@/supabase/models/Topic";
+import { getTopicsBySubject } from "@/supabase/models/Topic";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
-    const subject = required(await getSubjectById(parseInt(subjectId)), "/");
-    const topics = required(await getTopicsBySubjectId(subject.id), "/");
+    const subject = required(await getSubject(parseInt(subjectId)), "/");
+    const topics = required(await getTopicsBySubject(subject.id), "/");
 
     const t = await getTranslations();
 

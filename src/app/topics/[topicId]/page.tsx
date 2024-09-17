@@ -1,6 +1,6 @@
 import required from "@/lib/helpers/required";
-import { getTopicByIdWithSubjectAndCourse } from "@/supabase/models/Topic";
-import { getAllTopicDocuments } from "@/lib/supabase/storage/topic_documents";
+import { getTopicWithSubjectAndCourse } from "@/supabase/models/Topic";
+import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
 import CreateDocumentButton from "@/app/topics/[topicId]/_CreateDocumentButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
@@ -12,7 +12,7 @@ import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const topic = required(await getTopicByIdWithSubjectAndCourse(parseInt(topicId)));
+    const topic = required(await getTopicWithSubjectAndCourse(parseInt(topicId)));
     const docs = required(await getAllTopicDocuments(topic.id), "/topic/" + topic.id);
     const tests = required(await getAllTopicTests(topic.id), "/topic/" + topic.id);
 

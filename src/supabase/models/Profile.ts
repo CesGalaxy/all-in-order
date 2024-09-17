@@ -13,7 +13,7 @@ export const getMyProfile = cache(async (redirectPath = "/login") => required(aw
 export const getMaybeMyProfile = cache(async (): Promise<Profile | null> => {
     const user = await getMaybeUser();
     if (!user) return null;
-    return await getProfileByUserId(user.id);
+    return await getProfileByUser(user.id);
 });
 
 // export const getProfileById = cache(async (id: number): Promise<Profile | null> => {
@@ -26,7 +26,7 @@ export const getMaybeMyProfile = cache(async (): Promise<Profile | null> => {
 //     return data;
 // });
 
-export const getProfileByUserId = cache(async (user_id: string): Promise<Profile | null> => {
+export const getProfileByUser = cache(async (user_id: string): Promise<Profile | null> => {
     const { data } = await getSupabase()
         .from("profiles")
         .select()
