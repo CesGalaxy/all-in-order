@@ -11,6 +11,7 @@ import AskToAIButton from "@/app/tests/[testId]/_AskToAiButton";
 import { getTopicTestAttempts } from "@/supabase/models/TopicTestAttempt";
 import Section from "@/components/Section";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import PageContainer from "@/components/containers/Page";
 
 export default async function Page({ params: { testId } }: { params: { testId: string } }) {
     const test = required(await getTopicTestWQuestions(parseInt(testId)));
@@ -20,7 +21,7 @@ export default async function Page({ params: { testId } }: { params: { testId: s
 
     const createAction = createTopicTestQuestion.bind(null, test.id, test.questions.length);
 
-    return <div className="w-full h-full flex flex-col items-stretch justify-stretch pt-4 gap-4">
+    return <PageContainer className="flex flex-col items-stretch justify-stretch gap-4">
         <header className="px-16 w-full flex items-center gap-8">
             <TestSelector tests={tests} testId={testId}/>
             <ButtonGroup>
@@ -76,5 +77,5 @@ export default async function Page({ params: { testId } }: { params: { testId: s
                 </ul>
             </Section>
         </div>
-    </div>
+    </PageContainer>
 }

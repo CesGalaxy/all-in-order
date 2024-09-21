@@ -10,6 +10,7 @@ import { getAllTopicTests } from "@/supabase/models/TopicTest";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
+import PageContainer from "@/components/containers/Page";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
     const topic = required(await getTopicWithSubjectAndCourse(parseInt(topicId)));
@@ -18,7 +19,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
 
     const t = await getTranslations();
 
-    return <div className="w-full h-full flex-grow grid grid-cols-2 gap-8 px-16 py-8">
+    return <PageContainer className="flex-grow grid grid-cols-2 gap-8">
         <Section title={t("App.documents")}>
             {!docs || docs.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
@@ -84,5 +85,5 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
         <Section title={t("AI.tools")} className="w-full h-full col-span-2">
             <i/>
         </Section>
-    </div>;
+    </PageContainer>;
 }
