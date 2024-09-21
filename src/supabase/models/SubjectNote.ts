@@ -1,3 +1,5 @@
+"use server";
+
 import { cache } from "react";
 import { Tables } from "@/supabase/database";
 import getSupabase from "@/supabase/server";

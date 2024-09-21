@@ -1,7 +1,11 @@
+"use server";
+
 import { cache } from "react";
 import { Tables } from "@/supabase/database";
 import getSupabase from "@/supabase/server";
 import { SubjectWCourse } from "@/supabase/models/Subject";
+import { PostgrestError } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
 export type Topic = Tables<"topics">;
 export type Topic_WSubjectACourse = Topic & { subject: SubjectWCourse };
@@ -35,3 +39,13 @@ export const getTopicsBySubject = cache(async (subject_id: number): Promise<Topi
 
     return data || [];
 });
+
+export async function creat_subject(title: string, description: string, subjectId: number): Promise<PostgrestError | undefined> {
+    const { error } = await getSupabase()
+        .from("topics")
+        .insert({ title, description, subject_id: subjectId });
+
+    if (error) return error;
+
+    revalidatePath("/");
+}

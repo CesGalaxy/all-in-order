@@ -19,6 +19,8 @@ export interface NavbarProps {
 }
 
 export const BREADCRUMBS = {
+    courses: { href: "/courses", children: "Courses" },
+    course: (id: string, name: string) => ({ href: `/courses/${id}`, children: name }),
     subjects: { href: "/subjects", children: "Subjects" },
     subject: (id: string, name: string) => ({ href: `/subjects/${id}`, children: name }),
     agenda: { href: "/agenda", children: "Agenda" },
@@ -66,7 +68,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
-                <ToggleLocale updateLocale={updateLocale}/>
+                <ToggleLocale updateLocaleAction={updateLocale}/>
                 {profile
                     ? <>
                         <NavbarItem>

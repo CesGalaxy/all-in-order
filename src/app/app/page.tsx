@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
 import getHexColor from "@/lib/utils/color";
 import { Link } from "@nextui-org/link";
-import { getCoursesWSubjectsWTopics } from "@/supabase/models";
+import { getCoursesWSubjectsWTopics } from "@/supabase/models/Course";
 import NoCourses from "@/components/NoCourses";
 import NoSubjects from "@/components/NoSubjects";
 

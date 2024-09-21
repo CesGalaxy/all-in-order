@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
-import { create_subject } from "@/supabase/models";
+import { create_subject } from "@/supabase/models/Subject";
 import { toast } from "react-toastify";
 
 const SUBJECT_COLORS = [

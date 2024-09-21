@@ -12,7 +12,7 @@ import TimePassed from "@/app/tests/[testId]/attempt/_TimePassed";
 import { useTransitionRouter } from "next-view-transitions";
 import finish_attempt from "@/app/tests/[testId]/attempt/submit";
 import { toast } from "react-toastify";
-import { TopicTest } from "@/supabase/models";
+import { TopicTest } from "@/supabase/models/TopicTest";
 
 export const QuestionsAnswers = {
     choice: AnswerChoiceQuestion,

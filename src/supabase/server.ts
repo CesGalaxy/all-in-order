@@ -1,5 +1,3 @@
-"use server";
-
 import { cache } from "react";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
@@ -7,7 +5,7 @@ import { Database } from "@/supabase/database";
 
 const getSupabase = cache(createSupabaseServerClient);
 
-function createSupabaseServerClient() {
+export function createSupabaseServerClient() {
     const cookieStore = cookies()
 
     // Create a server's supabase client with newly configured cookie,

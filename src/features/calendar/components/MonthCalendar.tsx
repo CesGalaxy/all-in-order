@@ -37,7 +37,7 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
     const previousMonth = () => setSelectedDate(new Date(currentYear, currentMonth - 1, currentDay));
     const nextMonth = () => setSelectedDate(new Date(currentYear, currentMonth + 1, currentDay));
 
-    return <div className="w-full h-full flex flex-col items-stretch gap-4">
+    return <div className="w-full flex flex-col items-stretch gap-4">
         <nav className="w-full flex items-center justify-between bg-content2 text-content2-foreground rounded-xl">
             <ButtonGroup>
                 <Button isIconOnly onClick={previousMonth}><IconChevronLeft/></Button>
