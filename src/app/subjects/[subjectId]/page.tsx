@@ -1,6 +1,6 @@
 import required from "@/lib/helpers/required";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import Link from "next/link";
+import { Link as NextLink } from "@nextui-org/link";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
@@ -11,6 +11,7 @@ import ErrorView from "@/components/Error";
 import NoNotes from "@/components/NoNotes";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconChevronDown } from "@tabler/icons-react";
+import { Link as TransitionLink } from "next-view-transitions";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
     const { data, error } = await getSupabase()
@@ -36,8 +37,9 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
                         <CardBody><small className="text-default-500">{note.content}</small></CardBody>
                         <CardFooter as={ButtonGroup}>
                             <Button
-                                as={Link}
+                                as={TransitionLink}
                                 href={`/subjects/${subject.id}/notes/${note.id}`}
+                                scroll={false}
                             >
                                 View more
                             </Button>
@@ -52,15 +54,15 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
                 <ul className="flex flex-col items-stretch justify-start gap-8 px-4">
                     {topics.length > 0
                         ? topics.map(topic => <Card as="li" key={topic.id}>
-                            <CardHeader as={Link} className="flex-col items-start" href={"/topics/" + topic.id}>
+                            <CardHeader as={NextLink} className="flex-col items-start" href={"/topics/" + topic.id}>
                                 <h2 className="font-bold text-3xl">{topic.title}</h2>
                                 {topic.description &&
                                     <small className="text-default-500">{topic.description}</small>}
                             </CardHeader>
                             <CardFooter>
-                                <Link className="text-primary hover:underline" href={`/topics/${topic.id}/ai/chat`}>
+                                <NextLink className="text-primary hover:underline" href={`/topics/${topic.id}/ai/chat`}>
                                     {t('AI.chat_with')}
-                                </Link>
+                                </NextLink>
                             </CardFooter>
                         </Card>)
                         : <NoTopics subjectId={subject.id}/>}

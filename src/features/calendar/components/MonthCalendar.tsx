@@ -49,6 +49,7 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                     selectedKeys={[currentYear.toString()]}
                     selectionMode="single"
                     onChange={e => setSelectedDate(new Date(parseInt(e.target.value), currentMonth, currentDay))}
+                    aria-label="Select Year"
                 >
                     {[initialDate.getFullYear() - 1, initialDate.getFullYear(), initialDate.getFullYear() + 1].map(year =>
                         <SelectItem key={year.toString()}>
@@ -63,6 +64,7 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                     selectedKeys={[currentMonth.toString()]}
                     selectionMode="single"
                     onChange={e => setSelectedDate(new Date(currentYear, parseInt(e.target.value), currentDay))}
+                    aria-label="Select Month"
                 >
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => <SelectItem key={month.toString()}>
                         {new Date(currentYear, month).toLocaleString('default', { month: 'long' })}
