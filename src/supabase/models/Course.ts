@@ -19,11 +19,9 @@ export const getCoursesWSubjectsWTopics = cache(async (): Promise<CourseWSubject
 })
 
 export async function create_course(name: string, description: string): Promise<PostgrestError | undefined> {
-    const { data, error } = await getSupabase()
+    const { error } = await getSupabase()
         .from("courses")
-        .insert({ name, description })
-        .select("id")
-        .single();
+        .insert({ name, description });
 
     if (error) return error;
 

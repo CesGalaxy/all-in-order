@@ -5,6 +5,7 @@ import { Link } from "@nextui-org/link";
 import SubjectTopicsDropdown from "@/app/subjects/_SubjectTopicsDropdown";
 import { getCoursesWSubjectsWTopics } from "@/supabase/models/Course";
 import NoCourses from "@/components/NoCourses";
+import NoSubjects from "@/components/NoSubjects";
 
 export default async function Page() {
     const courses = await getCoursesWSubjectsWTopics();
@@ -20,15 +21,18 @@ export default async function Page() {
                             {course.description && <small className="text-default-500">{course.description}</small>}
                         </CardHeader>
                         <CardBody className="flex flex-wrap items-start justify-center gap-16">
-                            {course.subjects.map(subject => (
-                                <ButtonGroup key={subject.id}>
-                                    <Button as={Link} href={"/subjects/" + subject.id} style={{
-                                        backgroundColor: subject.color ? `${getHexColor(subject.color)}` : "transparent",
-                                        color: subject.color ? "#fff" : "#000"
-                                    }}>{subject.name}</Button>
-                                    <SubjectTopicsDropdown topics={subject.topics}/>
-                                </ButtonGroup>
-                            ))}
+                            {course.subjects.length > 0
+                                ? course.subjects.map(subject => (
+                                    <ButtonGroup key={subject.id}>
+                                        <Button as={Link} href={"/subjects/" + subject.id} style={{
+                                            backgroundColor: subject.color ? `${getHexColor(subject.color)}` : "transparent",
+                                            color: subject.color ? "#fff" : "#000"
+                                        }}>{subject.name}</Button>
+                                        <SubjectTopicsDropdown topics={subject.topics}/>
+                                    </ButtonGroup>
+                                ))
+                                : <NoSubjects courseId={course.id}/>
+                            }
                         </CardBody>
                     </Card>)}
             </ul>

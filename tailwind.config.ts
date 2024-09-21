@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import { nextui } from "@nextui-org/theme";
 import viewTransitions from "tailwindcss-view-transitions";
+import ContainerQueries from "@tailwindcss/container-queries";
 
 const config: Config = {
     content: [
@@ -57,6 +58,7 @@ const config: Config = {
             }
         }),
         viewTransitions,
+        ContainerQueries
     ]
 };
 export default config;
