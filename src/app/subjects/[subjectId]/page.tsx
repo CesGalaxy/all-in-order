@@ -1,17 +1,27 @@
 import required from "@/lib/helpers/required";
-import { getSubject } from "@/supabase/models/Subject";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { getTopicsBySubject } from "@/supabase/models/Topic";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import Section from "@/components/Section";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import NoTopics from "@/components/NoTopics";
 import PageContainer from "@/components/containers/Page";
+import getSupabase from "@/supabase/server";
+import ErrorView from "@/components/Error";
+import NoNotes from "@/components/NoNotes";
+import { Button, ButtonGroup } from "@nextui-org/button";
+import { IconChevronDown } from "@tabler/icons-react";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
-    const subject = required(await getSubject(parseInt(subjectId)), "/");
-    const topics = required(await getTopicsBySubject(subject.id), "/");
+    const { data, error } = await getSupabase()
+        .from("subjects")
+        .select("*, topics(id, title, description), notes:subject_notes(*)")
+        .eq("id", parseInt(subjectId))
+        .maybeSingle();
+
+    if (error) return <ErrorView message={"error.message"}/>;
+
+    const { topics, notes, ...subject } = required(data);
 
     const t = await getTranslations();
 
@@ -20,8 +30,25 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
             <Section title={t('App.tasks')}>
             </Section>
             <Section title={"Notes"}>
+                {notes.length > 0
+                    ? notes.map(note => note.id < 3 && <Card key={note.id}>
+                        {note.title && <CardHeader><h2 className="font-bold text-3xl">{note.title}</h2></CardHeader>}
+                        <CardBody><small className="text-default-500">{note.content}</small></CardBody>
+                        <CardFooter as={ButtonGroup}>
+                            <Button
+                                as={Link}
+                                href={`/subjects/${subject.id}/notes/${note.id}`}
+                            >
+                                View more
+                            </Button>
+                            <Button isIconOnly>
+                                <IconChevronDown/>
+                            </Button>
+                        </CardFooter>
+                    </Card>)
+                    : <NoNotes subjectId={subject.id}/>}
             </Section>
-            <Section title={t('App.topics')} className="w-full h-full md:col-span-2 overflow-y-auto">
+            <Section title={t('App.topics')} className="w-full h-full md:col-span-2">
                 <ul className="flex flex-col items-stretch justify-start gap-8 px-4">
                     {topics.length > 0
                         ? topics.map(topic => <Card as="li" key={topic.id}>
@@ -36,8 +63,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
                                 </Link>
                             </CardFooter>
                         </Card>)
-                        : <NoTopics subjectId={subject.id}/>
-                    }
+                        : <NoTopics subjectId={subject.id}/>}
                 </ul>
             </Section>
         </div>

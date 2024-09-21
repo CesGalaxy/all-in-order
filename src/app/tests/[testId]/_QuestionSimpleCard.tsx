@@ -6,7 +6,7 @@ import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { ChoiceQuestionAnswerTooltip } from "@/features/question/questions/ChoiceQuestion";
 import { FillTheGapQuestionAnswerTooltip } from "@/features/question/questions/FillTheGapQuestion";
-import { TopicTestQuestion } from "@/supabase/models";
+import { TopicTestQuestion } from "@/supabase/models/TopicTestQuestion";
 
 const QUESTION_ANSWER_TOOLTIPS = {
     "choice": ChoiceQuestionAnswerTooltip,

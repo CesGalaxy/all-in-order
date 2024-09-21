@@ -4,35 +4,22 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { IconPlus } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
-function CreateTopicButton({ createTopicAction }: {
-    createTopicAction: (title: string, description: string) => Promise<string>
+function CreateNoteButton({ createNoteAction }: {
+    createNoteAction: (description: string, title?: string) => Promise<string | undefined>
 }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
     const [loading, setLoading] = useState(false);
 
-    const validateName = () => {
-        if (!name) return "Name is required";
-        if (name.length < 3) return "Name is too short";
-        if (name.length > 64) return "Name is too long";
-    }
-
-    const validateDescription = () => description.length > 512 ? "Description is too long" : undefined;
-
-    const isNameValid = useMemo(validateName, [name]);
-    const isDescriptionInvalid = useMemo(validateDescription, [description]);
-
-    const isValid = !isNameValid && !isDescriptionInvalid;
-
     return (
         <>
-            <Button onPress={onOpen} color="primary">Create a topic</Button>
+            <Button onPress={onOpen} color="primary">Create a note</Button>
             <Modal
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
@@ -41,27 +28,25 @@ function CreateTopicButton({ createTopicAction }: {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Create a new topic</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Create a new note</ModalHeader>
                             <ModalBody>
                                 <Input
                                     autoFocus
-                                    label="Name"
-                                    placeholder="Enter the name of the topic"
+                                    label="Title"
+                                    placeholder="Enter the title of the note (optional)"
                                     variant="bordered"
-                                    isRequired
-                                    validate={validateName}
-                                    value={name}
-                                    onChange={e => setName(e.target.value)}
+                                    value={title}
+                                    onChange={e => setTitle(e.target.value)}
                                 />
                                 <Textarea
-                                    label="Description"
-                                    placeholder="A description for the topic (optional)"
+                                    label="Content"
+                                    placeholder="Start typing here..."
                                     variant="bordered"
                                     rows={3}
                                     maxLength={512}
-                                    validate={validateDescription}
-                                    value={description}
-                                    onChange={e => setDescription(e.target.value)}
+                                    value={content}
+                                    isRequired
+                                    onChange={e => setContent(e.target.value)}
                                 />
                             </ModalBody>
                             <ModalFooter>
@@ -72,11 +57,11 @@ function CreateTopicButton({ createTopicAction }: {
                                     color="primary"
                                     onPress={onClose}
                                     startContent={<IconPlus/>}
-                                    isDisabled={!isValid}
+                                    isDisabled={loading || !content}
                                     isLoading={loading}
                                     onClick={async () => {
                                         setLoading(true);
-                                        const error = await createTopicAction(name, description);
+                                        const error = await createNoteAction(content, title || undefined);
                                         setLoading(false);
 
                                         if (error) toast(error, { type: "error" });
@@ -93,4 +78,4 @@ function CreateTopicButton({ createTopicAction }: {
     );
 }
 
-export default CreateTopicButton;
+export default CreateNoteButton;

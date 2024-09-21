@@ -111,19 +111,19 @@ export type Database = {
       courses: {
         Row: {
           created_at: string
-          description: string | null
+          description: string
           id: number
           name: string
         }
         Insert: {
           created_at?: string
-          description?: string | null
+          description: string
           id?: number
           name: string
         }
         Update: {
           created_at?: string
-          description?: string | null
+          description?: string
           id?: number
           name?: string
         }
@@ -571,7 +571,7 @@ export type Database = {
         Row: {
           author_id: number
           color: number | null
-          content: string | null
+          content: string
           created_at: string
           id: number
           subject_id: number
@@ -581,7 +581,7 @@ export type Database = {
         Insert: {
           author_id: number
           color?: number | null
-          content?: string | null
+          content: string
           created_at?: string
           id?: number
           subject_id: number
@@ -591,7 +591,7 @@ export type Database = {
         Update: {
           author_id?: number
           color?: number | null
-          content?: string | null
+          content?: string
           created_at?: string
           id?: number
           subject_id?: number
@@ -617,26 +617,26 @@ export type Database = {
       }
       subjects: {
         Row: {
-          color: number | null
+          color: number
           course_id: number
           created_at: string
-          description: string | null
+          description: string
           id: number
           name: string
         }
         Insert: {
-          color?: number | null
+          color: number
           course_id: number
           created_at?: string
-          description?: string | null
+          description: string
           id?: number
           name: string
         }
         Update: {
-          color?: number | null
+          color?: number
           course_id?: number
           created_at?: string
-          description?: string | null
+          description?: string
           id?: number
           name?: string
         }
