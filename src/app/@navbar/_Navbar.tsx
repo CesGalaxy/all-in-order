@@ -1,4 +1,12 @@
-import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import {
+    Navbar as Nav,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    NavbarMenu,
+    NavbarMenuItem,
+    NavbarMenuToggle
+} from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
@@ -13,6 +21,8 @@ import ToggleLocale from "@/app/@navbar/_ToggleLocale";
 import { BreadcrumbItemProps } from "@nextui-org/breadcrumbs";
 import NavbarBreadcrumbs from "@/app/@navbar/_Breadcrumbs";
 import type { ReactNode } from "react";
+import { IconHome } from "@tabler/icons-react";
+import { Divider } from "@nextui-org/divider";
 
 export interface NavbarProps {
     currentPage?: 'subjects' | 'agenda' | 'docs';
@@ -46,12 +56,15 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
 
     return <header className="w-full relative">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
-            <NavbarBrand>
-                {/*<p className="font-bold text-inherit">ACME</p>*/}
-                <Link href="/">
-                    <Image src={LogoNameCol} alt="All In Order" height={64} priority/>
-                </Link>
-            </NavbarBrand>
+            <NavbarContent>
+                <NavbarMenuToggle className="sm:hidden"/>
+                <NavbarBrand>
+                    {/*<p className="font-bold text-inherit">ACME</p>*/}
+                    <Link href="/">
+                        <Image src={LogoNameCol} alt="All In Order" height={64} priority/>
+                    </Link>
+                </NavbarBrand>
+            </NavbarContent>
             <NavbarContent className="hidden sm:flex gap-8" justify="center">
                 <NavbarItem isActive={currentPage === 'subjects'}>
                     <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
@@ -69,13 +82,16 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                     </Link>
                 </NavbarItem>
             </NavbarContent>
-            <NavbarContent justify="end">
+            <NavbarContent className="hidden sm:flex" justify="end">
                 <ToggleLocale updateLocaleAction={updateLocale}/>
                 {profile
                     ? <>
                         <NavbarItem>
-                            <Button as={Link} color="primary" href="/app">
+                            <Button as={Link} color="primary" href="/app" className="hidden md:inline-flex">
                                 {t('Global.dashboard')}
+                            </Button>
+                            <Button as={Link} color="primary" href="/app" className="md:hidden" isIconOnly>
+                                <IconHome/>
                             </Button>
                         </NavbarItem>
                         <ProfileAvatar profile={profile}/>
@@ -93,6 +109,33 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                         </NavbarItem>
                     </>}
             </NavbarContent>
+            {profile && <NavbarContent className="sm:hidden !flex-grow-0" justify="end">
+                <ProfileAvatar profile={profile}/>
+            </NavbarContent>}
+            <NavbarMenu>
+                <NavbarMenuItem isActive={currentPage === 'subjects'}>
+                    <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
+                        <span className="text-foreground group-data-[active=true]:text-primary">Subjects</span>
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={currentPage === 'agenda'}>
+                    <Link href="/agenda" aria-current={currentPage === 'agenda' ? 'page' : undefined}>
+                        <span className="text-foreground group-data-[active=true]:text-primary">Agenda</span>
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem isActive={currentPage === 'docs'}>
+                    <Link href="/content" aria-current={currentPage === 'docs' ? 'page' : undefined}>
+                        <span className="text-foreground group-data-[active=true]:text-primary">Documents</span>
+                    </Link>
+                </NavbarMenuItem>
+                <Divider/>
+                <nav className="flex items-center justify-between w-full">
+                    <Button as={Link} color="primary" href="/app">
+                        {t('Global.dashboard')}
+                    </Button>
+                    <ToggleLocale updateLocaleAction={updateLocale}/>
+                </nav>
+            </NavbarMenu>
         </Nav>
         {breadcrumbs && <NavbarBreadcrumbs items={breadcrumbs} actions={actions}/>}
     </header>;
