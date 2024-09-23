@@ -576,7 +576,7 @@ export type Database = {
           id: number
           subject_id: number
           tags: string[] | null
-          title: string | null
+          title: string
         }
         Insert: {
           author_id: number
@@ -586,7 +586,7 @@ export type Database = {
           id?: number
           subject_id: number
           tags?: string[] | null
-          title?: string | null
+          title: string
         }
         Update: {
           author_id?: number
@@ -596,7 +596,7 @@ export type Database = {
           id?: number
           subject_id?: number
           tags?: string[] | null
-          title?: string | null
+          title?: string
         }
         Relationships: [
           {
