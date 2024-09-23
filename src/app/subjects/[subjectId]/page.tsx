@@ -6,19 +6,15 @@ import Section from "@/components/Section";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import NoTopics from "@/components/NoTopics";
 import PageContainer from "@/components/containers/Page";
-import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/Error";
 import NoNotes from "@/components/NoNotes";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconChevronDown } from "@tabler/icons-react";
 import { Link as TransitionLink } from "next-view-transitions";
+import { getSubject } from "@/app/subjects/[subjectId]/query";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
-    const { data, error } = await getSupabase()
-        .from("subjects")
-        .select("*, topics(id, title, description), notes:subject_notes(*)")
-        .eq("id", parseInt(subjectId))
-        .maybeSingle();
+    const { data, error } = await getSubject(subjectId);
 
     if (error) return <ErrorView message={"error.message"}/>;
 

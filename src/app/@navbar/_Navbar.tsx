@@ -12,25 +12,27 @@ import { revalidatePath } from "next/cache";
 import ToggleLocale from "@/app/@navbar/_ToggleLocale";
 import { BreadcrumbItemProps } from "@nextui-org/breadcrumbs";
 import NavbarBreadcrumbs from "@/app/@navbar/_Breadcrumbs";
+import type { ReactNode } from "react";
 
 export interface NavbarProps {
     currentPage?: 'subjects' | 'agenda' | 'docs';
     breadcrumbs?: BreadcrumbItemProps[];
+    actions?: ReactNode;
 }
 
 export const BREADCRUMBS = {
     courses: { href: "/courses", children: "Courses" },
-    course: (id: string, name: string) => ({ href: `/courses/${id}`, children: name }),
+    course: (id: string | number, name: string) => ({ href: `/courses/${id}`, children: name }),
     subjects: { href: "/subjects", children: "Subjects" },
-    subject: (id: string, name: string) => ({ href: `/subjects/${id}`, children: name }),
+    subject: (id: string | number, name: string) => ({ href: `/subjects/${id}`, children: name }),
     agenda: { href: "/agenda", children: "Agenda" },
     docs: { href: "/content", children: "Documents" },
     dash: { href: "/app", children: "Dashboard" },
     topics: { href: "/topics", children: "Topics" },
-    topic: (id: string, name: string) => ({ href: `/topics/${id}`, children: name }),
+    topic: (id: string | number, name: string) => ({ href: `/topics/${id}`, children: name }),
 } satisfies Record<string, BreadcrumbItemProps | ((...props: any[]) => BreadcrumbItemProps)>;
 
-export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProps) {
+export default async function AppNavbar({ currentPage, breadcrumbs, actions }: NavbarProps) {
     const profile = await getMaybeMyProfile();
 
     const t = await getTranslations();
@@ -42,7 +44,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
         revalidatePath("/");
     }
 
-    return <header className="w-full">
+    return <header className="w-full relative">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
             <NavbarBrand>
                 {/*<p className="font-bold text-inherit">ACME</p>*/}
@@ -92,6 +94,6 @@ export default async function AppNavbar({ currentPage, breadcrumbs }: NavbarProp
                     </>}
             </NavbarContent>
         </Nav>
-        {breadcrumbs && <NavbarBreadcrumbs items={breadcrumbs}/>}
+        {breadcrumbs && <NavbarBreadcrumbs items={breadcrumbs} actions={actions}/>}
     </header>;
 }
