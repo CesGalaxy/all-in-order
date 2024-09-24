@@ -7,8 +7,8 @@ import { IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-function CreateNoteButton({ createNoteAction }: {
-    createNoteAction: (description: string, title?: string) => Promise<string | undefined>
+function CreateNoteButton({ action }: {
+    action: (title: string, content: string) => Promise<string | undefined>
 }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -61,10 +61,15 @@ function CreateNoteButton({ createNoteAction }: {
                                     isLoading={loading}
                                     onClick={async () => {
                                         setLoading(true);
-                                        const error = await createNoteAction(content, title || undefined);
+                                        const error = await action(title, content);
                                         setLoading(false);
 
-                                        if (error) toast(error, { type: "error" });
+                                        if (error) {
+                                            toast(error, { type: "error" });
+                                        } else {
+                                            toast("Note created successfully!", { type: "success" });
+                                            onClose();
+                                        }
                                     }}
                                 >
                                     Create

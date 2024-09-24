@@ -8,7 +8,7 @@ import { Profile } from "@/supabase/models/Profile";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
-import { IconAt, IconUser } from "@tabler/icons-react";
+import { IconAt, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
 import { Divider } from "@nextui-org/divider";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {
@@ -34,12 +34,17 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 <DropdownItem key="profile" onClick={onOpen}>
                     <p className="font-semibold">{t('Auth.signed_in_as', { identity: profile.name })}</p>
                 </DropdownItem>
-                <DropdownItem key="settings" href="/subjects">{t('Dash.my_content.courses')}</DropdownItem>
-                <DropdownItem key="configurations">{t('Global.settings')}</DropdownItem>
+                <DropdownItem key="settings" href="/subjects" startContent={<IconLayoutDashboard/>}>
+                    {t('Dash.my_content.courses')}
+                </DropdownItem>
+                <DropdownItem key="configurations" startContent={<IconTool/>}>
+                    {t('Global.settings')}
+                </DropdownItem>
                 <DropdownItem
                     key="logout"
                     color="danger"
                     onClick={() => createSupabaseClient().auth.signOut().then(() => location.reload())}
+                    startContent={<IconLogout/>}
                 >
                     {t('Auth.logout')}
                 </DropdownItem>

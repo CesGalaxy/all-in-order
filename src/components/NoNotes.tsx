@@ -22,7 +22,7 @@ export default function NoNotes({ subjectId }: { subjectId: number }) {
 
     return <BlankView title={"No notes found"} image={addNotesImage} alt="">
         <nav className="flex items-center justify-center">
-            <CreateNoteButton createNoteAction={createNoteAction}/>
+            <CreateNoteButton action={createNoteAction}/>
         </nav>
     </BlankView>;
 }

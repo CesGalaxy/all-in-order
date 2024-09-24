@@ -9,11 +9,17 @@ import PageContainer from "@/components/containers/Page";
 import ErrorView from "@/components/Error";
 import NoNotes from "@/components/NoNotes";
 import { Button, ButtonGroup } from "@nextui-org/button";
-import { IconChevronDown } from "@tabler/icons-react";
 import { Link as TransitionLink } from "next-view-transitions";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
+import { Divider } from "@nextui-org/divider";
+import getSupabase from "@/supabase/server";
+import { getMyProfile } from "@/supabase/models/Profile";
+import { revalidatePath } from "next/cache";
+import CreateNoteButton from "@/components/CreateNoteButton";
+import NoteOptions from "@/app/subjects/[subjectId]/_NoteOptions";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
+    const profile = await getMyProfile();
     const { data, error } = await getSubject(subjectId);
 
     if (error) return <ErrorView message={"error.message"}/>;
@@ -22,14 +28,29 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
 
     const t = await getTranslations();
 
+    async function createNote(title: string, content: string) {
+        "use server";
+
+        const { error } = await getSupabase()
+            .from("subject_notes")
+            .insert({ title, content, subject_id: subject.id, author_id: profile.id });
+
+        if (error) return error.message;
+
+        revalidatePath(`/subjects/${subject.id}`);
+    }
+
     return <PageContainer className="w-full flex flex-col xl:grid xl:grid-cols-2 gap-8">
         <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-8">
             <Section title={t('App.tasks')}>
             </Section>
-            <Section title={"Notes"}>
+            <Section title={"Notes"} trailing={notes && <CreateNoteButton action={createNote}/>}>
                 {notes.length > 0
                     ? notes.map(note => note.id < 3 && <Card key={note.id}>
-                        {note.title && <CardHeader><h2 className="font-bold text-3xl">{note.title}</h2></CardHeader>}
+                        {note.title && <>
+                            <CardHeader><h2 className="font-bold text-xl">{note.title}</h2></CardHeader>
+                            <Divider/>
+                        </>}
                         <CardBody><small className="text-default-500">{note.content}</small></CardBody>
                         <CardFooter as={ButtonGroup}>
                             <Button
@@ -39,9 +60,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
                             >
                                 View more
                             </Button>
-                            <Button isIconOnly>
-                                <IconChevronDown/>
-                            </Button>
+                            <NoteOptions/>
                         </CardFooter>
                     </Card>)
                     : <NoNotes subjectId={subject.id}/>}
