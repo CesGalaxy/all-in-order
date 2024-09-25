@@ -9,7 +9,7 @@ export interface BlankViewProps {
     children?: React.ReactNode;
 }
 
-export default function BlankView({ title, content, image, alt, children }: BlankViewProps) {
+export default function Blank({ title, content, image, alt, children }: BlankViewProps) {
     return <div className="@container w-full h-full">
         <div className="w-full h-full flex flex-col @2xl:flex-row old-md-flex-row items-center justify-center gap-16">
             <Image src={image} alt={alt} width={256}/>

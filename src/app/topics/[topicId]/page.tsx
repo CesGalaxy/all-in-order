@@ -9,7 +9,7 @@ import { IconEdit, IconEye, IconPlayerPlay, IconTrash } from "@tabler/icons-reac
 import { getAllTopicTests } from "@/supabase/models/TopicTest";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import { getTranslations } from "next-intl/server";
-import Section from "@/components/Section";
+import SectionContainer from "@/components/containers/SectionContainer";
 import PageContainer from "@/components/containers/Page";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
@@ -20,7 +20,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
     const t = await getTranslations();
 
     return <PageContainer className="flex-grow grid grid-cols-2 gap-8">
-        <Section title={t("App.documents")}>
+        <SectionContainer title={t("App.documents")}>
             {!docs || docs.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t('Dash.Topic.no_documents')}</h3>
@@ -49,8 +49,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                     </Card>)}
                 </div>
             }
-        </Section>
-        <Section title={t("App.tests")}>
+        </SectionContainer>
+        <SectionContainer title={t("App.tests")}>
             {!tests || tests.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t("Dash.Topic.no_tests")}</h3>
@@ -81,9 +81,9 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                     </Card>)}
                 </ul>
             }
-        </Section>
-        <Section title={t("AI.tools")} className="w-full h-full col-span-2">
+        </SectionContainer>
+        <SectionContainer title={t("AI.tools")} className="w-full h-full col-span-2">
             <i/>
-        </Section>
+        </SectionContainer>
     </PageContainer>;
 }

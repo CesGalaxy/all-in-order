@@ -54,7 +54,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
         revalidatePath("/");
     }
 
-    return <header className="w-full relative">
+    return <header className="w-full relative border-b-2 border-b-divider pb-2 md:pb-0 md:border-b-0">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
             <NavbarContent>
                 <NavbarMenuToggle className="sm:hidden"/>

@@ -4,12 +4,12 @@ import viewTransitions from "tailwindcss-view-transitions";
 import ContainerQueries from "@tailwindcss/container-queries";
 
 const config: Config = {
-    content: [
-        "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./node_modules/@nextui-org/theme/dist/components/(avatar|breadcrumbs|button|card|dropdown|input|link|modal|navbar|select|ripple|spinner|menu|divider|popover|listbox|scroll-shadow).js"
-    ],
+  content: [
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/components/(avatar|breadcrumbs|button|card|checkbox|dropdown|input|link|modal|navbar|select|ripple|spinner|menu|divider|popover|listbox|scroll-shadow).js"
+  ],
     theme: {
         extend: {
             backgroundImage: {

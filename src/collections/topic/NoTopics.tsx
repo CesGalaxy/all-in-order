@@ -1,13 +1,13 @@
-import BlankView from "@/components/BlankView";
+import Blank from "@/components/views/Blank";
 import noDataImage from "@/assets/pictures/no_data.svg";
-import CreateTopicButton from "@/components/CreateTopicButton";
+import CreateTopicButton from "@/collections/topic/CreateTopicButton";
 import getSupabase from "@/supabase/server";
 import { redirect } from "next/navigation";
 
 export default function NoTopics({ subjectId }: { subjectId: number }) {
     async function createTopicAction(title: string, description: string) {
         "use server";
-        
+
         const { data, error } = await getSupabase()
             .from("topics")
             .insert({ title, description, subject_id: subjectId })
@@ -20,12 +20,12 @@ export default function NoTopics({ subjectId }: { subjectId: number }) {
         redirect(`/topics/${data.id}`);
     }
 
-    return <BlankView
+    return <Blank
         title={"No topics found"}
         content={"Create a new topic for storing all the material"}
         image={noDataImage}
         alt=""
     >
         <CreateTopicButton createTopicAction={createTopicAction}/>
-    </BlankView>
+    </Blank>
 }

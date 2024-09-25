@@ -9,7 +9,7 @@ import QuestionSimpleCard from "@/app/tests/[testId]/_QuestionSimpleCard";
 import { Link } from "@nextui-org/link";
 import AskToAIButton from "@/app/tests/[testId]/_AskToAiButton";
 import { getTopicTestAttempts } from "@/supabase/models/TopicTestAttempt";
-import Section from "@/components/Section";
+import SectionContainer from "@/components/containers/SectionContainer";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import PageContainer from "@/components/containers/Page";
 
@@ -54,7 +54,7 @@ export default async function Page({ params: { testId } }: { params: { testId: s
                         {test.questions.map(question => <QuestionSimpleCard key={question.id} question={question}/>)}
                     </div>}
             </div>
-            <Section title="Recent attempts">
+            <SectionContainer title="Recent attempts">
                 <ul>
                     {attempts.map(attempt => <Card as="li" key={attempt.id}
                                                    className="w-full flex items-center gap-4 flex-row">
@@ -75,7 +75,7 @@ export default async function Page({ params: { testId } }: { params: { testId: s
                         </CardFooter>
                     </Card>)}
                 </ul>
-            </Section>
+            </SectionContainer>
         </div>
     </PageContainer>
 }

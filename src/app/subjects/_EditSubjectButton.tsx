@@ -3,27 +3,34 @@
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
-import { IconPlus } from "@tabler/icons-react";
+import { IconDeviceFloppy, IconEdit } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
+import { Course } from "@/supabase/models/Course";
 import { toast } from "react-toastify";
+import { PostgrestError } from "@supabase/supabase-js";
+import { Checkbox } from "@nextui-org/checkbox";
 
-function CreateTopicButton({ createTopicAction }: {
-    createTopicAction: (title: string, description: string) => Promise<string>
+export default function EditCourseButton({ course, action }: {
+    course: Course,
+    action: () => Promise<PostgrestError | undefined>
 }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    const [name, setName] = useState(course.name);
+    const [description, setDescription] = useState(course.description);
+    const [isPublic, setIsPublic] = useState(course.is_public);
 
     const [loading, setLoading] = useState(false);
 
     const validateName = () => {
-        if (!name) return "Name is required";
+        if (!name) return "Course name is required";
         if (name.length < 3) return "Name is too short";
         if (name.length > 64) return "Name is too long";
     }
 
-    const validateDescription = () => description.length > 512 ? "Description is too long" : undefined;
+    const validateDescription = () => {
+        if (description.length > 512) return "Description is too long";
+    }
 
     const isNameValid = useMemo(validateName, [name]);
     const isDescriptionInvalid = useMemo(validateDescription, [description]);
@@ -32,7 +39,7 @@ function CreateTopicButton({ createTopicAction }: {
 
     return (
         <>
-            <Button onPress={onOpen} color="primary">Create a topic</Button>
+            <Button onPress={onOpen} startContent={<IconEdit/>}>Edit course</Button>
             <Modal
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
@@ -41,12 +48,12 @@ function CreateTopicButton({ createTopicAction }: {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Create a new topic</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Edit course</ModalHeader>
                             <ModalBody>
                                 <Input
                                     autoFocus
                                     label="Name"
-                                    placeholder="Enter the name of the topic"
+                                    placeholder="Enter the name of the course"
                                     variant="bordered"
                                     isRequired
                                     validate={validateName}
@@ -55,7 +62,7 @@ function CreateTopicButton({ createTopicAction }: {
                                 />
                                 <Textarea
                                     label="Description"
-                                    placeholder="A description for the topic (optional)"
+                                    placeholder="A description for the course (optional)"
                                     variant="bordered"
                                     rows={3}
                                     maxLength={512}
@@ -63,6 +70,9 @@ function CreateTopicButton({ createTopicAction }: {
                                     value={description}
                                     onChange={e => setDescription(e.target.value)}
                                 />
+                                <Checkbox isSelected={isPublic} onValueChange={setIsPublic} size="lg">
+                                    Public visibility
+                                </Checkbox>
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="flat" onPress={onClose}>
@@ -71,18 +81,27 @@ function CreateTopicButton({ createTopicAction }: {
                                 <Button
                                     color="primary"
                                     onPress={onClose}
-                                    startContent={<IconPlus/>}
+                                    startContent={<IconDeviceFloppy/>}
                                     isDisabled={!isValid}
                                     isLoading={loading}
                                     onClick={async () => {
                                         setLoading(true);
-                                        const error = await createTopicAction(name, description);
+                                        const error = await action();
                                         setLoading(false);
 
-                                        if (error) toast(error, { type: "error" });
+                                        if (error) {
+                                            toast.error("Failed to update course details: " + error.message, {
+                                                type: "error"
+                                            });
+                                        } else {
+                                            onClose();
+                                            toast.success("Course updated successfully", {
+                                                type: "success"
+                                            });
+                                        }
                                     }}
                                 >
-                                    Create
+                                    Save
                                 </Button>
                             </ModalFooter>
                         </>
@@ -92,5 +111,3 @@ function CreateTopicButton({ createTopicAction }: {
         </>
     );
 }
-
-export default CreateTopicButton;

@@ -4,8 +4,8 @@ import { Button } from "@nextui-org/button";
 import getHexColor from "@/lib/utils/color";
 import { Link } from "@nextui-org/link";
 import { getCoursesWSubjectsWTopics } from "@/supabase/models/Course";
-import NoCourses from "@/components/NoCourses";
-import NoSubjects from "@/components/NoSubjects";
+import NoCourses from "@/collections/course/NoCourses";
+import NoSubjects from "@/collections/subject/NoSubjects";
 
 export default async function Page() {
     const profile = await getMyProfile();
@@ -24,7 +24,7 @@ export default async function Page() {
                             {course.subjects.length > 0
                                 ? course.subjects.map(subject => (
                                     <Button key={subject.id} as={Link} href={"/subjects/" + subject.id} style={{
-                                        backgroundColor: subject.color ? `${getHexColor(subject.color)}` : "transparent",
+                                        backgroundColor: subject.color ? `${getHexColor(subject.color, " ")}` : "transparent",
                                         color: subject.color ? "#fff" : "#000"
                                     }}>{subject.name}</Button>
                                 ))

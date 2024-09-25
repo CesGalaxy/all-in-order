@@ -13,6 +13,9 @@ const kanit = Kanit({ weight: ["100", "200", "300", "400", "500", "600", "700", 
 export const metadata: Metadata = {
     title: "All In Order",
     description: "hello :)",
+    icons: {
+        apple: "/apple-touch-icon.png",
+    }
 };
 
 export default function RootLayout({

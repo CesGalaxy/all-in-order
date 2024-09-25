@@ -2,12 +2,12 @@ import required from "@/lib/helpers/required";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link as NextLink } from "@nextui-org/link";
 import { getTranslations } from "next-intl/server";
-import Section from "@/components/Section";
+import SectionContainer from "@/components/containers/SectionContainer";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
-import NoTopics from "@/components/NoTopics";
+import NoTopics from "@/collections/topic/NoTopics";
 import PageContainer from "@/components/containers/Page";
-import ErrorView from "@/components/Error";
-import NoNotes from "@/components/NoNotes";
+import ErrorView from "@/components/views/Error";
+import NoNotes from "@/collections/note/NoNotes";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link as TransitionLink } from "next-view-transitions";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
@@ -15,7 +15,7 @@ import { Divider } from "@nextui-org/divider";
 import getSupabase from "@/supabase/server";
 import { getMyProfile } from "@/supabase/models/Profile";
 import { revalidatePath } from "next/cache";
-import CreateNoteButton from "@/components/CreateNoteButton";
+import CreateNoteButton from "@/collections/note/CreateNoteButton";
 import NoteOptions from "@/app/subjects/[subjectId]/_NoteOptions";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
@@ -41,34 +41,44 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
     }
 
     return <PageContainer className="w-full flex flex-col xl:grid xl:grid-cols-2 gap-8">
-        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Section title={t('App.tasks')}>
-            </Section>
-            <Section title={"Notes"} trailing={notes && <CreateNoteButton action={createNote}/>}>
-                {notes.length > 0
-                    ? notes.map(note => note.id < 3 && <Card key={note.id}>
-                        {note.title && <>
-                            <CardHeader><h2 className="font-bold text-xl">{note.title}</h2></CardHeader>
-                            <Divider/>
-                        </>}
-                        <CardBody><small className="text-default-500">{note.content}</small></CardBody>
-                        <CardFooter as={ButtonGroup}>
-                            <Button
-                                as={TransitionLink}
-                                href={`/subjects/${subject.id}/notes/${note.id}`}
-                                scroll={false}
-                            >
-                                View more
-                            </Button>
-                            <NoteOptions/>
-                        </CardFooter>
-                    </Card>)
-                    : <NoNotes subjectId={subject.id}/>}
-            </Section>
-            <Section title={t('App.topics')} className="w-full h-full md:col-span-2">
-                <ul className="flex flex-col items-stretch justify-start gap-8 px-4">
-                    {topics.length > 0
-                        ? topics.map(topic => <Card as="li" key={topic.id}>
+        <div className="w-full h-full flex flex-col gap-8">
+            <div className="grid md:grid-cols-2 gap-8 w-full md:h-[500px] md:min-h-[500px]">
+                <SectionContainer title={t('App.tasks')}>
+                </SectionContainer>
+                <SectionContainer
+                    title={"Notes"}
+                    trailing={notes && <CreateNoteButton action={createNote}/>}
+                    className="w-full h-full flex flex-col"
+                >
+                    {notes.length > 0
+                        ? <ul className="w-full h-full overflow-y-auto">
+                            {
+                                notes.map(note => note.id < 3 && <Card key={note.id}>
+                                    {note.title && <>
+                                        <CardHeader><h2 className="font-bold text-xl">{note.title}</h2></CardHeader>
+                                        <Divider/>
+                                    </>}
+                                    <CardBody><small className="text-default-500">{note.content}</small></CardBody>
+                                    <CardFooter as={ButtonGroup}>
+                                        <Button
+                                            as={TransitionLink}
+                                            href={`/subjects/${subject.id}/notes/${note.id}`}
+                                            scroll={false}
+                                        >
+                                            View more
+                                        </Button>
+                                        <NoteOptions/>
+                                    </CardFooter>
+                                </Card>)
+                            }
+                        </ul>
+                        : <NoNotes subjectId={subject.id}/>}
+                </SectionContainer>
+            </div>
+            <SectionContainer title={t('App.topics')} className="w-full h-full md:col-span-2 --md:max-h-96">
+                {topics.length > 0
+                    ? <ul className="flex flex-col items-stretch justify-start gap-8 px-4">
+                        {topics.map(topic => <Card as="li" key={topic.id}>
                             <CardHeader as={NextLink} className="flex-col items-start" href={"/topics/" + topic.id}>
                                 <h2 className="font-bold text-3xl">{topic.title}</h2>
                                 {topic.description &&
@@ -79,13 +89,13 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
                                     {t('AI.chat_with')}
                                 </NextLink>
                             </CardFooter>
-                        </Card>)
-                        : <NoTopics subjectId={subject.id}/>}
-                </ul>
-            </Section>
+                        </Card>)}
+                    </ul>
+                    : <NoTopics subjectId={subject.id}/>}
+            </SectionContainer>
         </div>
-        <Section title={t('App.calendar')} className="w-full h-full flex flex-col">
+        <SectionContainer title={t('App.calendar')} className="w-full h-full flex flex-col">
             <MonthCalendar/>
-        </Section>
+        </SectionContainer>
     </PageContainer>
 }
