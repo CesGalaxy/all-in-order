@@ -81,7 +81,7 @@ export default function CreateSubjectButton({ courseId }: { courseId: number }) 
                                 <ul className="grid grid-cols-6 p-4 gap-4">
                                     {
                                         SUBJECT_COLORS.map(colorOption => (
-                                            <li key={colorOption} className="col-span-1 w-full aspect-square">
+                                            <li key={colorOption} className="w-full aspect-square">
                                                 <Button
                                                     color="primary"
                                                     variant="flat"

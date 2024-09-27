@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { IconPlus } from "@tabler/icons-react";
 
-export default function JoinCourseButton() {
+export default function JoinButton() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (

@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import CreateNoteButton from "@/collections/note/CreateNoteButton";
 
 export default function NoNotes({ subjectId }: { subjectId: number }) {
-    async function createNoteAction(content: string, title?: string) {
+    async function createNoteAction(content: string, title: string) {
         "use server";
 
         const { id } = await getMyProfile();

@@ -9,7 +9,7 @@ import { useMemo, useState } from "react";
 import { create_course } from "@/supabase/models/Course";
 import { toast } from "react-toastify";
 
-export default function CreateCourseButton() {
+export default function CreateButton() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [name, setName] = useState("");
