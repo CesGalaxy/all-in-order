@@ -6,7 +6,7 @@ import SectionContainer from "@/components/containers/SectionContainer";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import NoTopics from "@/collections/topic/NoTopics";
 import PageContainer from "@/components/containers/Page";
-import ErrorView from "@/components/views/Error";
+import ErrorView from "@/components/views/ErrorView";
 import NoNotes from "@/collections/note/NoNotes";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link as TransitionLink } from "next-view-transitions";

@@ -1,23 +1,42 @@
 import required from "@/lib/helpers/required";
-import { getTopicWithSubjectAndCourse } from "@/supabase/models/Topic";
 import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
 import CreateDocumentButton from "@/app/topics/[topicId]/_CreateDocumentButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEdit, IconEye, IconPlayerPlay, IconTrash } from "@tabler/icons-react";
-import { getAllTopicTests } from "@/supabase/models/TopicTest";
-import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import { getTranslations } from "next-intl/server";
 import SectionContainer from "@/components/containers/SectionContainer";
 import PageContainer from "@/components/containers/Page";
+import getSupabase from "@/supabase/server";
+import ErrorView from "@/components/views/ErrorView";
+import NoPractices from "@/collections/practice/NoPractices";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const topic = required(await getTopicWithSubjectAndCourse(parseInt(topicId)));
-    const docs = required(await getAllTopicDocuments(topic.id), "/topic/" + topic.id);
-    const tests = required(await getAllTopicTests(topic.id), "/topic/" + topic.id);
+    const topicRequest = getSupabase()
+        .from("topics")
+        .select()
+        .eq("id", parseInt(topicId))
+        .maybeSingle();
+
+    const practicesRequest = getSupabase()
+        .from("practices")
+        .select()
+        .eq("topic_id", parseInt(topicId));
 
     const t = await getTranslations();
+
+    const { data: topicData, error: topicError } = await topicRequest;
+    if (topicError) return <ErrorView message={topicError.message}/>;
+    const topic = required(topicData);
+
+    const { data: practicesData, error: practicesError } = await practicesRequest;
+    if (practicesError) return <ErrorView message={practicesError.message}/>;
+    const practices = required(practicesData);
+
+    const tests: any[] = [] as const;
+
+    const docs = required(await getAllTopicDocuments(topic.id), "/topic/" + topic.id);
 
     return <PageContainer className="flex-grow grid grid-cols-2 gap-8">
         <SectionContainer title={t("App.documents")}>
@@ -50,12 +69,40 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 </div>
             }
         </SectionContainer>
-        <SectionContainer title={t("App.tests")}>
+        <SectionContainer title="Practice">
+            {practices.length === 0
+                ? <NoPractices topicId={topic.id}/>
+                : <ul className="grid grid-cols-3">
+                    {practices.map(practice => <Card key={practice.id} as="li">
+                        <CardHeader className="items-end gap-2" as={Link} href={`/practices/${practice.id}`}>
+                            <h3 className="text-xl text-foreground">{practice.title}</h3>
+                        </CardHeader>
+                        {practice.description && <CardBody>
+                            <p>{practice.description}</p>
+                        </CardBody>}
+                        <CardFooter>
+                            <ButtonGroup className="w-full">
+                                <Button color="primary" className="w-full" startContent={<IconPlayerPlay/>}>
+                                    {t("Global.start")}
+                                </Button>
+                                <Button isIconOnly as={Link} href={`/practices/${practice.id}`}>
+                                    <IconEye/>
+                                </Button>
+                                <Button color="danger" isIconOnly>
+                                    <IconTrash/>
+                                </Button>
+                            </ButtonGroup>
+                        </CardFooter>
+                    </Card>)}
+                </ul>
+            }
+        </SectionContainer>
+        <SectionContainer title={t("App.tests")} className="w-full h-full col-span-2">
             {!tests || tests.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t("Dash.Topic.no_tests")}</h3>
                     <p>{t("Dash.Topic.no_tests_details")}</p>
-                    <CreateTestButton topicId={topic.id}/>
+                    {/*<CreateTestButton topicId={topic.id}/>*/}
                 </div>
                 : <ul className="grid grid-cols-3 gap-4">
                     {tests.map(test => <Card key={test.id} as="li">
@@ -82,7 +129,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 </ul>
             }
         </SectionContainer>
-        <SectionContainer title={t("AI.tools")} className="w-full h-full col-span-2">
+        <SectionContainer title={t("AI.tools")} className="w-full h-full col-span-2 hidden">
             <i/>
         </SectionContainer>
     </PageContainer>;

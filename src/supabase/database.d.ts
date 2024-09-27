@@ -132,6 +132,84 @@ export type Database = {
         }
         Relationships: []
       }
+      practice_activities: {
+        Row: {
+          activity_id: number
+          created_at: string
+          practice_id: number
+        }
+        Insert: {
+          activity_id: number
+          created_at?: string
+          practice_id: number
+        }
+        Update: {
+          activity_id?: number
+          created_at?: string
+          practice_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_activities_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "topic_activities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "practice_activities_practice_id_fkey"
+            columns: ["practice_id"]
+            isOneToOne: false
+            referencedRelation: "practices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      practices: {
+        Row: {
+          created_at: string
+          created_by: number | null
+          description: string
+          id: number
+          title: string
+          topic_id: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: number | null
+          description: string
+          id?: number
+          title: string
+          topic_id: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: number | null
+          description?: string
+          id?: number
+          title?: string
+          topic_id?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practices_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "practices_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -653,6 +731,61 @@ export type Database = {
           },
         ]
       }
+      topic_activities: {
+        Row: {
+          created_at: string
+          created_by: number | null
+          data: Json
+          id: number
+          tags: string[]
+          topic_id: number | null
+          updated_at: string | null
+          updated_by: number | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: number | null
+          data: Json
+          id?: number
+          tags?: string[]
+          topic_id?: number | null
+          updated_at?: string | null
+          updated_by?: number | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: number | null
+          data?: Json
+          id?: number
+          tags?: string[]
+          topic_id?: number | null
+          updated_at?: string | null
+          updated_by?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_activities_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_activities_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_activities_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       topic_test_attempts: {
         Row: {
           answers: Json[]
@@ -698,47 +831,13 @@ export type Database = {
           },
         ]
       }
-      topic_test_questions: {
-        Row: {
-          created_at: string
-          data: Json
-          id: number
-          position: number
-          test_id: number
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string
-          data: Json
-          id?: number
-          position: number
-          test_id: number
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string
-          data?: Json
-          id?: number
-          position?: number
-          test_id?: number
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "topic_test_questions_test_id_fkey"
-            columns: ["test_id"]
-            isOneToOne: false
-            referencedRelation: "topic_tests"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       topic_tests: {
         Row: {
           created_at: string
           description: string | null
           id: number
           name: string
+          questions: Json[]
           topic_id: number
         }
         Insert: {
@@ -746,6 +845,7 @@ export type Database = {
           description?: string | null
           id?: number
           name: string
+          questions?: Json[]
           topic_id: number
         }
         Update: {
@@ -753,6 +853,7 @@ export type Database = {
           description?: string | null
           id?: number
           name?: string
+          questions?: Json[]
           topic_id?: number
         }
         Relationships: [

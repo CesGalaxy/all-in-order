@@ -55,11 +55,10 @@ function CreateNoteButton({ action }: {
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onPress={onClose}
                                     startContent={<IconPlus/>}
                                     isDisabled={loading || !content}
                                     isLoading={loading}
-                                    onClick={async () => {
+                                    onPress={async () => {
                                         setLoading(true);
                                         const error = await action(title, content);
                                         setLoading(false);

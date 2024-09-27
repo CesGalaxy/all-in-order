@@ -19,10 +19,10 @@ const QUESTION_CREATORS = {
 };
 
 export interface CreateQuestionButtonProps {
-    create: (data: Question) => Promise<PostgrestError | undefined>
+    action: (data: Question) => Promise<PostgrestError | undefined>
 }
 
-export default function CreateQuestionButton({ create }: CreateQuestionButtonProps) {
+export default function CreateQuestionButton({ action }: CreateQuestionButtonProps) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [name, setName] = useState("");
@@ -85,7 +85,7 @@ export default function CreateQuestionButton({ create }: CreateQuestionButtonPro
                         isDisabled={!validData}
                         onPress={async () => {
                             if (question) {
-                                const error = await create(question);
+                                const error = await action(question);
 
                                 if (error) {
                                     setError(error.message);

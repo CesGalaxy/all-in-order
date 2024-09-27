@@ -1,7 +1,7 @@
 "use server";
 
 import getSupabase from "@/supabase/server";
-import ErrorView from "@/components/views/Error";
+import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import AsideModalContainer from "@/components/containers/AsideModal";
 import ShareButton from "@/app/subjects/[subjectId]/@aside/(.)notes/[noteId]/_ShareButton";

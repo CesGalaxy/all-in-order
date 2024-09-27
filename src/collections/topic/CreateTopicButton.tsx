@@ -70,11 +70,10 @@ function CreateTopicButton({ createTopicAction }: {
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onPress={onClose}
                                     startContent={<IconPlus/>}
                                     isDisabled={!isValid}
                                     isLoading={loading}
-                                    onClick={async () => {
+                                    onPress={async () => {
                                         setLoading(true);
                                         const error = await createTopicAction(title, description);
                                         setLoading(false);

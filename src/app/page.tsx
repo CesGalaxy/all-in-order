@@ -7,7 +7,7 @@ import PageContainer from "@/components/containers/Page";
 import { Divider } from "@nextui-org/divider";
 import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
-import ErrorView from "@/components/views/Error";
+import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NavigationCard from "@/collections/course/NavigationCard";
 

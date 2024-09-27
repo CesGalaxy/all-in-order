@@ -104,11 +104,10 @@ export default function CreateSubjectButton({ courseId }: { courseId: number }) 
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onPress={onClose}
                                     startContent={<IconPlus/>}
                                     isDisabled={!isValid}
                                     isLoading={loading}
-                                    onClick={async () => {
+                                    onPress={async () => {
                                         let formatedColor = parseInt(color.slice(1), 16);
 
                                         if (isNaN(formatedColor)) {

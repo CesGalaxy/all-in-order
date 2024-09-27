@@ -84,11 +84,10 @@ export default function CreateButton() {
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onPress={onClose}
                                     startContent={<IconPlus/>}
                                     isDisabled={!isValid}
                                     isLoading={loading}
-                                    onClick={async () => {
+                                    onPress={async () => {
                                         setLoading(true);
                                         const error = await create_course(name, description);
                                         setLoading(false);

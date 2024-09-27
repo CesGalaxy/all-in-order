@@ -1,3 +1,3 @@
 import { Tables } from "@/supabase/database";
 
-export type TopicTest = Tables<"topic_tests">;
+export type Practice = Tables<"practices">;

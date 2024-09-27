@@ -4,11 +4,16 @@ import { Link } from "@nextui-org/link";
 import serverDownImage from "@/assets/pictures/server_down.svg";
 
 export interface ErrorViewProps {
-    message: string;
+    message?: string;
 }
 
-export default function Error({ message }: ErrorViewProps) {
-    return <Blank title={"Ups!"} content={message} image={serverDownImage} alt="An error ocurred">
+export default function ErrorView({ message }: ErrorViewProps) {
+    return <Blank
+        title={"Ups!"}
+        content={message || "An unexpected error occurred"}
+        image={serverDownImage}
+        alt="An error ocurred"
+    >
         <Button as={Link} href="/">Go to home</Button>
     </Blank>
 }
