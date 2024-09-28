@@ -31,7 +31,7 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" onClick={onOpen}>
+                <DropdownItem key="profile" onPress={onOpen}>
                     <p className="font-semibold">{t('Auth.signed_in_as', { identity: profile.name })}</p>
                 </DropdownItem>
                 <DropdownItem key="settings" href="/subjects" startContent={<IconLayoutDashboard/>}>
@@ -43,7 +43,7 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 <DropdownItem
                     key="logout"
                     color="danger"
-                    onClick={() => createSupabaseClient().auth.signOut().then(() => location.reload())}
+                    onPress={() => createSupabaseClient().auth.signOut().then(() => location.reload())}
                     startContent={<IconLogout/>}
                 >
                     {t('Auth.logout')}

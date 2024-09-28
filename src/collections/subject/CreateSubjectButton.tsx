@@ -86,7 +86,7 @@ export default function CreateSubjectButton({ courseId }: { courseId: number }) 
                                                     color="primary"
                                                     variant="flat"
                                                     style={{ backgroundColor: colorOption }}
-                                                    onClick={() => setColor(colorOption)}
+                                                    onPress={() => setColor(colorOption)}
                                                     isIconOnly
                                                     size="sm"
                                                     className="w-full h-full"

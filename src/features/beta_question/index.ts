@@ -4,14 +4,23 @@ import {
     QuestionChoiceAttempt,
     QuestionChoiceData
 } from "@/features/beta_question/QuestionChoice";
+import {
+    QuestionFillTheGapAnswer,
+    QuestionFillTheGapAttempt,
+    QuestionFillTheGapData
+} from "@/features/beta_question/QuestionFillTheGap";
 
-export interface BaseQuestion {
+export interface BaseQuestion<T extends Json> {
     title: string;
     details: string;
+    type: T;
 }
 
-export type QuestionData = (QuestionChoiceData) & Json;
-export type QuestionAttempt = (QuestionChoiceAttempt) & Json;
-export type QuestionAnswer = (QuestionChoiceAnswer) & Json;
+export type QuestionData = (QuestionChoiceData | QuestionFillTheGapData) & Json;
+export type QuestionAttempt = (QuestionChoiceAttempt | QuestionFillTheGapAttempt) & Json;
+export type QuestionAnswer = (QuestionChoiceAnswer | QuestionFillTheGapAnswer) & Json;
 
-export type QuestionDraft<T extends BaseQuestion> = Omit<T, "title" | "details"> | string | undefined;
+export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U extends Json = any> =
+    Omit<T, "title" | "details" | "type">
+    | string
+    | undefined;

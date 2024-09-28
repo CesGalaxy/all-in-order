@@ -40,7 +40,7 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
     return <div className="w-full flex flex-col items-stretch gap-4">
         <nav className="w-full flex items-center justify-between bg-content2 text-content2-foreground rounded-xl">
             <ButtonGroup>
-                <Button isIconOnly onClick={previousMonth}><IconChevronLeft/></Button>
+                <Button isIconOnly onPress={previousMonth}><IconChevronLeft/></Button>
                 <Select
                     variant="bordered"
                     radius="none"
@@ -70,7 +70,7 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                         {new Date(currentYear, month).toLocaleString('default', { month: 'long' })}
                     </SelectItem>)}
                 </Select>
-                <Button isIconOnly onClick={nextMonth}><IconChevronRight/></Button>
+                <Button isIconOnly onPress={nextMonth}><IconChevronRight/></Button>
             </ButtonGroup>
         </nav>
         <table

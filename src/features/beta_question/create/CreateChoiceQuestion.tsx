@@ -16,8 +16,8 @@ const INITIAL_CHOICES: [number, string, boolean][] = [
 ];
 
 export default function CreateChoiceQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionChoiceData>,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData>>>
+    draft?: QuestionDraft<QuestionChoiceData, "choice">,
+    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData, "choice">>>
 }) {
     const [choices, setChoices] = useState<[number, string, boolean][]>(INITIAL_CHOICES);
     const [method, setMethod] = useState<ChoicesInputMethod>("checklist");
@@ -34,10 +34,7 @@ export default function CreateChoiceQuestion({ draft, setDraft }: {
     }, [areChoicesValid, choices, method, setDraft, single]);
 
     useEffect(() => {
-        if (!areChoicesValid && typeof draft !== "string") {
-            console.log("Updating draft");
-            setDraft("At least one choice must be correct");
-        }
+        if (!areChoicesValid && typeof draft !== "string") setDraft("At least one choice must be correct");
     }, [areChoicesValid, draft, setDraft]);
 
     return <div>

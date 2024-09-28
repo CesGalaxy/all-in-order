@@ -3,16 +3,18 @@
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Input, Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import { IconExclamationCircle, IconListCheck, IconPlus } from "@tabler/icons-react";
+import { IconExclamationCircle, IconListCheck, IconMist, IconPlus } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
-import { BaseQuestion, QuestionDraft } from "@/features/beta_question";
+import { QuestionDraft } from "@/features/beta_question";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";
 import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
+import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFillTheGapQuestion";
 
 const QUESTION_CREATORS = {
     "choice": CreateChoiceQuestion,
+    "fill_the_gap": CreateFillTheGapQuestion,
 }
 
 export default function CreatePracticeActivityModal({ action }: {
@@ -20,9 +22,9 @@ export default function CreatePracticeActivityModal({ action }: {
 }) {
     const [title, setTitle] = useState("");
     const [details, setDetails] = useState("");
-    const [questionType, setQuestionType] = useState<"choice">("choice");
+    const [questionType, setQuestionType] = useState<"choice" | "fill_the_gap">("fill_the_gap");
 
-    const [draft, setDraft] = useState<QuestionDraft<BaseQuestion>>();
+    const [draft, setDraft] = useState<QuestionDraft>();
 
     const [loading, setLoading] = useState(false);
 
@@ -60,6 +62,9 @@ export default function CreatePracticeActivityModal({ action }: {
                             <SelectItem key="choice" startContent={<IconListCheck/>}>
                                 Multiple choice
                             </SelectItem>
+                            <SelectItem key="fill_the_gap" startContent={<IconMist/>}>
+                                Fill the gap
+                            </SelectItem>
                         </Select>
                     </div>
                     <Textarea
@@ -90,6 +95,9 @@ export default function CreatePracticeActivityModal({ action }: {
                         isDisabled={loading || !title}
                         isLoading={loading}
                         onPress={async () => {
+                            console.log(draft);
+                            return;
+
                             setLoading(true);
                             const error = await action(title, details);
                             setLoading(false);
@@ -97,7 +105,7 @@ export default function CreatePracticeActivityModal({ action }: {
                             if (error) {
                                 toast(error, { type: "error" });
                             } else {
-                                toast("Practice created successfully!", { type: "success" });
+                                toast("Activity created successfully!", { type: "success" });
                                 onClose();
                             }
                         }}

@@ -15,15 +15,15 @@ export default function ToggleLocale({ updateLocaleAction }: { updateLocaleActio
         </DropdownTrigger>
         <DropdownMenu>
             <DropdownItem
-                onClick={() => updateLocaleAction('en')}
+                onPress={() => updateLocaleAction('en')}
                 startContent={<Avatar alt="English" className="w-6 h-6" src="https://flagcdn.com/gb.svg"/>}
             >English</DropdownItem>
             <DropdownItem
-                onClick={() => updateLocaleAction('es')}
+                onPress={() => updateLocaleAction('es')}
                 startContent={<Avatar alt="Español" className="w-6 h-6" src="https://flagcdn.com/es.svg"/>}
             >Español</DropdownItem>
             <DropdownItem
-                onClick={() => updateLocaleAction('val')}
+                onPress={() => updateLocaleAction('val')}
                 startContent={<Avatar alt="Valenciá" className="w-6 h-6"
                                       src="https://upload.wikimedia.org/wikipedia/commons/1/16/Flag_of_the_Valencian_Community_%282x3%29.svg"/>}
             >Valenciá</DropdownItem>

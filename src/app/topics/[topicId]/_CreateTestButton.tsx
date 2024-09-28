@@ -17,7 +17,7 @@ export default function CreateTestButton({ topicId }: { topicId: number }) {
     const t = useTranslations();
 
     return <>
-        <Button color="primary" startContent={<IconTextPlus/>} onClick={onOpen}>{t("Dash.Topic.create_test")}</Button>
+        <Button color="primary" startContent={<IconTextPlus/>} onPress={onOpen}>{t("Dash.Topic.create_test")}</Button>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}

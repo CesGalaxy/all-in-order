@@ -78,7 +78,7 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
         className="w-full h-full flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
         <header className="flex items-center justify-between">
             <nav className="flex gap-4 items-center">
-                <Button radius="full" isIconOnly variant="light" onClick={() => router.back()}>
+                <Button radius="full" isIconOnly variant="light" onPress={() => router.back()}>
                     <IconChevronLeft/>
                 </Button>
                 <h2 className="text-3xl vt-name-[doc-name]">{docName}</h2>
@@ -90,7 +90,7 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
                     </Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button color="primary" startContent={<IconDeviceFloppy/>} onClick={save}>
+                    <Button color="primary" startContent={<IconDeviceFloppy/>} onPress={save}>
                         Save
                     </Button>
                     <Dropdown>

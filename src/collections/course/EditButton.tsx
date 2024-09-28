@@ -80,11 +80,10 @@ export default function EditCourseButton({ course, action }: {
                                 </Button>
                                 <Button
                                     color="primary"
-                                    onPress={onClose}
                                     startContent={<IconDeviceFloppy/>}
                                     isDisabled={!isValid}
                                     isLoading={loading}
-                                    onClick={async () => {
+                                    onPress={async () => {
                                         setLoading(true);
                                         const error = await action();
                                         setLoading(false);

@@ -2,7 +2,7 @@ import { BaseQuestion } from "@/features/beta_question/index";
 
 export type ChoicesInputMethod = 'checklist' | 'slots';
 
-export interface QuestionChoiceData extends BaseQuestion {
+export interface QuestionChoiceData extends BaseQuestion<"choice"> {
     choices: Record<string, boolean>,
     method: ChoicesInputMethod,
     single: boolean,
