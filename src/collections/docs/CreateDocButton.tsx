@@ -8,7 +8,7 @@ import { useState } from "react";
 import { createTopicDocument } from "@/supabase/storage/topic_documents";
 import { useTranslations } from "next-intl";
 
-export default function CreateDocumentButton({ topicId }: { topicId: number }) {
+export default function CreateDocButton({ topicId }: { topicId: number }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [name, setName] = useState("");
     const [error, setError] = useState<string>();

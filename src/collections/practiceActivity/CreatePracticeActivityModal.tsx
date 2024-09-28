@@ -3,26 +3,42 @@
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Input, Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import { IconExclamationCircle, IconListCheck, IconMist, IconPlus } from "@tabler/icons-react";
+import {
+    IconExclamationCircle,
+    IconLine,
+    IconListCheck,
+    IconMist,
+    IconPlayCard,
+    IconPlus,
+    IconSquareRoundedCheck
+} from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
-import { QuestionDraft } from "@/features/beta_question";
+import { QuestionData, QuestionDraft } from "@/features/beta_question";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";
 import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
 import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFillTheGapQuestion";
+import { Chip } from "@nextui-org/chip";
 
 const QUESTION_CREATORS = {
     "choice": CreateChoiceQuestion,
     "fill_the_gap": CreateFillTheGapQuestion,
+    "fill_the_gap2": CreateFillTheGapQuestion,
+    "fill_the_gap3": CreateFillTheGapQuestion,
+    "fill_the_gap4": CreateFillTheGapQuestion,
 }
 
 export default function CreatePracticeActivityModal({ action }: {
-    action: (title: string, details: string) => Promise<string | undefined>
+    action: (data: QuestionData, tags: string[]) => Promise<string | undefined>
 }) {
     const [title, setTitle] = useState("");
     const [details, setDetails] = useState("");
-    const [questionType, setQuestionType] = useState<"choice" | "fill_the_gap">("fill_the_gap");
+
+    const [tags, setTags] = useState<string[]>([]);
+    const [newTag, setNewTag] = useState("");
+
+    const [questionType, setQuestionType] = useState<"choice" | "fill_the_gap">("choice");
 
     const [draft, setDraft] = useState<QuestionDraft>();
 
@@ -65,6 +81,15 @@ export default function CreatePracticeActivityModal({ action }: {
                             <SelectItem key="fill_the_gap" startContent={<IconMist/>}>
                                 Fill the gap
                             </SelectItem>
+                            <SelectItem key="fill_the_gap2" startContent={<IconSquareRoundedCheck/>}>
+                                True or false
+                            </SelectItem>
+                            <SelectItem key="fill_the_gap3" startContent={<IconLine/>}>
+                                Relation
+                            </SelectItem>
+                            <SelectItem key="fill_the_gap4" startContent={<IconPlayCard/>}>
+                                Pairs
+                            </SelectItem>
                         </Select>
                     </div>
                     <Textarea
@@ -75,6 +100,34 @@ export default function CreatePracticeActivityModal({ action }: {
                         maxLength={512}
                         value={details}
                         onValueChange={setDetails}
+                    />
+                    <Input
+                        label="Tags"
+                        placeholder={tags.length > 4 ? "You can only add up to 5 tags" : "Enter tags separated by commas"}
+                        variant="bordered"
+                        disabled={tags.length > 4}
+                        value={newTag}
+                        onValueChange={setNewTag}
+                        labelPlacement="outside"
+                        onKeyDown={e => {
+                            if (e.key === "Enter" || e.key === "," || e.key === " ") {
+                                e.preventDefault();
+
+                                const tag = newTag.trim().toLowerCase();
+
+                                // Prevent duplicates or more than 5 tags
+                                if (tags.includes(tag) || tags.length > 4) return;
+
+                                setTags([...tags, tag]);
+                                setNewTag("");
+                            }
+                        }}
+                        size="sm"
+                        startContent={<ul className="flex gap-2 w-fit max-w-1/2 -ml-2 ml-1">{tags.map(tag =>
+                            <Chip key={tag} onClose={() => setTags(tags.filter(t => t !== tag))} as="li" radius="sm">
+                                {tag}
+                            </Chip>
+                        )}</ul>}
                     />
                     <Divider/>
                     <QuestionCreator draft={draft as any} setDraft={setDraft}/>
@@ -92,14 +145,17 @@ export default function CreatePracticeActivityModal({ action }: {
                     <Button
                         color="primary"
                         startContent={<IconPlus/>}
-                        isDisabled={loading || !title}
+                        isDisabled={!title}
                         isLoading={loading}
                         onPress={async () => {
-                            console.log(draft);
-                            return;
+                            if (typeof draft !== "object" || loading || !title || tags.length > 5) return;
 
                             setLoading(true);
-                            const error = await action(title, details);
+
+                            const data: QuestionData = { title, details, ...draft } as QuestionData;
+
+                            const error = await action(data, tags);
+
                             setLoading(false);
 
                             if (error) {

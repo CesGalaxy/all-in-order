@@ -4,13 +4,13 @@ import { Button } from "@nextui-org/button";
 import { IconSparkles } from "@tabler/icons-react";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
-import createActivityAction from "@/collections/practiceActivity/actions/createActivityAction";
+import createPracticeActivity from "@/collections/practiceActivity/actions";
 
-export default function NoPracticeActivities({ practiceId }: { practiceId: number }) {
+export default function NoPracticeActivities({ practiceId, topicId }: { practiceId: number, topicId: number }) {
     return <Blank title="No activities found" image={addPracticeImage} alt="No activities">
         <nav className="flex flex-col gap-2">
             <CreatePracticeActivityButton>
-                <CreatePracticeActivityModal action={createActivityAction.bind(null, practiceId)}/>
+                <CreatePracticeActivityModal action={createPracticeActivity.bind(null, topicId, practiceId)}/>
             </CreatePracticeActivityButton>
             <Button startContent={<IconSparkles/>}>Generate with AI</Button>
         </nav>

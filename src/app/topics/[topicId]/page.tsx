@@ -1,6 +1,6 @@
 import required from "@/lib/helpers/required";
 import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
-import CreateDocumentButton from "@/app/topics/[topicId]/_CreateDocumentButton";
+import CreateDocButton from "@/collections/docs/CreateDocButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Button, ButtonGroup } from "@nextui-org/button";
@@ -11,6 +11,7 @@ import PageContainer from "@/components/containers/Page";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import NoPractices from "@/collections/practice/NoPractices";
+import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
     const topicRequest = getSupabase()
@@ -44,7 +45,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t('Dash.Topic.no_documents')}</h3>
                     <p>{t("Dash.Topic.no_documents_yet")}</p>
-                    <CreateDocumentButton topicId={topic.id}/>
+                    <CreateDocButton topicId={topic.id}/>
                 </div>
                 : <div className="grid grid-cols-3 gap-4">
                     {docs.map(doc => <Card key={doc.id}>
@@ -102,7 +103,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t("Dash.Topic.no_tests")}</h3>
                     <p>{t("Dash.Topic.no_tests_details")}</p>
-                    {/*<CreateTestButton topicId={topic.id}/>*/}
+                    <CreateTestButton topicId={topic.id}/>
                 </div>
                 : <ul className="grid grid-cols-3 gap-4">
                     {tests.map(test => <Card key={test.id} as="li">
