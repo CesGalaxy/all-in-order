@@ -25,6 +25,7 @@
     "@nextui-org/select": "^2.2.5",
     "@nextui-org/system": "^2.2.5",
     "@nextui-org/theme": "^2.2.9",
+    "@nextui-org/tooltip": "^2.0.41",
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.45.2",
     "@tabler/icons-react": "^3.14.0",

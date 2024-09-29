@@ -27,7 +27,7 @@ export default function CreateChoiceQuestion({ draft, setDraft }: {
 
     useEffect(() => {
         if (areChoicesValid) {
-            const choicesMap = Object.fromEntries(choices.map(([id, choice, isCorrect]) => [id, isCorrect]));
+            const choicesMap = Object.fromEntries(choices.map(([_, choice, isCorrect]) => [choice, isCorrect]));
 
             setDraft({ choices: choicesMap, method, single });
         }

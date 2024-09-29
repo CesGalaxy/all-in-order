@@ -4,6 +4,7 @@ import { QuestionData } from "@/features/beta_question";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getMyProfile } from "@/supabase/models/Profile";
+import { Json } from "@/supabase/database";
 
 export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
     const { id } = await getMyProfile();
@@ -12,7 +13,7 @@ export async function createActivityAndReturn(topicId: number, question: Questio
         .from("topic_activities")
         .insert({
             topic_id: topicId,
-            data: question,
+            data: question as unknown as Json,
             tags,
             created_by: id,
         })

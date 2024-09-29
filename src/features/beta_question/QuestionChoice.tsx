@@ -18,3 +18,13 @@ export interface QuestionChoiceAttempt {
 export interface QuestionChoiceAnswer {
     selectedChoices: string[],
 }
+
+export function generateChoiceQuestionAttempt(data: QuestionChoiceData): QuestionChoiceAttempt {
+    const shuffledChoices = Object.keys(data.choices).sort(() => Math.random() - 0.5);
+    return {
+        choices: shuffledChoices,
+        correctChoices: Object.values(data.choices).filter(Boolean).length,
+        single: data.single,
+        method: data.method,
+    }
+}

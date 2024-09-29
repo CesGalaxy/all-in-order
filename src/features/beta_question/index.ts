@@ -1,5 +1,6 @@
 import { Json } from "@/supabase/database";
 import {
+    generateChoiceQuestionAttempt,
     QuestionChoiceAnswer,
     QuestionChoiceAttempt,
     QuestionChoiceData
@@ -16,11 +17,20 @@ export interface BaseQuestion<T extends Json> {
     type: T;
 }
 
-export type QuestionData = (QuestionChoiceData | QuestionFillTheGapData) & Json;
-export type QuestionAttempt = (QuestionChoiceAttempt | QuestionFillTheGapAttempt) & Json;
-export type QuestionAnswer = (QuestionChoiceAnswer | QuestionFillTheGapAnswer) & Json;
+export type QuestionData = QuestionChoiceData | QuestionFillTheGapData;
+export type QuestionAttempt = QuestionChoiceAttempt | QuestionFillTheGapAttempt;
+export type QuestionAnswer = QuestionChoiceAnswer | QuestionFillTheGapAnswer;
 
 export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U extends Json = any> =
     Omit<T, "title" | "details" | "type">
     | string
     | undefined;
+
+export const QUESTION_ATTEMPT_GENERATORS = {
+    choice: generateChoiceQuestionAttempt,
+    fill_the_gap: generateChoiceQuestionAttempt,
+}
+
+export function generateQuestionAttempt<T extends QuestionData>(data: T): QuestionAttempt {
+    return QUESTION_ATTEMPT_GENERATORS[data.type](data as any);
+}

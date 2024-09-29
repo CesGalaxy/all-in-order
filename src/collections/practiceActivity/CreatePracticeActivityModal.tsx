@@ -75,6 +75,7 @@ export default function CreatePracticeActivityModal({ action }: {
                                 e.currentKey && setQuestionType(e.currentKey as any);
                             }}
                         >
+                            {/* TODO: Use Icons & dynamic content */}
                             <SelectItem key="choice" startContent={<IconListCheck/>}>
                                 Multiple choice
                             </SelectItem>

@@ -81,12 +81,12 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                         </CardHeader>
                         <CardBody className="w-full flex-row items-center justify-evenly px-0">
                             <div className="w-fit flex flex-col items-center">
-                                <span className="text-default text-xs uppercase">SCORE</span>
-                                <span>100%</span>
+                                <span className="text-default-500 text-xs uppercase">SCORE</span>
+                                <b>100%</b>
                             </div>
                             <div className="w-fit flex flex-col items-center">
-                                <span className="text-default text-xs uppercase">ATTEMPTS</span>
-                                <span>8</span>
+                                <span className="text-default-500 text-xs uppercase">ATTEMPTS</span>
+                                <b>8</b>
                             </div>
                         </CardBody>
                         <CardFooter>
