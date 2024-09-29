@@ -12,7 +12,7 @@ import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import NoPractices from "@/collections/practice/NoPractices";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
-import { Tooltip } from "@nextui-org/tooltip";
+import PracticeButton from "@/app/topics/[topicId]/_PracticeButton";
 
 const FLEX_AND_GRID = "flex w-[calc(100%,16px)] sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
 
@@ -82,28 +82,18 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                         </CardHeader>
                         <CardBody className="w-full flex-row items-center justify-evenly px-0">
                             <div className="w-fit flex flex-col items-center">
-                                <span className="text-default-500 text-xs uppercase">SCORE</span>
+                                <Link href={`/practices/${practice.id}/attempts`}
+                                      className="text-default-500 text-xs uppercase">SCORE</Link>
                                 <b>100%</b>
                             </div>
                             <div className="w-fit flex flex-col items-center">
-                                <span className="text-default-500 text-xs uppercase">ATTEMPTS</span>
+                                <Link href={`/practices/${practice.id}/attempts`}
+                                      className="text-default-500 text-xs uppercase">ATTEMPTS</Link>
                                 <b>8</b>
                             </div>
                         </CardBody>
                         <CardFooter>
-                            <ButtonGroup className="w-full">
-                                <Tooltip content={practice.activities[0]!.count + " questions"} placement="bottom">
-                                    <Button color="primary" className="w-full" startContent={<IconPlayerPlay/>}>
-                                        {t("Global.start")}
-                                    </Button>
-                                </Tooltip>
-                                <Button isIconOnly as={Link} href={`/practices/${practice.id}`}>
-                                    <IconEye/>
-                                </Button>
-                                <Button color="danger" isIconOnly>
-                                    <IconTrash/>
-                                </Button>
-                            </ButtonGroup>
+                            <PracticeButton practiceId={practice.id}/>
                         </CardFooter>
                     </Card>)}
                 </ul>

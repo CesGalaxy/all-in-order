@@ -36,7 +36,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
 
     const { activities, id, title, topic_id } = required(data, topicPath);
 
-    return <AsideModalContainer title={title} className="sm:w-1/2">
+    return <AsideModalContainer title={title} className="md:w-1/2 md:min-w-96">
         {activities.length === 0
             ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
             : <div className="p-4">
@@ -52,7 +52,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
                             <div className="w-full flex-grow">
                                 <div className="flex items-center gap-2">
                                     <Tooltip content={data.type.replaceAll('_', ' ').toUpperCase()}>
-                                        <QuestionIcon type={data.type}/>
+                                        <QuestionIcon type={data.type} className="hidden xl:block"/>
                                     </Tooltip>
                                     <h1 className="text-xl font-medium">{data.title}</h1>
                                 </div>
