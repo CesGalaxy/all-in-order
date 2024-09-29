@@ -13,33 +13,28 @@ import ErrorView from "@/components/views/ErrorView";
 import NoPractices from "@/collections/practice/NoPractices";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 
+const FLEX_AND_GRID = "flex w-[calc(100%,16px)] sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
+
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const topicRequest = getSupabase()
+    const dbRequest = getSupabase()
         .from("topics")
-        .select()
+        .select("*, practices(*)")
         .eq("id", parseInt(topicId))
         .maybeSingle();
 
-    const practicesRequest = getSupabase()
-        .from("practices")
-        .select()
-        .eq("topic_id", parseInt(topicId));
+    const docsRequest = getAllTopicDocuments(parseInt(topicId));
 
     const t = await getTranslations();
 
-    const { data: topicData, error: topicError } = await topicRequest;
-    if (topicError) return <ErrorView message={topicError.message}/>;
-    const topic = required(topicData);
-
-    const { data: practicesData, error: practicesError } = await practicesRequest;
-    if (practicesError) return <ErrorView message={practicesError.message}/>;
-    const practices = required(practicesData);
+    const { data, error } = await dbRequest;
+    if (error) return <ErrorView message={error.message}/>;
+    const { practices, ...topic } = required(data);
 
     const tests: any[] = [] as const;
 
-    const docs = required(await getAllTopicDocuments(topic.id), "/topic/" + topic.id);
+    const docs = required(await docsRequest, "/topic/" + topic.id);
 
-    return <PageContainer className="flex-grow grid grid-cols-2 gap-8">
+    return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8">
         <SectionContainer title={t("App.documents")}>
             {!docs || docs.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
@@ -73,14 +68,27 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
         <SectionContainer title="Practice">
             {practices.length === 0
                 ? <NoPractices topicId={topic.id}/>
-                : <ul className="grid grid-cols-3">
-                    {practices.map(practice => <Card key={practice.id} as="li">
+                :
+                <ul className={FLEX_AND_GRID + " md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3"}>
+                    {practices.map(practice => <Card
+                        key={practice.id}
+                        as="li"
+                        className="min-w-64 sm:min-w-fit"
+                    >
                         <CardHeader className="items-end gap-2" as={Link} href={`/practices/${practice.id}`}>
                             <h3 className="text-xl text-foreground">{practice.title}</h3>
+                            {practice.description && <p>{practice.description}</p>}
                         </CardHeader>
-                        {practice.description && <CardBody>
-                            <p>{practice.description}</p>
-                        </CardBody>}
+                        <CardBody className="w-full flex-row items-center justify-evenly px-0">
+                            <div className="w-fit flex flex-col items-center">
+                                <span className="text-default text-xs uppercase">SCORE</span>
+                                <span>100%</span>
+                            </div>
+                            <div className="w-fit flex flex-col items-center">
+                                <span className="text-default text-xs uppercase">ATTEMPTS</span>
+                                <span>8</span>
+                            </div>
+                        </CardBody>
                         <CardFooter>
                             <ButtonGroup className="w-full">
                                 <Button color="primary" className="w-full" startContent={<IconPlayerPlay/>}>
@@ -98,7 +106,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 </ul>
             }
         </SectionContainer>
-        <SectionContainer title={t("App.tests")} className="w-full h-full col-span-2">
+        <SectionContainer title={t("App.tests")} className="w-full h-full lg:col-span-2">
             {!tests || tests.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t("Dash.Topic.no_tests")}</h3>
