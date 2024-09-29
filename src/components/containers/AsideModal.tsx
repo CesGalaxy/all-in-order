@@ -23,7 +23,7 @@ export default function AsideModalContainer({ children, closeUrl, title, classNa
             "bg-content2 text-content2-foreground max-w-full z-50 fixed",
             "w-full h-full top-0 right-0",
             "sm:mx-8 sm:w-[calc(100%-64px)] sm:h-[calc(100%-32px)] sm:rounded-xl",
-            "md:m-0 md:min-w-80 md:w-min md:rounded-none",
+            "md:m-0 md:min-w-80 md:w-min md:h-full md:rounded-none",
             className
         )}>
             <header

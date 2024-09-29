@@ -24,6 +24,7 @@
     "@nextui-org/navbar": "^2.0.36",
     "@nextui-org/select": "^2.2.5",
     "@nextui-org/system": "^2.2.5",
+    "@nextui-org/tabs": "^2.0.37",
     "@nextui-org/theme": "^2.2.9",
     "@nextui-org/tooltip": "^2.0.41",
     "@supabase/ssr": "^0.5.0",

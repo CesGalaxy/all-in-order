@@ -18,6 +18,7 @@ import QuestionSolutionButton from "@/app/topics/[topicId]/@aside/(...)practices
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
 import createPracticeActivity from "@/collections/practiceActivity/actions";
+import PracticeTabs from "@/app/topics/[topicId]/@aside/(...)practices/[practiceId]/_PracticeTabs";
 
 export default async function Page({ params: { topicId, practiceId } }: {
     params: { topicId: string, practiceId: string }
@@ -36,7 +37,12 @@ export default async function Page({ params: { topicId, practiceId } }: {
 
     const { activities, id, title, topic_id } = required(data, topicPath);
 
-    return <AsideModalContainer title={title} className="md:w-1/2 md:min-w-96">
+    return <AsideModalContainer
+        title={title}
+        className="md:w-1/2 md:min-w-96"
+        closeUrl={topicPath}
+        actions={<PracticeTabs currentTab="overview" practiceId={id}/>}
+    >
         {activities.length === 0
             ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
             : <div className="p-4">
