@@ -11,9 +11,13 @@ import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";
-import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { generateQuestionAttempt } from "@/features/beta_question";
 import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
+import QuestionSolutionButton from "@/app/topics/[topicId]/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
+import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
+import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
+import createPracticeActivity from "@/collections/practiceActivity/actions";
 
 export default async function Page({ params: { topicId, practiceId } }: {
     params: { topicId: string, practiceId: string }
@@ -36,27 +40,26 @@ export default async function Page({ params: { topicId, practiceId } }: {
         {activities.length === 0
             ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
             : <div className="p-4">
-                <ul className="">
-                    {(activities as PracticeActivityEntity[]).map(({ id, data }) => <Card
-                        as="li"
-                        key={id}
-                    >
+                <nav>
+                    <CreatePracticeActivityButton>
+                        <CreatePracticeActivityModal action={createPracticeActivity.bind(null, topic_id, id)}/>
+                    </CreatePracticeActivityButton>
+                </nav>
+                <br/>
+                <ul className="flex flex-col items-stretch gap-4">
+                    {(activities as PracticeActivityEntity[]).map(({ id, data }) => <Card as="li" key={id}>
                         <CardHeader className="items-start gap-4">
                             <div className="w-full flex-grow">
                                 <div className="flex items-center gap-2">
                                     <Tooltip content={data.type.replaceAll('_', ' ').toUpperCase()}>
                                         <QuestionIcon type={data.type}/>
                                     </Tooltip>
-                                    <h1 className="text-xl font-medium">{title}</h1>
+                                    <h1 className="text-xl font-medium">{data.title}</h1>
                                 </div>
                                 {data.details && <p className="text-sm text-gray-500">{data.details}</p>}
                             </div>
                             <ButtonGroup>
-                                <Tooltip content="Preview answer">
-                                    <Button isIconOnly variant="flat">
-                                        <IconEye/>
-                                    </Button>
-                                </Tooltip>
+                                <QuestionSolutionButton data={data}/>
                                 <Tooltip content="Edit question">
                                     <Button isIconOnly variant="flat">
                                         <IconEdit/>

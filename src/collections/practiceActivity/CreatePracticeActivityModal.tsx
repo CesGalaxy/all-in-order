@@ -153,7 +153,7 @@ export default function CreatePracticeActivityModal({ action }: {
 
                             setLoading(true);
 
-                            const data: QuestionData = { title, details, ...draft } as QuestionData;
+                            const data: QuestionData = { title, details, type: questionType, ...draft } as QuestionData;
 
                             const error = await action(data, tags);
 

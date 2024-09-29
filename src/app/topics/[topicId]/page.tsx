@@ -12,13 +12,14 @@ import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import NoPractices from "@/collections/practice/NoPractices";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
+import { Tooltip } from "@nextui-org/tooltip";
 
 const FLEX_AND_GRID = "flex w-[calc(100%,16px)] sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
     const dbRequest = getSupabase()
         .from("topics")
-        .select("*, practices(*)")
+        .select("*, practices(*, activities:topic_activities(count))")
         .eq("id", parseInt(topicId))
         .maybeSingle();
 
@@ -42,8 +43,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                     <p>{t("Dash.Topic.no_documents_yet")}</p>
                     <CreateDocButton topicId={topic.id}/>
                 </div>
-                : <div className="grid grid-cols-3 gap-4">
-                    {docs.map(doc => <Card key={doc.id}>
+                : <ul className="grid grid-cols-3 gap-4">
+                    {docs.map(doc => <Card key={doc.id} as="li">
                         <CardHeader className="items-end gap-2" as={Link}
                                     href={`/topics/${topic.id}/docs/${btoa(doc.name)}`}>
                             <h3 className="text-xl text-foreground">{doc.name.replace(/\.[a-z0-9]+$/i, "")}</h3>
@@ -62,7 +63,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                             </ButtonGroup>
                         </CardFooter>
                     </Card>)}
-                </div>
+                </ul>
             }
         </SectionContainer>
         <SectionContainer title="Practice">
@@ -91,9 +92,11 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                         </CardBody>
                         <CardFooter>
                             <ButtonGroup className="w-full">
-                                <Button color="primary" className="w-full" startContent={<IconPlayerPlay/>}>
-                                    {t("Global.start")}
-                                </Button>
+                                <Tooltip content={practice.activities[0]!.count + " questions"} placement="bottom">
+                                    <Button color="primary" className="w-full" startContent={<IconPlayerPlay/>}>
+                                        {t("Global.start")}
+                                    </Button>
+                                </Tooltip>
                                 <Button isIconOnly as={Link} href={`/practices/${practice.id}`}>
                                     <IconEye/>
                                 </Button>
