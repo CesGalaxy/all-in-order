@@ -14,6 +14,7 @@ import NavigationCard from "@/collections/course/NavigationCard";
 export default async function Home() {
     const t = await getTranslations();
 
+    // Get the public courses.
     const { data, error } = await getSupabase()
         .from("courses")
         .select("*, subjects(*, topics(*))")

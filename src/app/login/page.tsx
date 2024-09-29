@@ -1,3 +1,5 @@
+"use server";
+
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
@@ -5,14 +7,25 @@ import { z } from "zod";
 import { FORM_SCHEMAS, getFormFields } from "@/lib/helpers/form";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/supabase/server";
+import { getMaybeUser } from "@/lib/helpers/user";
 
 const AUTH_SCHEMA = z.object({
     email: FORM_SCHEMAS.EMAIL,
     password: FORM_SCHEMAS.PASSWORD,
-})
+});
 
-export default function Page() {
-    async function action_auth_login(formData: FormData) {
+export interface SearchParams {
+    redirectUrl?: string;
+}
+
+export default async function Page({ searchParams: { redirectUrl } }: { searchParams: SearchParams }) {
+    const maybeUser = await getMaybeUser();
+
+    if (maybeUser) {
+        redirect(redirectUrl || "/app");
+    }
+
+    async function login(formData: FormData) {
         "use server";
 
         // Create the supabase client
@@ -37,7 +50,7 @@ export default function Page() {
         }
 
         // Finally, redirect the user to the home page
-        redirect("/app");
+        redirect(redirectUrl || "/app");
     }
 
     return <div className="flex items-center justify-center w-full h-full">
@@ -46,7 +59,7 @@ export default function Page() {
                 <h1 className="text-4xl font-bold uppercase">Login</h1>
             </CardHeader>
             <CardBody>
-                <form action={action_auth_login}>
+                <form action={login}>
                     <Input isRequired label="Email" placeholder="someone@example.com" type="email" name="email"/>
                     <br/>
                     <Input isRequired label="Password" placeholder="" type="password" name="password"/>

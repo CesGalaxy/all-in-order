@@ -1,12 +1,14 @@
+// Imports
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type React from "react";
 import { getMaybeMyProfile } from "@/supabase/models/Profile";
-
-import "./globals.css";
-import 'react-toastify/dist/ReactToastify.min.css';
 import { ViewTransitions } from "next-view-transitions";
 import Providers from "@/app/providers";
+
+// Styles
+import 'react-toastify/dist/ReactToastify.min.css';
+import "./globals.css";
 
 const kanit = Kanit({ weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin"] });
 
