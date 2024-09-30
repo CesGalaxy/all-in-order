@@ -6,6 +6,7 @@ import {
     QuestionChoiceData
 } from "@/features/beta_question/QuestionChoice";
 import {
+    generateFillTheGapQuestionAttempt,
     QuestionFillTheGapAnswer,
     QuestionFillTheGapAttempt,
     QuestionFillTheGapData
@@ -28,7 +29,7 @@ export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U exten
 
 export const QUESTION_ATTEMPT_GENERATORS = {
     choice: generateChoiceQuestionAttempt,
-    fill_the_gap: generateChoiceQuestionAttempt,
+    fill_the_gap: generateFillTheGapQuestionAttempt,
 }
 
 export function generateQuestionAttempt<T extends QuestionData>(data: T): QuestionAttempt {

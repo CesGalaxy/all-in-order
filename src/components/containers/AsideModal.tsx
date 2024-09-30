@@ -20,6 +20,7 @@ export default function AsideModalContainer({ children, closeUrl, title, classNa
     return <>
         <div className="fixed w-full h-full top-0 left-0 bg-black/50 z-40" onClick={close}/>
         <aside className={twMerge(
+            "flex flex-col",
             "bg-content2 text-content2-foreground max-w-full z-50 fixed",
             "w-full h-full top-0 right-0",
             "sm:mx-8 sm:w-[calc(100%-64px)] sm:h-[calc(100%-32px)] sm:rounded-xl",
@@ -27,7 +28,7 @@ export default function AsideModalContainer({ children, closeUrl, title, classNa
             className
         )}>
             <header
-                className="p-2 flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4 bg-content3 text-content3-foreground">
+                className="p-2 flex flex-col xl:flex-row items-start xl:items-center xl:justify-between gap-4 bg-content3 text-content3-foreground">
                 <nav className="flex items-center justify-start gap-4">
                     <Button isIconOnly onPress={close}>
                         <IconArrowBack/>
@@ -38,7 +39,9 @@ export default function AsideModalContainer({ children, closeUrl, title, classNa
                     {actions}
                 </div>}
             </header>
-            {children}
+            <div className="w-full h-full flex-grow overflow-y-auto">
+                {children}
+            </div>
         </aside>
     </>;
 }

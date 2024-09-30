@@ -13,6 +13,10 @@ import ErrorView from "@/components/views/ErrorView";
 import NoPractices from "@/collections/practice/NoPractices";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
 import PracticeButton from "@/app/topics/[topicId]/_PracticeButton";
+import CreatePracticeIconButton from "@/collections/practice/CreatePracticeIconButton";
+import CreatePracticeModal from "@/collections/practice/CreatePracticeModal";
+import { getMyProfile } from "@/supabase/models/Profile";
+import { redirect } from "next/navigation";
 
 const FLEX_AND_GRID = "flex w-[calc(100%,16px)] sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
 
@@ -34,6 +38,22 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
     const tests: any[] = [] as const;
 
     const docs = required(await docsRequest, "/topic/" + topic.id);
+
+    async function createPracticeAction(title: string, description: string) {
+        "use server";
+
+        const { id } = await getMyProfile();
+
+        const { data, error } = await getSupabase()
+            .from("practices")
+            .insert({ topic_id: topic.id, title, description, created_by: id })
+            .select("id")
+            .maybeSingle();
+
+        if (error) return error.message;
+
+        redirect("/practices/" + data!.id);
+    }
 
     return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8">
         <SectionContainer title={t("App.documents")}>
@@ -66,7 +86,9 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 </ul>
             }
         </SectionContainer>
-        <SectionContainer title="Practice">
+        <SectionContainer title="Practice" trailing={practices.length > 0 && <CreatePracticeIconButton>
+            <CreatePracticeModal action={createPracticeAction}/>
+        </CreatePracticeIconButton>}>
             {practices.length === 0
                 ? <NoPractices topicId={topic.id}/>
                 :

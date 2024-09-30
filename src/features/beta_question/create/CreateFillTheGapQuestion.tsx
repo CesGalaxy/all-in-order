@@ -48,7 +48,9 @@ export default function CreateFillTheGapQuestion({ draft, setDraft }: {
             const positionedGaps: Gap[] = rawSegments.map((segment, i) => {
                 if (typeof segment === "string") return undefined;
 
-                const position = rawSegments.slice(0, i).reduce((acc, curr) => acc + (typeof curr === "string" ? curr.length : 0), 0);
+                const position = rawSegments
+                    .slice(0, i)
+                    .reduce((acc, curr) => acc + (typeof curr === "string" ? curr.length : 0), 0) - 1;
 
                 return { ...segment, position };
             }).filter((segment): segment is Gap => segment !== undefined);
