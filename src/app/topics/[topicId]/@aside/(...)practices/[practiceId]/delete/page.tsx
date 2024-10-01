@@ -17,7 +17,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
 }) {
     const { data, error } = await getSupabase()
         .from("practices")
-        .select("id, title, topic_id, activities:topic_activities(count)")
+        .select("id, title, activities:topic_activities(count)")
         .eq("id", parseInt(practiceId))
         .maybeSingle();
 
@@ -27,7 +27,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
         <ErrorView message={error.message}/>
     </AsideModalContainer>;
 
-    const { activities: [{ count: activitiesCount }], id, title, topic_id } = required(data, topicPath);
+    const { activities: [{ count: activitiesCount }], id, title } = required(data, topicPath);
 
     return <AsideModalContainer
         title={title}

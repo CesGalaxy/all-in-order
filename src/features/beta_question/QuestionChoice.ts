@@ -28,3 +28,7 @@ export function generateChoiceQuestionAttempt(data: QuestionChoiceData): Questio
         method: data.method,
     }
 }
+
+export const choiceQuestionInitialAnswerDraft: QuestionChoiceAnswer = {
+    selectedChoices: [],
+}

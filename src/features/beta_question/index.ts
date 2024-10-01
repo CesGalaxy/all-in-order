@@ -1,11 +1,13 @@
 import { Json } from "@/supabase/database";
 import {
+    choiceQuestionInitialAnswerDraft,
     generateChoiceQuestionAttempt,
     QuestionChoiceAnswer,
     QuestionChoiceAttempt,
     QuestionChoiceData
 } from "@/features/beta_question/QuestionChoice";
 import {
+    fillTheGapQuestionInitialAnswerDraft,
     generateFillTheGapQuestionAttempt,
     QuestionFillTheGapAnswer,
     QuestionFillTheGapAttempt,
@@ -34,4 +36,9 @@ export const QUESTION_ATTEMPT_GENERATORS = {
 
 export function generateQuestionAttempt<T extends QuestionData>(data: T): QuestionAttempt {
     return QUESTION_ATTEMPT_GENERATORS[data.type](data as any);
+}
+
+export const QUESTION_INITIAL_ANSWER_DRAFTS = {
+    choice: choiceQuestionInitialAnswerDraft,
+    fill_the_gap: fillTheGapQuestionInitialAnswerDraft,
 }
