@@ -1,6 +1,16 @@
 "use client";
 
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+    createContext,
+    Dispatch,
+    type ReactNode,
+    SetStateAction,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState
+} from "react";
 import { QuestionAnswer, QuestionAttempt, QuestionData } from "@/features/beta_question";
 
 export interface Activity {
@@ -16,7 +26,7 @@ export interface Activity {
 export interface ExamContextData {
     readonly activities: Activity[];
     readonly currentActivityIndex: number;
-    readonly setCurrentActivityIndex: (index: number) => void;
+    readonly setCurrentActivityIndex: Dispatch<SetStateAction<number>>;
     readonly currentActivity: Activity;
     readonly updateCurrentActivity: (activity: Partial<Activity>) => void;
     readonly startedAt: number;

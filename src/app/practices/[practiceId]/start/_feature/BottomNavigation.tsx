@@ -12,11 +12,27 @@ import {
 } from "@tabler/icons-react";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Chip } from "@nextui-org/chip";
+import { validateQuestion } from "@/features/beta_question";
 
 export default function BottomNavigation() {
-    const { activities, currentActivity, currentActivityIndex, setCurrentActivityIndex } = useExam();
+    const {
+        activities,
+        currentActivity,
+        currentActivityIndex,
+        setCurrentActivityIndex,
+        updateCurrentActivity
+    } = useExam();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const submitAnswer = () => {
+        if (!currentActivity.answerDraft) return;
+
+        updateCurrentActivity({ answerDraft: undefined, answer: currentActivity.answerDraft });
+
+        const isCorrect = validateQuestion(currentActivity.data, currentActivity.answerDraft);
+        console.log(isCorrect);
+    }
 
     return <>
         <ButtonGroup className="w-full">
@@ -28,7 +44,7 @@ export default function BottomNavigation() {
             </Button>
             <Button
                 className="flex-grow font-medium"
-                onPress={currentActivity.answerDraft ? undefined : onOpen}
+                onPress={currentActivity.answerDraft ? submitAnswer : onOpen}
                 variant={currentActivity.answerDraft ? "shadow" : "bordered"}
                 color={currentActivity.answerDraft ? "success" : "default"}
                 startContent={currentActivity.answerDraft

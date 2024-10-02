@@ -61,7 +61,7 @@ export default async function Page({ params: { practiceId } }: { params: { pract
                     <CurrentQuestionTitle/>
                 </nav>
             </header>
-            <div className="w-full h-full flex-grow">
+            <div className="w-full h-full flex-grow container mx-auto">
                 <ExamActivity/>
             </div>
             <footer className="bg-content2 text-content2-foreground flex flex-col items-center gap-4 p-4 relative">

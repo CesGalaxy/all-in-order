@@ -7,7 +7,7 @@ import { Divider } from "@nextui-org/divider";
 interface Props {
     attempt: QuestionChoiceAttempt,
     draft?: QuestionChoiceAnswer,
-    setAnswer: (answer: QuestionChoiceAnswer) => void
+    setAnswer: (answer?: QuestionChoiceAnswer) => void
 }
 
 function ExaminateChoiceQuestion({ attempt, draft, setAnswer }: Props) {
@@ -37,7 +37,7 @@ function Single({ attempt: { choices }, draft, setAnswer }: Props) {
             <Button
                 className="w-full"
                 onPress={() => draft?.selectedChoices.includes(choice)
-                    ? setAnswer({ selectedChoices: [] })
+                    ? setAnswer(undefined)
                     : setAnswer({ selectedChoices: [choice] })}
                 color={draft?.selectedChoices.includes(choice) ? "primary" : "default"}
             >
@@ -52,7 +52,9 @@ function Multiple({ attempt: { choices }, draft, setAnswer }: Props) {
             <Button
                 className="w-full"
                 onPress={() => draft?.selectedChoices.includes(choice)
-                    ? setAnswer({ selectedChoices: draft.selectedChoices.filter(c => c !== choice) })
+                    ? draft.selectedChoices.length > 1
+                        ? setAnswer({ selectedChoices: draft.selectedChoices.filter(c => c !== choice) })
+                        : setAnswer(undefined)
                     : setAnswer({ selectedChoices: [...(draft?.selectedChoices || []), choice] })}
                 color={draft?.selectedChoices.includes(choice) ? "primary" : "default"}
             >

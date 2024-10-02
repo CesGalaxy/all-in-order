@@ -29,6 +29,17 @@ export function generateChoiceQuestionAttempt(data: QuestionChoiceData): Questio
     }
 }
 
-export const choiceQuestionInitialAnswerDraft: QuestionChoiceAnswer = {
-    selectedChoices: [],
+export function validateChoiceQuestion({ choices, single }: QuestionChoiceData, answer: QuestionChoiceAnswer): boolean {
+    if (single) {
+        // If the question is single choice, the answer is correct if it matches at least one of the correct choices
+        return Object.keys(choices).length === 0
+            || Object
+                .entries(choices)
+                .some(([choice, correct]) => !correct && answer.selectedChoices.includes(choice))
+    } else {
+        // If the question is multiple choice, the answer is correct if it matches all the correct choices
+        return Object
+            .entries(choices)
+            .every(([choice, correct]) => correct === answer.selectedChoices.includes(choice))
+    }
 }

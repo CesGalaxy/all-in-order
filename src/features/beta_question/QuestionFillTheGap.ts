@@ -63,7 +63,3 @@ export function generateFillTheGapQuestionAttempt(data: QuestionFillTheGapData):
 
     return { segments };
 }
-
-export const fillTheGapQuestionInitialAnswerDraft: QuestionFillTheGapAnswer = {
-    answers: [],
-}
