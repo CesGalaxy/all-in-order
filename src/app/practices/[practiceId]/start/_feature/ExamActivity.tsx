@@ -2,29 +2,25 @@
 
 import { useExam } from "@/app/practices/[practiceId]/start/_feature/ExamContext";
 import ExaminateChoiceQuestion from "@/app/practices/[practiceId]/start/_feature/questions/ExaminateChoiceQuestion";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { QuestionAnswer } from "@/features/beta_question";
 import { AnimatePresence, motion } from "framer-motion";
 
 const variants = {
-    enter: (direction: number) => {
-        return {
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0
-        };
-    },
+    enter: (direction: number) => ({
+        x: direction > 0 ? 1000 : -1000,
+        opacity: 0
+    }),
     center: {
-        zIndex: 1,
+        //zIndex: 1,
         x: 0,
         opacity: 1
     },
-    exit: (direction: number) => {
-        return {
-            zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
-            opacity: 0
-        };
-    }
+    exit: (direction: number) => ({
+        //zIndex: 0,
+        x: direction < 0 ? 1000 : -1000,
+        opacity: 0
+    }),
 };
 
 const swipeConfidenceThreshold = 10000;
@@ -48,11 +44,24 @@ export default function ExamActivity() {
         (answer?: QuestionAnswer) => updateCurrentActivity({ answerDraft: answer }),
         [updateCurrentActivity]);
 
-    return <AnimatePresence initial={false}>
+    const [animationDirection, setAnimationDirection] = useState<-1 | 0 | 1>(0);
+
+    const nextActivity = useCallback(() => {
+        setAnimationDirection(1);
+        setCurrentActivityIndex(currentIndex => currentIndex + 1);
+    }, [setCurrentActivityIndex]);
+
+    const prevActivity = useCallback(() => {
+        setAnimationDirection(-1);
+        setCurrentActivityIndex(currentIndex => currentIndex === 0 ? currentIndex : currentIndex - 1);
+    }, [setCurrentActivityIndex]);
+
+    return <AnimatePresence initial={false} custom={animationDirection}>
         <motion.div
             key={id}
-            className="w-full h-full p-4"
+            className="w-full h-full p-4 absolute"
             variants={variants}
+            custom={animationDirection}
             initial="enter"
             animate="center"
             exit="exit"
@@ -67,11 +76,9 @@ export default function ExamActivity() {
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
-                    if (answer) setCurrentActivityIndex(currentIndex => currentIndex + 1);
+                    if (answer) nextActivity();
                 } else if (swipe > swipeConfidenceThreshold) {
-                    setCurrentActivityIndex(currentIndex => currentIndex === 0
-                        ? currentIndex
-                        : currentIndex - 1);
+                    prevActivity();
                 }
             }}
         >

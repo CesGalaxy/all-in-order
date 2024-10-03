@@ -57,11 +57,11 @@ export default async function Page({ params: { practiceId } }: { params: { pract
                         <p className="text-lg font-bold text-inherit">{title}</p>
                     </NavbarContent>
                 </Navbar>
-                <nav className="px-2 pb-2 flex items-center gap-4">
+                <nav className="px-2 pb-2 --flex --items-center gap-4 grid grid-cols-1 grid-rows-1">
                     <CurrentQuestionTitle/>
                 </nav>
             </header>
-            <div className="w-full h-full flex-grow container mx-auto">
+            <div className="w-full h-full flex-grow container mx-auto relative">
                 <ExamActivity/>
             </div>
             <footer className="bg-content2 text-content2-foreground flex flex-col items-center gap-4 p-4 relative">
