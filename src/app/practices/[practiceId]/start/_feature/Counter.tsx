@@ -8,7 +8,7 @@ import { IconClock } from "@tabler/icons-react";
 export default function Counter() {
     const { startedAt } = useExam();
 
-    const [secondsPassed, setSecondsPassed] = useState(Math.floor((Date.now() - startedAt) / 1000));
+    const [secondsPassed, setSecondsPassed] = useState(0);
     const [hidden, setHidden] = useState(false);
 
     useEffect(() => {
