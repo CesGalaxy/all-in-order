@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function CurrentQuestionTitle() {
     const { currentActivity: { id, data: { title, details } } } = useExam();
 
-    return <AnimatePresence>
+    return <AnimatePresence initial={false}>
         <motion.header
             key={id}
             className="text-lg font-medium text-inherit w-full top-0"
