@@ -31,13 +31,23 @@ export function generateChoiceQuestionAttempt(data: QuestionChoiceData): Questio
 
 export function validateChoiceQuestion({ choices, single }: QuestionChoiceData, answer: QuestionChoiceAnswer): boolean {
     if (single) {
-        // If the question is single choice, the answer is correct if it matches at least one of the correct choices
-        return Object.keys(choices).length === 0
-            || Object
+        const multipleChoices = Object.values(choices).filter(Boolean).length > 1;
+
+        return multipleChoices
+            // At least one correct choice is selected
+            ? Object
+                .entries(choices)
+                .some(([choice, correct]) => correct && answer.selectedChoices.includes(choice))
+            // And no incorrect choices are selected
+            && !Object
                 .entries(choices)
                 .some(([choice, correct]) => !correct && answer.selectedChoices.includes(choice))
+            // And all correct choices (1) are selected
+            : Object
+                .entries(choices)
+                .every(([choice, correct]) => correct == answer.selectedChoices.includes(choice))
     } else {
-        // If the question is multiple choice, the answer is correct if it matches all the correct choices
+        // All correct choices are selected
         return Object
             .entries(choices)
             .every(([choice, correct]) => correct === answer.selectedChoices.includes(choice))
