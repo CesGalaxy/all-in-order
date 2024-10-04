@@ -17,7 +17,7 @@ import { validateQuestion } from "@/features/beta_question";
 export default function BottomNavigation() {
     const {
         activities,
-        currentActivity,
+        currentActivity: { data, answer, answerDraft, correct },
         currentActivityIndex,
         setCurrentActivityIndex,
         updateCurrentActivity
@@ -26,16 +26,22 @@ export default function BottomNavigation() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const submitAnswer = () => {
-        if (!currentActivity.answerDraft) return;
+        if (!answerDraft) return;
 
-        updateCurrentActivity({ answerDraft: undefined, answer: currentActivity.answerDraft });
+        const correct = validateQuestion(data, answerDraft);
 
-        const isCorrect = validateQuestion(currentActivity.data, currentActivity.answerDraft);
-        console.log(isCorrect);
+        updateCurrentActivity({ answerDraft: undefined, answer: answerDraft, correct });
+        console.log(correct);
     }
 
+    const statusColor = answer
+        ? correct
+            ? "success"
+            : "danger"
+        : "default";
+
     return <>
-        <ButtonGroup className="w-full">
+        <ButtonGroup className="w-full" color={statusColor}>
             <Button
                 onPress={() => setCurrentActivityIndex(currentActivityIndex - 1)}
                 isDisabled={currentActivityIndex === 0}
@@ -44,17 +50,17 @@ export default function BottomNavigation() {
             </Button>
             <Button
                 className="flex-grow font-medium"
-                onPress={currentActivity.answerDraft ? submitAnswer : onOpen}
-                variant={currentActivity.answerDraft ? "shadow" : "bordered"}
-                color={currentActivity.answerDraft ? "success" : "default"}
-                startContent={currentActivity.answerDraft
+                onPress={answerDraft ? submitAnswer : onOpen}
+                variant={answerDraft ? "shadow" : "bordered"}
+                color={answerDraft ? "success" : statusColor}
+                startContent={answerDraft
                     ? <IconCircleDashedCheck className="absolute left-2"/>
                     : "default"}
             >
-                {currentActivity.answerDraft ? "Confirm" : "Review activities"}
+                {answerDraft ? "Confirm" : "Review activities"}
             </Button>
             <Button
-                isDisabled={!currentActivity.answer}
+                isDisabled={!answer}
                 onPress={() => setCurrentActivityIndex(currentActivityIndex + 1)}
             >
                 <IconChevronRight/>
@@ -67,7 +73,7 @@ export default function BottomNavigation() {
                     <ModalBody as="ul" className="grid">
                         {activities.map((activity, i) => <Button
                             key={activity.id}
-                            isDisabled={!activity.answer && i !== currentActivityIndex}
+                            isDisabled={!(activity.answer || activity.answerDraft)}
                             color={activity.correct === true ? "success" : activity.correct === false ? "danger" : "default"}
                             onPress={() => {
                                 setCurrentActivityIndex(i);

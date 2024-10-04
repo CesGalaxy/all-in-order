@@ -5,6 +5,7 @@ import ExaminateChoiceQuestion from "@/app/practices/[practiceId]/start/_feature
 import { useCallback, useMemo, useState } from "react";
 import { QuestionAnswer } from "@/features/beta_question";
 import { AnimatePresence, motion } from "framer-motion";
+import ChoiceQuestionCorrection from "@/app/practices/[practiceId]/start/_feature/corrections/ChoiceQuestionCorrection";
 
 const variants = {
     enter: (direction: number) => ({
@@ -31,14 +32,20 @@ const QUESTION_EXAMINATIONS = {
     fill_the_gap: ExaminateChoiceQuestion,
 }
 
+const QUESTION_CORRECTIONS = {
+    choice: ChoiceQuestionCorrection,
+    fill_the_gap: ChoiceQuestionCorrection,
+}
+
 export default function ExamActivity() {
     const {
-        currentActivity: { id, data, attempt, answer, answerDraft },
+        currentActivity: { id, data, attempt, answer, answerDraft, correct },
         setCurrentActivityIndex,
         updateCurrentActivity
     } = useExam();
 
     const Examination = useMemo(() => QUESTION_EXAMINATIONS[data.type], [data.type]);
+    const Correction = useMemo(() => QUESTION_CORRECTIONS[data.type], [data.type]);
 
     const setAnswer = useCallback(
         (answer?: QuestionAnswer) => updateCurrentActivity({ answerDraft: answer }),
@@ -58,8 +65,8 @@ export default function ExamActivity() {
 
     return <AnimatePresence initial={false} custom={animationDirection}>
         <motion.div
-            key={id}
-            className="w-full h-full p-4 absolute"
+            key={id * (answer ? 1 : -1)}
+            className="w-full h-full p-4 absolute transition-background"
             variants={variants}
             custom={animationDirection}
             initial="enter"
@@ -83,7 +90,7 @@ export default function ExamActivity() {
             }}
         >
             {answer
-                ? <p>{JSON.stringify(answer)}</p>
+                ? <Correction {...{ data, attempt, answer, correct } as any}/>
                 : <Examination draft={answerDraft as any} attempt={attempt as any} setAnswer={setAnswer}/>
             }
         </motion.div>
