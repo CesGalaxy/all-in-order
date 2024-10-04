@@ -4,7 +4,7 @@ import { useExam } from "@/app/practices/[practiceId]/start/_feature/ExamContext
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function CurrentQuestionTitle() {
-    const { currentActivity: { id, data: { title, details } } } = useExam();
+    const { currentActivity: { id, tags, data: { title, details } } } = useExam();
 
     return <AnimatePresence initial={false}>
         <motion.header
@@ -17,7 +17,15 @@ export default function CurrentQuestionTitle() {
             transition={{ duration: 0.2 }}
         >
             <p>{title}</p>
-            {details && <p className="text-sm text-gray-500">{details}</p>}
+            {(details || tags) && <p className="text-sm">
+                {tags.map(tag => <span
+                    key={tag}
+                    className="px-1 bg-content3 rounded-md mr-1 text-content3-foreground"
+                >
+                    {tag}
+                </span>)}
+                <span>{details}</span>
+            </p>}
         </motion.header>
     </AnimatePresence>;
 }
