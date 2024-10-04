@@ -63,3 +63,10 @@ export function generateFillTheGapQuestionAttempt(data: QuestionFillTheGapData):
 
     return { segments };
 }
+
+export function validateFillTheGapQuestion({ gaps }: QuestionFillTheGapData, answer: QuestionFillTheGapAnswer): boolean {
+    return gaps.every((gap, index) => {
+        const answerValue = answer.answers[index];
+        return gap.correctValues.includes(answerValue) && !(gap.wrongValues || []).includes(answerValue);
+    });
+}

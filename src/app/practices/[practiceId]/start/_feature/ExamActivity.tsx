@@ -6,6 +6,10 @@ import { useCallback, useMemo, useState } from "react";
 import { QuestionAnswer } from "@/features/beta_question";
 import { AnimatePresence, motion } from "framer-motion";
 import ChoiceQuestionCorrection from "@/app/practices/[practiceId]/start/_feature/corrections/ChoiceQuestionCorrection";
+import ExaminateFillTheGapQuestion
+    from "@/app/practices/[practiceId]/start/_feature/questions/ExaminateFillTheGapQuestion";
+import FillTheGapQuestionCorrection
+    from "@/app/practices/[practiceId]/start/_feature/corrections/FillTheGapQuestionCorrection";
 
 const variants = {
     enter: (direction: number) => ({
@@ -29,12 +33,12 @@ const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velo
 
 const QUESTION_EXAMINATIONS = {
     choice: ExaminateChoiceQuestion,
-    fill_the_gap: ExaminateChoiceQuestion,
+    fill_the_gap: ExaminateFillTheGapQuestion,
 }
 
 const QUESTION_CORRECTIONS = {
     choice: ChoiceQuestionCorrection,
-    fill_the_gap: ChoiceQuestionCorrection,
+    fill_the_gap: FillTheGapQuestionCorrection,
 }
 
 export default function ExamActivity() {

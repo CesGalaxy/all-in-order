@@ -10,7 +10,8 @@ import {
     generateFillTheGapQuestionAttempt,
     QuestionFillTheGapAnswer,
     QuestionFillTheGapAttempt,
-    QuestionFillTheGapData
+    QuestionFillTheGapData,
+    validateFillTheGapQuestion
 } from "@/features/beta_question/QuestionFillTheGap";
 
 export interface BaseQuestion<T extends Json> {
@@ -39,7 +40,7 @@ export function generateQuestionAttempt<T extends QuestionData>(data: T): Questi
 
 export const QUESTION_VALIDATORS = {
     choice: validateChoiceQuestion,
-    fill_the_gap: validateChoiceQuestion,
+    fill_the_gap: validateFillTheGapQuestion,
 }
 
 export function validateQuestion(data: QuestionData, answer: QuestionAnswer): boolean {
