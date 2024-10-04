@@ -7,12 +7,15 @@ import {
     IconChevronLeft,
     IconChevronRight,
     IconCircleDashedCheck,
+    IconListCheck,
     IconQuestionMark,
     IconX
 } from "@tabler/icons-react";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Chip } from "@nextui-org/chip";
 import { validateQuestion } from "@/features/beta_question";
+import { useCallback } from "react";
+import SubmitExamButton from "@/app/practices/[practiceId]/start/_feature/SubmitExamButton";
 
 export default function BottomNavigation() {
     const {
@@ -25,14 +28,22 @@ export default function BottomNavigation() {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const submitAnswer = () => {
+    const submitAnswer = useCallback(() => {
         if (!answerDraft) return;
 
         const correct = validateQuestion(data, answerDraft);
 
         updateCurrentActivity({ answerDraft: undefined, answer: answerDraft, correct });
         console.log(correct);
-    }
+    }, [answerDraft, data, updateCurrentActivity]);
+
+    // If all activities have been answered, show the submit button
+    if (activities.every(activity => activity.answer)) return <ButtonGroup className="w-full">
+        <Button isIconOnly onPress={onOpen}>
+            <IconListCheck/>
+        </Button>
+        <SubmitExamButton/>
+    </ButtonGroup>;
 
     const statusColor = answer
         ? correct
@@ -60,7 +71,7 @@ export default function BottomNavigation() {
                 {answerDraft ? "Confirm" : "Review activities"}
             </Button>
             <Button
-                isDisabled={!answer}
+                isDisabled={!answer || currentActivityIndex === activities.length - 1}
                 onPress={() => setCurrentActivityIndex(currentActivityIndex + 1)}
             >
                 <IconChevronRight/>
@@ -73,7 +84,11 @@ export default function BottomNavigation() {
                     <ModalBody as="ul" className="grid">
                         {activities.map((activity, i) => <Button
                             key={activity.id}
-                            isDisabled={!(activity.answer || activity.answerDraft)}
+                            isDisabled={
+                                !(activity.answer || activity.answerDraft)
+                                &&
+                                !(activities.findLastIndex(activity => activity.answer || activity.answerDraft) + 1 >= i)
+                            }
                             color={activity.correct === true ? "success" : activity.correct === false ? "danger" : "default"}
                             onPress={() => {
                                 setCurrentActivityIndex(i);

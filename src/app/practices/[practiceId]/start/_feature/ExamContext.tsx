@@ -12,6 +12,7 @@ import {
     useState
 } from "react";
 import { QuestionAnswer, QuestionAttempt, QuestionData } from "@/features/beta_question";
+import { toast } from "react-toastify";
 
 export interface Activity {
     id: number;
@@ -30,6 +31,7 @@ export interface ExamContextData {
     readonly currentActivity: Activity;
     readonly updateCurrentActivity: (activity: Partial<Activity>) => void;
     readonly startedAt: number;
+    readonly submitAnswers: (answers: [QuestionAnswer, boolean][]) => Promise<string | undefined>;
 }
 
 const ExamContext = createContext<ExamContextData | null>(null);
@@ -39,10 +41,11 @@ export default ExamContext;
 export interface ExamProviderProps {
     activities: Omit<Activity, "answer" | "answerDraft" | "correct">[],
     children: ReactNode,
-    startedAt: number
+    startedAt: number,
+    finishExam: (answers: [QuestionAnswer, boolean][]) => Promise<string>;
 }
 
-export function ExamProvider({ activities: rawActivities, children, startedAt }: ExamProviderProps) {
+export function ExamProvider({ activities: rawActivities, children, startedAt, finishExam }: ExamProviderProps) {
     useEffect(() => {
         if (rawActivities.length === 0) throw new Error("activities must not be empty");
     }, [rawActivities.length]);
@@ -59,6 +62,15 @@ export function ExamProvider({ activities: rawActivities, children, startedAt }:
         return newActivities;
     }), [currentActivityIndex]);
 
+    const submitAnswers = useCallback(async (answers: [QuestionAnswer, boolean][]) => {
+        if (!activities.every(activity => activity.answer)) {
+            toast("Please answer all questions before submitting", { type: "error" });
+            return;
+        }
+
+        return await finishExam(answers);
+    }, [activities, finishExam]);
+
     return <ExamContext.Provider
         value={{
             activities,
@@ -66,7 +78,8 @@ export function ExamProvider({ activities: rawActivities, children, startedAt }:
             setCurrentActivityIndex,
             currentActivity,
             updateCurrentActivity,
-            startedAt
+            startedAt,
+            submitAnswers
         }}>
         {children}
     </ExamContext.Provider>;

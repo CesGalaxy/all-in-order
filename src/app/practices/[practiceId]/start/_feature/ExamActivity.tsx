@@ -43,7 +43,9 @@ const QUESTION_CORRECTIONS = {
 
 export default function ExamActivity() {
     const {
+        activities,
         currentActivity: { id, data, attempt, answer, answerDraft, correct },
+        currentActivityIndex,
         setCurrentActivityIndex,
         updateCurrentActivity
     } = useExam();
@@ -87,7 +89,7 @@ export default function ExamActivity() {
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
-                    if (answer) nextActivity();
+                    if (answer || currentActivityIndex >= activities.length) nextActivity();
                 } else if (swipe > swipeConfidenceThreshold) {
                     prevActivity();
                 }

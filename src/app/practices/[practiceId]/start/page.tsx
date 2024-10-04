@@ -13,19 +13,21 @@ import { Activity, ExamProvider } from "@/app/practices/[practiceId]/start/_feat
 import Counter from "@/app/practices/[practiceId]/start/_feature/Counter";
 import BottomNavigation from "@/app/practices/[practiceId]/start/_feature/BottomNavigation";
 import CurrentQuestionTitle from "@/app/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
-import { generateQuestionAttempt, QuestionData } from "@/features/beta_question";
+import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@/features/beta_question";
 import ExamActivity from "@/app/practices/[practiceId]/start/_feature/ExamActivity";
+import { getMaybeMyProfile } from "@/supabase/models/Profile";
+import { redirect } from "next/navigation";
 
 export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
     const { data, error } = await getSupabase()
         .from("practices")
-        .select("title, topic_id, activities:topic_activities(*)")
+        .select("id, title, topic_id, activities:topic_activities(*)")
         .eq("id", parseInt(practiceId))
         .maybeSingle();
 
     if (error) return <ErrorView message={error.message}/>;
 
-    const { activities, title, topic_id } = required(data);
+    const { id, title, topic_id, activities } = required(data);
 
     const generatedActivities = activities.map(activity => ({
         ...activity,
@@ -34,7 +36,43 @@ export default async function Page({ params: { practiceId } }: { params: { pract
 
     const now = new Date();
 
-    return <ExamProvider activities={generatedActivities as any as Activity[]} startedAt={now.valueOf()}>
+    async function finishExam(startedAt: string, answers: [QuestionAnswer, boolean][]) {
+        "use server";
+
+        const endedAt = new Date().toUTCString();
+
+        const profile = await getMaybeMyProfile();
+
+        if (!profile) return "login";
+
+        const total = answers.length;
+        const correct = answers.filter(([_, correct]) => correct).length;
+
+        const perfection = correct / total;
+
+        const { data, error } = await getSupabase()
+            .from("practice_attempts")
+            .insert({
+                perfection,
+                answers: answers.map(([answer, correct]) => answer),
+                practice_id: id,
+                profile_id: profile.id,
+                started_at: startedAt,
+                ended_at: endedAt
+            })
+            .select("id")
+            .single();
+
+        if (error) return error.message;
+
+        redirect(`/practices/${id}/results/${data.id}`);
+    }
+
+    return <ExamProvider
+        activities={generatedActivities as any as Activity[]}
+        startedAt={now.valueOf()}
+        finishExam={finishExam.bind(null, now.toUTCString())}
+    >
         <main className="w-full h-full flex flex-col">
             <header className="bg-content2 text-content2-foreground">
                 <Navbar className="bg-transparent -ml-4" classNames={{ wrapper: "pl-2" }}>

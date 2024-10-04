@@ -165,6 +165,54 @@ export type Database = {
           },
         ]
       }
+      practice_attempts: {
+        Row: {
+          answers: Json[]
+          created_at: string
+          ended_at: string
+          id: number
+          perfection: number
+          practice_id: number
+          profile_id: number
+          started_at: string
+        }
+        Insert: {
+          answers: Json[]
+          created_at?: string
+          ended_at: string
+          id?: number
+          perfection?: number
+          practice_id: number
+          profile_id: number
+          started_at: string
+        }
+        Update: {
+          answers?: Json[]
+          created_at?: string
+          ended_at?: string
+          id?: number
+          perfection?: number
+          practice_id?: number
+          profile_id?: number
+          started_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_attempts_practice_id_fkey"
+            columns: ["practice_id"]
+            isOneToOne: false
+            referencedRelation: "practices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "practice_attempts_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       practices: {
         Row: {
           created_at: string
@@ -927,6 +975,48 @@ export type Database = {
       get_my_id: {
         Args: Record<PropertyKey, never>
         Returns: number
+      }
+      has_access_to_course: {
+        Args: {
+          profile_id: number
+          course_id: number
+        }
+        Returns: boolean
+      }
+      has_access_to_subject: {
+        Args: {
+          profile_id: number
+          subject_id: number
+        }
+        Returns: boolean
+      }
+      has_access_to_topic: {
+        Args: {
+          profile_id: number
+          topic_id: number
+        }
+        Returns: boolean
+      }
+      is_course_admin: {
+        Args: {
+          profile_id: number
+          course_id: number
+        }
+        Returns: boolean
+      }
+      is_subject_admin: {
+        Args: {
+          profile_id: number
+          subject_id: number
+        }
+        Returns: boolean
+      }
+      is_topic_admin: {
+        Args: {
+          profile_id: number
+          topic_id: number
+        }
+        Returns: boolean
       }
     }
     Enums: {
