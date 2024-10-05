@@ -1,10 +1,12 @@
 import { QuestionData } from "@/features/beta_question/index";
 import ChoiceQuestionSolution from "@/features/beta_question/solution/ChoiceQuestionSolution";
 import FillTheGapQuestionSolution from "@/features/beta_question/solution/FillTheGapQuestionSolution";
+import TrueOrFalseQuestionSolution from "@/features/beta_question/solution/TrueOrFalseQuestionSolution";
 
 export const QUESTION_SOLUTIONS = {
     choice: ChoiceQuestionSolution,
     fill_the_gap: FillTheGapQuestionSolution,
+    true_or_false: TrueOrFalseQuestionSolution,
 }
 
 export default function QuestionSolution({ data }: { data: QuestionData }) {

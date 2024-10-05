@@ -21,7 +21,6 @@ export default function ChoiceQuestionCorrection({
     correct: boolean
 }) {
     return <div>
-        {single.toString()}
         {single
             ? correctChoices === 1
                 ? <Single correction={data.choices} orderedChoices={choices} answer={answer.selectedChoices}/>

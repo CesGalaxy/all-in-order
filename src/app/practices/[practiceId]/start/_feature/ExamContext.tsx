@@ -52,7 +52,7 @@ export function ExamProvider({ activities: rawActivities, children, startedAt, f
 
     const [activities, setActivities] = useState<Activity[]>(rawActivities);
 
-    const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
+    const [currentActivityIndex, setCurrentActivityIndex] = useState(5);
 
     const currentActivity = useMemo(() => activities[currentActivityIndex], [activities, currentActivityIndex]);
 

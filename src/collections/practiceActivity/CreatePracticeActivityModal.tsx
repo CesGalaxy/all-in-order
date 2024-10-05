@@ -20,11 +20,12 @@ import { Divider } from "@nextui-org/divider";
 import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
 import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFillTheGapQuestion";
 import { Chip } from "@nextui-org/chip";
+import CreateTrueOrFalseQuestion from "@/features/beta_question/create/CreateTrueOrFalseQuestion";
 
 const QUESTION_CREATORS = {
     "choice": CreateChoiceQuestion,
     "fill_the_gap": CreateFillTheGapQuestion,
-    "fill_the_gap2": CreateFillTheGapQuestion,
+    "true_or_false": CreateTrueOrFalseQuestion,
     "fill_the_gap3": CreateFillTheGapQuestion,
     "fill_the_gap4": CreateFillTheGapQuestion,
 }
@@ -82,7 +83,7 @@ export default function CreatePracticeActivityModal({ action }: {
                             <SelectItem key="fill_the_gap" startContent={<IconMist/>}>
                                 Fill the gap
                             </SelectItem>
-                            <SelectItem key="fill_the_gap2" startContent={<IconSquareRoundedCheck/>}>
+                            <SelectItem key="true_or_false" startContent={<IconSquareRoundedCheck/>}>
                                 True or false
                             </SelectItem>
                             <SelectItem key="fill_the_gap3" startContent={<IconLine/>}>

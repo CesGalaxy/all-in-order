@@ -13,6 +13,13 @@ import {
     QuestionFillTheGapData,
     validateFillTheGapQuestion
 } from "@/features/beta_question/QuestionFillTheGap";
+import {
+    generateTrueOrFalseQuestionAttempt,
+    QuestionTrueOrFalseAnswer,
+    QuestionTrueOrFalseAttempt,
+    QuestionTrueOrFalseData,
+    validateTrueOrFalseQuestion
+} from "@/features/beta_question/QuestionTrueOrFalse";
 
 export interface BaseQuestion<T extends Json> {
     title: string;
@@ -20,9 +27,9 @@ export interface BaseQuestion<T extends Json> {
     type: T;
 }
 
-export type QuestionData = QuestionChoiceData | QuestionFillTheGapData;
-export type QuestionAttempt = QuestionChoiceAttempt | QuestionFillTheGapAttempt;
-export type QuestionAnswer = QuestionChoiceAnswer | QuestionFillTheGapAnswer;
+export type QuestionData = QuestionChoiceData | QuestionFillTheGapData | QuestionTrueOrFalseData;
+export type QuestionAttempt = QuestionChoiceAttempt | QuestionFillTheGapAttempt | QuestionTrueOrFalseAttempt;
+export type QuestionAnswer = QuestionChoiceAnswer | QuestionFillTheGapAnswer | QuestionTrueOrFalseAnswer;
 
 export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U extends Json = any> =
     Omit<T, "title" | "details" | "type">
@@ -32,6 +39,7 @@ export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U exten
 export const QUESTION_ATTEMPT_GENERATORS = {
     choice: generateChoiceQuestionAttempt,
     fill_the_gap: generateFillTheGapQuestionAttempt,
+    true_or_false: generateTrueOrFalseQuestionAttempt,
 }
 
 export function generateQuestionAttempt<T extends QuestionData>(data: T): QuestionAttempt {
@@ -41,6 +49,7 @@ export function generateQuestionAttempt<T extends QuestionData>(data: T): Questi
 export const QUESTION_VALIDATORS = {
     choice: validateChoiceQuestion,
     fill_the_gap: validateFillTheGapQuestion,
+    true_or_false: validateTrueOrFalseQuestion,
 }
 
 export function validateQuestion(data: QuestionData, answer: QuestionAnswer): boolean {

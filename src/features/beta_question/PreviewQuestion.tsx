@@ -1,10 +1,12 @@
 import { QuestionAttempt } from "@/features/beta_question/index";
 import PreviewChoiceQuestion from "@/features/beta_question/preview/PreviewChoiceQuestion";
 import PreviewFillTheGapQuestion from "@/features/beta_question/preview/PreviewFillTheGapQuestion";
+import PreviewTrueOrFalseQuestion from "@/features/beta_question/preview/PreviewTrueOrFalseQuestion";
 
 export const QUESTION_PREVIEWS = {
     choice: PreviewChoiceQuestion,
     fill_the_gap: PreviewFillTheGapQuestion,
+    true_or_false: PreviewTrueOrFalseQuestion,
 }
 
 export default function PreviewQuestion({ type, attempt }: {

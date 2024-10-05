@@ -10,6 +10,10 @@ import ExaminateFillTheGapQuestion
     from "@/app/practices/[practiceId]/start/_feature/questions/ExaminateFillTheGapQuestion";
 import FillTheGapQuestionCorrection
     from "@/app/practices/[practiceId]/start/_feature/corrections/FillTheGapQuestionCorrection";
+import ExaminateTrueOrFalseQuestion
+    from "@/app/practices/[practiceId]/start/_feature/questions/ExaminateTrueOrFalseQuestion";
+import TrueOrFalseQuestionCorrection
+    from "@/app/practices/[practiceId]/start/_feature/corrections/TrueOrFalseQuestionCorrection";
 
 const variants = {
     enter: (direction: number) => ({
@@ -34,11 +38,13 @@ const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velo
 const QUESTION_EXAMINATIONS = {
     choice: ExaminateChoiceQuestion,
     fill_the_gap: ExaminateFillTheGapQuestion,
+    true_or_false: ExaminateTrueOrFalseQuestion,
 }
 
 const QUESTION_CORRECTIONS = {
     choice: ChoiceQuestionCorrection,
     fill_the_gap: FillTheGapQuestionCorrection,
+    true_or_false: TrueOrFalseQuestionCorrection,
 }
 
 export default function ExamActivity() {

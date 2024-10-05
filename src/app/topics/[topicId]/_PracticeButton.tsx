@@ -58,14 +58,14 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                 <DropdownItem
                     href={`/practices/${practiceId}`}
                     startContent={<IconEye/>}
-                    description="See a resume of the practice"
+                    description="Preview & edit the questions"
                 >
                     Details
                 </DropdownItem>
                 <DropdownItem
                     href={`/practices/${practiceId}/edit`}
                     startContent={<IconEdit/>}
-                    description="Edit this practice and questions"
+                    description="Edit the practice details"
                 >
                     Edit
                 </DropdownItem>

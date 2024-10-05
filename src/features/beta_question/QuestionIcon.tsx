@@ -1,9 +1,10 @@
-import { IconListCheck, IconMist } from "@tabler/icons-react";
+import { IconListCheck, IconMist, IconSquareRoundedCheck } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
 export const QUESTION_ICONS = {
     choice: IconListCheck,
     fill_the_gap: IconMist,
+    true_or_false: IconSquareRoundedCheck,
 }
 
 export interface QuestionIconProps extends ComponentProps<typeof IconListCheck> {
