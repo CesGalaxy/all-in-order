@@ -13,6 +13,7 @@ import { getMaybeMyProfile } from "@/supabase/models/Profile";
 import { revalidatePath } from "next/cache";
 import NotesSection from "@/app/subjects/[subjectId]/_components/NotesSection";
 import { Divider } from "@nextui-org/divider";
+import NoTasks from "@/collections/task/NoTasks";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
     const maybeProfilePromise = getMaybeMyProfile();
@@ -39,8 +40,9 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
     const [maybeProfile, t] = await Promise.all([maybeProfilePromise, tPromise]);
 
     return <PageContainer
-        className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-2 gap-x-8 gap-8 auto-rows-max">
-        <SectionContainer title={t('App.tasks')}>
+        className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-2 gap-x-8 gap-8">
+        <SectionContainer title={t('App.tasks')} className="w-full h-full flex flex-col">
+            <NoTasks subjectId={subject.id} extraViewProps={{ small: true }}/>
         </SectionContainer>
         <NotesSection
             notes={notes}
@@ -52,7 +54,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
         </SectionContainer>
         <SectionContainer title={t('App.topics')} className="w-full h-full col-span-2 order-first xl:order-none">
             {topics.length > 0
-                ? <ul className="grid grid-cols-2 items-stretch justify-start gap-8 px-4">
+                ? <ul className="grid grid-cols-1 md:grid-cols-2 items-stretch justify-start gap-8 px-4">
                     {topics.map(topic => <Card as="li" key={topic.id}>
                         <CardHeader as={Link} className="flex-col items-start" href={"/topics/" + topic.id}>
                             <h2 className="font-bold text-3xl">{topic.title}</h2>

@@ -18,10 +18,9 @@ export interface PracticeSectionProps {
     }[];
     createPracticeAction: (title: string, description: string) => Promise<string | undefined>;
     topicId: number;
-    cls?: string;
 }
 
-export default function PracticeSection({ practices, createPracticeAction, topicId, cls }: PracticeSectionProps) {
+export default function PracticeSection({ practices, createPracticeAction, topicId }: PracticeSectionProps) {
     return <SectionContainer
         title="Practice"
         className="w-full h-fit lg:h-full"

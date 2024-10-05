@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link as TransitionLink } from "next-view-transitions";
-import NoteOptions from "@/app/subjects/[subjectId]/_NoteOptions";
+import NoteOptions from "@/app/subjects/[subjectId]/_components/NoteOptions";
 import NoNotes from "@/collections/note/NoNotes";
 import SectionContainer from "@/components/containers/SectionContainer";
 

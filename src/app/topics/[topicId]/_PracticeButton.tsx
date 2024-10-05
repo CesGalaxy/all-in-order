@@ -26,6 +26,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     startContent={<IconPlayerPlay/>}
                     description="All questions"
                     color="primary"
+                    className="text-primary"
                 >
                     Start now
                 </DropdownItem>
@@ -73,6 +74,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     startContent={<IconTrash/>}
                     description="Permanently delete this practice"
                     color="danger"
+                    className="text-danger"
                 >
                     Delete
                 </DropdownItem>

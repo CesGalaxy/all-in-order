@@ -87,9 +87,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
             practices={practices}
             createPracticeAction={createPracticeAction}
             topicId={topic.id}
-            cls={FLEX_AND_GRID}
         />
-        <SectionContainer title={t("App.tests")} className="w-full h-full lg:col-span-2">
+        <SectionContainer title={t("App.tests")} className="w-full h-full flex flex-col lg:col-span-2">
             {!tests || tests.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t("Dash.Topic.no_tests")}</h3>
