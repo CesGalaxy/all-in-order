@@ -49,7 +49,7 @@ export default async function Page({ params: { practiceId } }: { params: { pract
         const total = answers.length;
         const correct = answers.filter(([_, correct]) => correct).length;
 
-        const perfection = correct / total;
+        const perfection = Math.round((correct * 100) / total);
 
         const { data, error } = await getSupabase()
             .from("practice_attempts")

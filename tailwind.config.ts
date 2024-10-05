@@ -9,7 +9,7 @@ const config: Config = {
     "./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(accordion|avatar|breadcrumbs|button|card|checkbox|chip|dropdown|input|link|modal|navbar|select|tabs|popover|divider|ripple|spinner|menu|listbox|scroll-shadow).js"
+    "./node_modules/@nextui-org/theme/dist/components/(accordion|avatar|breadcrumbs|button|card|checkbox|chip|dropdown|input|link|modal|navbar|select|table|tabs|popover|user|divider|ripple|spinner|menu|listbox|scroll-shadow|spacer).js"
   ],
     theme: {
         extend: {
