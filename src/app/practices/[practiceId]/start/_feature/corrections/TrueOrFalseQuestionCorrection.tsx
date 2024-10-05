@@ -5,12 +5,7 @@ import {
 } from "@/features/beta_question/QuestionTrueOrFalse";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
-export default function TrueOrFalseQuestionCorrection({
-                                                          data: { rows },
-                                                          attempt,
-                                                          answer: { selectedRows },
-                                                          correct
-                                                      }: {
+export default function TrueOrFalseQuestionCorrection({ data: { rows }, answer: { selectedRows } }: {
     data: QuestionTrueOrFalseData,
     attempt: QuestionTrueOrFalseAttempt,
     answer: QuestionTrueOrFalseAnswer,
