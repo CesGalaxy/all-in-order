@@ -17,6 +17,7 @@ import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@/feature
 import ExamActivity from "@/app/practices/[practiceId]/start/_feature/ExamActivity";
 import { getMaybeMyProfile } from "@/supabase/models/Profile";
 import { redirect } from "next/navigation";
+import { Json } from "@/supabase/database";
 
 export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
     const { data, error } = await getSupabase()
@@ -52,9 +53,10 @@ export default async function Page({ params: { practiceId } }: { params: { pract
 
         const { data, error } = await getSupabase()
             .from("practice_attempts")
+            // @ts-ignore
             .insert({
                 perfection,
-                answers: answers.map(([answer, correct]) => answer),
+                answers: answers.map(([answer, correct]) => answer) as unknown as Json,
                 practice_id: id,
                 profile_id: profile.id,
                 started_at: startedAt,
