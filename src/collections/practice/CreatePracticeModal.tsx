@@ -7,9 +7,9 @@ import { IconPlus } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
-export default function CreatePracticeModal({ action }: {
-    action: (title: string, description: string) => Promise<string | undefined>
-}) {
+export type RequiredCreatePracticeAction = (title: string, description: string) => Promise<string | undefined>;
+
+export default function CreatePracticeModal({ action }: { action: RequiredCreatePracticeAction }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 

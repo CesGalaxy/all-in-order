@@ -43,7 +43,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                 <NavbarMenuToggle className="sm:hidden"/>
                 <NavbarBrand>
                     {/*<p className="font-bold text-inherit">ACME</p>*/}
-                    <Link href="/public">
+                    <Link href="/">
                         <Image src={LogoNameCol} alt="All In Order" height={64} priority/>
                     </Link>
                 </NavbarBrand>

@@ -7,9 +7,9 @@ import { Button } from "@nextui-org/button";
 import { IconPlus } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 
-export default function CreateNoteModal({ action }: {
-    action: (title: string, content: string) => Promise<string | undefined>
-}) {
+export type RequiredCreateNoteAction = (title: string, content: string) => Promise<string | undefined>;
+
+function CreateNoteModal({ action }: { action: RequiredCreateNoteAction }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
@@ -68,3 +68,5 @@ export default function CreateNoteModal({ action }: {
         )}
     </ModalContent>;
 }
+
+export default CreateNoteModal;

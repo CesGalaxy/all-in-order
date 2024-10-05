@@ -2,8 +2,19 @@
 
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { type ReactNode } from "react";
+import CreatePracticeModal, { RequiredCreatePracticeAction } from "@/collections/practice/CreatePracticeModal";
 
-export default function CreatePracticeButton({ children }: { children: React.ReactNode }) {
+export type CreatePracticeButtonProps = CreatePracticeButtonPropsWithAction | CreatePracticeButtonPropsWithModal;
+
+export type CreatePracticeButtonPropsWithAction = { action: RequiredCreatePracticeAction; }
+export type CreatePracticeButtonPropsWithModal = { modal: ReactNode; }
+
+function modalProvided(props: CreatePracticeButtonProps): props is CreatePracticeButtonPropsWithModal {
+    return props.hasOwnProperty("modal");
+}
+
+export default function CreatePracticeButton(props: CreatePracticeButtonProps) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return <>
@@ -13,7 +24,7 @@ export default function CreatePracticeButton({ children }: { children: React.Rea
             onOpenChange={onOpenChange}
             placement="top-center"
         >
-            {children}
+            {modalProvided(props) ? props.modal : <CreatePracticeModal action={props.action}/>}
         </Modal>
     </>;
 }

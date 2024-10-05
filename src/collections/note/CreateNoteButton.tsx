@@ -3,14 +3,12 @@
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import type React from "react";
-import CreateNoteModal from "@/collections/note/CreateNoteModal";
+import CreateNoteModal, { type RequiredCreateNoteAction } from "@/collections/note/CreateNoteModal";
 
 export type CreateNoteButtonProps = CreateNoteButtonPropsWithModal | CreateNoteButtonPropsWithAction;
 
 export type CreateNoteButtonPropsWithModal = { modal: React.ReactNode };
 export type CreateNoteButtonPropsWithAction = { action: RequiredCreateNoteAction };
-
-export type RequiredCreateNoteAction = (title: string, content: string) => Promise<string | undefined>;
 
 function modalProvided(props: CreateNoteButtonProps): props is CreateNoteButtonPropsWithModal {
     return props.hasOwnProperty("modal");
@@ -26,7 +24,7 @@ function CreateNoteButton(props: CreateNoteButtonProps) {
             onOpenChange={onOpenChange}
             placement="top-center"
         >
-            {modalProvided(props) ? props.modal : <CreateNoteModal action={props.action!}/>}
+            {modalProvided(props) ? props.modal : <CreateNoteModal action={props.action}/>}
         </Modal>
     </>;
 }

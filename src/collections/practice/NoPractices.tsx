@@ -1,7 +1,6 @@
 import addPracticeImage from "@/assets/pictures/add_practice.svg";
 import Blank from "@/components/views/Blank";
 import CreatePracticeButton from "@/collections/practice/CreatePracticeButton";
-import CreatePracticeModal from "@/collections/practice/CreatePracticeModal";
 import { Button } from "@nextui-org/button";
 import { IconSparkles } from "@tabler/icons-react";
 import getSupabase from "@/supabase/server";
@@ -27,9 +26,7 @@ export default function NoPractices({ topicId }: { topicId: number }) {
 
     return <Blank title={"No practices found"} image={addPracticeImage} alt="">
         <nav className="flex flex-col gap-2">
-            <CreatePracticeButton>
-                <CreatePracticeModal action={createPracticeAction}/>
-            </CreatePracticeButton>
+            <CreatePracticeButton action={createPracticeAction}/>
             <Button startContent={<IconSparkles/>}>Make with AI</Button>
         </nav>
     </Blank>;
