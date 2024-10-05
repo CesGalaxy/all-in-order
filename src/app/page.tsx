@@ -28,7 +28,8 @@ export default async function Home() {
         {/* TODO: Latest practices */}
         <h1 className="text-3xl font-bold">Public Courses</h1>
         <ul className="w-full gap-16 grid lg:grid-cols-2 xl:grid-cols-3 auto-rows-min">
-            {courses.map(course => <NavigationCard course={course} key={course.id}/>)}
+            {courses.map(course =>
+                <NavigationCard course={course} key={course.id} isCourseAdmin={false}/>)}
         </ul>
         <Divider/>
         <h1 className="text-2xl sm:text-3xl font-bold">{t('Home.create_resumes_with_ai')}</h1>

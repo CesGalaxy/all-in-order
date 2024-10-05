@@ -10,9 +10,10 @@ import CreateSubjectButton from "@/collections/subject/CreateSubjectButton";
 import SubjectTopicsDropdown from "@/collections/course/NavigationCardTopicsDropdown";
 import { PostgrestError } from "@supabase/supabase-js";
 
-export default function NavigationCard({ course, editAction }: {
+export default function NavigationCard({ course, editAction, isCourseAdmin }: {
     course: CourseWSubjectsWTopics,
-    editAction?: () => Promise<PostgrestError | undefined>
+    editAction?: () => Promise<PostgrestError | undefined>,
+    isCourseAdmin?: boolean | null
 }) {
 
     return <Card className="p-4 w-full h-full" as="li">
@@ -50,10 +51,12 @@ export default function NavigationCard({ course, editAction }: {
                 : <NoSubjects courseId={course.id}/>
             }
         </CardBody>
-        <Divider/>
-        <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
-            {editAction && <EditCourseButton course={course} action={editAction}/>}
-            <CreateSubjectButton courseId={course.id}/>
-        </CardFooter>
+        {isCourseAdmin && <>
+            <Divider/>
+            <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
+                {editAction && <EditCourseButton course={course} action={editAction}/>}
+                <CreateSubjectButton courseId={course.id}/>
+            </CardFooter>
+        </>}
     </Card>;
 }

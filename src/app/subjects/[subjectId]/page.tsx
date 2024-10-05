@@ -48,7 +48,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
         </SectionContainer>
         <SectionContainer
             title={"Notes"}
-            trailing={notes && profile && <CreateNoteButton action={createNote.bind(null, profile.id)}/>}
+            trailing={(notes.length !== 0) && profile && <CreateNoteButton action={createNote.bind(null, profile.id)}/>}
             className="w-full h-full flex flex-col"
         >
             {notes.length > 0

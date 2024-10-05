@@ -22,9 +22,13 @@ export interface PracticeSectionProps {
 }
 
 export default function PracticeSection({ practices, createPracticeAction, topicId, cls }: PracticeSectionProps) {
-    return <SectionContainer title="Practice" trailing={practices.length > 0 && <CreatePracticeIconButton>
-        <CreatePracticeModal action={createPracticeAction}/>
-    </CreatePracticeIconButton>}>
+    return <SectionContainer
+        title="Practice"
+        className="w-full h-fit lg:h-full"
+        trailing={practices.length > 0 && <CreatePracticeIconButton>
+            <CreatePracticeModal action={createPracticeAction}/>
+        </CreatePracticeIconButton>}
+    >
         {practices.length === 0
             ? <NoPractices topicId={topicId}/>
             : <ul className={LIST_CLASSNAME}>

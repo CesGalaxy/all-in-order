@@ -52,8 +52,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
 
     const t = await tRequest;
 
-    return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8 auto-rows-auto">
-        <SectionContainer title={t("App.documents")}>
+    return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8">
+        <SectionContainer title={t("App.documents")} className="hidden lg:block">
             {!docs || docs.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
                     <h3 className="text-2xl">{t('Dash.Topic.no_documents')}</h3>

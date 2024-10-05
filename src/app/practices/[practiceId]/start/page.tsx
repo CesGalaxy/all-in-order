@@ -30,6 +30,8 @@ export default async function Page({ params: { practiceId } }: { params: { pract
 
     const { id, title, topic_id, activities } = required(data);
 
+    if (activities.length === 0) return <ErrorView message="No activities found"/>;
+
     const generatedActivities = activities.map(activity => ({
         ...activity,
         attempt: generateQuestionAttempt(activity.data as any as QuestionData),
