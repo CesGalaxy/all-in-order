@@ -13,32 +13,34 @@ import { Link as TransitionLink } from "next-view-transitions";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
 import { Divider } from "@nextui-org/divider";
 import getSupabase from "@/supabase/server";
-import { getMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/models/Profile";
 import { revalidatePath } from "next/cache";
 import CreateNoteButton from "@/collections/note/CreateNoteButton";
 import NoteOptions from "@/app/subjects/[subjectId]/_NoteOptions";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
-    const profile = await getMyProfile();
+    const profilePromise = getMaybeMyProfile();
+    const tPromise = getTranslations();
+
     const { data, error } = await getSubject(subjectId);
 
     if (error) return <ErrorView message={error.message}/>;
 
     const { topics, notes, ...subject } = required(data);
 
-    const t = await getTranslations();
-
-    async function createNote(title: string, content: string) {
+    async function createNote(profileId: number, title: string, content: string) {
         "use server";
 
         const { error } = await getSupabase()
             .from("subject_notes")
-            .insert({ title, content, subject_id: subject.id, author_id: profile.id });
+            .insert({ title, content, subject_id: subject.id, author_id: profileId });
 
         if (error) return error.message;
 
         revalidatePath(`/subjects/${subject.id}`);
     }
+
+    const [profile, t] = await Promise.all([profilePromise, tPromise]);
 
     return <PageContainer
         className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-2 gap-x-8 gap-y-16 xl:gap-8 auto-rows-max">
@@ -46,7 +48,7 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
         </SectionContainer>
         <SectionContainer
             title={"Notes"}
-            trailing={notes && <CreateNoteButton action={createNote}/>}
+            trailing={notes && profile && <CreateNoteButton action={createNote.bind(null, profile.id)}/>}
             className="w-full h-full flex flex-col"
         >
             {notes.length > 0

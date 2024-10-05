@@ -6,7 +6,7 @@ import { Modal, ModalBody, ModalContent, useDisclosure } from "@nextui-org/modal
 import { Button } from "@nextui-org/button";
 import { IconDotsCircleHorizontal } from "@tabler/icons-react";
 
-export default function NavbarBreadcrumbs({ items, actions }: { items: BreadcrumbItemProps[], actions?: ReactNode }) {
+export default function BottomNavigation({ items, actions }: { items: BreadcrumbItemProps[], actions?: ReactNode }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     // The items' children are passed separately due to an error with the IDE linter
@@ -17,7 +17,7 @@ export default function NavbarBreadcrumbs({ items, actions }: { items: Breadcrum
         </Breadcrumbs>
         {actions && <>
             <nav className="items-center gap-8 hidden md:flex">{actions}</nav>
-            <Button isIconOnly className="absolute top-0 right-0 md:hidden" onPress={onOpen}>
+            <Button isIconOnly className="absolute top-0 right-0 md:hidden z-10" onPress={onOpen}>
                 <IconDotsCircleHorizontal/>
             </Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">

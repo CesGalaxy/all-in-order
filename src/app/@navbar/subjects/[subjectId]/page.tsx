@@ -1,21 +1,19 @@
-import AppNavbar, { BREADCRUMBS } from "@/app/@navbar/_Navbar";
+import AppNavbar, { BREADCRUMBS } from "@/app/@navbar/_feature/Navbar";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
-import required from "@/lib/helpers/required";
 import EditSubjectButton from "@/app/@navbar/subjects/[subjectId]/_EditSubjectButton";
 import ManageSubjectMembersButton from "@/app/@navbar/subjects/[subjectId]/_ManageSubjectMembersButton";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
-    const { data, error } = await getSubject(subjectId);
+    const { data: subject, error } = await getSubject(subjectId);
 
-    if (error) return <AppNavbar currentPage="subjects" breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects]}/>
-
-    const subject = required(data);
+    if (error || !subject)
+        return <AppNavbar currentPage="subjects" breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects]}/>
 
     async function updateSubject(name?: string, description?: string) {
         "use server";
-        
+
         const { error } = await getSupabase()
             .from("subjects")
             .update({ name, description })

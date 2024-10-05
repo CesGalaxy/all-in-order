@@ -10,33 +10,28 @@ import SectionContainer from "@/components/containers/SectionContainer";
 import PageContainer from "@/components/containers/Page";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import NoPractices from "@/collections/practice/NoPractices";
 import CreateTestButton from "@/app/topics/[topicId]/_CreateTestButton";
-import PracticeButton from "@/app/topics/[topicId]/_PracticeButton";
-import CreatePracticeIconButton from "@/collections/practice/CreatePracticeIconButton";
-import CreatePracticeModal from "@/collections/practice/CreatePracticeModal";
 import { getMyProfile } from "@/supabase/models/Profile";
 import { redirect } from "next/navigation";
+import PracticeSection from "@/app/topics/[topicId]/_sections/PracticeSection";
+import topicTopicsQuery from "@/app/topics/[topicId]/topicTopicsQuery";
 
-const FLEX_AND_GRID = "flex w-[calc(100%,16px)] sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
+const FLEX_AND_GRID = "flex sm:w-full overflow-x-auto sm:overflow-x-visible -mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const dbRequest = getSupabase()
-        .from("topics")
-        .select("*, practices(*, activities:topic_activities(count))")
-        .eq("id", parseInt(topicId))
-        .maybeSingle();
-
+    // Fetch the topic data, documents, and translations
+    const dbRequest = topicTopicsQuery(parseInt(topicId));
     const docsRequest = getAllTopicDocuments(parseInt(topicId));
+    const tRequest = getTranslations();
 
-    const t = await getTranslations();
-
+    // Handle the received topic data
     const { data, error } = await dbRequest;
     if (error) return <ErrorView message={error.message}/>;
     const { practices, ...topic } = required(data);
 
     const tests: any[] = [] as const;
 
+    // Handle the received documents
     const docs = required(await docsRequest, "/topic/" + topic.id);
 
     async function createPracticeAction(title: string, description: string) {
@@ -55,7 +50,9 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
         redirect("/practices/" + data!.id);
     }
 
-    return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8">
+    const t = await tRequest;
+
+    return <PageContainer className="flex-grow flex flex-col lg:grid lg:grid-cols-2 gap-8 auto-rows-auto">
         <SectionContainer title={t("App.documents")}>
             {!docs || docs.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">
@@ -86,41 +83,12 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
                 </ul>
             }
         </SectionContainer>
-        <SectionContainer title="Practice" trailing={practices.length > 0 && <CreatePracticeIconButton>
-            <CreatePracticeModal action={createPracticeAction}/>
-        </CreatePracticeIconButton>}>
-            {practices.length === 0
-                ? <NoPractices topicId={topic.id}/>
-                :
-                <ul className={FLEX_AND_GRID + " md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3"}>
-                    {practices.map(practice => <Card
-                        key={practice.id}
-                        as="li"
-                        className="min-w-64 sm:min-w-fit"
-                    >
-                        <CardHeader className="items-end gap-2" as={Link} href={`/practices/${practice.id}`}>
-                            <h3 className="text-xl text-foreground">{practice.title}</h3>
-                            {practice.description && <p>{practice.description}</p>}
-                        </CardHeader>
-                        <CardBody className="w-full flex-row items-center justify-evenly px-0">
-                            <div className="w-fit flex flex-col items-center">
-                                <Link href={`/practices/${practice.id}/attempts`}
-                                      className="text-default-500 text-xs uppercase">SCORE</Link>
-                                <b>100%</b>
-                            </div>
-                            <div className="w-fit flex flex-col items-center">
-                                <Link href={`/practices/${practice.id}/attempts`}
-                                      className="text-default-500 text-xs uppercase">ATTEMPTS</Link>
-                                <b>8</b>
-                            </div>
-                        </CardBody>
-                        <CardFooter>
-                            <PracticeButton practiceId={practice.id}/>
-                        </CardFooter>
-                    </Card>)}
-                </ul>
-            }
-        </SectionContainer>
+        <PracticeSection
+            practices={practices}
+            createPracticeAction={createPracticeAction}
+            topicId={topic.id}
+            cls={FLEX_AND_GRID}
+        />
         <SectionContainer title={t("App.tests")} className="w-full h-full lg:col-span-2">
             {!tests || tests.length === 0
                 ? <div className="w-full h-full flex flex-col items-center justify-center gap-4">

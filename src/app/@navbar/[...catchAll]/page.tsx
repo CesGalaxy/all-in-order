@@ -1,4 +1,4 @@
-import AppNavbar from "@/app/@navbar/_Navbar";
+import AppNavbar from "@/app/@navbar/_feature/Navbar";
 
 export default async function Default() {
     return <AppNavbar/>;
