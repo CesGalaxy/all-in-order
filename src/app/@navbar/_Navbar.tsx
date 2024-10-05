@@ -54,7 +54,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
         revalidatePath("/");
     }
 
-    return <header className="w-full relative border-b-2 border-b-divider pb-2 md:pb-0 md:border-b-0">
+    return <header className="w-full relative border-b-2 border-b-divider --pb-2 md:pb-0 md:border-b-0">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
             <NavbarContent>
                 <NavbarMenuToggle className="sm:hidden"/>
@@ -97,7 +97,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                         <ProfileAvatar profile={profile}/>
                     </>
                     : <>
-                        <NavbarItem className="hidden lg:flex">
+                        <NavbarItem>
                             <Link as={Link} href="/login">
                                 {t('Auth.login')}
                             </Link>
@@ -109,9 +109,15 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                         </NavbarItem>
                     </>}
             </NavbarContent>
-            {profile && <NavbarContent className="sm:hidden !flex-grow-0" justify="end">
-                <ProfileAvatar profile={profile}/>
-            </NavbarContent>}
+            <NavbarContent className="sm:hidden !flex-grow-0" justify="end">
+                {profile
+                    ? <ProfileAvatar profile={profile}/>
+                    : <NavbarItem>
+                        <Button variant="flat" color="primary" as={Link} href="/login">
+                            {t('Auth.login')}
+                        </Button>
+                    </NavbarItem>}
+            </NavbarContent>
             <NavbarMenu>
                 <NavbarMenuItem isActive={currentPage === 'subjects'}>
                     <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>

@@ -10,7 +10,7 @@ export default function NavbarBreadcrumbs({ items, actions }: { items: Breadcrum
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     // The items' children are passed separately due to an error with the IDE linter
-    return <nav className="max-w-[1024px] flex items-center justify-between mx-2 sm:mx-8 lg:mx-auto relative md:gap-8">
+    return <nav className="max-w-[1024px] flex items-center justify-between mx-2 sm:mx-8 lg:mx-auto relative gap-8">
         <Breadcrumbs className="flex-grow pr-10 md:pr-0">
             {items.map(({ children, ...itemProps }, index) => <BreadcrumbItem
                 key={index} {...itemProps}>{children}</BreadcrumbItem>)}
