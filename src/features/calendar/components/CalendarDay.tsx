@@ -25,7 +25,7 @@ export default function CalendarDay({ date, selected, onSelect }: CalendarDayPro
             {date.getDate()}
         </header>
         <ul className="w-full h-full flex-grow">
-            <li>hello</li>
+            <li></li>
         </ul>
     </section>
 }

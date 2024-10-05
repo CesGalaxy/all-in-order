@@ -1,13 +1,16 @@
 "use server";
 
 import addNotesImage from "@/assets/pictures/add_notes.svg";
-import Blank from "@/components/views/Blank";
+import Blank, { BlankViewProps } from "@/components/views/Blank";
 import getSupabase from "@/supabase/server";
 import { getMaybeMyProfile, getMyProfile } from "@/supabase/models/Profile";
 import { revalidatePath } from "next/cache";
 import CreateNoteButton from "@/collections/note/CreateNoteButton";
 
-export default async function NoNotes({ subjectId }: { subjectId: number }) {
+export default async function NoNotes({ subjectId, extraViewProps }: {
+    subjectId: number,
+    extraViewProps?: Partial<BlankViewProps>
+}) {
     const maybeProfile = await getMaybeMyProfile();
 
     async function createNoteAction(content: string, title: string) {
@@ -24,7 +27,9 @@ export default async function NoNotes({ subjectId }: { subjectId: number }) {
         revalidatePath("/subjects/" + subjectId);
     }
 
-    return <Blank title={"No notes found"} image={addNotesImage} alt="">
+    const viewProps = { image: addNotesImage, alt: "", title: "No notes found", ...extraViewProps };
+
+    return <Blank {...viewProps}>
         {maybeProfile && <nav className="flex items-center justify-center">
             <CreateNoteButton action={createNoteAction}/>
         </nav>}
