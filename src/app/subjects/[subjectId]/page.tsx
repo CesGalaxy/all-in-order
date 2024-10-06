@@ -49,8 +49,13 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
             createNoteAction={maybeProfile && createNote.bind(null, maybeProfile.id)}
             subjectId={subject.id}
         />
-        <SectionContainer title={t('App.calendar')} className="w-full h-full flex flex-col col-span-2 row-span-2">
+        <SectionContainer title={t('App.calendar')}
+                          className="w-full h-full flex flex-col col-span-2 row-span-2 relative">
             <MonthCalendar/>
+            <div
+                className="absolute rotate-45 text-6xl md:text-8xl text-center text-danger border-8 border-danger rounded-3xl top-1/3 -left-12 md:left-16">
+                PRÓXIMAMENTE
+            </div>
         </SectionContainer>
         <SectionContainer title={t('App.topics')} className="w-full h-full col-span-2 order-first xl:order-none">
             {topics.length > 0

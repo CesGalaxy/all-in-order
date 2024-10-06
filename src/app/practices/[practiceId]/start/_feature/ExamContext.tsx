@@ -45,14 +45,14 @@ export interface ExamProviderProps {
     finishExam: (answers: [QuestionAnswer, boolean][]) => Promise<string>;
 }
 
-export function ExamProvider({ activities: rawActivities, children, startedAt, finishExam }: ExamProviderProps) {
+function ExamProvider({ activities: rawActivities, children, startedAt, finishExam }: ExamProviderProps) {
     useEffect(() => {
         if (rawActivities.length === 0) throw new Error("activities must not be empty");
     }, [rawActivities.length]);
 
     const [activities, setActivities] = useState<Activity[]>(rawActivities);
 
-    const [currentActivityIndex, setCurrentActivityIndex] = useState(5);
+    const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
 
     const currentActivity = useMemo(() => activities[currentActivityIndex], [activities, currentActivityIndex]);
 
@@ -90,3 +90,5 @@ export function useExam() {
     if (!context) throw new Error("useExam must be used within an ExamProvider");
     return context;
 }
+
+export { ExamProvider };

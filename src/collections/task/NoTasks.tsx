@@ -3,7 +3,7 @@
 import tasksImage from "@/assets/pictures/tasks.svg";
 import Blank, { BlankViewProps } from "@/components/views/Blank";
 import { getMaybeMyProfile } from "@/supabase/models/Profile";
-import { Button } from "@nextui-org/button";
+import CreateTaskButton from "@/collections/task/CreateTaskButton";
 
 export default async function NoTasks({ subjectId, extraViewProps }: {
     subjectId: number,
@@ -15,9 +15,7 @@ export default async function NoTasks({ subjectId, extraViewProps }: {
 
     return <Blank {...viewProps}>
         {maybeProfile && <nav className="flex items-center justify-center">
-            <Button color="primary">
-                Create task
-            </Button>
+            <CreateTaskButton/>
         </nav>}
     </Blank>;
 }
