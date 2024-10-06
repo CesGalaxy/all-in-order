@@ -64,7 +64,7 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
         const saveInterval = setInterval(() => saveContent?.(content), 1000 * 60);
 
         return () => clearInterval(saveInterval);
-    }, []);
+    }, [content, saveContent]);
 
     const save = () => saveContent?.(content).then(success => success
         ? toast("Saved successfully!", { type: "success" })
