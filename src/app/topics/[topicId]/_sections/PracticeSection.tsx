@@ -5,6 +5,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import PracticeButton from "@/app/topics/[topicId]/_PracticeButton";
 import SectionContainer from "@/components/containers/SectionContainer";
+import { useTranslations } from "next-intl";
 
 const LIST_CLASSNAME = "flex sm:w-full overflow-x-auto sm:overflow-x-visible " +
     "-mx-4 sm:mx-0 px-4 sm:px-0 sm:grid gap-4 -my-4 py-4 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3";
@@ -21,8 +22,10 @@ export interface PracticeSectionProps {
 }
 
 export default function PracticeSection({ practices, createPracticeAction, topicId }: PracticeSectionProps) {
+    const t = useTranslations();
+    
     return <SectionContainer
-        title="Practice"
+        title={t("App.practice")}
         className="w-full h-fit lg:h-full"
         trailing={practices.length > 0 && <CreatePracticeIconButton>
             <CreatePracticeModal action={createPracticeAction}/>
@@ -39,6 +42,8 @@ export default function PracticeSection({ practices, createPracticeAction, topic
 }
 
 function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"][any] }) {
+    const t = useTranslations();
+
     return <Card
         key={practice.id}
         as="li"
@@ -51,7 +56,7 @@ function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"
         <CardBody className="w-full flex-row items-center justify-evenly px-0">
             <div className="w-fit flex flex-col items-center">
                 <Link href={`/practices/${practice.id}/attempts`}
-                      className="text-default-500 text-xs uppercase">SCORE</Link>
+                      className="text-default-500 text-xs uppercase">{t("App.score")}</Link>
                 <b>
                     {practice.attempts.reduce((acc, attempt) => acc + attempt.perfection, 0)
                         / practice.attempts.length || '--'}
@@ -60,7 +65,7 @@ function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"
             </div>
             <div className="w-fit flex flex-col items-center">
                 <Link href={`/practices/${practice.id}/attempts`}
-                      className="text-default-500 text-xs uppercase">ATTEMPTS</Link>
+                      className="text-default-500 text-xs uppercase">{t("App.attempts")}</Link>
                 <b>{practice.attempts.length}</b>
             </div>
         </CardBody>

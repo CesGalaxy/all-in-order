@@ -7,34 +7,37 @@ import { SubjectNote } from "@/supabase/models/SubjectNote";
 import { useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
-export default function EditButton({ note, action }: {
+function EditButton({ note, action }: {
     note: SubjectNote,
     action: (title: string, content: string) => Promise<string | undefined>
 }) {
+    const t = useTranslations();
+
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content);
 
     return <>
-        <Button startContent={<IconEdit/>} onPress={onOpen}>Edit note</Button>
+        <Button startContent={<IconEdit/>} onPress={onOpen}>{t('Dash.Note.edit')}</Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
             <ModalContent>
                 {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">Edit note</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{t('Dash.Note.edit')}</ModalHeader>
                         <ModalBody>
                             <Input
                                 autoFocus
-                                label="Title"
-                                placeholder="Untitled note"
+                                label={t("Global.title")}
+                                placeholder={t("Dash.Note.untitled")}
                                 variant="bordered"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
                             <Textarea
-                                label="Content"
+                                label={t("Global.content")}
                                 placeholder="Start typing your ideas here..."
                                 variant="bordered"
                                 value={content}
@@ -45,7 +48,7 @@ export default function EditButton({ note, action }: {
                         </ModalBody>
                         <ModalFooter>
                             <Button color="danger" variant="light" onPress={onClose}>
-                                Close
+                                {t('Global.cancel')}
                             </Button>
                             <Button
                                 color="primary"
@@ -61,7 +64,7 @@ export default function EditButton({ note, action }: {
                                 }}
                                 startContent={<IconDeviceFloppy/>}
                             >
-                                Save
+                                {t('Global.save')}
                             </Button>
                         </ModalFooter>
                     </>
@@ -70,3 +73,5 @@ export default function EditButton({ note, action }: {
         </Modal>
     </>
 }
+
+export default EditButton;

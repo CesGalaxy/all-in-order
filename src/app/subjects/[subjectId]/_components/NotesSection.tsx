@@ -7,6 +7,7 @@ import { Link as TransitionLink } from "next-view-transitions";
 import NoteOptions from "@/app/subjects/[subjectId]/_components/NoteOptions";
 import NoNotes from "@/collections/note/NoNotes";
 import SectionContainer from "@/components/containers/SectionContainer";
+import { useTranslations } from "next-intl";
 
 type RequiredNote = Pick<SubjectNote, "id" | "title" | "content">;
 
@@ -17,8 +18,10 @@ export interface NotesSectionProps {
 }
 
 export default function NotesSection({ notes, createNoteAction, subjectId }: NotesSectionProps) {
+    const t = useTranslations();
+
     return <SectionContainer
-        title={"Notes"}
+        title={t("App.notes")}
         trailing={(notes.length !== 0) && createNoteAction && <CreateNoteButton action={createNoteAction}/>}
         className="w-full h-full flex flex-col"
     >
@@ -36,7 +39,7 @@ export default function NotesSection({ notes, createNoteAction, subjectId }: Not
                             href={`/subjects/${subjectId}/notes/${note.id}`}
                             scroll={false}
                         >
-                            View more
+                            {t("Global.viewMore")}
                         </Button>
                         <NoteOptions/>
                     </CardFooter>

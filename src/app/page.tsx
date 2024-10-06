@@ -26,7 +26,7 @@ export default async function Home() {
 
     return <PageContainer className="w-full h-full flex flex-col items-center gap-8">
         {/* TODO: Latest practices */}
-        <h1 className="text-3xl font-bold">Public Courses</h1>
+        <h1 className="text-3xl font-bold">{t("Home.public_courses")}</h1>
         <ul className="w-full gap-16 grid lg:grid-cols-2 xl:grid-cols-3 auto-rows-min">
             {courses.map(course =>
                 <NavigationCard course={course} key={course.id} isCourseAdmin={false}/>)}

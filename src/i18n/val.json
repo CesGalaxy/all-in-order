@@ -4,9 +4,15 @@
     "tools": "Ferramentes amb IA"
   },
   "App": {
+    "agenda": "Agenda",
+    "attempts": "Intents",
     "calendar": "Calendari",
     "documents": "Documents",
+    "notes": "Notes",
+    "practice": "Practica",
     "resources": "Recursos",
+    "score": "Puntuació",
+    "subjects": "Matéries",
     "tasks": "Tasques",
     "tests": "Tests",
     "topics": "Temes"
@@ -18,6 +24,21 @@
     "signed_in_as": "Accedint com a {identity}"
   },
   "Dash": {
+    "Note": {
+      "delete": "Eliminar nota",
+      "delete_description": "Elimina la nota per sempre",
+      "edit": "Editar note",
+      "edit_description": "Editar els continguts",
+      "not_found": "Nota no trobada",
+      "options": {
+        "pin": "Fixar nota",
+        "pin_description": "Fixar la nota al dalt"
+      },
+      "untitled": "Nota sense títol"
+    },
+    "Practice": {
+      "quick": "Lessó ràpida"
+    },
     "Topic": {
       "create_doc": "Crear document",
       "create_doc_new": "Crear un nou document",
@@ -32,19 +53,34 @@
       "courses": "Els meus cursos"
     }
   },
+  "Extra": {
+    "error_occurred": "Hi ha un error",
+    "go_home": "Tornar al inici",
+    "unexpected_error": "Error"
+  },
   "Global": {
     "cancel": "Cancel·la",
+    "content": "Contingut",
+    "copy_link": "Copiar enllaç",
+    "copy_link_description": "Copia un enllaç per a compartir",
     "create": "Crea",
     "dashboard": "Inici",
+    "delete": "Elimina",
     "download": "Descarregar",
     "edit": "Editar",
     "open": "Obrir",
+    "options": "Opcions",
+    "save": "Guarda",
     "settings": "Preferències",
+    "share": "Comperteix",
     "start": "Començar",
+    "title": "Títol",
+    "viewMore": "Veure més",
     "web_version": "Versió web"
   },
   "Home": {
-    "create_resumes_with_ai": "Crea resums amb l'IA"
+    "create_resumes_with_ai": "Crea resums amb l'IA",
+    "public_courses": "Cursos Públics"
   },
   "Social": {
     "Profile": {

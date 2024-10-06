@@ -4,9 +4,15 @@
     "tools": "AI Tools"
   },
   "App": {
+    "agenda": "Agenda",
+    "attempts": "Attempts",
     "calendar": "Calendar",
     "documents": "Documents",
+    "notes": "Notes",
+    "practice": "Practice",
     "resources": "Resources",
+    "score": "Score",
+    "subjects": "Subjects",
     "tasks": "Tasks",
     "tests": "Tests",
     "topics": "Topics"
@@ -18,6 +24,21 @@
     "signed_in_as": "Signed in as {identity}"
   },
   "Dash": {
+    "Note": {
+      "delete": "Delete note",
+      "delete_description": "Permanently delete the note",
+      "edit": "Edit note",
+      "edit_description": "Edit the note contents",
+      "not_found": "Note not found",
+      "options": {
+        "pin": "Pin note",
+        "pin_description": "Pin the note to the top"
+      },
+      "untitled": "Untitled note"
+    },
+    "Practice": {
+      "quick": "Quick practice"
+    },
     "Topic": {
       "create_doc": "Create document",
       "create_doc_new": "Create a new document",
@@ -32,19 +53,34 @@
       "courses": "My Courses"
     }
   },
+  "Extra": {
+    "error_occurred": "An error ocurred",
+    "go_home": "Go to home",
+    "unexpected_error": "An unexpected error occurred"
+  },
   "Global": {
     "cancel": "Cancel",
+    "content": "Content",
+    "copy_link": "Copy link",
+    "copy_link_description": "Copy the shareable link",
     "create": "Create",
     "dashboard": "Dashboard",
+    "delete": "Delete",
     "download": "Download",
     "edit": "Edit",
     "open": "Open",
+    "options": "Options",
+    "save": "Save",
     "settings": "Settings",
+    "share": "Share",
     "start": "Start",
+    "title": "Title",
+    "viewMore": "View more",
     "web_version": "Web Version"
   },
   "Home": {
-    "create_resumes_with_ai": "Create Resumes with AI ✨"
+    "create_resumes_with_ai": "Create Resumes with AI ✨",
+    "public_courses": "Public Courses"
   },
   "Social": {
     "Profile": {

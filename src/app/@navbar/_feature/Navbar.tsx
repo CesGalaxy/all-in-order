@@ -88,17 +88,17 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
             <NavbarMenu>
                 <NavbarMenuItem isActive={currentPage === 'subjects'} className="group">
                     <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
-                        <span className="text-foreground group-data-[active]:text-primary">Subjects</span>
+                        <span className="text-foreground group-data-[active]:text-primary">{t("App.subjects")}</span>
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem isActive={currentPage === 'agenda'} className="group">
                     <Link href="/agenda" aria-current={currentPage === 'agenda' ? 'page' : undefined}>
-                        <span className="text-foreground group-data-[active]:text-primary">Agenda</span>
+                        <span className="text-foreground group-data-[active]:text-primary">{t("App.agenda")}</span>
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem isActive={currentPage === 'docs'} className="group">
                     <Link href="/content" aria-current={currentPage === 'docs' ? 'page' : undefined}>
-                        <span className="text-foreground group-data-[active]:text-primary">Documents</span>
+                        <span className="text-foreground group-data-[active]:text-primary">{t("App.documents")}</span>
                     </Link>
                 </NavbarMenuItem>
                 <Divider/>

@@ -7,6 +7,7 @@ import AsideModalContainer from "@/components/containers/AsideModal";
 import ShareButton from "@/app/subjects/[subjectId]/@aside/(.)notes/[noteId]/_ShareButton";
 import EditButton from "@/app/subjects/[subjectId]/@aside/(.)notes/[noteId]/_EditButton";
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 
 interface PageProps {
     params: { subjectId: string, noteId: string }
@@ -29,7 +30,9 @@ async function _Page({ params: { subjectId, noteId } }: PageProps) {
     const notes = required(data);
     const note = notes.find(note => note.id === parseInt(noteId));
 
-    if (!note) return <ErrorView message="Note not found"/>;
+    const t = await getTranslations();
+
+    if (!note) return <ErrorView message={t("Dash.Note.not_found")}/>;
 
     async function editNote(title: string, content: string) {
         "use server";

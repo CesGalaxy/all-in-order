@@ -11,16 +11,19 @@ import {
     IconPlayerPlay,
     IconTrash
 } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 
 export default function PracticeButton({ practiceId }: { practiceId: number }) {
+    const t = useTranslations();
+
     return <Dropdown>
         <DropdownTrigger>
             <Button color="primary" className="w-full">
-                Practice
+                {t('App.practice')}
             </Button>
         </DropdownTrigger>
         <DropdownMenu>
-            <DropdownSection title="Practice" showDivider>
+            <DropdownSection title={t('App.practice')} showDivider>
                 <DropdownItem
                     href={`/practices/${practiceId}/start`}
                     startContent={<IconPlayerPlay/>}
@@ -35,7 +38,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     startContent={<IconMeteor/>}
                     description="Just half of the questions"
                 >
-                    Quick practice
+                    {t("Dash.Practice.quick")}
                 </DropdownItem>
             </DropdownSection>
             <DropdownSection title="Your history" showDivider>
@@ -44,7 +47,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     startContent={<IconHistory/>}
                     description="Review your previous attempts"
                 >
-                    Attempts
+                    {t('App.attempts')}
                 </DropdownItem>
                 <DropdownItem
                     href={`/practices/${practiceId}/stats`}
@@ -54,7 +57,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     Progress & stats
                 </DropdownItem>
             </DropdownSection>
-            <DropdownSection title="Options">
+            <DropdownSection title={t('Global.options')}>
                 <DropdownItem
                     href={`/practices/${practiceId}`}
                     startContent={<IconEye/>}
@@ -67,7 +70,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     startContent={<IconEdit/>}
                     description="Edit the practice details"
                 >
-                    Edit
+                    {t('Global.edit')}
                 </DropdownItem>
                 <DropdownItem
                     href={`/practices/${practiceId}/delete`}
@@ -76,7 +79,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     color="danger"
                     className="text-danger"
                 >
-                    Delete
+                    {t("Global.delete")}
                 </DropdownItem>
             </DropdownSection>
         </DropdownMenu>
