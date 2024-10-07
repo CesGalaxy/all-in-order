@@ -12,7 +12,7 @@ import { Link } from "@nextui-org/link";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import { getMaybeMyProfile } from "@/supabase/models/Profile";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import ToggleLocaleButton from "@/app/@navbar/_feature/ToggleLocaleButton";
 import { BreadcrumbItemProps } from "@nextui-org/breadcrumbs";
 import type { ReactNode } from "react";
@@ -21,6 +21,7 @@ import DesktopNavigation from "@/app/@navbar/_feature/navigations/DesktopNavigat
 import { IconHome } from "@tabler/icons-react";
 import ProfileAvatar from "@/app/@navbar/_feature/ProfileAvatar";
 import BottomNavigation from "@/app/@navbar/_feature/navigations/BottomNavigation";
+import news from "@/news.json";
 
 export { BREADCRUMBS } from "@/app/@navbar/_feature/BREADCRUMBS";
 
@@ -36,6 +37,7 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
     const profile = await getMaybeMyProfile();
 
     const t = await getTranslations();
+    const locale = await getLocale() as "en" | "es" | "val";
 
     return <header className="w-full relative border-b-2 border-b-divider --pb-2 md:pb-0 md:border-b-0">
         <Nav shouldHideOnScroll classNames={{ item: "group" }}>
@@ -101,6 +103,21 @@ export default async function AppNavbar({ currentPage, breadcrumbs, actions }: N
                         <span className="text-foreground group-data-[active]:text-primary">{t("App.documents")}</span>
                     </Link>
                 </NavbarMenuItem>
+                <Divider/>
+                <section>
+                    <header className="flex items-end justify-between">
+                        <h1 className="font-medium">
+                            {locale === "en" ? "News" : (locale === "es" ? "Novedades" : "Novetats")}
+                        </h1>
+                        <small className="font-mono">{news.id}</small>
+                    </header>
+                    <ul className="list-disc pl-6">
+                        {news[locale].map((newsDetails, index) =>
+                            <li key={index} className="text-default-500 text-sm">
+                                {newsDetails}
+                            </li>)}
+                    </ul>
+                </section>
                 <Divider/>
                 <nav className="flex items-center justify-between w-full">
                     <Button as={Link} color="primary" href="/app">
