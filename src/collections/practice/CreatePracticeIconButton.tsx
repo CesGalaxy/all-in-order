@@ -3,8 +3,9 @@
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { IconLayoutGridAdd } from "@tabler/icons-react";
+import type { ReactNode } from "react";
 
-export default function CreatePracticeIconButton({ children }: { children: React.ReactNode }) {
+export default function CreatePracticeIconButton({ children }: { children: ReactNode }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return <>

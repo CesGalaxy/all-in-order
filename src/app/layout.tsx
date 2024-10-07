@@ -27,7 +27,8 @@ export default function RootLayout({
     navbar: React.ReactNode;
 }>) {
     // Preload user data while rendering the layout
-    getMaybeMyProfile();
+    // then() is just for linting purposes
+    getMaybeMyProfile().then();
 
     return <ViewTransitions>
         <html lang="en">

@@ -51,7 +51,7 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
     useEffect(() => {
         const unloadCallback = (event: BeforeUnloadEvent) => {
             event.preventDefault();
-            event.returnValue = "";
+            // event.returnValue = "";
             return "";
         };
 
