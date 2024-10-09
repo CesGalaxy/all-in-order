@@ -3,9 +3,11 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import { IconList } from "@tabler/icons-react";
-import { Topic } from "@/supabase/models/Topic";
+import { Topic } from "@/supabase/entities";
 
-export default function SubjectTopicsDropdown({ topics }: { topics: Topic[] }) {
+export type RequiredTopic = Pick<Topic, "id" | "title">;
+
+export default function SubjectTopicsDropdown({ topics }: { topics: RequiredTopic[] }) {
     return <Dropdown>
         <DropdownTrigger>
             <Button isIconOnly>

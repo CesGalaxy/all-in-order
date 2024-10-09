@@ -5,13 +5,15 @@ import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { IconDeviceFloppy, IconEdit } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
-import { Course } from "@/supabase/models/Course";
 import { toast } from "react-toastify";
 import { PostgrestError } from "@supabase/supabase-js";
 import { Checkbox } from "@nextui-org/checkbox";
+import { Course } from "@/supabase/entities";
+
+export type RequiredCourse = Pick<Course, "name" | "description" | "is_public">
 
 export default function EditCourseButton({ course, action }: {
-    course: Course,
+    course: RequiredCourse,
     action: () => Promise<PostgrestError | undefined>
 }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();

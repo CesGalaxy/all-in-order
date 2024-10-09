@@ -1,4 +1,3 @@
-import { CourseWSubjectsWTopics } from "@/supabase/models/Course";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
@@ -9,9 +8,16 @@ import EditCourseButton from "@/collections/course/EditButton";
 import CreateSubjectButton from "@/collections/subject/CreateSubjectButton";
 import SubjectTopicsDropdown from "@/collections/course/NavigationCardTopicsDropdown";
 import { PostgrestError } from "@supabase/supabase-js";
+import { Course, Subject, Topic } from "@/supabase/entities";
+
+export type RequiredCourse = Pick<Course, "id" | "name" | "description" | "is_public">
+    & { subjects: RequiredSubject[] };
+export type RequiredSubject = Pick<Subject, "id" | "name" | "color">
+    & { topics: RequiredTopic[] };
+export type RequiredTopic = Pick<Topic, "id" | "title">
 
 export default function NavigationCard({ course, editAction, isCourseAdmin }: {
-    course: CourseWSubjectsWTopics,
+    course: RequiredCourse;
     editAction?: () => Promise<PostgrestError | undefined>,
     isCourseAdmin?: boolean | null
 }) {
