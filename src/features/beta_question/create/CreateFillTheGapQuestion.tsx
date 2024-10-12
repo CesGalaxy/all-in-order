@@ -32,7 +32,9 @@ const INITIAL_SEGMENTS: Record<string, Segment> = {
 
 type Segment = string | Omit<Gap, "position">;
 
-export default function CreateFillTheGapQuestion({ draft, setDraft }: {
+export default CreateFillTheGapQuestion;
+
+function CreateFillTheGapQuestion({ draft, setDraft }: {
     draft?: QuestionDraft<QuestionFillTheGapData, "fill_the_gap">,
     setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionFillTheGapData, "fill_the_gap">>>
 }) {

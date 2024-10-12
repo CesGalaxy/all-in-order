@@ -15,7 +15,9 @@ const INITIAL_CHOICES: [number, string, boolean][] = [
     [2, "Example choice 3", false],
 ];
 
-export default function CreateChoiceQuestion({ draft, setDraft }: {
+export default CreateChoiceQuestion;
+
+function CreateChoiceQuestion({ draft, setDraft }: {
     draft?: QuestionDraft<QuestionChoiceData, "choice">,
     setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData, "choice">>>
 }) {

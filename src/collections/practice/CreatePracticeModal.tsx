@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export type RequiredCreatePracticeAction = (title: string, description: string) => Promise<string | undefined>;
 
-export default function CreatePracticeModal({ action }: { action: RequiredCreatePracticeAction }) {
+function CreatePracticeModal({ action }: { action: RequiredCreatePracticeAction }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -70,3 +70,5 @@ export default function CreatePracticeModal({ action }: { action: RequiredCreate
         )}
     </ModalContent>;
 }
+
+export default CreatePracticeModal;

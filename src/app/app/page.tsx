@@ -1,9 +1,9 @@
 import { getMyProfile } from "@/supabase/models/Profile";
-import NoCourses from "@/collections/course/NoCourses";
+import NoCourses from "@/collections/course/components/views/NoCourses";
 import PageContainer from "@/components/containers/Page";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import NavigationCard from "@/collections/course/NavigationCard";
+import CourseNavigationCard from "@/collections/course/components/navigation/CourseNavigationCard";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
@@ -11,24 +11,31 @@ import { Button } from "@nextui-org/button";
 import { IconUserEdit } from "@tabler/icons-react";
 import noDataImage from "@/assets/pictures/no_data.svg";
 import Blank from "@/components/views/Blank";
+import DashboardCreateCourseButton from "@/app/app/DashboardCreateCourseButton";
 
 export default async function Page() {
     const profile = await getMyProfile();
 
     const { data: courses, error } = await getSupabase()
         .from("courses")
-        .select("id, name, description, is_public, subjects(id, name, color, topics(id, title))");
+        .select("id, name, description, is_public, subjects(id, name, color, topics(id, title)), course_members(profile_id, is_admin)")
+        .eq("course_members.profile_id", profile.id);
 
     if (error) return <ErrorView message={error.message}/>;
 
     return <PageContainer className="w-full h-full grid grid-cols-3 gap-16">
-        <SectionContainer className="col-span-2 w-full h-full" title="My Courses">
+        <SectionContainer
+            title="My Courses"
+            className="col-span-2 w-full h-full"
+            trailing={<DashboardCreateCourseButton/>}
+        >
             {
                 courses && courses.length > 0
                     ? <ul className="w-full grid grid-cols-2 gap-16 auto-rows-min">
-                        {courses.map(course => <NavigationCard
+                        {courses.map(course => <CourseNavigationCard
                             key={course.id}
                             course={course}
+                            isCourseAdmin={course.course_members.find(member => member.profile_id === profile.id)?.is_admin}
                         />)}
                     </ul>
                     : <NoCourses/>

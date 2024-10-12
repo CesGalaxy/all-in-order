@@ -30,7 +30,7 @@ const QUESTION_CREATORS = {
     "fill_the_gap4": CreateFillTheGapQuestion,
 }
 
-export default function CreatePracticeActivityModal({ action }: {
+function CreatePracticeActivityModal({ action }: {
     action: (data: QuestionData, tags: string[]) => Promise<string | undefined>
 }) {
     const [title, setTitle] = useState("");
@@ -175,3 +175,5 @@ export default function CreatePracticeActivityModal({ action }: {
         )}
     </ModalContent>;
 }
+
+export default CreatePracticeActivityModal;

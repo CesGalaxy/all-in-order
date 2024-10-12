@@ -1,16 +1,18 @@
 "use client";
 
 import { Link } from "@nextui-org/link";
-import { Subject } from "@/supabase/models/Subject";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { useState } from "react";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { toast } from "react-toastify";
+import { Subject } from "@/supabase/entities";
 
-export default function EditSubjectButton({ subject, action }: {
-    subject: Subject,
+export type RequiredSubject = Pick<Subject, "name" | "description">
+
+function EditSubjectButton({ subject, action }: {
+    subject: RequiredSubject,
     action: (name?: string, description?: string) => Promise<string | undefined>
 }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -69,3 +71,5 @@ export default function EditSubjectButton({ subject, action }: {
         </Modal>
     </>;
 }
+
+export default EditSubjectButton;

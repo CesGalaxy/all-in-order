@@ -7,7 +7,7 @@ import { Topic } from "@/supabase/entities";
 
 export type RequiredTopic = Pick<Topic, "id" | "title">;
 
-export default function SubjectTopicsDropdown({ topics }: { topics: RequiredTopic[] }) {
+export default function CourseNavigationCardTopics({ topics }: { topics: RequiredTopic[] }) {
     return <Dropdown>
         <DropdownTrigger>
             <Button isIconOnly>
@@ -15,9 +15,9 @@ export default function SubjectTopicsDropdown({ topics }: { topics: RequiredTopi
             </Button>
         </DropdownTrigger>
         <DropdownMenu>
-            {topics.map(topic => (
+            {topics.map(topic =>
                 <DropdownItem key={topic.id} as="a" href={"/topics/" + topic.id}>{topic.title}</DropdownItem>
-            ))}
+            )}
         </DropdownMenu>
     </Dropdown>
 }

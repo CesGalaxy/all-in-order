@@ -1,7 +1,6 @@
 import { Link } from "@nextui-org/link";
-import { Subject } from "@/supabase/models/Subject";
 
-export default function ManageSubjectMembersButton({ subject }: { subject: Subject }) {
+export default function ManageSubjectMembersButton(_: { subject: any }) {
     return <Link
         as={"button"}
     >

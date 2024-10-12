@@ -1,6 +1,6 @@
 import noDataImage from "@/assets/pictures/no_data.svg";
 import Blank from "@/components/views/Blank";
-import JoinButton from "@/collections/course/JoinButton";
+import JoinCourseButton from "@/collections/course/components/JoinCourseButton";
 import CreateSubjectButton from "@/collections/subject/CreateSubjectButton";
 
 export default function NoSubjects({ courseId }: { courseId: number }) {
@@ -8,7 +8,7 @@ export default function NoSubjects({ courseId }: { courseId: number }) {
                   alt="">
         <nav className="flex items-center gap-4">
             <CreateSubjectButton courseId={courseId}/>
-            <JoinButton/>
+            <JoinCourseButton/>
         </nav>
     </Blank>;
 }

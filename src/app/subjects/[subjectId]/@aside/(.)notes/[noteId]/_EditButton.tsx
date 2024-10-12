@@ -3,14 +3,16 @@
 import { IconDeviceFloppy, IconEdit } from "@tabler/icons-react";
 import { Button } from "@nextui-org/button";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { SubjectNote } from "@/supabase/models/SubjectNote";
 import { useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { SubjectNote } from "@/supabase/entities";
+
+export type RequiredSubjectNote = Pick<SubjectNote, "title" | "content">
 
 function EditButton({ note, action }: {
-    note: SubjectNote,
+    note: RequiredSubjectNote,
     action: (title: string, content: string) => Promise<string | undefined>
 }) {
     const t = useTranslations();

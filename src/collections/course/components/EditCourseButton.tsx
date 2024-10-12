@@ -12,7 +12,7 @@ import { Course } from "@/supabase/entities";
 
 export type RequiredCourse = Pick<Course, "name" | "description" | "is_public">
 
-export default function EditCourseButton({ course, action }: {
+function EditCourseButton({ course, action }: {
     course: RequiredCourse,
     action: () => Promise<PostgrestError | undefined>
 }) {
@@ -112,3 +112,5 @@ export default function EditCourseButton({ course, action }: {
         </>
     );
 }
+
+export default EditCourseButton;

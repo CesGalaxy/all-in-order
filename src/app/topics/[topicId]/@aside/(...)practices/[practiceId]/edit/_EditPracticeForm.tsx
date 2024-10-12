@@ -12,7 +12,7 @@ export interface EditPracticeFormProps {
     action: (title: string, description: string) => Promise<string | undefined>;
 }
 
-export default function EditPracticeForm({ practiceTitle, practiceDescription, action }: EditPracticeFormProps) {
+function EditPracticeForm({ practiceTitle, practiceDescription, action }: EditPracticeFormProps) {
     const [title, setTitle] = useState(practiceTitle);
     const [description, setDescription] = useState(practiceDescription);
 
@@ -55,3 +55,5 @@ export default function EditPracticeForm({ practiceTitle, practiceDescription, a
         </Button>
     </div>
 }
+
+export default EditPracticeForm;

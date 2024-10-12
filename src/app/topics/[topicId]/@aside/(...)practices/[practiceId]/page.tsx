@@ -6,7 +6,7 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { PracticeActivityEntity } from "@/supabase/entities";
+import { PracticeActivity } from "@/supabase/entities";
 import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";
@@ -53,7 +53,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
                 </nav>
                 <br/>
                 <ul className="flex flex-col items-stretch gap-4">
-                    {(activities as PracticeActivityEntity[]).map(({ id, data }) => <Card as="li" key={id}>
+                    {(activities as PracticeActivity[]).map(({ id, data }) => <Card as="li" key={id}>
                         <CardHeader className="items-start gap-4">
                             <div className="w-full flex-grow">
                                 <div className="flex items-center gap-2">

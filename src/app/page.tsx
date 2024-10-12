@@ -9,7 +9,7 @@ import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import NavigationCard from "@/collections/course/NavigationCard";
+import CourseNavigationCard from "@/collections/course/components/navigation/CourseNavigationCard";
 
 export default async function Home() {
     const t = await getTranslations();
@@ -29,7 +29,7 @@ export default async function Home() {
         <h1 className="text-3xl font-bold">{t("Home.public_courses")}</h1>
         <ul className="w-full gap-16 grid lg:grid-cols-2 xl:grid-cols-3 auto-rows-min">
             {courses.map(course =>
-                <NavigationCard course={course} key={course.id} isCourseAdmin={false}/>)}
+                <CourseNavigationCard course={course} key={course.id} isCourseAdmin={false}/>)}
         </ul>
         <Divider/>
         <h1 className="text-2xl sm:text-3xl font-bold">{t('Home.create_resumes_with_ai')}</h1>

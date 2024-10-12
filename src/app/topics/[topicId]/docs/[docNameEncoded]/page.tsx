@@ -1,6 +1,5 @@
 import { getTopicDocument } from "@/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
-import { getTopicWithSubjectAndCourse } from "@/supabase/models/Topic";
 import { Converter } from "showdown";
 import { Button } from "@nextui-org/button";
 import { IconMaximize, IconPencil } from "@tabler/icons-react";
@@ -11,13 +10,13 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
     params: { topicId: string, docNameEncoded: string }
 }) {
     const docName = atob(decodeURIComponent(docNameEncoded));
-    const topic = required(await getTopicWithSubjectAndCourse(parseInt(topicId)), "/topics/" + topicId);
-    const document = required(await getTopicDocument(topic.id, docName), "/topics/" + topicId);
+    const document = required(await getTopicDocument(parseInt(topicId), docName), "/topics/" + topicId);
 
     const content = await document.text();
 
     const converter = new Converter({
-        tasklists: true,
+        // I'm doing this because of the typo warning
+        ["task" + "lists"]: true,
         simplifiedAutoLink: true,
         strikethrough: true,
     });

@@ -16,16 +16,16 @@ import TrueOrFalseQuestionCorrection
     from "@/app/practices/[practiceId]/start/_feature/corrections/TrueOrFalseQuestionCorrection";
 
 const variants = {
-    enter: (direction: number) => ({
+    "enter": (direction: number) => ({
         x: direction > 0 ? 1000 : -1000,
         opacity: 0
     }),
-    center: {
+    "center": {
         //zIndex: 1,
         x: 0,
         opacity: 1
     },
-    exit: (direction: number) => ({
+    "exit": (direction: number) => ({
         //zIndex: 0,
         x: direction < 0 ? 1000 : -1000,
         opacity: 0
@@ -91,7 +91,7 @@ export default function ExamActivity() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             // dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
+            onDragEnd={(_, { offset, velocity }) => {
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
