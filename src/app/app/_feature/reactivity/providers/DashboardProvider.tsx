@@ -10,15 +10,23 @@ import DashboardContext, {
     OptimisticCourse,
     RequiredCourse
 } from "@/app/app/_feature/reactivity/context/DashboardContext";
+import { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
 
 export interface DashboardProviderProps {
     initialCourses: RequiredCourse[];
     createCourseAction: CreateCourseModalAction;
+    editCourseAction: (courseId: number) => EditCourseModalAction;
     profile: Profile;
     children: ReactNode;
 }
 
-function DashboardProvider({ initialCourses, createCourseAction, profile, children }: DashboardProviderProps) {
+function DashboardProvider({
+                               initialCourses,
+                               createCourseAction,
+                               editCourseAction,
+                               profile,
+                               children
+                           }: DashboardProviderProps) {
     const [optimisticCourses, addOptimisticCourse] = useOptimistic<AnyStateCourse[], CreatingCourse>(
         // The initial courses (directly from server)
         initialCourses.map<InitialCourse>(course => ({ ...course, creating: false })),
@@ -34,7 +42,12 @@ function DashboardProvider({ initialCourses, createCourseAction, profile, childr
         return createCourseAction(data);
     }, [addOptimisticCourse, createCourseAction]);
 
-    return <DashboardContext.Provider value={{ optimisticCourses, createCourse, profile }}>
+    return <DashboardContext.Provider value={{
+        optimisticCourses,
+        createCourse,
+        editCourse: editCourseAction,
+        profile
+    }}>
         {children}
     </DashboardContext.Provider>;
 }

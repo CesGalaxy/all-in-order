@@ -7,7 +7,7 @@ export default function NoSubjects({ courseId }: { courseId: number }) {
     return <Blank title={"No subjects found"} content={"Create a subject to get started"} image={noDataImage}
                   alt="">
         <nav className="flex items-center gap-4">
-            <CreateSubjectButton courseId={courseId}/>
+            <CreateSubjectButton action={courseId}/>
             <JoinCourseButton/>
         </nav>
     </Blank>;

@@ -17,7 +17,7 @@ export interface NotesSectionProps {
     subjectId: number;
 }
 
-export default function NotesSection({ notes, createNoteAction, subjectId }: NotesSectionProps) {
+export default function SubjectPageNotesSection({ notes, createNoteAction, subjectId }: NotesSectionProps) {
     const t = useTranslations();
 
     return <SectionContainer

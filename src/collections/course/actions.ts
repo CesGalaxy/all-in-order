@@ -3,6 +3,7 @@
 import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { CREATE_COURSE_SCHEMA, UPDATE_COURSE_SCHEMA } from "@/collections/course/schemas";
 import getSupabase from "@/supabase/server";
+import { revalidatePath } from "next/cache";
 
 export type CreateCourseFields = {
     name: string,
@@ -61,6 +62,8 @@ export async function updateCourseAction(courseId: number, data: UpdateCourseFie
 
     // Handle error
     if (error) return mountActionError({ db: [error.message] });
+
+    revalidatePath("/");
 
     return mountActionSuccess(null);
 }

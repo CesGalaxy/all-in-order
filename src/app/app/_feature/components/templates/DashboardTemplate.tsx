@@ -12,11 +12,17 @@ import DashboardNotificationsSection from "@/app/app/_feature/components/organis
 export interface DashboardTemplateProps {
     initialCourses: RequiredCourse[];
     createCourseAction: CreateCourseModalAction;
+    editCourseAction: (courseId: number) => any;
     profile: Profile;
 }
 
-function DashboardTemplate({ initialCourses, createCourseAction, profile }: DashboardTemplateProps) {
-    return <DashboardProvider initialCourses={initialCourses} createCourseAction={createCourseAction} profile={profile}>
+function DashboardTemplate({ initialCourses, createCourseAction, editCourseAction, profile }: DashboardTemplateProps) {
+    return <DashboardProvider
+        initialCourses={initialCourses}
+        createCourseAction={createCourseAction}
+        editCourseAction={editCourseAction}
+        profile={profile}
+    >
         <PageContainer className="w-full h-full grid xl:grid-cols-3 gap-16">
             <DashboardCoursesSection/>
             <aside className="flex flex-col items-stretch gap-16 order-first xl:order-none w-full">

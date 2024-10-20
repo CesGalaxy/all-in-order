@@ -2,6 +2,7 @@ import { Tables } from "@/supabase/database";
 import { QuestionData } from "@/features/beta_question";
 
 export type Course = Tables<"courses">;
+export type CourseMember = Tables<"course_members">;
 
 export type Subject = Tables<"subjects">;
 export type SubjectNote = Tables<"subject_notes">;

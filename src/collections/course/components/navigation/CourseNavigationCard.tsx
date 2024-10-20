@@ -6,37 +6,45 @@ import NoSubjects from "@/collections/subject/components/views/NoSubjects";
 import { Divider } from "@nextui-org/divider";
 import CourseNavigationCardTopics from "@/collections/course/components/navigation/CourseNavigationCardTopics";
 import { Course, Subject, Topic } from "@/supabase/entities";
-import CourseNavigationCardFooter from "@/collections/course/components/navigation/CourseNavigationCardFooter";
+import CourseNavigationCardFooter, {
+    RequiredCourseMember as CourseNavigationCardFooterRequiredCourseMember
+} from "@/collections/course/components/navigation/CourseNavigationCardFooter";
 import { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
 import { Skeleton } from "@nextui-org/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
 
-export type ExistentCourse = LoadingCourse & Pick<Course, "id"> & { subjects: RequiredSubject[] };
+export type ExistentCourse = LoadingCourse & Pick<Course, "id"> & {
+    subjects: RequiredSubject[],
+    members?: RequiredCourseMember[],
+};
 export type LoadingCourse = Pick<Course, "name" | "description" | "is_public">;
 
 export type RequiredCourse = ExistentCourse | LoadingCourse;
+export type RequiredCourseMember = CourseNavigationCardFooterRequiredCourseMember;
 export type RequiredSubject = Pick<Subject, "id" | "name" | "color"> & { topics: RequiredTopic[] };
 export type RequiredTopic = Pick<Topic, "id" | "title">
 
 export interface CourseNavigationCardProps {
     course: RequiredCourse;
     isCourseAdmin?: boolean | null;
-    createSubjectAction?: number | CreateSubjectModalAction;
-    editCourseAction?: number | EditCourseModalAction;
+    createSubjectAction?: "auto" | number | CreateSubjectModalAction;
+    editCourseAction?: "auto" | number | EditCourseModalAction;
+    profileId?: number;
 }
 
 export default function CourseNavigationCard({
                                                  course,
                                                  isCourseAdmin,
-                                                 createSubjectAction,
-                                                 editCourseAction
+                                                 createSubjectAction = "auto",
+                                                 editCourseAction = "auto",
+                                                 profileId,
                                              }: CourseNavigationCardProps) {
     return <Card className="p-4 w-full h-full" as="li">
         <CardHeader className="flex-col items-start">
             <h2 className="font-bold text-3xl">{course.name}</h2>
             {course.description && <small className="text-default-500">{course.description}</small>}
         </CardHeader>
-        <CardBody className="flex flex-wrap items-start justify-center gap-16">
+        <CardBody className="flex flex-wrap items-start gap-16">
             {
                 "id" in course
                     ? course.subjects.length > 0
@@ -79,6 +87,8 @@ export default function CourseNavigationCard({
                 courseVisibility={course.is_public}
                 createSubjectAction={createSubjectAction}
                 editCourseAction={editCourseAction}
+                profileId={profileId}
+                courseMembers={course.members}
             />
         </>}
     </Card>;

@@ -3,14 +3,13 @@
 import { Input, Textarea } from "@nextui-org/input";
 import { Checkbox } from "@nextui-org/checkbox";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { COURSE_DESCRIPTION, COURSE_NAME } from "@/collections/course/schemas";
-import { ActionResponse } from "@/lib/helpers/form";
-import useValidation from "@/reactivity/hooks/useValidation";
 import ModalForm from "@/components/utils/ModalForm";
-import { updateCourseAction, UpdateCourseFields } from "@/collections/course/actions";
+import { updateCourseAction, UpdateCourseActionResponse, UpdateCourseFields } from "@/collections/course/actions";
+import useValidatedState from "@/reactivity/hooks/useValidatedState";
 
-export type EditCourseModalAction = (data: UpdateCourseFields) => Promise<ActionResponse<never>>;
+export type EditCourseModalAction = (data: UpdateCourseFields) => Promise<UpdateCourseActionResponse>;
 
 export interface EditCourseModalProps {
     courseName: string;
@@ -25,28 +24,23 @@ export default function EditCourseModal({
                                             courseVisibility,
                                             action
                                         }: EditCourseModalProps) {
-    const [name, setName] = useState(courseName);
-    const [description, setDescription] = useState(courseDescription);
+    const [name, setName, nameValidation, validateName, isNameValid] = useValidatedState(COURSE_NAME, courseName);
+    const [description, setDescription, descriptionValidation, validateDescription, isDescriptionValid] =
+        useValidatedState(COURSE_DESCRIPTION, courseDescription);
+
     const [isPublic, setIsPublic] = useState(courseVisibility);
 
-    const [nameValidation, validateName, isNameValid] = useValidation(COURSE_NAME, name);
-    const [descriptionValidation, validateDescription, isDescriptionValid] = useValidation(COURSE_DESCRIPTION, description);
-
-    const createCourse = useMemo<EditCourseModalAction>(
-        () => typeof action === "number" ? updateCourseAction.bind(null, action) : action,
+    const createCourse = useMemo<EditCourseModalAction>(() => typeof action === "number"
+            ? updateCourseAction.bind(null, action)
+            : action,
         [action]
-    );
-
-    const submit = useCallback(
-        () => createCourse({ name, description, is_public: isPublic }),
-        [createCourse, name, description, isPublic]
     );
 
     return <ModalForm
         title={"Edit " + courseName}
         buttonLabel="Save"
         buttonIcon={<IconDeviceFloppy/>}
-        action={submit}
+        action={() => createCourse({ name, description, is_public: isPublic })}
         isFormValid={isNameValid && isDescriptionValid}
         handleSuccess="close"
     >

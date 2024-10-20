@@ -21,7 +21,7 @@ export type AnyStateCourse = OptimisticCourse | InitialCourse;
 export interface DashboardContextData {
     optimisticCourses: AnyStateCourse[];
     createCourse: CreateCourseModalAction;
-    editCourse: EditCourseModalAction;
+    editCourse: (courseId: number) => EditCourseModalAction;
     profile: Profile;
 }
 

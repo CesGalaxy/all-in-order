@@ -17,6 +17,14 @@ export default async function Page() {
     return <DashboardTemplate
         initialCourses={courses}
         createCourseAction={dashboard_createCourse}
+        editCourseAction={async () => {
+            "use server";
+
+            return async () => {
+                "use server";
+                return { ok: false };
+            }
+        }}
         profile={profile}
     />;
 }

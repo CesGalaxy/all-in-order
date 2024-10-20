@@ -8,28 +8,47 @@ import CreateSubjectModal, {
     CreateSubjectModalAction
 } from "@/collections/subject/components/modals/CreateSubjectModal";
 import EditCourseModal, { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
+import { CourseMember } from "@/supabase/entities";
+
+export type RequiredCourseMember = Pick<CourseMember, "profile_id" | "is_admin">
 
 export interface CourseNavigationCardFooterProps {
     courseId: number;
     courseName: string;
     courseDescription: string;
     courseVisibility: boolean;
-    editCourseAction?: number | EditCourseModalAction;
-    createSubjectAction?: number | CreateSubjectModalAction;
+    courseMembers?: RequiredCourseMember[];
+    editCourseAction: "auto" | number | EditCourseModalAction;
+    createSubjectAction: "auto" | number | CreateSubjectModalAction;
+    profileId?: number;
 }
 
 function CourseNavigationCardFooter({
                                         courseId,
                                         editCourseAction,
                                         createSubjectAction,
+                                        courseMembers,
+                                        profileId,
                                         ...courseDetails
                                     }: CourseNavigationCardFooterProps) {
+    const isAdmin = (courseMembers && profileId)
+        ? courseMembers.some(m => m.profile_id === profileId && m.is_admin)
+        : false;
+
+    const createSubject = createSubjectAction === "auto"
+        ? isAdmin ? courseId : undefined
+        : createSubjectAction;
+
+    const editCourse = editCourseAction === "auto"
+        ? isAdmin ? courseId : undefined
+        : editCourseAction;
+
     return (editCourseAction || createSubjectAction) &&
         <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
             {
-                createSubjectAction &&
+                createSubject &&
                 <ModalHandler
-                    modal={<CreateSubjectModal action={createSubjectAction} courseName={courseDetails.courseName}/>}
+                    modal={<CreateSubjectModal action={createSubject} courseName={courseDetails.courseName}/>}
                 >
                     {onOpen => <Button color="primary" startContent={<IconPlus/>} onPress={onOpen}>
                         Add a new subject
@@ -37,8 +56,8 @@ function CourseNavigationCardFooter({
                 </ModalHandler>
             }
             {
-                editCourseAction &&
-                <ModalHandler modal={<EditCourseModal action={editCourseAction} {...courseDetails}/>}>
+                editCourse &&
+                <ModalHandler modal={<EditCourseModal action={editCourse} {...courseDetails}/>}>
                     {onOpen => <Button isIconOnly onPress={onOpen}>
                         <IconEdit/>
                     </Button>}
