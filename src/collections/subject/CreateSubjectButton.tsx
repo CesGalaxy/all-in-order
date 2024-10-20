@@ -2,13 +2,13 @@
 
 import { Button } from "@nextui-org/button";
 import ModalHandler from "@/components/utils/ModalHandler";
-import CreateSubjectModal from "@/collections/subject/CreateSubjectModal";
+import CreateSubjectModal, {
+    CreateSubjectModalAction
+} from "@/collections/subject/components/modals/CreateSubjectModal";
 import type { ReactNode } from "react";
 
 export type CreateSubjectButtonProps = {
-    action: (name: string, description: string, color: number) => Promise<string | undefined>;
-} | {
-    courseId: number;
+    action: number | CreateSubjectModalAction;
 } | {
     modal: ReactNode;
 }

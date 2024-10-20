@@ -1,95 +1,72 @@
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+"use client";
+
 import { Input, Textarea } from "@nextui-org/input";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
+import { useState } from "react";
+import { createCourseAction, CreateCourseActionResponse, CreateCourseFields } from "@/collections/course/actions";
+import useValidation from "@/reactivity/hooks/useValidation";
+import { COURSE_DESCRIPTION, COURSE_NAME } from "@/collections/course/schemas";
+import ModalForm from "@/components/utils/ModalForm";
 import { IconPlus } from "@tabler/icons-react";
-import { toast } from "react-toastify";
-import { useMemo, useState } from "react";
-import { createCourseAction } from "@/collections/course/actions";
 
-// export type CreateCourseModalAction = (name: string, description: string) => Promise<string | undefined>;
+export type CreateCourseModalAction = (data: CreateCourseFields) => Promise<CreateCourseActionResponse>;
 
-export default function CreateCourseModal() {
+export interface CreateCourseModalProps {
+    action?: CreateCourseModalAction;
+}
+
+function CreateCourseModal({ action = createCourseAction }: CreateCourseModalProps) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [isPublic, setIsPublic] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+    const [nameValidation, validateName, isNameValid] = useValidation(COURSE_NAME, name);
+    const [descriptionValidation, validateDescription, isDescriptionValid] = useValidation(COURSE_DESCRIPTION, description);
 
-    const validateName = () => {
-        if (!name) return "Name is required";
-        if (name.length < 3) return "Name is too short";
-        if (name.length > 64) return "Name is too long";
-    }
+    const submit = () => action({ name, description, is_public: isPublic });
 
-    const validateDescription = () => {
-        if (description.length > 512) return "Description is too long";
-    }
-
-    const isNameValid = useMemo(validateName, [name]);
-    const isDescriptionInvalid = useMemo(validateDescription, [description]);
-
-    const isValid = !isNameValid && !isDescriptionInvalid;
-
-    return <ModalContent>
-        {(onClose) => (
-            <>
-                <ModalHeader className="flex flex-col gap-1">Create a new course</ModalHeader>
-                <ModalBody>
-                    <Input
-                        autoFocus
-                        label="Name"
-                        placeholder="Enter the name of the course"
-                        variant="bordered"
-                        isRequired
-                        validate={validateName}
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <Textarea
-                        label="Description"
-                        placeholder="A description for the course (optional)"
-                        variant="bordered"
-                        rows={3}
-                        maxLength={512}
-                        validate={validateDescription}
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                    />
-                    <div className="flex py-2 px-1 justify-between">
-                        <Checkbox
-                            classNames={{
-                                label: "text-small",
-                            }}
-                        >
-                            Public visibility
-                        </Checkbox>
-                        <Link color="primary" href="#" size="sm">
-                            Already have a code?
-                        </Link>
-                    </div>
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                        Cancel
-                    </Button>
-                    <Button
-                        color="primary"
-                        startContent={<IconPlus/>}
-                        isDisabled={!isValid}
-                        isLoading={loading}
-                        onPress={async () => {
-                            setLoading(true);
-                            const error = await createCourseAction(name, description);
-                            setLoading(false);
-
-                            if (error) toast(error, { type: "error" });
-                        }}
-                    >
-                        Create
-                    </Button>
-                </ModalFooter>
-            </>
-        )}
-    </ModalContent>;
+    return <ModalForm
+        title="Create a new course"
+        buttonLabel="Create"
+        buttonIcon={<IconPlus/>}
+        isFormValid={isNameValid && isDescriptionValid}
+        action={submit}
+        handleSuccess="close"
+    >
+        <Input
+            autoFocus
+            label="Name"
+            placeholder="Enter the name of the course"
+            variant="bordered"
+            isRequired
+            value={name}
+            onChange={e => setName(e.target.value)}
+            validate={validateName}
+            isInvalid={!isNameValid}
+            errorMessage={nameValidation}
+        />
+        <Textarea
+            label="Description"
+            placeholder="A description for the course (optional)"
+            variant="bordered"
+            rows={3}
+            maxLength={512}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            validate={validateDescription}
+            isInvalid={!isDescriptionValid}
+            errorMessage={descriptionValidation}
+        />
+        <div className="flex py-2 px-1 justify-between">
+            <Checkbox isSelected={isPublic} onValueChange={setIsPublic} name="is_public">
+                Public visibility
+            </Checkbox>
+            <Link color="primary" href="#" size="sm">
+                Already have a code?
+            </Link>
+        </div>
+    </ModalForm>;
 }
+
+export default CreateCourseModal;
