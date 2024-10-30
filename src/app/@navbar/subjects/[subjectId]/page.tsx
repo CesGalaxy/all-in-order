@@ -1,9 +1,9 @@
 import AppNavbar, { BREADCRUMBS } from "@/app/@navbar/_feature/Navbar";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
-import EditSubjectButton from "@/app/@navbar/subjects/[subjectId]/_EditSubjectButton";
-import ManageSubjectMembersButton from "@/app/@navbar/subjects/[subjectId]/_ManageSubjectMembersButton";
-import getSupabase from "@/supabase/server";
-import { revalidatePath } from "next/cache";
+import ModalButton from "@/components/utils/ModalButton";
+import EditSubjectModal from "@/app/subjects/[subjectId]/_feature/components/modals/EditSubjectModal";
+import autoRevalidate from "@/lib/helpers/autoRevalidate";
+import { updateSubjectAction } from "@/collections/subject/actions";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
     const { data: subject, error } = await getSubject(subjectId);
@@ -11,25 +11,20 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
     if (error || !subject)
         return <AppNavbar currentPage="subjects" breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects]}/>
 
-    async function updateSubject(name?: string, description?: string) {
-        "use server";
-
-        const { error } = await getSupabase()
-            .from("subjects")
-            .update({ name, description })
-            .eq("id", subjectId);
-
-        if (error) return error.message;
-
-        revalidatePath("/subjects/" + subjectId);
-    }
-
     return <AppNavbar
         currentPage="subjects"
         breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects, BREADCRUMBS.subject(subject.id, subject.name)]}
         actions={<>
-            <ManageSubjectMembersButton subject={subject}/>
-            <EditSubjectButton subject={subject} action={updateSubject}/>
+            <ModalButton
+                size="sm"
+                modal={<EditSubjectModal
+                    action={autoRevalidate(updateSubjectAction.bind(null, subject.id), "/", "layout")}
+                    subjectName={subject.name}
+                    subjectDescription={subject.description}
+                />}
+            >
+                Edit subject
+            </ModalButton>
         </>}
     />;
 }

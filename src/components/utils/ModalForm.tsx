@@ -9,7 +9,7 @@ import ErrorListView from "@/components/views/ErrorListView";
 
 export interface ModalFormProps<T, E extends string> {
     title: ReactNode;
-    action: () => (Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string);
+    action: (formData: FormData) => (Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string);
     buttonLabel?: ReactNode;
     buttonIcon?: ReactNode;
     isFormValid: boolean;
@@ -25,8 +25,8 @@ function ModalForm<
 >({
       title, action, buttonLabel, buttonIcon, isFormValid, handleResponse, handleSuccess, handleError, children,
   }: ModalFormProps<T, E>) {
-    const handleSubmit = useCallback(async () => {
-        const act = action();
+    const handleSubmit = useCallback(async (formData: FormData) => {
+        const act = action(formData);
 
         if (typeof act === "string") {
             return {
@@ -38,6 +38,7 @@ function ModalForm<
         } else if (
             typeof act === "object"
             && act !== null
+            && act !== undefined
             && Object.values(act).every(Array.isArray)
             && Object.values(act).flat().every((v) => typeof v === "string")
         ) {
@@ -69,8 +70,8 @@ function ModalForm<
                     isDisabled={!isFormValid}
                     isLoading={loading}
                     type="submit"
-                    formAction={async () => {
-                        const response = await formAction();
+                    formAction={async (formData) => {
+                        const response = await formAction(formData);
 
                         if (handleResponse) handleResponse(response, onClose);
 

@@ -58,7 +58,7 @@ export default async function Home() {
         >
             <ul className="w-full gap-16 grid md:grid-cols-2 auto-rows-min">
                 {courses.map(course =>
-                    <CourseNavigationCard course={course} key={course.id} isCourseAdmin={false}/>)}
+                    <CourseNavigationCard course={course} key={course.id} forceAdmin={false}/>)}
             </ul>
         </SectionContainer>
         <footer className="text-xs text-default col-span-full">

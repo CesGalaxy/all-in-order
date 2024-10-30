@@ -1,10 +1,23 @@
 import type { ComponentProps, ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
-export interface SectionProps extends ComponentProps<"div"> {
+export interface SectionContainerProps extends ComponentProps<"div"> {
     trailing?: ReactNode;
+    growClassName?: string;
+    expanded?: boolean;
 }
 
-export default function SectionContainer({ title, children, trailing, ...props }: SectionProps) {
+export default function SectionContainer({
+                                             title,
+                                             children,
+                                             trailing,
+                                             expanded,
+                                             growClassName,
+                                             ...props
+                                         }: SectionContainerProps) {
+
+    if (expanded) props.className = twMerge("w-full h-full flex flex-col", props.className);
+
     return <section {...props}>
         <header
             className="w-full flex flex-col md:flex-row items-start md:items-center md:justify-between gap-2 md:gap-16">
@@ -13,6 +26,10 @@ export default function SectionContainer({ title, children, trailing, ...props }
         </header>
         <hr className="mt-2 md:mt-1"/>
         <br/>
-        {children}
+        {expanded
+            ?
+            <div className={twMerge("w-full h-full flex-grow flex-col overflow-hidden", growClassName)}>{children}</div>
+            : children
+        }
     </section>;
 }

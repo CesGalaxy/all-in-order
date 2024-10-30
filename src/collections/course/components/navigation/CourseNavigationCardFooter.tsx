@@ -17,7 +17,7 @@ export interface CourseNavigationCardFooterProps {
     courseName: string;
     courseDescription: string;
     courseVisibility: boolean;
-    courseMembers?: RequiredCourseMember[];
+    isAdmin?: boolean;
     editCourseAction: "auto" | number | EditCourseModalAction;
     createSubjectAction: "auto" | number | CreateSubjectModalAction;
     profileId?: number;
@@ -27,14 +27,10 @@ function CourseNavigationCardFooter({
                                         courseId,
                                         editCourseAction,
                                         createSubjectAction,
-                                        courseMembers,
+                                        isAdmin = false,
                                         profileId,
                                         ...courseDetails
                                     }: CourseNavigationCardFooterProps) {
-    const isAdmin = (courseMembers && profileId)
-        ? courseMembers.some(m => m.profile_id === profileId && m.is_admin)
-        : false;
-
     const createSubject = createSubjectAction === "auto"
         ? isAdmin ? courseId : undefined
         : createSubjectAction;

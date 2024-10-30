@@ -36,9 +36,9 @@ export default function RootLayout({
         <Providers>
             <div className="w-full h-full flex flex-col items-stretch justify-stretch">
                 {navbar}
-                <main className="flex-grow w-full h-full min-h-0">
+                <div className="flex-grow w-full h-full min-h-0">
                     {children}
-                </main>
+                </div>
             </div>
         </Providers>
         </body>

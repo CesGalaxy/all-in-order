@@ -18,7 +18,13 @@ export interface SearchParams {
     redirectUrl?: string;
 }
 
-export default async function Page({ searchParams: { redirectUrl } }: { searchParams: SearchParams }) {
+export default async function Page(props: { searchParams: Promise<SearchParams> }) {
+    const searchParams = await props.searchParams;
+
+    const {
+        redirectUrl
+    } = searchParams;
+
     const maybeUser = await getMaybeUser();
 
     if (maybeUser) {

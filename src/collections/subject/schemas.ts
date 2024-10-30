@@ -22,5 +22,5 @@ export const CREATE_SUBJECT_SCHEMA = z.object({
 export const UPDATE_SUBJECT_SCHEMA = z.object({
     name: SUBJECT_NAME.optional(),
     description: SUBJECT_DESCRIPTION.optional(),
-    color: SUBJECT_COLOR.optional(),
+    // color: SUBJECT_COLOR.optional().nullable(),
 });

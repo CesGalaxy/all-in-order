@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import getHexColor from "@/lib/utils/color";
@@ -13,11 +13,11 @@ import { EditCourseModalAction } from "@/collections/course/components/modals/Ed
 import { Skeleton } from "@nextui-org/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
 
+export type LoadingCourse = Pick<Course, "name" | "description" | "is_public">;
 export type ExistentCourse = LoadingCourse & Pick<Course, "id"> & {
     subjects: RequiredSubject[],
     members?: RequiredCourseMember[],
 };
-export type LoadingCourse = Pick<Course, "name" | "description" | "is_public">;
 
 export type RequiredCourse = ExistentCourse | LoadingCourse;
 export type RequiredCourseMember = CourseNavigationCardFooterRequiredCourseMember;
@@ -26,7 +26,7 @@ export type RequiredTopic = Pick<Topic, "id" | "title">
 
 export interface CourseNavigationCardProps {
     course: RequiredCourse;
-    isCourseAdmin?: boolean | null;
+    forceAdmin?: boolean | null;
     createSubjectAction?: "auto" | number | CreateSubjectModalAction;
     editCourseAction?: "auto" | number | EditCourseModalAction;
     profileId?: number;
@@ -34,11 +34,15 @@ export interface CourseNavigationCardProps {
 
 export default function CourseNavigationCard({
                                                  course,
-                                                 isCourseAdmin,
+                                                 forceAdmin,
                                                  createSubjectAction = "auto",
                                                  editCourseAction = "auto",
                                                  profileId,
                                              }: CourseNavigationCardProps) {
+    const isAdmin = forceAdmin || (("members" in course && course.members && profileId)
+        ? course.members.some(m => m.profile_id === profileId && m.is_admin)
+        : false);
+
     return <Card className="p-4 w-full h-full" as="li">
         <CardHeader className="flex-col items-start">
             <h2 className="font-bold text-3xl">{course.name}</h2>
@@ -74,11 +78,11 @@ export default function CourseNavigationCard({
                             }
                         </ul>
                         : <NoSubjects courseId={course.id}/>
-                    : <Skeleton className="rounded-xl w-full h-12">
-                    </Skeleton>
+                    : <Skeleton className="rounded-xl w-full h-12"/>
             }
         </CardBody>
-        {"id" in course && isCourseAdmin && <>
+        {"id" in course
+            ? isAdmin && <>
             <Divider/>
             <CourseNavigationCardFooter
                 courseId={course.id}
@@ -88,8 +92,16 @@ export default function CourseNavigationCard({
                 createSubjectAction={createSubjectAction}
                 editCourseAction={editCourseAction}
                 profileId={profileId}
-                courseMembers={course.members}
+                isAdmin={isAdmin}
             />
-        </>}
+        </>
+            : <>
+                <Divider/>
+                <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
+                    <Skeleton className="w-40 h-10 rounded-xl"/>
+                    <Skeleton className="w-10 h-10 rounded-xl"/>
+                </CardFooter>
+            </>
+        }
     </Card>;
 }

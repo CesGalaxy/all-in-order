@@ -6,7 +6,7 @@ import { Modal, ModalBody, ModalContent, useDisclosure } from "@nextui-org/modal
 import { Button } from "@nextui-org/button";
 import { IconDotsCircleHorizontal } from "@tabler/icons-react";
 
-const WRAPPER_CLASSNAME = "max-w-[1024px] flex items-center justify-between mx-2 sm:mx-8 lg:mx-auto relative gap-8 pb-2 lg:pb-0";
+const WRAPPER_CLASSNAME = "max-w-[1024px] flex items-center justify-between mx-2 sm:mx-8 lg:mx-auto relative gap-8 pb-2 lg:pb-0 md:px-4";
 
 export default function BottomNavigation({ items, actions }: { items: BreadcrumbItemProps[], actions?: ReactNode }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();

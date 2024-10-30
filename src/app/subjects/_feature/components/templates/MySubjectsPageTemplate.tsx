@@ -24,7 +24,7 @@ export default function MySubjectsPageTemplate({ courses, profile }: MySubjectsP
                     return <CourseNavigationCard
                         key={course.id}
                         course={course}
-                        isCourseAdmin={isAdmin}
+                        forceAdmin={isAdmin}
                         profileId={profile.id}
                     />;
                 })}

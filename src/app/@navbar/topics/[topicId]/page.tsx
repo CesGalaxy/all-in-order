@@ -1,8 +1,8 @@
 import AppNavbar, { BREADCRUMBS } from "@/app/@navbar/_feature/Navbar";
-import topicTopicsQuery from "@/app/topics/[topicId]/topicTopicsQuery";
+import getTopicData from "@/app/topics/[topicId]/(hub)/_feature/queries/getTopicData";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const { data: topic } = await topicTopicsQuery(parseInt(topicId));
+    const { data: topic } = await getTopicData(parseInt(topicId));
 
     if (!topic) return <AppNavbar currentPage="subjects" breadcrumbs={[BREADCRUMBS.dash]}/>;
 

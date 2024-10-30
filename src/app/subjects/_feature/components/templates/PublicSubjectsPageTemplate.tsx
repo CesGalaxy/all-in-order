@@ -18,7 +18,7 @@ export default function PublicSubjectsPageTemplate({ courses }: PublicSubjectsPa
                     <CourseNavigationCard
                         course={course}
                         key={course.id}
-                        isCourseAdmin={false}
+                        forceAdmin={false}
                     />
                 )}
             </ul>
