@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import { toast } from "react-toastify";
 import { ActionResponse } from "@/lib/helpers/form";
+import handleActionResultNotifications from "@/reactivity/functions/handleActionResultNotifications";
 
 export default function useActionFunction<Args extends any[] | [], Response extends ActionResponse<any>>(
     serverAction: (...args: Args) => Promise<Response>
@@ -14,18 +14,7 @@ export default function useActionFunction<Args extends any[] | [], Response exte
         setResponse(response);
         setLoading(false);
 
-        if (response) {
-            if (response.ok) {
-                if (response.comments)
-                    for (const comment of response.comments)
-                        toast(comment, { type: "success" });
-            } else {
-                if (response.errors)
-                    for (const tag in response.errors)
-                        for (const error of response.errors[tag]!)
-                            toast(error, { type: "error" });
-            }
-        }
+        handleActionResultNotifications(response);
 
         return response;
     }, [serverAction, setLoading])

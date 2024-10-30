@@ -9,7 +9,7 @@ import { updateLocale } from "@/app/@navbar/_feature/actions";
 export default function ToggleLocaleButton() {
     return <Dropdown>
         <DropdownTrigger>
-            <Button isIconOnly variant="light">
+            <Button isIconOnly variant="light" aria-label="Language" title="Language">
                 <IconLanguage/>
             </Button>
         </DropdownTrigger>

@@ -1,9 +1,13 @@
+"use server";
+
 import AppNavbar, { BREADCRUMBS } from "@/app/@navbar/_feature/Navbar";
 import { getSubject } from "@/app/subjects/[subjectId]/query";
 import ModalButton from "@/components/utils/ModalButton";
 import EditSubjectModal from "@/app/subjects/[subjectId]/_feature/components/modals/EditSubjectModal";
 import autoRevalidate from "@/lib/helpers/autoRevalidate";
-import { updateSubjectAction } from "@/collections/subject/actions";
+import { deleteSubjectAction, updateSubjectAction } from "@/collections/subject/actions";
+import { ButtonGroup } from "@nextui-org/button";
+import SubjectOptionsButton from "@/app/@navbar/subjects/[subjectId]/_feature/SubjectOptionsButton";
 
 export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
     const { data: subject, error } = await getSubject(subjectId);
@@ -11,20 +15,25 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
     if (error || !subject)
         return <AppNavbar currentPage="subjects" breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects]}/>
 
+    const { id, name, description } = subject;
+
     return <AppNavbar
         currentPage="subjects"
-        breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects, BREADCRUMBS.subject(subject.id, subject.name)]}
+        breadcrumbs={[BREADCRUMBS.dash, BREADCRUMBS.subjects, BREADCRUMBS.subject(id, name)]}
         actions={<>
-            <ModalButton
-                size="sm"
-                modal={<EditSubjectModal
-                    action={autoRevalidate(updateSubjectAction.bind(null, subject.id), "/", "layout")}
-                    subjectName={subject.name}
-                    subjectDescription={subject.description}
-                />}
-            >
-                Edit subject
-            </ModalButton>
+            <ButtonGroup>
+                <ModalButton
+                    size="sm"
+                    modal={<EditSubjectModal
+                        action={autoRevalidate(updateSubjectAction.bind(null, id), "/", "layout")}
+                        subjectName={name}
+                        subjectDescription={description}
+                    />}
+                >
+                    Edit subject
+                </ModalButton>
+                <SubjectOptionsButton subjectId={id} deleteAction={deleteSubjectAction.bind(null, subject.id)}/>
+            </ButtonGroup>
         </>}
     />;
 }

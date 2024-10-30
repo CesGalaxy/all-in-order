@@ -59,3 +59,18 @@ export async function updateSubjectAction(subjectId: number, formData: FormData)
 
     return mountActionSuccess(null, ["Subject updated successfully"]);
 }
+
+export async function deleteSubjectAction(subjectId: number) {
+    console.info("Deleting subject with the ID: " + subjectId);
+
+    // Update the course
+    const { error } = await getSupabase()
+        .from("subjects")
+        .delete()
+        .eq("id", subjectId);
+
+    // Handle error
+    if (error) return mountActionError({ db: [error.message] });
+
+    redirect("/app");
+}

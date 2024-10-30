@@ -3,7 +3,7 @@
 import { ActionErrors, ActionResponse, FailedActionResponse, SuccessfulActionResponse } from "@/lib/helpers/form";
 import { type ReactNode, useCallback } from "react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
+import { Button, ButtonProps } from "@nextui-org/button";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 
@@ -12,18 +12,30 @@ export interface ModalFormProps<T, E extends string> {
     action: (formData: FormData) => (Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string);
     buttonLabel?: ReactNode;
     buttonIcon?: ReactNode;
+    buttonProps?: Omit<ButtonProps, "children" | "startContent" | "isDisabled" | "isLoading" | "formAction" | "type">;
     isFormValid: boolean;
     handleResponse?: (response: ActionResponse<T, E>, onClose: () => void) => void;
     handleSuccess?: "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
     handleError?: (error: FailedActionResponse<E>, onClose: () => void) => void;
-    children: ReactNode;
+    hideCancelButton?: boolean;
+    children?: ReactNode;
 }
 
 function ModalForm<
     T,
     E extends string,
 >({
-      title, action, buttonLabel, buttonIcon, isFormValid, handleResponse, handleSuccess, handleError, children,
+      title,
+      action,
+      buttonLabel,
+      buttonIcon,
+      buttonProps,
+      isFormValid,
+      handleResponse,
+      handleSuccess,
+      handleError,
+      hideCancelButton = false,
+      children,
   }: ModalFormProps<T, E>) {
     const handleSubmit = useCallback(async (formData: FormData) => {
         const act = action(formData);
@@ -56,14 +68,14 @@ function ModalForm<
     return <ModalContent as="form">
         {onClose => <>
             <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
-            <ModalBody>
+            {(children || (result?.ok === false && result.errors)) && <ModalBody>
                 {children}
                 {result?.ok === false && result.errors && <ErrorListView errors={result.errors}/>}
-            </ModalBody>
+            </ModalBody>}
             <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose} type="button">
+                {!hideCancelButton && <Button color="danger" variant="flat" onPress={onClose} type="button">
                     Cancel
-                </Button>
+                </Button>}
                 <Button
                     color="primary"
                     startContent={buttonIcon}
@@ -82,6 +94,7 @@ function ModalForm<
                             handleError(response, onClose);
                         }
                     }}
+                    {...buttonProps}
                 >
                     {buttonLabel || "Ok"}
                 </Button>

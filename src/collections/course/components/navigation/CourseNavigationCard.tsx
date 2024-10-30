@@ -12,6 +12,8 @@ import CourseNavigationCardFooter, {
 import { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
 import { Skeleton } from "@nextui-org/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
+import { useMemo } from "react";
+import { DeleteCourseModalAction } from "@/collections/course/components/modals/DeleteCourseModal";
 
 export type LoadingCourse = Pick<Course, "name" | "description" | "is_public">;
 export type ExistentCourse = LoadingCourse & Pick<Course, "id"> & {
@@ -27,8 +29,9 @@ export type RequiredTopic = Pick<Topic, "id" | "title">
 export interface CourseNavigationCardProps {
     course: RequiredCourse;
     forceAdmin?: boolean | null;
-    createSubjectAction?: "auto" | number | CreateSubjectModalAction;
-    editCourseAction?: "auto" | number | EditCourseModalAction;
+    createSubjectAction?: "auto" | CreateSubjectModalAction;
+    deleteCourseAction?: "auto" | DeleteCourseModalAction;
+    editCourseAction?: "auto" | EditCourseModalAction;
     profileId?: number;
 }
 
@@ -36,12 +39,16 @@ export default function CourseNavigationCard({
                                                  course,
                                                  forceAdmin,
                                                  createSubjectAction = "auto",
+                                                 deleteCourseAction = "auto",
                                                  editCourseAction = "auto",
                                                  profileId,
                                              }: CourseNavigationCardProps) {
-    const isAdmin = forceAdmin || (("members" in course && course.members && profileId)
-        ? course.members.some(m => m.profile_id === profileId && m.is_admin)
-        : false);
+    const isAdmin = useMemo(() =>
+            forceAdmin
+            || (("members" in course && course.members && profileId)
+                ? course.members.some(m => m.profile_id === profileId && m.is_admin)
+                : false),
+        [forceAdmin, course, profileId]);
 
     return <Card className="p-4 w-full h-full" as="li">
         <CardHeader className="flex-col items-start">
@@ -90,6 +97,7 @@ export default function CourseNavigationCard({
                 courseDescription={course.description}
                 courseVisibility={course.is_public}
                 createSubjectAction={createSubjectAction}
+                deleteCourseAction={deleteCourseAction}
                 editCourseAction={editCourseAction}
                 profileId={profileId}
                 isAdmin={isAdmin}
@@ -99,6 +107,7 @@ export default function CourseNavigationCard({
                 <Divider/>
                 <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
                     <Skeleton className="w-40 h-10 rounded-xl"/>
+                    <Skeleton className="w-10 h-10 rounded-xl"/>
                     <Skeleton className="w-10 h-10 rounded-xl"/>
                 </CardFooter>
             </>

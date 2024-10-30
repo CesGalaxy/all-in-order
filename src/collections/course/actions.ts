@@ -27,6 +27,8 @@ export async function createCourseAction(data: CreateCourseFields): Promise<Crea
 
     if (error) return mountActionError({ db: [error.message] });
 
+    revalidatePath("/");
+
     return mountActionSuccess(null);
 }
 
@@ -61,6 +63,21 @@ export async function updateCourseAction(courseId: number, data: UpdateCourseFie
         .eq("id", courseId);
 
     // Handle error
+    if (error) return mountActionError({ db: [error.message] });
+
+    revalidatePath("/");
+
+    return mountActionSuccess(null);
+}
+
+export type DeleteCourseActionResponse = ActionResponse<null, "db">;
+
+export async function deleteCourseAction(courseId: number): Promise<DeleteCourseActionResponse> {
+    const { error } = await getSupabase()
+        .from("courses")
+        .delete()
+        .eq("id", courseId);
+
     if (error) return mountActionError({ db: [error.message] });
 
     revalidatePath("/");

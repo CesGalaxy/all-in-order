@@ -17,6 +17,15 @@ export const metadata: Metadata = {
     description: "hello :)",
     icons: {
         apple: "/apple-touch-icon.png",
+    },
+    openGraph: {
+        type: "website",
+        title: "All In Order",
+        description: "Generate resumes with AI ✨",
+        siteName: "All In Order",
+        url: "https://all-in-order.vercel.app",
+        locale: "es_ES",
+        alternateLocale: ["ca_ES", "en_US"],
     }
 };
 

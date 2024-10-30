@@ -10,7 +10,7 @@ export type RequiredTopic = Pick<Topic, "id" | "title">;
 export default function CourseNavigationCardTopics({ topics }: { topics: RequiredTopic[] }) {
     return <Dropdown>
         <DropdownTrigger>
-            <Button isIconOnly>
+            <Button isIconOnly aria-label="Show subject topics" title="Subject topics">
                 <IconList/>
             </Button>
         </DropdownTrigger>
