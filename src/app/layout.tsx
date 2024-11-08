@@ -9,6 +9,7 @@ import Providers from "@/app/providers";
 // Styles
 import 'react-toastify/dist/ReactToastify.min.css';
 import "./globals.css";
+import AppNavbar from "@/app/_navigation/Navbar";
 
 const kanit = Kanit({ weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin"] });
 
@@ -29,9 +30,7 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({
-                                       children, navbar
-                                   }: Readonly<{
+export default function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
     navbar: React.ReactNode;
 }>) {
@@ -41,13 +40,12 @@ export default function RootLayout({
 
     return <ViewTransitions>
         <html lang="en">
-        <body className={kanit.className + " bg-background text-foreground w-full h-screen"}>
+        <body
+            className={kanit.className + " bg-background text-foreground w-full h-screen"}>
         <Providers>
-            <div className="w-full h-full flex flex-col items-stretch justify-stretch">
-                {navbar}
-                {/*<div className="flex-grow w-full h-full --min-h-0">*/}
+            <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">
+                <AppNavbar/>
                 {children}
-                {/*</div>*/}
             </div>
         </Providers>
         </body>

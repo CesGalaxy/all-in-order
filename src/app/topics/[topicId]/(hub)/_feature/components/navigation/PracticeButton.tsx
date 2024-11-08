@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { useTranslations } from "next-intl";
 
-export default function PracticeButton({ practiceId }: { practiceId: number }) {
+export default function PracticeButton({ practiceId, ready }: { practiceId: number, ready: boolean }) {
     const t = useTranslations();
 
     return <Dropdown>
@@ -22,7 +22,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                 {t('App.practice')}
             </Button>
         </DropdownTrigger>
-        <DropdownMenu>
+        <DropdownMenu disabledKeys={ready ? [] : ["start", "quick"]}>
             <DropdownSection title={t('App.practice')} showDivider>
                 <DropdownItem
                     href={`/practices/${practiceId}/start`}
@@ -30,6 +30,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     description="All questions"
                     color="primary"
                     className="text-primary"
+                    key="start"
                 >
                     Start now
                 </DropdownItem>
@@ -37,6 +38,7 @@ export default function PracticeButton({ practiceId }: { practiceId: number }) {
                     href={`/practices/${practiceId}/quick`}
                     startContent={<IconMeteor/>}
                     description="Just half of the questions"
+                    key="quick"
                 >
                     {t("Dash.Practice.quick")}
                 </DropdownItem>

@@ -16,7 +16,7 @@ export default function SectionContainer({
                                              ...props
                                          }: SectionContainerProps) {
 
-    if (expanded) props.className = twMerge("w-full h-full flex flex-col", props.className);
+    if (expanded) props.className = twMerge("w-full flex flex-col", props.className);
 
     return <section {...props}>
         <header

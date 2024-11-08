@@ -5,6 +5,7 @@ import getTopicData from "@/app/topics/[topicId]/(hub)/_feature/queries/getTopic
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/topics/[topicId]/(hub)/_feature/components/navigation/TopicSidebar";
+import { AnimatePresence } from "framer-motion";
 
 export default async function Layout({ children, aside, params: { topicId } }: {
     children: ReactNode,
@@ -21,8 +22,10 @@ export default async function Layout({ children, aside, params: { topicId } }: {
         <aside className="w-full lg:h-full lg:w-1/4 lg:max-w-96 lg:min-w-48">
             <TopicSidebar topicId={id} topicTitle={title} topicDescription={description}/>
         </aside>
-        <div className="w-full h-full flex-grow bg-content2 text-content2-foreground rounded-xl">
-            {children}
+        <div className="w-full min-h-full flex-grow bg-content2 text-content2-foreground rounded-xl relative">
+            <AnimatePresence>
+                {children}
+            </AnimatePresence>
         </div>
         {aside}
     </div>;

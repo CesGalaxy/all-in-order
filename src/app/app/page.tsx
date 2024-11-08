@@ -18,7 +18,7 @@ export default async function Page() {
 
     if (error) return <ErrorView message={error.message}/>;
 
-    return <PageContainer className="w-full h-full grid xl:grid-cols-3 gap-16">
+    return <PageContainer className="w-full grid xl:grid-cols-3 gap-16">
         <DashboardCoursesSection
             courses={data?.map(course => ({ ...course, creating: false }))}
             profileId={profile.id}

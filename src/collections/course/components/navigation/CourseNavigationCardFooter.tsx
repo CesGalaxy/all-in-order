@@ -1,15 +1,12 @@
 "use client";
 
 import { CardFooter } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
 import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
-import ModalHandler from "@/components/utils/ModalHandler";
 import CreateSubjectModal, {
     CreateSubjectModalAction
 } from "@/collections/subject/components/modals/CreateSubjectModal";
 import EditCourseModal, { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
 import { CourseMember } from "@/supabase/entities";
-import { useCallback } from "react";
 import ModalButton from "@/components/utils/ModalButton";
 import DeleteCourseModal, { DeleteCourseModalAction } from "@/collections/course/components/modals/DeleteCourseModal";
 
@@ -36,50 +33,36 @@ function CourseNavigationCardFooter({
                                         profileId,
                                         ...courseDetails
                                     }: CourseNavigationCardFooterProps) {
-    const incorrectUsage = useCallback(() => {
-        console.error("CourseNavigationCardFooter: Incorrect usage of editCourseAction or createSubjectAction");
-        return undefined;
-    }, []);
-
     const createSubject = createSubjectAction === "auto"
-        ? isAdmin ? courseId : incorrectUsage()
+        ? isAdmin ? courseId : undefined
         : createSubjectAction;
 
     const deleteSubject = deleteCourseAction === "auto"
-        ? isAdmin ? courseId : incorrectUsage()
+        ? isAdmin ? courseId : undefined
         : deleteCourseAction;
 
     const editCourse = editCourseAction === "auto"
-        ? isAdmin ? courseId : incorrectUsage()
+        ? isAdmin ? courseId : undefined
         : editCourseAction;
 
     return (editCourseAction || createSubjectAction) &&
         <CardFooter as="nav" className="flex items-center flex-wrap gap-4">
             {
-                createSubject &&
-                <ModalHandler
+                createSubject && <ModalButton
                     modal={<CreateSubjectModal action={createSubject} courseName={courseDetails.courseName}/>}
+                    color="primary"
+                    startContent={<IconPlus/>}
                 >
-                    {onOpen => <Button color="primary" startContent={<IconPlus/>} onPress={onOpen}>
-                        Add a new subject
-                    </Button>}
-                </ModalHandler>
+                    Add a new subject
+                </ModalButton>
             }
             {
-                editCourse &&
-                <ModalHandler modal={<EditCourseModal action={editCourse} {...courseDetails}/>}>
-                    {onOpen => <Button isIconOnly onPress={onOpen}>
-                        <IconEdit/>
-                    </Button>}
-                </ModalHandler>
+                editCourse && <ModalButton modal={<EditCourseModal action={editCourse} {...courseDetails}/>} isIconOnly>
+                    <IconEdit/>
+                </ModalButton>
             }
-            {
-                deleteSubject &&
-                <ModalButton
-                    color="danger"
-                    isIconOnly
-                    modal={<DeleteCourseModal action={deleteSubject}/>}
-                >
+            {deleteSubject &&
+                <ModalButton color="danger" isIconOnly modal={<DeleteCourseModal action={deleteSubject}/>}>
                     <IconTrash/>
                 </ModalButton>
             }

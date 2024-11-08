@@ -12,17 +12,10 @@ import TopicRecentDocsSection from "@/app/topics/[topicId]/(hub)/_feature/compon
 import PageContainer from "@/components/containers/Page";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
-    const uniqueId = Date.now();
-
-    console.time(`profiling ${uniqueId}`)
-
     // Fetch the topic data, documents, and translations
     const dbRequest = getTopicData(parseInt(topicId));
     const docsRequest = getAllTopicDocuments(parseInt(topicId));
     const tRequest = getTranslations();
-
-    // Wait 5s
-    // await new Promise<void>(resolve => setTimeout(resolve, 5000));
 
     // Handle the received topic data
     const { data, error } = await dbRequest;
@@ -49,8 +42,6 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
     }
 
     const t = await tRequest;
-
-    console.timeEnd(`profiling ${uniqueId}`);
 
     return <PageContainer className="flex-grow flex flex-col xl:flex-row items-stretch gap-8">
         <TopicRecentPracticesSection

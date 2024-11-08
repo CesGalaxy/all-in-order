@@ -2,15 +2,17 @@ import { getTopicDocument } from "@/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
 import { Converter } from "showdown";
 import { Button } from "@nextui-org/button";
-import { IconMaximize, IconPencil } from "@tabler/icons-react";
+import { IconArrowBack, IconMaximize, IconPencil } from "@tabler/icons-react";
 import { Input } from "@nextui-org/input";
 import { Link as TransitionLink } from "next-view-transitions";
 
 export default async function Page({ params: { topicId, docNameEncoded } }: {
     params: { topicId: string, docNameEncoded: string }
 }) {
+    const topicPath = "/topics/" + topicId;
+
     const docName = atob(decodeURIComponent(docNameEncoded));
-    const document = required(await getTopicDocument(parseInt(topicId), docName), "/topics/" + topicId);
+    const document = required(await getTopicDocument(parseInt(topicId), docName), topicPath);
 
     const content = await document.text();
 
@@ -27,14 +29,16 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
         <div
             className="w-full flex-grow bg-content2 text-content2-foreground flex flex-col rounded-t-3xl relative vt-name-[doc-e-wrapper]">
             <nav className="absolute top-4 right-4 gap-4 flex items-center z-10">
+                <Button variant="light" isIconOnly as={TransitionLink} href={topicPath}>
+                    <IconArrowBack/>
+                </Button>
                 <Input
                     placeholder="File name"
                     value={docName}
                     variant="faded"
                     className="vt-name-[doc-name]"
                 />
-                <Button startContent={<IconPencil/>} color="primary" as={TransitionLink}
-                        href={`${docNameEncoded}/edit`}>
+                <Button startContent={<IconPencil/>} color="primary" as={TransitionLink} href="edit">
                     Edit
                 </Button>
                 <Button isIconOnly>

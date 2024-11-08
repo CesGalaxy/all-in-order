@@ -1,7 +1,7 @@
 "use client";
 
 import { IconFilePlus, IconUpload } from "@tabler/icons-react";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button } from "@nextui-org/button";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
@@ -16,12 +16,12 @@ export default function CreateDocButton({ topicId }: { topicId: number }) {
     const t = useTranslations();
 
     return <>
-        <ButtonGroup>
+        <nav className="flex flex-wrap gap-2">
             <Button startContent={<IconFilePlus/>} color="primary" onPress={onOpen}>
                 {t("Dash.Topic.create_doc_new")}
             </Button>
             <Button startContent={<IconUpload/>}>{t("Dash.Topic.upload_doc")}</Button>
-        </ButtonGroup>
+        </nav>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}

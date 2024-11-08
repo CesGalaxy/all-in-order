@@ -26,8 +26,7 @@ export default async function Home() {
 
     const courses = required(data);
 
-    return <PageContainer
-        className="w-full h-full gap-16 grid grid-cols-1 xl:grid-cols-3 auto-rows-min">
+    return <PageContainer className="w-full gap-16 grid grid-cols-1 xl:grid-cols-3 auto-rows-min">
         <header>
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">{t('Home.create_resumes_with_ai')}</h1>
             <Divider className="my-8"/>
@@ -61,6 +60,9 @@ export default async function Home() {
                     <CourseNavigationCard course={course} key={course.id} forceAdmin={false}/>)}
             </ul>
         </SectionContainer>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <footer className="text-xs text-default col-span-full">
             <Divider/>
             Plantas Herbívoras &copy; 2024

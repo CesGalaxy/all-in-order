@@ -4,7 +4,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { Button } from "@nextui-org/button";
 import { IconLanguage } from "@tabler/icons-react";
 import { Avatar } from "@nextui-org/avatar";
-import { updateLocale } from "@/app/@navbar/_feature/actions";
+import { updateLocale } from "@/app/_navigation/actions";
 
 export default function ToggleLocaleButton() {
     return <Dropdown>

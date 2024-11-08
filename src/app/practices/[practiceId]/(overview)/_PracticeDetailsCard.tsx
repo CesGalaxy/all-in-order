@@ -46,17 +46,17 @@ export default function PracticeDetailsCard({
             {description && <p className="text-default">{description}</p>}
             <ul className="flex items-center justify-evenly">
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/practices/${id}/stats`}
+                    <Link href={`/src/app/@navbar/practices/${id}/stats`}
                           className="text-default-500 text-xs uppercase">avg. duration</Link>
                     <b>{averageDuration}s</b>
                 </div>
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/practices/${id}/stats`}
+                    <Link href={`/src/app/@navbar/practices/${id}/stats`}
                           className="text-default-500 text-xs uppercase">avg. score</Link>
                     <b>{averagePerfection}%</b>
                 </div>
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/practices/${id}/attempts`}
+                    <Link href={`/src/app/@navbar/practices/${id}/attempts`}
                           className="text-default-500 text-xs uppercase">Attempts</Link>
                     <b>{attemptsCount}</b>
                 </div>

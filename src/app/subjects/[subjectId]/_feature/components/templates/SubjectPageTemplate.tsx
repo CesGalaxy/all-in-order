@@ -53,7 +53,8 @@ export default function SubjectPageTemplate({
                         </CardHeader>
                         <Divider/>
                         <CardFooter>
-                            <Link className="text-primary hover:underline" href={`/topics/${topic.id}/ai/chat`}
+                            <Link className="text-primary hover:underline"
+                                  href={`/src/app/@navbar/topics/${topic.id}/ai/chat`}
                                   showAnchorIcon isDisabled>
                                 {t('AI.chat_with')}
                             </Link>

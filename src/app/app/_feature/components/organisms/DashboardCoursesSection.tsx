@@ -46,7 +46,7 @@ function DashboardCoursesSection({ courses, createCourseAction, profileId }: Das
 
     return <SectionContainer
         title="My Courses"
-        className="xl:col-span-2 w-full xl:h-full"
+        className="xl:col-span-2 w-full"
         trailing={
             createCourse && <ModalButton
                 color="primary"

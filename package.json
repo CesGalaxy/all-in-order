@@ -38,6 +38,7 @@
     "@nextui-org/tooltip": "^2.0.41",
     "@nextui-org/user": "^2.0.34",
     "@supabase/ssr": "^0.5.0",
+    "@supabase/storage-js": "^2.7.1",
     "@supabase/supabase-js": "^2.45.2",
     "@tabler/icons-react": "^3.14.0",
     "ai": "^3.3.21",

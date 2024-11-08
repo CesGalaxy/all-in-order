@@ -1,6 +1,6 @@
 import { NavbarContent, NavbarItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
-import { NavbarPage } from "@/app/@navbar/_feature/Navbar";
+import { NavbarPage } from "@/app/_navigation/Navbar";
 
 export default function DesktopNavigation({ currentPage }: { currentPage?: NavbarPage }) {
     // const t = useTranslations();

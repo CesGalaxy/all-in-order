@@ -10,6 +10,7 @@ export type RequiredPractice = {
     id: number;
     title: string;
     description: string;
+    activities: { count: number }[];
     attempts: { perfection: number }[];
 };
 
