@@ -4,6 +4,7 @@ import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/help
 import { CREATE_COURSE_SCHEMA, UPDATE_COURSE_SCHEMA } from "@/collections/course/schemas";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export type CreateCourseFields = {
     name: string,
@@ -70,7 +71,7 @@ export async function updateCourseAction(courseId: number, data: UpdateCourseFie
     return mountActionSuccess(null);
 }
 
-export type DeleteCourseActionResponse = ActionResponse<null, "db">;
+export type DeleteCourseActionResponse = ActionResponse<never, "db">;
 
 export async function deleteCourseAction(courseId: number): Promise<DeleteCourseActionResponse> {
     const { error } = await getSupabase()
@@ -81,6 +82,5 @@ export async function deleteCourseAction(courseId: number): Promise<DeleteCourse
     if (error) return mountActionError({ db: [error.message] });
 
     revalidatePath("/");
-
-    return mountActionSuccess(null);
+    redirect("/subjects");
 }

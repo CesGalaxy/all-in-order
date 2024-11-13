@@ -4,9 +4,9 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { Button } from "@nextui-org/button";
 import { IconLanguage } from "@tabler/icons-react";
 import { Avatar } from "@nextui-org/avatar";
-import { updateLocale } from "@/app/_navigation/actions";
+import { Locale } from "@/i18n/config";
 
-export default function ToggleLocaleButton() {
+export default function ToggleLocaleButton({ action }: { action: (locale: Locale) => Promise<void> }) {
     return <Dropdown>
         <DropdownTrigger>
             <Button isIconOnly variant="light" aria-label="Language" title="Language">
@@ -15,15 +15,15 @@ export default function ToggleLocaleButton() {
         </DropdownTrigger>
         <DropdownMenu>
             <DropdownItem
-                onPress={() => updateLocale('en')}
+                onPress={() => action('en')}
                 startContent={<Avatar alt="English" className="w-6 h-6" src="https://flagcdn.com/gb.svg"/>}
             >English</DropdownItem>
             <DropdownItem
-                onPress={() => updateLocale('es')}
+                onPress={() => action('es')}
                 startContent={<Avatar alt="Español" className="w-6 h-6" src="https://flagcdn.com/es.svg"/>}
             >Español</DropdownItem>
             <DropdownItem
-                onPress={() => updateLocale('val')}
+                onPress={() => action('val')}
                 startContent={<Avatar alt="Valenciá" className="w-6 h-6"
                                       src="https://upload.wikimedia.org/wikipedia/commons/1/16/Flag_of_the_Valencian_Community_%282x3%29.svg"/>}
             >Valenciá</DropdownItem>

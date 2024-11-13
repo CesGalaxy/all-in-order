@@ -9,7 +9,7 @@ import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import CourseNavigationCard from "@/collections/course/components/navigation/CourseNavigationCard";
+import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import SectionContainer from "@/components/containers/SectionContainer";
 
 export default async function Home() {
@@ -53,16 +53,13 @@ export default async function Home() {
         <SectionContainer
             title={t("Home.public_courses")}
             className="w-full xl:col-span-2"
-            trailing={<Link href="/courses" isExternal showAnchorIcon>Explore more courses</Link>}
+            trailing={<Link href="/explore" isExternal showAnchorIcon>Explore more courses</Link>}
         >
             <ul className="w-full gap-16 grid md:grid-cols-2 auto-rows-min">
                 {courses.map(course =>
-                    <CourseNavigationCard course={course} key={course.id} forceAdmin={false}/>)}
+                    <CourseCard course={course} key={course.id} forceAdmin={false}/>)}
             </ul>
         </SectionContainer>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <footer className="text-xs text-default col-span-full">
             <Divider/>
             Plantas Herbívoras &copy; 2024

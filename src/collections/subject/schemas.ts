@@ -11,7 +11,8 @@ export const SUBJECT_DESCRIPTION = z
     .max(512, "The subject description cannot have more than 512 characters")
     .trim();
 
-export const SUBJECT_COLOR = z.number().int().min(0).max(0xFFFFFFFF);
+// (-2147483648) (+2147483647)
+export const SUBJECT_COLOR = z.number().int().min(-0x7FFFFFFF - 1).max(0x7FFFFFFF);
 
 export const CREATE_SUBJECT_SCHEMA = z.object({
     name: SUBJECT_NAME,
@@ -24,3 +25,27 @@ export const UPDATE_SUBJECT_SCHEMA = z.object({
     description: SUBJECT_DESCRIPTION.optional(),
     // color: SUBJECT_COLOR.optional().nullable(),
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,25 +4,21 @@ import { Link } from "@nextui-org/link";
 import getHexColor from "@/lib/utils/color";
 import NoSubjects from "@/collections/subject/components/views/NoSubjects";
 import { Divider } from "@nextui-org/divider";
-import CourseNavigationCardTopics from "@/collections/course/components/navigation/CourseNavigationCardTopics";
-import { Course, Subject, Topic } from "@/supabase/entities";
-import CourseNavigationCardFooter, {
-    RequiredCourseMember as CourseNavigationCardFooterRequiredCourseMember
-} from "@/collections/course/components/navigation/CourseNavigationCardFooter";
+import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
 import { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
 import { Skeleton } from "@nextui-org/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
 import { useMemo } from "react";
 import { DeleteCourseModalAction } from "@/collections/course/components/modals/DeleteCourseModal";
+import { Course, CourseMember, Subject, Topic } from "@aio/db/entities";
+import CourseCardFooter from "@/collections/course/components/navigation/CourseCardFooter";
+import { IconArrowRight } from "@tabler/icons-react";
 
-export type LoadingCourse = Pick<Course, "name" | "description" | "is_public">;
-export type ExistentCourse = LoadingCourse & Pick<Course, "id"> & {
+export type RequiredCourse = Pick<Course, "id" | "name" | "description" | "is_public"> & {
     subjects: RequiredSubject[],
     members?: RequiredCourseMember[],
-};
-
-export type RequiredCourse = ExistentCourse | LoadingCourse;
-export type RequiredCourseMember = CourseNavigationCardFooterRequiredCourseMember;
+}
+export type RequiredCourseMember = Pick<CourseMember, "profile" | "is_admin">;
 export type RequiredSubject = Pick<Subject, "id" | "name" | "color"> & { topics: RequiredTopic[] };
 export type RequiredTopic = Pick<Topic, "id" | "title">
 
@@ -35,24 +31,29 @@ export interface CourseNavigationCardProps {
     profileId?: number;
 }
 
-export default function CourseNavigationCard({
-                                                 course,
-                                                 forceAdmin,
-                                                 createSubjectAction = "auto",
-                                                 deleteCourseAction = "auto",
-                                                 editCourseAction = "auto",
-                                                 profileId,
-                                             }: CourseNavigationCardProps) {
+export default function CourseCard({
+                                       course,
+                                       forceAdmin,
+                                       createSubjectAction = "auto",
+                                       deleteCourseAction = "auto",
+                                       editCourseAction = "auto",
+                                       profileId,
+                                   }: CourseNavigationCardProps) {
     const isAdmin = useMemo(() =>
             forceAdmin
             || (("members" in course && course.members && profileId)
-                ? course.members.some(m => m.profile_id === profileId && m.is_admin)
+                ? course.members.some(m => m.profile === profileId && m.is_admin)
                 : false),
         [forceAdmin, course, profileId]);
 
     return <Card className="p-4 w-full h-full" as="li">
-        <CardHeader className="flex-col items-start">
-            <h2 className="font-bold text-3xl">{course.name}</h2>
+        <CardHeader className="flex-col items-start" as="header">
+            <div className="flex w-full items-center gap-4">
+                <h2 className="font-bold text-3xl flex-grow">{course.name}</h2>
+                <Button isIconOnly variant="light" as={Link} href={"/courses/" + course.id}>
+                    <IconArrowRight/>
+                </Button>
+            </div>
             {course.description && <small className="text-default-500">{course.description}</small>}
         </CardHeader>
         <CardBody className="flex flex-wrap items-start gap-16">
@@ -80,7 +81,7 @@ export default function CourseNavigationCard({
                                     >
                                         {subject.name}
                                     </Button>
-                                    <CourseNavigationCardTopics topics={subject.topics}/>
+                                    <CourseCardTopics topics={subject.topics}/>
                                 </ButtonGroup>)
                             }
                         </ul>
@@ -91,7 +92,7 @@ export default function CourseNavigationCard({
         {"id" in course
             ? isAdmin && <>
             <Divider/>
-            <CourseNavigationCardFooter
+            <CourseCardFooter
                 courseId={course.id}
                 courseName={course.name}
                 courseDescription={course.description}

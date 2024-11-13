@@ -21,6 +21,8 @@ function DeleteCourseModal({ action }: { action: number | DeleteCourseModalActio
         buttonLabel="Yes, delete"
         buttonIcon={<IconTrash/>}
         buttonProps={{ color: "danger", variant: "shadow" }}
+        buttonInitialWait={5000}
+        buttonRequireConfirmation
     >
         This action cannot be undone
     </ModalForm>

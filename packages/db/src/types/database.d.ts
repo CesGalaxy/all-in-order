@@ -82,8 +82,8 @@ export type Database = {
           id: number
           is_public: boolean
           name: string
-          updated_at: string
-          workspace: number
+          updated_at: string | null
+          workspace: number | null
         }
         Insert: {
           created_at?: string
@@ -91,8 +91,8 @@ export type Database = {
           id?: number
           is_public?: boolean
           name: string
-          updated_at: string
-          workspace: number
+          updated_at?: string | null
+          workspace?: number | null
         }
         Update: {
           created_at?: string
@@ -100,8 +100,8 @@ export type Database = {
           id?: number
           is_public?: boolean
           name?: string
-          updated_at?: string
-          workspace?: number
+          updated_at?: string | null
+          workspace?: number | null
         }
         Relationships: [
           {
@@ -433,7 +433,15 @@ export type Database = {
           id?: number
           name?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "subjects_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       topic_activities: {
         Row: {

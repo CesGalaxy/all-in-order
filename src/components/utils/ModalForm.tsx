@@ -1,7 +1,7 @@
 "use client";
 
 import { ActionErrors, ActionResponse, FailedActionResponse, SuccessfulActionResponse } from "@/lib/helpers/form";
-import { type ReactNode, useCallback } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button, ButtonProps } from "@nextui-org/button";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
@@ -13,6 +13,9 @@ export interface ModalFormProps<T, E extends string> {
     buttonLabel?: ReactNode;
     buttonIcon?: ReactNode;
     buttonProps?: Omit<ButtonProps, "children" | "startContent" | "isDisabled" | "isLoading" | "formAction" | "type">;
+    buttonInitialWait?: number;
+    buttonRequireConfirmation?: boolean;
+    buttonConfirmationTimeout?: number;
     isFormValid: boolean;
     handleResponse?: (response: ActionResponse<T, E>, onClose: () => void) => void;
     handleSuccess?: "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
@@ -27,9 +30,12 @@ function ModalForm<
 >({
       title,
       action,
-      buttonLabel,
+      buttonLabel = "Ok",
       buttonIcon,
       buttonProps,
+      buttonInitialWait,
+      buttonRequireConfirmation,
+      buttonConfirmationTimeout = 5000,
       isFormValid,
       handleResponse,
       handleSuccess,
@@ -64,6 +70,16 @@ function ModalForm<
     }, [action]);
 
     const [loading, result, formAction] = useActionFunction(handleSubmit);
+    const [waiting, setWaiting] = useState(Boolean(buttonInitialWait));
+    const [pendingConfirmation, setPendingConfirmation] = useState(false);
+
+    useEffect(() => {
+        if (buttonInitialWait && waiting) setTimeout(() => setWaiting(false), buttonInitialWait);
+    }, [buttonInitialWait, waiting]);
+
+    useEffect(() => {
+        if (pendingConfirmation) setTimeout(() => setPendingConfirmation(false), buttonConfirmationTimeout);
+    }, [buttonConfirmationTimeout, pendingConfirmation]);
 
     return <ModalContent as="form">
         {onClose => <>
@@ -80,9 +96,16 @@ function ModalForm<
                     color="primary"
                     startContent={buttonIcon}
                     isDisabled={!isFormValid}
-                    isLoading={loading}
+                    isLoading={loading || waiting}
                     type="submit"
                     formAction={async (formData) => {
+                        if (buttonRequireConfirmation && !pendingConfirmation) {
+                            setPendingConfirmation(true);
+                            return;
+                        }
+
+                        setPendingConfirmation(false);
+
                         const response = await formAction(formData);
 
                         if (handleResponse) handleResponse(response, onClose);
@@ -96,7 +119,11 @@ function ModalForm<
                     }}
                     {...buttonProps}
                 >
-                    {buttonLabel || "Ok"}
+                    {pendingConfirmation
+                        ? "Confirm"
+                        : waiting
+                            ? `Please wait ${Math.round(buttonInitialWait! / 1000)}s`
+                            : buttonLabel}
                 </Button>
             </ModalFooter>
         </>}
