@@ -1,4 +1,4 @@
-import { getMyProfile } from "@/supabase/models/Profile";
+import { getMyProfile } from "@/supabase/auth/Profile";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import DashboardCoursesSection from "@/app/app/_feature/components/organisms/DashboardCoursesSection";

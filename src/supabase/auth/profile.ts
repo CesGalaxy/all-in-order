@@ -1,12 +1,10 @@
 "use server";
 
 import { cache } from "react";
-import { getMaybeUser } from "@/lib/helpers/user";
-import { Tables } from "@/supabase/database";
+import { getMaybeUser } from "@/supabase/auth/user";
 import getSupabase from "@/supabase/server";
 import required from "@/lib/helpers/required";
-
-export type Profile = Tables<"profiles">
+import { Profile } from "@aio/db/entities";
 
 export const getMyProfile = cache(async (redirectPath = "/login") => required(await getMaybeMyProfile(), redirectPath));
 

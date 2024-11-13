@@ -1,6 +1,6 @@
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import { getMaybeMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/Profile";
 import PublicSubjectsPageTemplate from "@/app/subjects/_feature/components/templates/PublicSubjectsPageTemplate";
 import MySubjectsPageTemplate from "@/app/subjects/_feature/components/templates/MySubjectsPageTemplate";
 

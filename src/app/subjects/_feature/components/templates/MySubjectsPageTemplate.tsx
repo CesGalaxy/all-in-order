@@ -3,7 +3,7 @@ import CourseNavigationCard, {
 } from "@/collections/course/components/navigation/CourseNavigationCard";
 import NoCourses from "@/collections/course/components/views/NoCourses";
 import PageContainer from "@/components/containers/Page";
-import { Profile } from "@/supabase/models/Profile";
+import { Profile } from "@/supabase/auth/Profile";
 import { CourseMember } from "@/supabase/entities";
 
 export type RequiredCourse = CourseNavigationCardExistentCourse & { members: RequiredCourseMember[] };

@@ -7,7 +7,7 @@ import { z } from "zod";
 import { FORM_SCHEMAS, getFormFields } from "@/lib/helpers/form";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/supabase/server";
-import { getMaybeUser } from "@/lib/helpers/user";
+import { getMaybeUser } from "@/supabase/auth/user";
 
 const AUTH_SCHEMA = z.object({
     email: FORM_SCHEMAS.EMAIL,

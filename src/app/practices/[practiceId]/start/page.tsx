@@ -15,7 +15,7 @@ import BottomNavigation from "@/app/practices/[practiceId]/start/_feature/Bottom
 import CurrentQuestionTitle from "@/app/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
 import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@/features/beta_question";
 import ExamActivity from "@/app/practices/[practiceId]/start/_feature/ExamActivity";
-import { getMaybeMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/Profile";
 import { redirect } from "next/navigation";
 import { Json } from "@/supabase/database";
 

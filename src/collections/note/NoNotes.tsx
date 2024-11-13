@@ -3,7 +3,7 @@
 import addNotesImage from "@/assets/pictures/add_notes.svg";
 import Blank, { BlankViewProps } from "@/components/views/Blank";
 import getSupabase from "@/supabase/server";
-import { getMaybeMyProfile, getMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile, getMyProfile } from "@/supabase/auth/Profile";
 import { revalidatePath } from "next/cache";
 import CreateNoteButton from "@/collections/note/CreateNoteButton";
 

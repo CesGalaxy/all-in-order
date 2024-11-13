@@ -1,0 +1,20 @@
+{
+  "name": "@aio/db",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./entities": "./src/entities.ts",
+    "./supabase": "./src/types/database.d.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "supabase:gen": "supabase gen types typescript --project-id lqhpujmpehjkdqbxcret > src/types/database.d.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.46.1"
+  },
+  "devDependencies": {
+    "@aio/ts": "^0.0.0",
+    "supabase": "^1.219.2"
+  }
+}

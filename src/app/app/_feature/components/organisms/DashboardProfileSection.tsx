@@ -3,7 +3,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { IconUserEdit } from "@tabler/icons-react";
-import { Profile } from "@/supabase/models/Profile";
+import { Profile } from "@/supabase/auth/Profile";
 
 export interface DashboardProfileSectionProps {
     profile: Profile;

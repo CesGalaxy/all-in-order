@@ -9,39 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      agenda_events: {
-        Row: {
-          agenda_id: number
-          created_at: string
-          event_id: number
-        }
-        Insert: {
-          agenda_id: number
-          created_at?: string
-          event_id: number
-        }
-        Update: {
-          agenda_id?: number
-          created_at?: string
-          event_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "agenda_events_agenda_id_fkey"
-            columns: ["agenda_id"]
-            isOneToOne: false
-            referencedRelation: "agendas"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "agenda_events_event_id_fkey"
-            columns: ["event_id"]
-            isOneToOne: false
-            referencedRelation: "project_events"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       agendas: {
         Row: {
           color: number | null
@@ -74,34 +41,34 @@ export type Database = {
       }
       course_members: {
         Row: {
-          course_id: number
+          course: number
+          created_at: string
           is_admin: boolean
-          joined_at: string
-          profile_id: number
+          profile: number
         }
         Insert: {
-          course_id: number
+          course: number
+          created_at?: string
           is_admin?: boolean
-          joined_at?: string
-          profile_id: number
+          profile: number
         }
         Update: {
-          course_id?: number
+          course?: number
+          created_at?: string
           is_admin?: boolean
-          joined_at?: string
-          profile_id?: number
+          profile?: number
         }
         Relationships: [
           {
-            foreignKeyName: "course_members_course_id_fkey"
-            columns: ["course_id"]
+            foreignKeyName: "course_members_course_fkey"
+            columns: ["course"]
             isOneToOne: false
             referencedRelation: "courses"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "course_members_profile_id_fkey"
-            columns: ["profile_id"]
+            foreignKeyName: "course_members_profile_fkey"
+            columns: ["profile"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -115,6 +82,8 @@ export type Database = {
           id: number
           is_public: boolean
           name: string
+          updated_at: string
+          workspace: number
         }
         Insert: {
           created_at?: string
@@ -122,6 +91,8 @@ export type Database = {
           id?: number
           is_public?: boolean
           name: string
+          updated_at: string
+          workspace: number
         }
         Update: {
           created_at?: string
@@ -129,8 +100,18 @@ export type Database = {
           id?: number
           is_public?: boolean
           name?: string
+          updated_at?: string
+          workspace?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "workspace_courses_workspace_fkey"
+            columns: ["workspace"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       practice_activities: {
         Row: {
@@ -292,362 +273,45 @@ export type Database = {
           user_id?: string
           username?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      project_agendas: {
-        Row: {
-          agenda_id: number
-          category: string | null
-          created_at: string
-          private: boolean | null
-          project_id: number
-        }
-        Insert: {
-          agenda_id: number
-          category?: string | null
-          created_at?: string
-          private?: boolean | null
-          project_id: number
-        }
-        Update: {
-          agenda_id?: number
-          category?: string | null
-          created_at?: string
-          private?: boolean | null
-          project_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "project_agendas_agenda_id_fkey"
-            columns: ["agenda_id"]
-            isOneToOne: false
-            referencedRelation: "agendas"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_agendas_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      project_events: {
-        Row: {
-          created_at: string
-          description: string | null
-          ends_at: string | null
-          id: number
-          name: string
-          starts_at: string
-          type: Database["public"]["Enums"]["project_event_type"] | null
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          ends_at?: string | null
-          id?: number
-          name: string
-          starts_at: string
-          type?: Database["public"]["Enums"]["project_event_type"] | null
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          ends_at?: string | null
-          id?: number
-          name?: string
-          starts_at?: string
-          type?: Database["public"]["Enums"]["project_event_type"] | null
-        }
         Relationships: []
-      }
-      project_members: {
-        Row: {
-          joined_at: string
-          profile_id: number
-          project_id: number
-          role: Database["public"]["Enums"]["ProjectMemberRole"] | null
-          role_since: string | null
-        }
-        Insert: {
-          joined_at?: string
-          profile_id: number
-          project_id: number
-          role?: Database["public"]["Enums"]["ProjectMemberRole"] | null
-          role_since?: string | null
-        }
-        Update: {
-          joined_at?: string
-          profile_id?: number
-          project_id?: number
-          role?: Database["public"]["Enums"]["ProjectMemberRole"] | null
-          role_since?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "project_members_profile_id_fkey"
-            columns: ["profile_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_members_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      project_notes: {
-        Row: {
-          author: number
-          color: number | null
-          content: string | null
-          created_at: string
-          id: number
-          project_id: number
-          tags: string[] | null
-          title: string | null
-        }
-        Insert: {
-          author: number
-          color?: number | null
-          content?: string | null
-          created_at?: string
-          id?: number
-          project_id: number
-          tags?: string[] | null
-          title?: string | null
-        }
-        Update: {
-          author?: number
-          color?: number | null
-          content?: string | null
-          created_at?: string
-          id?: number
-          project_id?: number
-          tags?: string[] | null
-          title?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "project_notes_author_fkey"
-            columns: ["author"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_notes_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      project_tasks: {
-        Row: {
-          created_at: string
-          created_by: number | null
-          description: string | null
-          id: number
-          pending_date: string | null
-          project_id: number
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          created_by?: number | null
-          description?: string | null
-          id?: number
-          pending_date?: string | null
-          project_id: number
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          created_by?: number | null
-          description?: string | null
-          id?: number
-          pending_date?: string | null
-          project_id?: number
-          title?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "project_tasks_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_tasks_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       projects: {
         Row: {
-          avatar_url: string | null
-          color: number | null
-          comments: string[] | null
+          course_id: number | null
           created_at: string
-          description: string | null
-          heading_url: string | null
+          description: string
           id: number
           name: string
-          owner: number
-          resume: string | null
-          route: string | null
-          slug: string
-          space_id: number
-          updated_at: string
+          pid: string
+          tags: Json
+          updated_at: string | null
         }
         Insert: {
-          avatar_url?: string | null
-          color?: number | null
-          comments?: string[] | null
+          course_id?: number | null
           created_at?: string
-          description?: string | null
-          heading_url?: string | null
+          description: string
           id?: number
           name: string
-          owner: number
-          resume?: string | null
-          route?: string | null
-          slug: string
-          space_id: number
-          updated_at?: string
+          pid?: string
+          tags: Json
+          updated_at?: string | null
         }
         Update: {
-          avatar_url?: string | null
-          color?: number | null
-          comments?: string[] | null
+          course_id?: number | null
           created_at?: string
-          description?: string | null
-          heading_url?: string | null
+          description?: string
           id?: number
           name?: string
-          owner?: number
-          resume?: string | null
-          route?: string | null
-          slug?: string
-          space_id?: number
-          updated_at?: string
+          pid?: string
+          tags?: Json
+          updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "proyects_owner_fkey"
-            columns: ["owner"]
+            foreignKeyName: "projects_course_id_fkey"
+            columns: ["course_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "proyects_space_id_fkey"
-            columns: ["space_id"]
-            isOneToOne: false
-            referencedRelation: "spaces"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      space_members: {
-        Row: {
-          joined_at: string
-          profile_id: number
-          role: Database["public"]["Enums"]["SpaceMemberRole"] | null
-          role_since: string | null
-          space_id: number
-        }
-        Insert: {
-          joined_at?: string
-          profile_id: number
-          role?: Database["public"]["Enums"]["SpaceMemberRole"] | null
-          role_since?: string | null
-          space_id: number
-        }
-        Update: {
-          joined_at?: string
-          profile_id?: number
-          role?: Database["public"]["Enums"]["SpaceMemberRole"] | null
-          role_since?: string | null
-          space_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "space_members_profile_id_fkey"
-            columns: ["profile_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "space_members_space_id_fkey"
-            columns: ["space_id"]
-            isOneToOne: false
-            referencedRelation: "spaces"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      spaces: {
-        Row: {
-          avatar_url: string | null
-          color: number | null
-          created_at: string
-          description: string | null
-          id: number
-          name: string
-          owner: number
-          slug: string
-        }
-        Insert: {
-          avatar_url?: string | null
-          color?: number | null
-          created_at?: string
-          description?: string | null
-          id?: number
-          name: string
-          owner: number
-          slug: string
-        }
-        Update: {
-          avatar_url?: string | null
-          color?: number | null
-          created_at?: string
-          description?: string | null
-          id?: number
-          name?: string
-          owner?: number
-          slug?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "spaces_owner_fkey"
-            columns: ["owner"]
-            isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "courses"
             referencedColumns: ["id"]
           },
         ]
@@ -769,15 +433,7 @@ export type Database = {
           id?: number
           name?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "subjects_course_id_fkey"
-            columns: ["course_id"]
-            isOneToOne: false
-            referencedRelation: "courses"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       topic_activities: {
         Row: {
@@ -834,86 +490,6 @@ export type Database = {
           },
         ]
       }
-      topic_test_attempts: {
-        Row: {
-          answers: Json[]
-          ended_at: string
-          id: number
-          profile_id: number
-          score: number
-          started_at: string
-          test_id: number
-        }
-        Insert: {
-          answers: Json[]
-          ended_at?: string
-          id?: number
-          profile_id: number
-          score: number
-          started_at: string
-          test_id: number
-        }
-        Update: {
-          answers?: Json[]
-          ended_at?: string
-          id?: number
-          profile_id?: number
-          score?: number
-          started_at?: string
-          test_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "topic_test_attempts_profile_id_fkey"
-            columns: ["profile_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "topic_test_attempts_test_id_fkey"
-            columns: ["test_id"]
-            isOneToOne: false
-            referencedRelation: "topic_tests"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      topic_tests: {
-        Row: {
-          created_at: string
-          description: string | null
-          id: number
-          name: string
-          questions: Json[]
-          topic_id: number
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          id?: number
-          name: string
-          questions?: Json[]
-          topic_id: number
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          id?: number
-          name?: string
-          questions?: Json[]
-          topic_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "topic_tests_topic_id_fkey"
-            columns: ["topic_id"]
-            isOneToOne: false
-            referencedRelation: "topics"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       topics: {
         Row: {
           created_at: string
@@ -942,6 +518,83 @@ export type Database = {
             columns: ["subject_id"]
             isOneToOne: false
             referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspace_members: {
+        Row: {
+          created_at: string
+          is_admin: boolean
+          user: number
+          workspace: number
+        }
+        Insert: {
+          created_at?: string
+          is_admin?: boolean
+          user: number
+          workspace: number
+        }
+        Update: {
+          created_at?: string
+          is_admin?: boolean
+          user?: number
+          workspace?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_members_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workspace_members_workspace_fkey"
+            columns: ["workspace"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspaces: {
+        Row: {
+          avatar: string | null
+          color: number | null
+          created_at: string
+          description: string
+          id: number
+          owner: number
+          pid: string
+          updated_at: string | null
+        }
+        Insert: {
+          avatar?: string | null
+          color?: number | null
+          created_at?: string
+          description: string
+          id?: number
+          owner: number
+          pid: string
+          updated_at?: string | null
+        }
+        Update: {
+          avatar?: string | null
+          color?: number | null
+          created_at?: string
+          description?: string
+          id?: number
+          owner?: number
+          pid?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspaces_owner_fkey"
+            columns: ["owner"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -1028,15 +681,6 @@ export type Database = {
         | "PERSONAL_BIRTHDAY"
         | "PERSONAL_OTHER"
         | "OTHER"
-      projecteventtypetype:
-        | "TASK"
-        | "EVENT"
-        | "REMINDER"
-        | "PERSONAL_BIRTHDAY"
-        | "PERSONAL_OTHER"
-        | "OTHER"
-      ProjectMemberRole: "ADMIN" | "EDITOR" | "GUEST"
-      SpaceMemberRole: "ADMIN" | "EDITOR" | "MOD" | "MEMBER"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1124,4 +768,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

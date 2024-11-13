@@ -11,7 +11,8 @@ const nextConfig = {
     trailingSlash: true,
     experimental: {
         // optimizePackageImports: ["@tabler/icons-react"],
-    }
+    },
+    transpilePackages: ['@aio/db'],
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));

@@ -1,9 +1,12 @@
+import "server-only";
 import { cache } from "react";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { Database } from "@/supabase/database";
+import { Database } from "@aio/db/supabase";
 
 const getSupabase = cache(createSupabaseServerClient);
+
+// export type PracticeActivity = Tables<"topic_activities"> & { data: QuestionData };
 
 export function createSupabaseServerClient() {
     const cookieStore = cookies()

@@ -4,12 +4,12 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { Avatar } from "@nextui-org/avatar";
 import { createSupabaseClient } from "@/supabase/client";
 import { useTranslations } from "next-intl";
-import { Profile } from "@/supabase/models/Profile";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { IconAt, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
 import { Divider } from "@nextui-org/divider";
+import { Profile } from "@aio/db/entities";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {
     const t = useTranslations();

@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type React from "react";
-import { getMaybeMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/Profile";
 import { ViewTransitions } from "next-view-transitions";
 import Providers from "@/app/providers";
 

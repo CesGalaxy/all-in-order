@@ -3,7 +3,7 @@ import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
 import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import { getMyProfile } from "@/supabase/models/Profile";
+import { getMyProfile } from "@/supabase/auth/Profile";
 import { redirect } from "next/navigation";
 import getTopicData from "@/app/topics/[topicId]/(hub)/_feature/queries/getTopicData";
 import TopicRecentPracticesSection

@@ -11,7 +11,7 @@ import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
-import { getMaybeMyProfile } from "@/supabase/models/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/Profile";
 import { getLocale, getTranslations } from "next-intl/server";
 import ToggleLocaleButton from "@/app/_navigation/ToggleLocaleButton";
 import { Divider } from "@nextui-org/divider";

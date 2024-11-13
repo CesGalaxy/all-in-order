@@ -3,7 +3,7 @@
 import { QuestionData } from "@/features/beta_question";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
-import { getMyProfile } from "@/supabase/models/Profile";
+import { getMyProfile } from "@/supabase/auth/Profile";
 import { Json } from "@/supabase/database";
 
 export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
