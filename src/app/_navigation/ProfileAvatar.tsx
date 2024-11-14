@@ -34,7 +34,7 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 <DropdownItem key="profile" onPress={onOpen}>
                     <p className="font-semibold">{t('Auth.signed_in_as', { identity: profile.name })}</p>
                 </DropdownItem>
-                <DropdownItem key="settings" href="/subjects" startContent={<IconLayoutDashboard/>}>
+                <DropdownItem key="settings" href="/courses" startContent={<IconLayoutDashboard/>}>
                     {t('Dash.my_content.courses')}
                 </DropdownItem>
                 <DropdownItem key="configurations" startContent={<IconTool/>}>

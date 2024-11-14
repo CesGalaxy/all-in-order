@@ -3,9 +3,9 @@
 import addNotesImage from "@/assets/pictures/add_notes.svg";
 import Blank, { BlankViewProps } from "@/components/views/Blank";
 import getSupabase from "@/supabase/server";
-import { getMaybeMyProfile, getMyProfile } from "@/supabase/auth/Profile";
 import { revalidatePath } from "next/cache";
-import CreateNoteButton from "@/collections/note/CreateNoteButton";
+import CreateNoteButton from "@/collections/note/components/CreateNoteButton";
+import { getMaybeMyProfile, getMyProfile } from "@/supabase/auth/profile";
 
 export default async function NoNotes({ subjectId, extraViewProps }: {
     subjectId: number,

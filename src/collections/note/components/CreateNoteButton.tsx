@@ -3,7 +3,7 @@
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import type React from "react";
-import CreateNoteModal, { type RequiredCreateNoteAction } from "@/collections/note/CreateNoteModal";
+import CreateNoteModal, { type RequiredCreateNoteAction } from "@/collections/note/components/modals/CreateNoteModal";
 
 export type CreateNoteButtonProps = CreateNoteButtonPropsWithModal | CreateNoteButtonPropsWithAction;
 

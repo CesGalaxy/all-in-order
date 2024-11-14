@@ -7,8 +7,8 @@ export default function DesktopNavigation({ currentPage }: { currentPage?: Navba
 
     return <NavbarContent className="hidden sm:flex gap-8" justify="center">
         <NavbarItem isActive={currentPage === 'subjects'}>
-            <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
-                <span className="text-foreground group-data-[active=true]:text-primary">Subjects</span>
+            <Link href="/courses" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
+                <span className="text-foreground group-data-[active=true]:text-primary">Courses</span>
             </Link>
         </NavbarItem>
         <NavbarItem isActive={currentPage === 'agenda'}>

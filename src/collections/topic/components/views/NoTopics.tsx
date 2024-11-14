@@ -1,6 +1,6 @@
 import Blank from "@/components/views/Blank";
 import noDataImage from "@/assets/pictures/no_data.svg";
-import CreateTopicButton from "@/collections/topic/CreateTopicButton";
+import CreateTopicButton from "@/collections/topic/components/CreateTopicButton";
 import getSupabase from "@/supabase/server";
 import { redirect } from "next/navigation";
 

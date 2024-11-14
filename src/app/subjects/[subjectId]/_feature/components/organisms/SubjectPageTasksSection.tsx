@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import NoTasks from "@/collections/task/NoTasks";
+import NoTasks from "@/collections/task/components/views/NoTasks";
 import SectionContainer from "@/components/containers/SectionContainer";
 
 export interface SubjectPageTasksSectionProps {

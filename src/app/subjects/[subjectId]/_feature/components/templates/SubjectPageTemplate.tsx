@@ -1,18 +1,17 @@
-import { Subject } from "@/supabase/entities";
+import { Subject, SubjectNote, Topic } from "@aio/db/entities";
 import PageContainer from "@/components/containers/Page";
 import SubjectPageTasksSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageTasksSection";
 import SubjectPageNotesSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageNotesSection";
 import SectionContainer from "@/components/containers/SectionContainer";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { Divider } from "@nextui-org/divider";
-import NoTopics from "@/collections/topic/NoTopics";
 import { useTranslations } from "next-intl";
+import SubjectPageTopicSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageTopicSection";
+
+export type RequiredTopic = Pick<Topic, "id" | "title" | "description">
 
 export interface SubjectPageTemplateProps {
-    notes: any[];
-    topics: any[];
+    notes: SubjectNote[];
+    topics: RequiredTopic[];
     profileId?: number;
     subject: Subject;
     createNoteAction: (profileId: number, title: string, content: string) => Promise<string | undefined>;
@@ -28,7 +27,7 @@ export default function SubjectPageTemplate({
     const t = useTranslations();
 
     return <PageContainer
-        className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-2 gap-x-8 gap-8">
+        className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-2 gap-8">
         <SubjectPageTasksSection subjectId={subject.id}/>
         <SubjectPageNotesSection
             notes={notes}
@@ -43,25 +42,6 @@ export default function SubjectPageTemplate({
                 PRÓXIMAMENTE
             </div>
         </SectionContainer>
-        <SectionContainer title={t('App.topics')} className="w-full h-full col-span-2 order-first xl:order-none">
-            {topics.length > 0
-                ? <ul className="grid grid-cols-1 md:grid-cols-2 items-stretch justify-start gap-8 px-4">
-                    {topics.map(topic => <Card as="li" key={topic.id}>
-                        <CardHeader as={Link} className="flex-col items-start" href={"/topics/" + topic.id}>
-                            <h2 className="font-bold text-3xl">{topic.title}</h2>
-                            {topic.description && <small className="text-default-500">{topic.description}</small>}
-                        </CardHeader>
-                        <Divider/>
-                        <CardFooter>
-                            <Link className="text-primary hover:underline"
-                                  href={`/src/app/@navbar/topics/${topic.id}/ai/chat`}
-                                  showAnchorIcon isDisabled>
-                                {t('AI.chat_with')}
-                            </Link>
-                        </CardFooter>
-                    </Card>)}
-                </ul>
-                : <NoTopics subjectId={subject.id}/>}
-        </SectionContainer>
+        <SubjectPageTopicSection subjectId={subject.id} topics={topics}/>
     </PageContainer>;
 }

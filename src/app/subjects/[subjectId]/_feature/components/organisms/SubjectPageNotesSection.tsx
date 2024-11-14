@@ -1,11 +1,11 @@
-import { SubjectNote } from "@/supabase/entities";
-import CreateNoteButton from "@/collections/note/CreateNoteButton";
+import { SubjectNote } from "@aio/db/entities";
+import CreateNoteButton from "@/collections/note/components/CreateNoteButton";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link as TransitionLink } from "next-view-transitions";
 import NoteOptions from "@/app/subjects/[subjectId]/_components/NoteOptions";
-import NoNotes from "@/collections/note/NoNotes";
+import NoNotes from "@/collections/note/components/views/NoNotes";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { useTranslations } from "next-intl";
 
