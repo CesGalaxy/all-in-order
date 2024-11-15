@@ -1,11 +1,12 @@
 import { Subject, SubjectNote, Topic } from "@aio/db/entities";
 import PageContainer from "@/components/containers/Page";
-import SubjectPageTasksSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageTasksSection";
-import SubjectPageNotesSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageNotesSection";
+import SubjectPageTasksSection from "@/app/subjects/[subjectId]/_components/organisms/SubjectPageTasksSection";
+import SubjectPageNotesSection from "@/app/subjects/[subjectId]/_components/organisms/SubjectPageNotesSection";
 import SectionContainer from "@/components/containers/SectionContainer";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import { useTranslations } from "next-intl";
-import SubjectPageTopicSection from "@/app/subjects/[subjectId]/_feature/components/organisms/SubjectPageTopicSection";
+import SubjectPageTopicSection from "@/app/subjects/[subjectId]/_components/organisms/SubjectPageTopicSection";
+import { CreateNoteModalAction } from "@/collections/note/components/modals/CreateNoteModal";
 
 export type RequiredTopic = Pick<Topic, "id" | "title" | "description">
 
@@ -14,7 +15,7 @@ export interface SubjectPageTemplateProps {
     topics: RequiredTopic[];
     profileId?: number;
     subject: Subject;
-    createNoteAction: (profileId: number, title: string, content: string) => Promise<string | undefined>;
+    createNoteAction: CreateNoteModalAction;
 }
 
 export default function SubjectPageTemplate({
@@ -31,7 +32,7 @@ export default function SubjectPageTemplate({
         <SubjectPageTasksSection subjectId={subject.id}/>
         <SubjectPageNotesSection
             notes={notes}
-            createNoteAction={typeof profileId === "number" ? createNoteAction.bind(null, profileId) : null}
+            createNoteAction={createNoteAction}
             subjectId={subject.id}
         />
         <SectionContainer title={t('App.calendar')}

@@ -1,6 +1,6 @@
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import { getMaybeMyProfile } from "@/supabase/auth/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import NoCourses from "@/collections/course/components/views/NoCourses";
 import PageContainer from "@/components/containers/Page";

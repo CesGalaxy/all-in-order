@@ -16,7 +16,6 @@ function DeleteCourseModal({ action }: { action: number | DeleteCourseModalActio
         title={"Are you sure?"}
         action={deleteCourse}
         isFormValid={true}
-        hideCancelButton
         handleSuccess="close"
         buttonLabel="Yes, delete"
         buttonIcon={<IconTrash/>}

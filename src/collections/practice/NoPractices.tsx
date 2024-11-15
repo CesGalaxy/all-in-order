@@ -4,7 +4,7 @@ import CreatePracticeButton from "@/collections/practice/CreatePracticeButton";
 import { Button } from "@nextui-org/button";
 import { IconSparkles } from "@tabler/icons-react";
 import getSupabase from "@/supabase/server";
-import { getMyProfile } from "@/supabase/auth/Profile";
+import { getMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
 
 export default function NoPractices({ topicId }: { topicId: number }) {

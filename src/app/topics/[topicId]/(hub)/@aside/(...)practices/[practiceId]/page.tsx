@@ -6,7 +6,7 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { PracticeActivity } from "@/supabase/entities";
+import { PracticeActivity } from "@aio/db/entities";
 import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";

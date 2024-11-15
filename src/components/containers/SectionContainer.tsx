@@ -12,7 +12,7 @@ export default function SectionContainer({
                                              children,
                                              trailing,
                                              expanded,
-                                             growClassName,
+                                             growClassName: gcn,
                                              ...props
                                          }: SectionContainerProps) {
 
@@ -27,8 +27,7 @@ export default function SectionContainer({
         <hr className="mt-2 md:mt-1"/>
         <br/>
         {expanded
-            ?
-            <div className={twMerge("w-full h-full flex-grow flex-col overflow-hidden", growClassName)}>{children}</div>
+            ? <div className={twMerge("w-full h-full flex-grow flex-col overflow-hidden", gcn)}>{children}</div>
             : children
         }
     </section>;

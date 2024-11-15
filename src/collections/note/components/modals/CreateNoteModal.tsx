@@ -1,72 +1,56 @@
 "use client";
 
-import { useState } from "react";
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Input, Textarea } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
 import { IconPlus } from "@tabler/icons-react";
-import { toast } from "react-toastify";
+import ModalForm from "@/components/utils/ModalForm";
+import useValidatedState from "@/reactivity/hooks/useValidatedState";
+import { NOTE_CONTENT, NOTE_TITLE } from "@/collections/note/schemas";
+import { ActionResponse } from "@/lib/helpers/form";
 
-export type RequiredCreateNoteAction = (title: string, content: string) => Promise<string | undefined>;
+export type CreateNoteModalAction = ((formData: FormData) => Promise<ActionResponse<any>>);
 
-function CreateNoteModal({ action }: { action: RequiredCreateNoteAction }) {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+export interface CreateNoteModalProps {
+    action: CreateNoteModalAction
+}
 
-    const [loading, setLoading] = useState(false);
+function CreateNoteModal({ action }: CreateNoteModalProps) {
+    const [title, setTitle, titleValidation, validateTitle, isTitleValid] = useValidatedState(NOTE_TITLE, "");
+    const [content, setContent, contentValidation, validateContent, isContentValid] = useValidatedState(NOTE_CONTENT, "");
 
-    return <ModalContent>
-        {(onClose) => (
-            <>
-                <ModalHeader>Create a new note</ModalHeader>
-                <ModalBody>
-                    <Input
-                        autoFocus
-                        label="Title"
-                        placeholder="Enter the title of the note (optional)"
-                        variant="bordered"
-                        value={title}
-                        onValueChange={setTitle}
-                    />
-                    <Textarea
-                        label="Content"
-                        placeholder="Start typing here..."
-                        variant="bordered"
-                        rows={3}
-                        maxLength={512}
-                        value={content}
-                        isRequired
-                        onValueChange={setContent}
-                    />
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                        Cancel
-                    </Button>
-                    <Button
-                        color="primary"
-                        startContent={<IconPlus/>}
-                        isDisabled={loading || !content}
-                        isLoading={loading}
-                        onPress={async () => {
-                            setLoading(true);
-                            const error = await action(title, content);
-                            setLoading(false);
-
-                            if (error) {
-                                toast(error, { type: "error" });
-                            } else {
-                                toast("Note created successfully!", { type: "success" });
-                                onClose();
-                            }
-                        }}
-                    >
-                        Create
-                    </Button>
-                </ModalFooter>
-            </>
-        )}
-    </ModalContent>;
+    return <ModalForm
+        title={"Create a new note"}
+        action={action}
+        isFormValid={isTitleValid && isContentValid}
+        buttonLabel={"Create"}
+        buttonIcon={<IconPlus/>}
+    >
+        <Input
+            autoFocus
+            label="Title"
+            placeholder="Enter the title of the note (optional)"
+            name="title"
+            variant="bordered"
+            value={title}
+            onValueChange={setTitle}
+            validate={validateTitle}
+            isInvalid={!isTitleValid}
+            errorMessage={titleValidation}
+        />
+        <Textarea
+            label="Content"
+            placeholder="Start typing here..."
+            name="content"
+            variant="bordered"
+            rows={3}
+            maxLength={512}
+            value={content}
+            isRequired
+            onValueChange={setContent}
+            validate={validateContent}
+            isInvalid={!isContentValid}
+            errorMessage={contentValidation}
+        />
+    </ModalForm>;
 }
 
 export default CreateNoteModal;

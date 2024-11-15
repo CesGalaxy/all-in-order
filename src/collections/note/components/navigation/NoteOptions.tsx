@@ -10,7 +10,7 @@ export default function NoteOptions() {
 
     return <Dropdown>
         <DropdownTrigger>
-            <Button isIconOnly>
+            <Button isIconOnly size="sm">
                 <IconChevronDown/>
             </Button>
         </DropdownTrigger>

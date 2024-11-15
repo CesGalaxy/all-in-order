@@ -1,4 +1,4 @@
-import { Json } from "@/supabase/database";
+import { Json } from "@aio/db/supabase";
 import {
     generateChoiceQuestionAttempt,
     QuestionChoiceAnswer,

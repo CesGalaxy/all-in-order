@@ -21,7 +21,9 @@ export function mountActionSuccess<T>(data: T, comments?: string[]): SuccessfulA
     return { ok: true, data, comments }
 }
 
-export type ActionResponse<T, E extends string = string> = SuccessfulActionResponse<T> | FailedActionResponse<E>;
+export type ActionResponse<T, E extends string = string> =
+    | (T extends never ? never : SuccessfulActionResponse<T>)
+    | FailedActionResponse<E>;
 
 export interface SuccessfulActionResponse<T> {
     ok: true;

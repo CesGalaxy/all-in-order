@@ -15,9 +15,9 @@ import BottomNavigation from "@/app/practices/[practiceId]/start/_feature/Bottom
 import CurrentQuestionTitle from "@/app/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
 import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@/features/beta_question";
 import ExamActivity from "@/app/practices/[practiceId]/start/_feature/ExamActivity";
-import { getMaybeMyProfile } from "@/supabase/auth/Profile";
+import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
-import { Json } from "@/supabase/database";
+import { Json } from "@aio/db/supabase";
 
 export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
     const { data, error } = await getSupabase()

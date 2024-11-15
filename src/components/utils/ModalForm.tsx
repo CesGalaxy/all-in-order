@@ -7,9 +7,16 @@ import { Button, ButtonProps } from "@nextui-org/button";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 
+export type ModalFormAction<T, E extends string> = (formData: FormData) => (
+    | Promise<ActionResponse<T, E | "submit">>
+    | ActionErrors<E>
+    | undefined
+    | null
+    | string);
+
 export interface ModalFormProps<T, E extends string> {
     title: ReactNode;
-    action: (formData: FormData) => (Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string);
+    action?: ModalFormAction<T, E>;
     buttonLabel?: ReactNode;
     buttonIcon?: ReactNode;
     buttonProps?: Omit<ButtonProps, "children" | "startContent" | "isDisabled" | "isLoading" | "formAction" | "type">;
@@ -44,6 +51,11 @@ function ModalForm<
       children,
   }: ModalFormProps<T, E>) {
     const handleSubmit = useCallback(async (formData: FormData) => {
+        if (!action) return {
+            ok: false,
+            errors: { submit: ["No action provided. This is probably an internal error"] } as ActionErrors<E | "submit">
+        } satisfies FailedActionResponse<E | "submit">;
+
         const act = action(formData);
 
         if (typeof act === "string") {

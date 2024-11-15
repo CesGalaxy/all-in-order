@@ -2,36 +2,24 @@
 
 import addNotesImage from "@/assets/pictures/add_notes.svg";
 import Blank, { BlankViewProps } from "@/components/views/Blank";
-import getSupabase from "@/supabase/server";
-import { revalidatePath } from "next/cache";
 import CreateNoteButton from "@/collections/note/components/CreateNoteButton";
-import { getMaybeMyProfile, getMyProfile } from "@/supabase/auth/profile";
+import { getMaybeMyProfile } from "@/supabase/auth/profile";
+import { createNoteAction } from "@/collections/note/action";
+import { CreateNoteModalAction } from "@/collections/note/components/modals/CreateNoteModal";
 
-export default async function NoNotes({ subjectId, extraViewProps }: {
+export default async function NoNotes({ subjectId, extraViewProps, action = createNoteAction.bind(null, subjectId) }: {
     subjectId: number,
-    extraViewProps?: Partial<BlankViewProps>
+    extraViewProps?: Partial<BlankViewProps>,
+    action?: CreateNoteModalAction
 }) {
     const maybeProfile = await getMaybeMyProfile();
 
-    async function createNoteAction(content: string, title: string) {
-        "use server";
-
-        const { id } = await getMyProfile();
-
-        const { error } = await getSupabase()
-            .from("subject_notes")
-            .insert({ title, content, subject_id: subjectId, author_id: id });
-
-        if (error) return error.message;
-
-        revalidatePath("/subjects/" + subjectId);
-    }
-
     const viewProps = { image: addNotesImage, alt: "", title: "No notes found", ...extraViewProps };
 
+    // FIXME: This is shit
     return <Blank {...viewProps}>
         {maybeProfile && <nav className="flex items-center justify-center">
-            <CreateNoteButton action={createNoteAction}/>
+            <CreateNoteButton action={action}/>
         </nav>}
     </Blank>;
 }

@@ -6,7 +6,7 @@ import { IconLanguage } from "@tabler/icons-react";
 import { Avatar } from "@nextui-org/avatar";
 import { Locale } from "@/i18n/config";
 
-export default function ToggleLocaleButton({ action }: { action: (locale: Locale) => Promise<void> }) {
+function ToggleLocaleButton({ action }: { action: (locale: Locale) => Promise<void> }) {
     return <Dropdown>
         <DropdownTrigger>
             <Button isIconOnly variant="light" aria-label="Language" title="Language">
@@ -29,5 +29,6 @@ export default function ToggleLocaleButton({ action }: { action: (locale: Locale
             >Valenciá</DropdownItem>
         </DropdownMenu>
     </Dropdown>;
-
 }
+
+export default ToggleLocaleButton;

@@ -11,3 +11,4 @@ export type SubjectNote = Tables<"subject_notes">;
 export type Topic = Tables<"topics">;
 
 export type Practice = Tables<"practices">;
+export type PracticeActivity = Tables<"practice_activities">;

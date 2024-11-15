@@ -3,7 +3,7 @@
 import { Input, Textarea } from "@nextui-org/input";
 import updateTopicSettings from "@/app/topics/[topicId]/(hub)/settings/action";
 import { useFormState } from "react-dom";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@aio/db/entities";
 import { Button } from "@nextui-org/button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { z } from "zod";

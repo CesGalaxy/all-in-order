@@ -1,4 +1,4 @@
-import { getMyProfile } from "@/supabase/auth/Profile";
+import { getMyProfile } from "@/supabase/auth/profile";
 import DashboardCoursesSection from "@/app/app/_feature/components/organisms/DashboardCoursesSection";
 import DashboardProfileSection from "@/app/app/_feature/components/organisms/DashboardProfileSection";
 import DashboardNotificationsSection from "@/app/app/_feature/components/organisms/DashboardNotificationsSection";

@@ -5,9 +5,7 @@ import { CREATE_SUBJECT_SCHEMA, UPDATE_SUBJECT_SCHEMA } from "@/collections/subj
 import getSupabase from "@/supabase/server";
 import { redirect } from "next/navigation";
 
-export type CreateSubjectActionResponse =
-    never
-    | ActionResponse<never, "name" | "description" | "color" | "form" | "db">;
+export type CreateSubjectActionResponse = ActionResponse<never, "name" | "description" | "color" | "form" | "db">;
 
 export async function createSubjectAction(course_id: number, name: string, description: string, color: number): Promise<CreateSubjectActionResponse> {
     const validation = CREATE_SUBJECT_SCHEMA.safeParse({ name, description, color });
