@@ -18,11 +18,12 @@ export default async function Layout({ children, aside, params: { topicId } }: {
     if (error) return <ErrorView message={error.message}/>;
     const { id, title, description } = required(data);
 
-    return <div className="w-full h-full flex flex-col lg:flex-row p-2 md:p-4 lg:p-8 gap-4 overflow-y-auto">
-        <aside className="w-full lg:h-full lg:w-1/4 lg:max-w-96 lg:min-w-48">
+    // Note: if it works, don't touch it
+    return <div className="w-full flex flex-col lg:flex-row p-2 md:p-4 lg:p-8 gap-x-4 gap-y-8">
+        <aside className="w-full lg:w-1/4 lg:max-w-96 lg:min-w-48 sticky top-24 h-min">
             <TopicSidebar topicId={id} topicTitle={title} topicDescription={description}/>
         </aside>
-        <div className="w-full min-h-full flex-grow bg-content2 text-content2-foreground rounded-xl relative">
+        <div className="w-full flex-grow bg-content2 text-content2-foreground rounded-xl relative">
             <AnimatePresence>
                 {children}
             </AnimatePresence>

@@ -3,7 +3,6 @@
 import { Link } from "@nextui-org/link";
 import { IconFolders, IconHome, IconMessage, IconMessages, IconPlayerPlay, IconTool } from "@tabler/icons-react";
 import { useCallback } from "react";
-import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import { usePathname } from "next/navigation";
 
@@ -36,19 +35,14 @@ export default function TopicSidebar({ topicId, topicTitle, topicDescription }: 
         </header>
         <Divider className="my-4"/>
         <nav>
-            <ul className="w-full flex flex-wrap lg:flex-col gap-2 lg:gap-4">
+            <ul className="w-full flex flex-wrap lg:flex-col sm:gap-1 lg:gap-4">
                 {DESTINATIONS.map(({ name, path, icon }) => <li key={path}>
-                    <Button
-                        as={Link}
+                    <Link
                         href={topicPath + path}
-                        startContent={icon}
-                        className="w-full justify-start text-lg gap-4"
-                        radius="full"
-                        size="lg"
-                        variant={isCurrentPath(path) ? "flat" : "light"}
+                        className="w-full md:text-lg gap-1 sm:gap-2 md:gap-4 rounded-full px-2 py-1 lg:px-4 lg:py-2 hover:bg-content2 text-foreground transition-all"
                     >
-                        {name}
-                    </Button>
+                        {icon}{name}
+                    </Link>
                 </li>)}
             </ul>
         </nav>
