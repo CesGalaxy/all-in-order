@@ -1,5 +1,5 @@
 import { Chip } from "@nextui-org/chip";
-import { QuestionTrueOrFalseAttempt } from "@/features/beta_question/QuestionTrueOrFalse";
+import { QuestionTrueOrFalseAttempt } from "@aio/db/features/questions/TrueOrFalse";
 import { IconQuestionMark } from "@tabler/icons-react";
 
 export default function PreviewTrueOrFalseQuestion({ question }: { question: QuestionTrueOrFalseAttempt }) {

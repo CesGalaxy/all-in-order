@@ -6,11 +6,13 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-import { IconX } from "@tabler/icons-react";
+import { IconTrash, IconX } from "@tabler/icons-react";
 import Blank from "@/components/views/Blank";
 import throwAwayImage from "@/assets/pictures/throw_away.svg";
 import { Divider } from "@nextui-org/divider";
 import AYSButton from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/delete/_AYSButton";
+import ModalButton from "@/components/utils/ModalButton";
+import ModalForm from "@/components/utils/ModalForm";
 
 export default async function Page({ params: { topicId, practiceId } }: {
     params: { topicId: string, practiceId: string }
@@ -35,7 +37,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
         closeUrl={topicPath}
         actions={<Button as={Link} href={"/practices/" + id} startContent={<IconX/>} color="danger">Cancel</Button>}
     >
-        <div className="px-8 md:px-16 w-full h-full">
+        <div className="px-8 w-full py-16">
             <Blank
                 image={throwAwayImage}
                 alt="Delete practice"
@@ -47,6 +49,22 @@ export default async function Page({ params: { topicId, practiceId } }: {
                 </>}
             >
                 <AYSButton/>
+                <ModalButton modal={
+                    <ModalForm
+                        title={"Are you sure?"}
+                        isFormValid
+                        handleSuccess="close"
+                        buttonLabel={"Yes, delete the practice"}
+                        buttonIcon={<IconTrash/>}
+                        buttonProps={{ color: "danger", variant: "shadow" }}
+                        buttonInitialWait={5000}
+                        buttonRequireConfirmation
+                    >
+                        <p>This cannot be undone!</p>
+                    </ModalForm>
+                } color="danger" variant="shadow" className="w-full" startContent={<IconTrash/>}>
+                    Yes, delete the practice
+                </ModalButton>
             </Blank>
         </div>
     </AsideModalContainer>;

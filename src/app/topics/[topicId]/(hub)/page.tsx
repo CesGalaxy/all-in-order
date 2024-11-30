@@ -1,21 +1,19 @@
 import required from "@/lib/helpers/required";
-import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
-import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import { getMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
-import getTopicData from "@/app/topics/[topicId]/(hub)/_feature/queries/getTopicData";
+import getTopicData from "@/app/topics/[topicId]/(hub)/query";
 import TopicRecentPracticesSection
-    from "@/app/topics/[topicId]/(hub)/_feature/components/organisms/TopicRecentPracticesSection";
-import TopicRecentDocsSection from "@/app/topics/[topicId]/(hub)/_feature/components/organisms/TopicRecentDocsSection";
+    from "@/app/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
 import PageContainer from "@/components/containers/Page";
+import getTopicDocuments from "@/supabase/storage/query/getTopicDocuments";
+import TopicRecentDocsSection from "@/app/topics/[topicId]/(hub)/_components/organisms/TopicRecentDocsSection";
 
 export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
     // Fetch the topic data, documents, and translations
     const dbRequest = getTopicData(parseInt(topicId));
-    const docsRequest = getAllTopicDocuments(parseInt(topicId));
-    const tRequest = getTranslations();
+    const docsRequest = getTopicDocuments(parseInt(topicId));
 
     // Handle the received topic data
     const { data, error } = await dbRequest;
@@ -23,7 +21,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
     const { practices, ...topic } = required(data);
 
     // Handle the received documents
-    const docs = required(await docsRequest, "/topic/" + topic.id);
+    const { privateError, privateData, publicError, publicData } = await docsRequest;
+    if (privateError || publicError) return <ErrorView message={privateError?.message || publicError?.message}/>;
 
     async function createPracticeAction(title: string, description: string) {
         "use server";
@@ -32,6 +31,7 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
 
         const { data, error } = await getSupabase()
             .from("practices")
+            // Idea for deltaX: suggest using topicId, so it doesn't have to wait for dbRequest before creating the function
             .insert({ topic_id: topic.id, title, description, created_by: id })
             .select("id")
             .maybeSingle();
@@ -41,14 +41,12 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
         redirect("/practices/" + data!.id);
     }
 
-    const t = await tRequest;
-
     return <PageContainer className="flex-grow flex flex-col xl:flex-row items-stretch gap-8">
         <TopicRecentPracticesSection
             practices={practices}
             createPracticeAction={createPracticeAction}
             topicId={topic.id}
         />
-        <TopicRecentDocsSection docs={docs} topicId={topic.id}/>
+        <TopicRecentDocsSection privDocs={privateData as any[]} pubDocs={publicData as any[]} topicId={topic.id}/>
     </PageContainer>;
 }

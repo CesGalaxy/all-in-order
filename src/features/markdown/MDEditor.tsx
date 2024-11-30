@@ -27,6 +27,8 @@ import { Converter } from "showdown";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { toast } from "react-toastify";
 import { useTransitionRouter } from "next-view-transitions";
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Tab, Tabs } from "@nextui-org/tabs";
 
 export interface MDEditorProps {
     docName: string;
@@ -75,7 +77,7 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
     });
 
     return <div
-        className="w-full h-full flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
+        className="w-full h-full flex-grow flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
         <header className="flex items-center justify-between">
             <nav className="flex gap-4 items-center">
                 <Button radius="full" isIconOnly variant="light" onPress={() => router.back()}>
@@ -85,9 +87,21 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
             </nav>
             <nav className="flex items-center gap-4">
                 <ButtonGroup>
-                    <Button variant="flat" isIconOnly>
-                        <IconDownload/>
-                    </Button>
+                    <Popover>
+                        <PopoverTrigger>
+                            <Button variant="flat" isIconOnly>
+                                <IconDownload/>
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <Tabs>
+                                <Tab key="pdf" title="PDF">Hi</Tab>
+                                <Tab key="png" title="PNG">Hi</Tab>
+                                <Tab key="svg" title="SVG">Hi</Tab>
+                                <Tab key="html" title="HTML">G</Tab>
+                            </Tabs>
+                        </PopoverContent>
+                    </Popover>
                 </ButtonGroup>
                 <ButtonGroup>
                     <Button color="primary" startContent={<IconDeviceFloppy/>} onPress={save}>

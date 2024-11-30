@@ -5,6 +5,7 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 import CalendarDay from "@/features/calendar/components/CalendarDay";
 import { Select, SelectItem } from "@nextui-org/select";
+import TodoInfo from "@/components/dev/TodoInfo";
 
 export interface MonthCalendarProps {
     initialDate?: Date;
@@ -73,33 +74,35 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                 <Button isIconOnly onPress={nextMonth}><IconChevronRight/></Button>
             </ButtonGroup>
         </nav>
-        <table
-            className="w-full h-full flex-grow bg-content2 text-content2-foreground rounded-xl border-separate border-spacing-0 table-fixed">
-            <thead>
-            <tr>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
-            </tr>
-            </thead>
-            <tbody className="rounded-b-xl">
-            {weeks.map((week, i) => <tr key={i} className="group">
-                {week.map((day, j) => <td
-                    key={j}
-                    className="border-1 border-divider group-last:first:rounded-bl-xl group-last:last:rounded-br-xl p-0"
-                >
-                    {day && <CalendarDay
-                        date={new Date(selectedDate.getFullYear(), currentMonth, day)}
-                        selected={selectedDate?.getDate() === day}
-                        onSelect={() => setSelectedDate(new Date(currentYear, currentMonth, day))}
-                    />}
-                </td>)}
-            </tr>)}
-            </tbody>
-        </table>
+        <div className="w-full flex-grow bg-content2 text-content2-foreground rounded-xl">
+            <table className="w-full rounded-xl border-separate border-spacing-0 table-fixed">
+                <thead>
+                <tr>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+                </thead>
+                <tbody className="rounded-b-xl rounded-t-xl">
+                {weeks.map((week, i) => <tr key={i} className="group/tr">
+                    {week.map((day, j) => <td
+                        key={j}
+                        className="border-1 border-divider group-last/tr:first:rounded-bl-xl group-last/tr:last:rounded-br-xl group-first/tr:first:rounded-tl-xl group-first/tr:last:rounded-tr-xl group/td p-0"
+                    >
+                        {day && <CalendarDay
+                            date={new Date(selectedDate.getFullYear(), currentMonth, day)}
+                            selected={selectedDate?.getDate() === day}
+                            onSelect={() => setSelectedDate(new Date(currentYear, currentMonth, day))}
+                        />}
+                    </td>)}
+                </tr>)}
+                </tbody>
+            </table>
+            <TodoInfo>Events go here</TodoInfo>
+        </div>
     </div>
 }

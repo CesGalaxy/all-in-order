@@ -1,45 +1,72 @@
 "use client";
 
-import { ActionErrors, ActionResponse, FailedActionResponse, SuccessfulActionResponse } from "@/lib/helpers/form";
-import { type ReactNode, useCallback, useEffect, useState } from "react";
+import {
+    ActionErrors,
+    ActionResponse,
+    FailedActionResponse,
+    mountActionError,
+    SuccessfulActionResponse
+} from "@/lib/helpers/form";
+import { type ComponentProps, type ReactElement, type ReactNode, useCallback, useEffect, useState } from "react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button, ButtonProps } from "@nextui-org/button";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 
+/**
+ * Type definition for the action function used in the ModalForm component.
+ * @template T - The type of the successful action response data.
+ * @template E - The type of the error keys.
+ * @param {FormData} formData - The form data to be processed by the action.
+ * @returns {Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string} - The result of the action.
+ */
 export type ModalFormAction<T, E extends string> = (formData: FormData) => (
     | Promise<ActionResponse<T, E | "submit">>
-    | ActionErrors<E>
+    | ActionErrors<E | "submit">
     | undefined
     | null
     | string);
 
+/**
+ * Props for the ModalForm component.
+ * @template T - The type of the successful action response data.
+ * @template E - The type of the error keys.
+ */
 export interface ModalFormProps<T, E extends string> {
     title: ReactNode;
-    action?: ModalFormAction<T, E>;
-    buttonLabel?: ReactNode;
-    buttonIcon?: ReactNode;
-    buttonProps?: Omit<ButtonProps, "children" | "startContent" | "isDisabled" | "isLoading" | "formAction" | "type">;
-    buttonInitialWait?: number;
-    buttonRequireConfirmation?: boolean;
+    modalProps?: Partial<Omit<ComponentProps<typeof ModalContent>, "children">>;
+    action?: ModalFormAction<T, E> | null;
+    buttonLabel?: ReactNode | null;
+    buttonIcon?: ReactNode | null;
+    buttonProps?: Omit<ButtonProps, "children" | "startContent" | "formAction" | "type">;
+    buttonInitialWait?: number | null;
+    buttonRequireConfirmation?: boolean | null;
     buttonConfirmationTimeout?: number;
     isFormValid: boolean;
     handleResponse?: (response: ActionResponse<T, E>, onClose: () => void) => void;
-    handleSuccess?: "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
+    handleSuccess?: null | "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
     handleError?: (error: FailedActionResponse<E>, onClose: () => void) => void;
-    hideCancelButton?: boolean;
+    hideCancelButton?: null | boolean;
     children?: ReactNode;
 }
 
+/**
+ * ModalForm component for handling form submissions within a modal dialog.
+ * @template T - The type of the successful action response data.
+ * @template E - The type of the error keys.
+ * @param {ModalFormProps<T, E>} props - The props for the ModalForm component.
+ * @returns {JSX.Element} - The rendered ModalForm component.
+ */
 function ModalForm<
     T,
     E extends string,
 >({
       title,
       action,
+      modalProps: { as: modalAs = "form", ...modalProps } = {},
       buttonLabel = "Ok",
       buttonIcon,
-      buttonProps,
+      buttonProps: { className = "", isDisabled: forceDisable, isLoading: forceLoad, ...buttonProps } = {},
       buttonInitialWait,
       buttonRequireConfirmation,
       buttonConfirmationTimeout = 5000,
@@ -49,8 +76,9 @@ function ModalForm<
       handleError,
       hideCancelButton = false,
       children,
-  }: ModalFormProps<T, E>) {
-    const handleSubmit = useCallback(async (formData: FormData) => {
+  }: ModalFormProps<T, E>): ReactElement {
+    // Handle form submission
+    const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, E | "submit">> => {
         if (!action) return {
             ok: false,
             errors: { submit: ["No action provided. This is probably an internal error"] } as ActionErrors<E | "submit">
@@ -59,25 +87,13 @@ function ModalForm<
         const act = action(formData);
 
         if (typeof act === "string") {
-            return {
-                ok: false,
-                errors: { submit: [act] } as ActionErrors<E | "submit">
-            } satisfies FailedActionResponse<E | "submit">;
+            return mountActionError({ submit: [act] } as ActionErrors<E | "submit">);
         } else if (act instanceof Promise) {
             return await act;
-        } else if (
-            typeof act === "object"
-            && act !== null
-            && act !== undefined
-            && Object.values(act).every(Array.isArray)
-            && Object.values(act).flat().every((v) => typeof v === "string")
-        ) {
-            return { ok: false, errors: act } satisfies FailedActionResponse<E>;
+        } else if (typeof act === "object" && act !== null && act !== undefined && Object.values(act).every(Array.isArray)) {
+            return mountActionError(act);
         } else {
-            return {
-                ok: false,
-                errors: { submit: ["Invalid action"] } as ActionErrors<E | "submit">
-            } satisfies FailedActionResponse<E | "submit">;
+            return mountActionError({ submit: ["Invalid action"] } as ActionErrors<E | "submit">);
         }
     }, [action]);
 
@@ -85,15 +101,17 @@ function ModalForm<
     const [waiting, setWaiting] = useState(Boolean(buttonInitialWait));
     const [pendingConfirmation, setPendingConfirmation] = useState(false);
 
+    // Handle initial wait for the button
     useEffect(() => {
         if (buttonInitialWait && waiting) setTimeout(() => setWaiting(false), buttonInitialWait);
     }, [buttonInitialWait, waiting]);
 
+    // Handle confirmation timeout for the button
     useEffect(() => {
         if (pendingConfirmation) setTimeout(() => setPendingConfirmation(false), buttonConfirmationTimeout);
     }, [buttonConfirmationTimeout, pendingConfirmation]);
 
-    return <ModalContent as="form">
+    return <ModalContent as={modalAs} {...modalProps}>
         {onClose => <>
             <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
             {(children || (result?.ok === false && result.errors)) && <ModalBody>
@@ -107,8 +125,8 @@ function ModalForm<
                 <Button
                     color="primary"
                     startContent={buttonIcon}
-                    isDisabled={!isFormValid}
-                    isLoading={loading || waiting}
+                    isDisabled={forceDisable || !isFormValid}
+                    isLoading={forceLoad || loading || waiting}
                     type="submit"
                     formAction={async (formData) => {
                         if (buttonRequireConfirmation && !pendingConfirmation) {

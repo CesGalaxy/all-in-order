@@ -11,7 +11,7 @@ import {
     useMemo,
     useState
 } from "react";
-import { QuestionAnswer, QuestionAttempt, QuestionData } from "@/features/beta_question";
+import { QuestionAnswer, QuestionAttempt, QuestionData } from "@aio/db/features/questions";
 import { toast } from "react-toastify";
 
 export interface Activity {

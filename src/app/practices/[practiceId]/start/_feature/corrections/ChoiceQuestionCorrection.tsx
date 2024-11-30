@@ -1,10 +1,6 @@
 "use client";
 
-import {
-    QuestionChoiceAnswer,
-    QuestionChoiceAttempt,
-    QuestionChoiceData
-} from "@/features/beta_question/QuestionChoice";
+import { QuestionChoiceAnswer, QuestionChoiceAttempt, QuestionChoiceData } from "@aio/db/features/questions/Choice";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { IconCheck, IconChevronLeft, IconX } from "@tabler/icons-react";
 import { Checkbox } from "@nextui-org/checkbox";

@@ -1,12 +1,12 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { QuestionDraft } from "@/features/beta_question";
+import { QuestionDraft } from "@aio/db/features/questions";
 import { Input } from "@nextui-org/input";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Button } from "@nextui-org/button";
 import { IconTrash } from "@tabler/icons-react";
-import { QuestionTrueOrFalseData } from "@/features/beta_question/QuestionTrueOrFalse";
+import { QuestionTrueOrFalseData } from "@aio/db/features/questions/TrueOrFalse";
 
 function CreateTrueOrFalseQuestion({ draft, setDraft }: {
     draft?: QuestionDraft<QuestionTrueOrFalseData, "true_or_false">,

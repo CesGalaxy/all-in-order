@@ -3,7 +3,7 @@
 import { useExam } from "@/app/practices/[practiceId]/start/_feature/ExamContext";
 import ExaminateChoiceQuestion from "@/app/practices/[practiceId]/start/_feature/questions/ExaminateChoiceQuestion";
 import { useCallback, useMemo, useState } from "react";
-import { QuestionAnswer } from "@/features/beta_question";
+import { QuestionAnswer } from "@aio/db/features/questions";
 import { AnimatePresence, motion } from "framer-motion";
 import ChoiceQuestionCorrection from "@/app/practices/[practiceId]/start/_feature/corrections/ChoiceQuestionCorrection";
 import ExaminateFillTheGapQuestion

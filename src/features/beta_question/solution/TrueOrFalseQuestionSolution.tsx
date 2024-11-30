@@ -1,6 +1,6 @@
 import { Chip } from "@nextui-org/chip";
 import { IconCheck, IconX } from "@tabler/icons-react";
-import { QuestionTrueOrFalseData } from "@/features/beta_question/QuestionTrueOrFalse";
+import { QuestionTrueOrFalseData } from "@aio/db/features/questions/TrueOrFalse";
 
 export default function TrueOrFalseQuestionSolution({ question }: { question: QuestionTrueOrFalseData }) {
     return <ul className="flex items-center gap-4 flex-wrap">

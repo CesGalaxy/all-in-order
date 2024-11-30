@@ -1,6 +1,6 @@
 "use server";
 
-import getTopicData from "@/app/topics/[topicId]/(hub)/_feature/queries/getTopicData";
+import getTopicData from "@/app/topics/[topicId]/(hub)/query";
 import TopicSettingsForm from "@/app/topics/[topicId]/(hub)/settings/form";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";

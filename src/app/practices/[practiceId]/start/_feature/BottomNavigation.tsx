@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Chip } from "@nextui-org/chip";
-import { validateQuestion } from "@/features/beta_question";
+import { validateQuestion } from "@aio/db/features/questions";
 import { useCallback, useMemo } from "react";
 import SubmitExamButton from "@/app/practices/[practiceId]/start/_feature/SubmitExamButton";
 

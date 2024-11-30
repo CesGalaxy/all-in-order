@@ -4,8 +4,8 @@ import PageContainer from "@/components/containers/Page";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import PracticeDetailsCard from "@/app/practices/[practiceId]/(overview)/_PracticeDetailsCard";
-import SimpleAttemptsTable from "@/app/practices/[practiceId]/(overview)/_SimpleAttemptsTable";
+import PracticeDetailsCard from "@/app/practices/[practiceId]/(overview)/_components/PracticeDetailsCard";
+import SimpleAttemptsTable from "@/app/practices/[practiceId]/(overview)/_components/SimpleAttemptsTable";
 
 export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
     const { data, error } = await getSupabase()
@@ -36,7 +36,7 @@ export default async function Page({ params: { practiceId } }: { params: { pract
         duration: (new Date(attempt.ended_at).getTime() - new Date(attempt.started_at).getTime()) / 1000
     }));
 
-    return <PageContainer className="">
+    return <PageContainer>
         <header className="grid grid-cols-1 xl:grid-cols-3 gap-4">
             <PracticeDetailsCard {...{
                 id,

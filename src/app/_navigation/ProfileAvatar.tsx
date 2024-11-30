@@ -7,12 +7,14 @@ import { useTranslations } from "next-intl";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
-import { IconAt, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
+import { IconAt, IconBrightness, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
 import { Divider } from "@nextui-org/divider";
 import { Profile } from "@aio/db/entities";
+import { useTheme } from "next-themes";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {
     const t = useTranslations();
+    const { resolvedTheme, setTheme } = useTheme();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -39,6 +41,13 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 </DropdownItem>
                 <DropdownItem key="configurations" startContent={<IconTool/>}>
                     {t('Global.settings')}
+                </DropdownItem>
+                <DropdownItem
+                    key="theme"
+                    startContent={<IconBrightness/>}
+                    onPress={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                >
+                    Change theme
                 </DropdownItem>
                 <DropdownItem
                     key="logout"

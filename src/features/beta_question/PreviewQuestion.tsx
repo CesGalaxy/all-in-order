@@ -1,4 +1,4 @@
-import { QuestionAttempt } from "@/features/beta_question/index";
+import { QuestionAttempt } from "@aio/db/features/questions";
 import PreviewChoiceQuestion from "@/features/beta_question/preview/PreviewChoiceQuestion";
 import PreviewFillTheGapQuestion from "@/features/beta_question/preview/PreviewFillTheGapQuestion";
 import PreviewTrueOrFalseQuestion from "@/features/beta_question/preview/PreviewTrueOrFalseQuestion";

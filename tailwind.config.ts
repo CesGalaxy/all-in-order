@@ -4,13 +4,13 @@ import viewTransitions from "tailwindcss-view-transitions";
 import ContainerQueries from "@tailwindcss/container-queries";
 
 const config: Config = {
-  content: [
-    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(accordion|avatar|breadcrumbs|button|card|checkbox|chip|dropdown|input|link|modal|navbar|scroll-shadow|select|skeleton|table|tabs|popover|user|divider|ripple|spinner|menu|listbox|spacer).js"
-  ],
+    content: [
+        "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/@nextui-org/theme/dist/components/(accordion|avatar|breadcrumbs|button|card|checkbox|chip|dropdown|input|link|modal|navbar|scroll-shadow|select|skeleton|toggle|table|tabs|popover|user|divider|ripple|spinner|menu|listbox|spacer).js"
+    ],
     theme: {
         extend: {
             backgroundImage: {
@@ -58,7 +58,14 @@ const config: Config = {
                 }
             }
         }),
-        viewTransitions,
+        viewTransitions({
+            styles: {
+                "aside-modal": {
+                    new: { animation: "from-left 0.3s" },
+                    old: { animation: "go-right 0.3s" }
+                }
+            }
+        }),
         ContainerQueries
     ]
 };

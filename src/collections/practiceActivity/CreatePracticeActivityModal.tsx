@@ -14,7 +14,7 @@ import {
 } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
-import { QuestionData, QuestionDraft } from "@/features/beta_question";
+import { QuestionData, QuestionDraft } from "@aio/db/features/questions";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";
 import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";

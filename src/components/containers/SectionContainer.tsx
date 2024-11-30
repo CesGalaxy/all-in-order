@@ -20,7 +20,7 @@ export default function SectionContainer({
 
     return <section {...props}>
         <header
-            className="w-full flex flex-col md:flex-row items-start md:items-center md:justify-between gap-2 md:gap-16">
+            className="w-full flex flex-col md:flex-row items-start md:items-center md:justify-between gap-2 md:gap-12">
             <h2 className="text-4xl">{title}</h2>
             {trailing}
         </header>

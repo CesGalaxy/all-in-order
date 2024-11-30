@@ -1,6 +1,6 @@
 "use server";
 
-import { QuestionData } from "@/features/beta_question";
+import { QuestionData } from "@aio/db/features/questions";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getMyProfile } from "@/supabase/auth/profile";

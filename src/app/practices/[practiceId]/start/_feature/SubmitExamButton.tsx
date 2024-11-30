@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import { useExam } from "@/app/practices/[practiceId]/start/_feature/ExamContext";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { toast } from "react-toastify";
-import { QuestionAnswer } from "@/features/beta_question";
+import { QuestionAnswer } from "@aio/db/features/questions";
 import { Link } from "@nextui-org/link";
 
 export default function SubmitExamButton() {

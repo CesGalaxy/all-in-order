@@ -4,7 +4,11 @@
   "private": true,
   "exports": {
     "./entities": "./src/entities.ts",
-    "./supabase": "./src/types/database.d.ts"
+    "./supabase": "./src/types/database.d.ts",
+    "./features/questions": "./src/features/questions/index.ts",
+    "./features/questions/Choice": "./src/features/questions/QuestionChoice.ts",
+    "./features/questions/FillTheGap": "./src/features/questions/QuestionFillTheGap.ts",
+    "./features/questions/TrueOrFalse": "./src/features/questions/QuestionTrueOrFalse.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

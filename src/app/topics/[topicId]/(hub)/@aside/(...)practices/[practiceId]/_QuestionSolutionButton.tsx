@@ -5,7 +5,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { Button } from "@nextui-org/button";
 import { IconEye } from "@tabler/icons-react";
 import QuestionSolution from "@/features/beta_question/QuestionSolution";
-import { QuestionData } from "@/features/beta_question";
+import { QuestionData } from "@aio/db/features/questions";
 
 export default function QuestionSolutionButton({ data }: { data: QuestionData }) {
     return <Popover backdrop="blur" placement="bottom-end">

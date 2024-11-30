@@ -1,6 +1,6 @@
 "use client";
 
-import { QuestionChoiceAnswer, QuestionChoiceAttempt } from "@/features/beta_question/QuestionChoice";
+import { QuestionChoiceAnswer, QuestionChoiceAttempt } from "@aio/db/features/questions/Choice";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 

@@ -39,8 +39,8 @@ export default function RootLayout({ children }: Readonly<{
     getMaybeMyProfile().then();
 
     return <ViewTransitions>
-        <html lang="en">
-        <body className={kanit.className + " bg-background text-foreground w-full h-screen"}>
+        <html lang="en" suppressHydrationWarning>
+        <body className={kanit.className + " bg-background text-foreground w-full h-screen transition-background"}>
         <Providers>
             <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">
                 <AppNavbar/>

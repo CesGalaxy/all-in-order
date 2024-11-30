@@ -1,6 +1,6 @@
 "use client";
 
-import { QuestionTrueOrFalseAnswer, QuestionTrueOrFalseAttempt } from "@/features/beta_question/QuestionTrueOrFalse";
+import { QuestionTrueOrFalseAnswer, QuestionTrueOrFalseAttempt } from "@aio/db/features/questions/TrueOrFalse";
 import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 

@@ -6,20 +6,20 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { PracticeActivity } from "@aio/db/entities";
+import { TopicActivity } from "@aio/db/entities";
 import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
-import { generateQuestionAttempt } from "@/features/beta_question";
+import { generateQuestionAttempt } from "@aio/db/features/questions";
 import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
 import QuestionSolutionButton
     from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
 import createPracticeActivity from "@/collections/practiceActivity/actions";
-import PracticeTabs from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_PracticeTabs";
+import PracticePreviewTabs from "@/app/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 
 export default async function Page({ params: { topicId, practiceId } }: {
     params: { topicId: string, practiceId: string }
@@ -42,11 +42,13 @@ export default async function Page({ params: { topicId, practiceId } }: {
         title={title}
         className="md:w-1/2 md:min-w-96"
         closeUrl={topicPath}
-        actions={<PracticeTabs currentTab="overview" practiceId={id}/>}
+        actions={<PracticePreviewTabs currentTab="overview" practiceId={id}/>}
+        contentClassName="p-4"
+        animate
     >
         {activities.length === 0
             ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
-            : <div className="p-4">
+            : <div>
                 <nav>
                     <CreatePracticeActivityButton>
                         <CreatePracticeActivityModal action={createPracticeActivity.bind(null, topic_id, id)}/>
@@ -54,7 +56,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
                 </nav>
                 <br/>
                 <ul className="flex flex-col items-stretch gap-4">
-                    {(activities as PracticeActivity[]).map(({ id, data }) => <Card as="li" key={id}>
+                    {(activities as TopicActivity[]).map(({ id, data }) => <Card as="li" key={id}>
                         <CardHeader className="items-start gap-4">
                             <div className="w-full flex-grow">
                                 <div className="flex items-center gap-2">

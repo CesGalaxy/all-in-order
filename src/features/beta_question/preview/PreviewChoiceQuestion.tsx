@@ -1,4 +1,4 @@
-import { QuestionChoiceAttempt } from "@/features/beta_question/QuestionChoice";
+import { QuestionChoiceAttempt } from "@aio/db/features/questions/Choice";
 import { Chip } from "@nextui-org/chip";
 
 export default function PreviewChoiceQuestion({ question }: { question: QuestionChoiceAttempt }) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { QuestionDraft } from "@/features/beta_question";
+import { QuestionDraft } from "@aio/db/features/questions";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import {
@@ -15,7 +15,7 @@ import {
     IconWriting,
     IconX
 } from "@tabler/icons-react";
-import { Gap, QuestionFillTheGapData } from "@/features/beta_question/QuestionFillTheGap";
+import { Gap, QuestionFillTheGapData } from "@aio/db/features/questions/FillTheGap";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";

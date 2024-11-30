@@ -1,4 +1,4 @@
-import { QuestionFillTheGapAttempt } from "@/features/beta_question/QuestionFillTheGap";
+import { QuestionFillTheGapAttempt } from "@aio/db/features/questions/FillTheGap";
 import { Chip } from "@nextui-org/chip";
 import { IconChevronUp } from "@tabler/icons-react";
 import { Tooltip } from "@nextui-org/tooltip";

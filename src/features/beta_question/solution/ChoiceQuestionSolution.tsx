@@ -1,4 +1,4 @@
-import { QuestionChoiceData } from "@/features/beta_question/QuestionChoice";
+import { QuestionChoiceData } from "@aio/db/features/questions/Choice";
 import { Chip } from "@nextui-org/chip";
 import { IconCheck, IconX } from "@tabler/icons-react";
 

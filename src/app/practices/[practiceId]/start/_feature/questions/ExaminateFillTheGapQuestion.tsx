@@ -1,10 +1,6 @@
 "use client";
 
-import {
-    GapAttempt,
-    QuestionFillTheGapAnswer,
-    QuestionFillTheGapAttempt
-} from "@/features/beta_question/QuestionFillTheGap";
+import { GapAttempt, QuestionFillTheGapAnswer, QuestionFillTheGapAttempt } from "@aio/db/features/questions/FillTheGap";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";

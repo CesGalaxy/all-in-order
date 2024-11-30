@@ -1,8 +1,8 @@
 "use client";
 
-import { ChoicesInputMethod, QuestionChoiceData } from "@/features/beta_question/QuestionChoice";
+import { ChoicesInputMethod, QuestionChoiceData } from "@aio/db/features/questions/Choice";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { QuestionDraft } from "@/features/beta_question";
+import { QuestionDraft } from "@aio/db/features/questions";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Input } from "@nextui-org/input";

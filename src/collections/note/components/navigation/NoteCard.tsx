@@ -5,7 +5,7 @@ import NoteOptions from "@/collections/note/components/navigation/NoteOptions";
 import { Divider } from "@nextui-org/divider";
 import { SubjectNote } from "@aio/db/entities";
 
-const NoteCard = ({ note }: { note: SubjectNote }) => <Card key={note.id} as="li" shadow="sm" radius="sm">
+const NoteCard = ({ note }: { note: SubjectNote }) => <Card key={note.id} as="section" shadow="sm" radius="sm">
     <CardHeader className="justify-between flex-wrap gap-4">
         <h2 className="font-bold text-xl">{note.title}</h2>
         <ButtonGroup>

@@ -1,0 +1,14 @@
+{
+  "name": "lifeboat",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "@aio/ts": "^0.0.0"
+  }
+}

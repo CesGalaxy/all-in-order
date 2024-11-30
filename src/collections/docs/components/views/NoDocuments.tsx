@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import CreateDocButton from "@/collections/docs/CreateDocButton";
+import CreateDocButton from "@/collections/docs/components/CreateDocButton";
 
 export default function NoDocuments({ topicId }: { topicId: number }) {
     const t = useTranslations('Dash.Topic');

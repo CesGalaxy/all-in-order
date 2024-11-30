@@ -1,4 +1,4 @@
-import { QuestionData } from "@/features/beta_question/index";
+import { QuestionData } from "@aio/db/features/questions";
 import ChoiceQuestionSolution from "@/features/beta_question/solution/ChoiceQuestionSolution";
 import FillTheGapQuestionSolution from "@/features/beta_question/solution/FillTheGapQuestionSolution";
 import TrueOrFalseQuestionSolution from "@/features/beta_question/solution/TrueOrFalseQuestionSolution";

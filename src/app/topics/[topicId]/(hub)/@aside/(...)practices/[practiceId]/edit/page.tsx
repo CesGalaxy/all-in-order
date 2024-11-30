@@ -4,9 +4,9 @@ import getSupabase from "@/supabase/server";
 import AsideModalContainer from "@/components/containers/AsideModal";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import PracticeTabs from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_PracticeTabs";
 import EditPracticeForm from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/edit/_EditPracticeForm";
 import { Divider } from "@nextui-org/divider";
+import PracticePreviewTabs from "@/app/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 
 export default async function Page({ params: { topicId, practiceId } }: {
     params: { topicId: string, practiceId: string }
@@ -34,7 +34,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
         title={title}
         className="md:w-1/2 md:min-w-96"
         closeUrl={topicPath}
-        actions={<PracticeTabs currentTab="edit" practiceId={id}/>}
+        actions={<PracticePreviewTabs currentTab="edit" practiceId={id}/>}
     >
         <div className="p-4">
             <h1 className="text-3xl font-medium">Edit practice</h1>

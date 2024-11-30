@@ -19,9 +19,6 @@ import DesktopNavigation from "@/app/_navigation/navigations/DesktopNavigation";
 import { IconHome } from "@tabler/icons-react";
 import ProfileAvatar from "@/app/_navigation/ProfileAvatar";
 import news from "@/news.json";
-import { Locale } from "@/i18n/config";
-import { setUserLocale } from "@/lib/services/locale";
-import { revalidatePath } from "next/cache";
 
 export type NavbarPage = 'subjects' | 'agenda' | 'docs';
 
@@ -32,16 +29,11 @@ export interface NavbarProps {
 export default async function AppNavbar({ currentPage }: NavbarProps) {
     const profile = await getMaybeMyProfile();
 
-    async function updateLocale(locale: Locale) {
-        "use server";
-        await setUserLocale(locale);
-        revalidatePath("/");
-    }
-
     const t = await getTranslations();
     const locale = await getLocale() as "en" | "es" | "val";
 
-    return <Nav shouldHideOnScroll classNames={{ item: "group" }} className="border-b border-b-divider">
+    return <Nav shouldHideOnScroll classNames={{ item: "group" }}
+                className="border-b border-b-divider transition-background">
         <NavbarContent>
             <NavbarMenuToggle className="sm:hidden"/>
             <NavbarBrand>
@@ -52,7 +44,7 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
         </NavbarContent>
         <DesktopNavigation currentPage={currentPage}/>
         <NavbarContent className="hidden sm:flex" justify="end">
-            <ToggleLocaleButton action={updateLocale}/>
+            <ToggleLocaleButton/>
             {profile
                 ? <>
                     <NavbarItem>
@@ -123,7 +115,7 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
                 <Button as={Link} color="primary" href="/app">
                     {t('Global.dashboard')}
                 </Button>
-                <ToggleLocaleButton action={updateLocale}/>
+                <ToggleLocaleButton/>
             </nav>
         </NavbarMenu>
     </Nav>;

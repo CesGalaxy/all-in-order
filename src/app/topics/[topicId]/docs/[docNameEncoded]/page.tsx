@@ -1,20 +1,32 @@
-import { getTopicDocument } from "@/supabase/storage/topic_documents";
-import required from "@/lib/helpers/required";
 import { Converter } from "showdown";
 import { Button } from "@nextui-org/button";
 import { IconArrowBack, IconMaximize, IconPencil } from "@tabler/icons-react";
 import { Input } from "@nextui-org/input";
 import { Link as TransitionLink } from "next-view-transitions";
+import getSupabase from "@/supabase/server";
+import { redirect } from "next/navigation";
+import { getUser } from "@/supabase/auth/user";
+import ErrorView from "@/components/views/ErrorView";
 
 export default async function Page({ params: { topicId, docNameEncoded } }: {
     params: { topicId: string, docNameEncoded: string }
 }) {
     const topicPath = "/topics/" + topicId;
 
-    const docName = atob(decodeURIComponent(docNameEncoded));
-    const document = required(await getTopicDocument(parseInt(topicId), docName), topicPath);
+    const docLocatorSegments = docNameEncoded.split("-");
+    if (docLocatorSegments.length != 2) return <ErrorView message="Invalid document locator"/>;
 
-    const content = await document.text();
+    const docOwnership = docLocatorSegments[0] === "m" ? (await getUser(topicPath)).id : "_public";
+    const docName = atob(decodeURIComponent(docLocatorSegments[1]));
+
+    const { data, error } = await getSupabase()
+        .storage
+        .from("topic_documents")
+        .download(`${topicId}/${docOwnership}/${docName}`);
+
+    if (error) redirect(topicPath);
+
+    const content = await data.text();
 
     const converter = new Converter({
         // I'm doing this because of the typo warning

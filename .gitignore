@@ -37,3 +37,6 @@ next-env.d.ts
 
 # turborepo
 .turbo
+
+# monorepo
+packages/*/node_modules

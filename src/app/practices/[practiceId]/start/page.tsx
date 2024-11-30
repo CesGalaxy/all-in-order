@@ -13,7 +13,7 @@ import { Activity, ExamProvider } from "@/app/practices/[practiceId]/start/_feat
 import Counter from "@/app/practices/[practiceId]/start/_feature/Counter";
 import BottomNavigation from "@/app/practices/[practiceId]/start/_feature/BottomNavigation";
 import CurrentQuestionTitle from "@/app/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
-import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@/features/beta_question";
+import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@aio/db/features/questions";
 import ExamActivity from "@/app/practices/[practiceId]/start/_feature/ExamActivity";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
@@ -77,7 +77,7 @@ export default async function Page({ params: { practiceId } }: { params: { pract
         startedAt={now.valueOf()}
         finishExam={finishExam.bind(null, now.toUTCString())}
     >
-        <main className="w-full h-full flex flex-col">
+        <main className="w-full h-full flex flex-col flex-grow">
             <header className="bg-content2 text-content2-foreground">
                 <Navbar className="bg-transparent -ml-4" classNames={{ wrapper: "pl-2" }}>
                     <NavbarContent>

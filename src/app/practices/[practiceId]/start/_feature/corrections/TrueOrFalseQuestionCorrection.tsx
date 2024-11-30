@@ -2,7 +2,7 @@ import {
     QuestionTrueOrFalseAnswer,
     QuestionTrueOrFalseAttempt,
     QuestionTrueOrFalseData
-} from "@/features/beta_question/QuestionTrueOrFalse";
+} from "@aio/db/features/questions/TrueOrFalse";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 export default function TrueOrFalseQuestionCorrection({ data: { rows }, answer: { selectedRows } }: {
