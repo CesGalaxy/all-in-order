@@ -19,17 +19,11 @@ export interface SearchParams {
 }
 
 export default async function Page(props: { searchParams: Promise<SearchParams> }) {
-    const searchParams = await props.searchParams;
-
-    const {
-        redirectUrl
-    } = searchParams;
+    const { redirectUrl } = await props.searchParams;
 
     const maybeUser = await getMaybeUser();
 
-    if (maybeUser) {
-        redirect(redirectUrl || "/app");
-    }
+    if (maybeUser) redirect(redirectUrl || "/app");
 
     async function login(formData: FormData) {
         "use server";
@@ -59,7 +53,7 @@ export default async function Page(props: { searchParams: Promise<SearchParams> 
         redirect(redirectUrl || "/app");
     }
 
-    return <div className="flex items-center justify-center w-full h-full">
+    return <div className="flex items-center justify-center w-full h-full flex-grow">
         <Card className="p-8">
             <CardHeader>
                 <h1 className="text-4xl font-bold uppercase">Login</h1>

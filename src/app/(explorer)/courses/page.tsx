@@ -9,6 +9,9 @@ import NoCourses from "@/collections/course/components/views/NoCourses";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import CreateCourseButton from "@/collections/course/components/CreateCourseButton";
 import JoinCourseButton from "@/collections/course/components/JoinCourseButton";
+import Blank from "@/components/views/Blank";
+import noDataImage from "@/assets/pictures/no_data.svg";
+import { Link } from "@nextui-org/link";
 
 export default async function Courses() {
     const maybeProfile = await getMaybeMyProfile();
@@ -32,7 +35,14 @@ export default async function Courses() {
                         />
                     )}
                 </ul>
-                : <NoCourses/>
+                : <Blank
+                    image={noDataImage}
+                    alt="A weird place"
+                    title={"There are no public courses!"}
+                    content={"You are in a weird place."}
+                >
+                    <Link href="/" underline="always" size="lg">Return to the home page</Link>
+                </Blank>
             }
         </PageContainer>;
     }
