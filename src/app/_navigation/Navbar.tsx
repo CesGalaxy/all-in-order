@@ -33,7 +33,7 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
     const locale = await getLocale() as "en" | "es" | "val";
 
     return <Nav shouldHideOnScroll classNames={{ item: "group" }}
-                className="border-b border-b-divider transition-background">
+                className="border-b border-b-divider transition-background h-16">
         <NavbarContent>
             <NavbarMenuToggle className="sm:hidden"/>
             <NavbarBrand>

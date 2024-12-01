@@ -76,8 +76,19 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
         toast("Failed to save!", { type: "error" });
     });
 
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    //         if (entry.isIntersecting) console.log('El elemento ya no está pegado'); else console.log('El elemento está pegado');
+    //     }), { rootMargin: '0px', threshold: 1 });
+    //     if (!toolbarRef.current) return;
+    //     const toolbarElement = toolbarRef.current;
+    //     observer.observe(toolbarElement);
+    //     return () => observer.unobserve(toolbarElement);
+    // }, []);
+
     return <div
-        className="w-full h-full flex-grow flex flex-col items-stretch justify-stretch bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
+        className="w-full flex-grow flex flex-col items-stretch justify-stretch
+        bg-content2 text-content2-foreground rounded-t-3xl p-4 gap-4 vt-name-[doc-e-wrapper]">
         <header className="flex items-center justify-between">
             <nav className="flex gap-4 items-center">
                 <Button radius="full" isIconOnly variant="light" onPress={() => router.back()}>
@@ -126,19 +137,24 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
             </nav>
         </header>
         <div
-            className="h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0">
+            className="w-full h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0
+            items-stretch justify-stretch
+            ">
             <form className="w-full h-full" action="">
                 <textarea
-                    className="w-full h-full px-4 py-8 bg-transparent text-content3-foreground outline-none m-0"
+                    className="w-full h-full px-4 py-6 bg-transparent text-content3-foreground outline-none m-0 resize-none"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     name="content"
                 />
             </form>
-            <div className="w-full h-full overflow-auto revert-tailwind-only-child px-4 vt-name-[doc-content]"
-                 dangerouslySetInnerHTML={{ __html: html }}/>
+            <div
+                className="w-full revert-tailwind-only-child px-4 vt-name-[doc-content] max-h-full h-full"
+                dangerouslySetInnerHTML={{ __html: html }}/>
         </div>
-        <footer className="bg-content3 rounded-full flex items-center justify-between">
+        <footer
+            className="bg-content3 rounded-full flex items-center justify-between sticky bottom-0"
+        >
             <nav className="flex items-center gap-4">
                 <ButtonGroup>
                     <Button radius="full" isIconOnly>

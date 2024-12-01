@@ -57,6 +57,7 @@
     "DocType": {
       "md": {
         "desc": "Un format per a la creació de documents amb text enriquit.",
+        "desc_short": "Format per a crear documents senzills",
         "name": "Markdown"
       },
       "other": {

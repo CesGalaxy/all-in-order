@@ -57,6 +57,7 @@
     "DocType": {
       "md": {
         "desc": "Un formato de texto enriquecido para crear documentos simples.",
+        "desc_short": "Formato de texto enriquecido para documentos",
         "name": "Markdown"
       },
       "other": {

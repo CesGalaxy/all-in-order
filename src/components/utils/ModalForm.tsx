@@ -47,6 +47,7 @@ export interface ModalFormProps<T, E extends string> {
     handleSuccess?: null | "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
     handleError?: (error: FailedActionResponse<E>, onClose: () => void) => void;
     hideCancelButton?: null | boolean;
+    footer?: ReactNode;
     children?: ReactNode;
 }
 
@@ -75,6 +76,7 @@ function ModalForm<
       handleSuccess,
       handleError,
       hideCancelButton = false,
+      footer,
       children,
   }: ModalFormProps<T, E>): ReactElement {
     // Handle form submission
@@ -119,6 +121,7 @@ function ModalForm<
                 {result?.ok === false && result.errors && <ErrorListView errors={result.errors}/>}
             </ModalBody>}
             <ModalFooter>
+                {footer && <div className="self-center flex-grow w-full">{footer}</div>}
                 {!hideCancelButton && <Button color="danger" variant="flat" onPress={onClose} type="button">
                     Cancel
                 </Button>}

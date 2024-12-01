@@ -57,6 +57,7 @@
     "DocType": {
       "md": {
         "desc": "A simple rich text format with the basic features for creating documents.",
+        "desc_short": "A simple rich text format for simple docs",
         "name": "Markdown"
       },
       "other": {
