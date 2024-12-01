@@ -12,6 +12,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { TopicDocumentObject } from "@/supabase/storage/query/getTopicDocuments";
 import { AnimatePresence, motion } from "framer-motion";
 import DocumentCard from "@/collections/docs/components/navigation/DocumentCard";
+import CreateDocModal from "@/collections/docs/components/modals/CreateDocModal";
+import { Tab, Tabs } from "@nextui-org/tabs";
 
 export interface TopicRecentDocsSectionProps {
     privDocs: TopicDocumentObject[];
@@ -19,10 +21,16 @@ export interface TopicRecentDocsSectionProps {
     topicId: number;
 }
 
+const VIEW_MODES_CLASSNAMES = {
+    "grid": "grid sm:grid-cols-2 gap-4",
+    "list": "flex flex-col items-stretch gap-4",
+}
+
 export default function TopicRecentDocsSection({ privDocs, pubDocs, topicId }: TopicRecentDocsSectionProps) {
     const t = useTranslations();
 
     const [filter, setFilter] = useState<"all" | "public" | "private">("all");
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
     const filteredDocs = filter === "all"
         ? [...pubDocs, ...privDocs]
@@ -35,7 +43,8 @@ export default function TopicRecentDocsSection({ privDocs, pubDocs, topicId }: T
         expanded
         className="flex-grow"
         trailing={<nav className="flex items-center gap-1 flex-wrap">
-            <ModalButton modal={<p></p>} isIconOnly size="sm" variant="light" color="primary">
+            <ModalButton modal={<CreateDocModal action={topicId}/>} isIconOnly size="sm" variant="light"
+                         color="primary">
                 <IconFilePlus/>
             </ModalButton>
             <ModalButton modal={<p></p>} isIconOnly size="sm" variant="light" color="primary">
@@ -48,8 +57,17 @@ export default function TopicRecentDocsSection({ privDocs, pubDocs, topicId }: T
                         Filter
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent>
+                <PopoverContent className="flex flex-col items-stretch gap-2">
                     <DocsVisibilityFilter filter={filter} setFilter={setFilter}/>
+                    <Tabs
+                        selectedKey={viewMode}
+                        onSelectionChange={setViewMode as any}
+                        className="w-full"
+                        size="sm"
+                    >
+                        <Tab key="grid" title="Grid"/>
+                        <Tab key="list" title="List"/>
+                    </Tabs>
                 </PopoverContent>
             </Popover>
             <nav className="xl:hidden"><DocsVisibilityFilter filter={filter} setFilter={setFilter}/></nav>
@@ -57,11 +75,12 @@ export default function TopicRecentDocsSection({ privDocs, pubDocs, topicId }: T
     >
         {privDocs.length === 0
             ? <NoDocuments topicId={topicId}/>
-            : <ul className="grid sm:grid-cols-2 gap-4">
+            : <ul className={VIEW_MODES_CLASSNAMES[viewMode]}>
                 <AnimatePresence initial={false}>
                     {filteredDocs.map(doc => <DocumentCard
                         key={doc.id}
                         as={motion.li}
+                        shadow="none"
                         layout
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

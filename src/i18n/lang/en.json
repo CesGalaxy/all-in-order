@@ -54,6 +54,16 @@
     }
   },
   "Extra": {
+    "DocType": {
+      "md": {
+        "desc": "A simple rich text format with the basic features for creating documents.",
+        "name": "Markdown"
+      },
+      "other": {
+        "desc": "We couldn't find the doc type.",
+        "name": "Unknown"
+      }
+    },
     "error_occurred": "An error ocurred",
     "go_home": "Go to home",
     "unexpected_error": "An unexpected error occurred"

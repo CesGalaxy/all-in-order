@@ -54,6 +54,16 @@
     }
   },
   "Extra": {
+    "DocType": {
+      "md": {
+        "desc": "Un format per a la creació de documents amb text enriquit.",
+        "name": "Markdown"
+      },
+      "other": {
+        "desc": "No s'ha pogut trobar el tipus de document.",
+        "name": "Desconegut"
+      }
+    },
     "error_occurred": "Hi ha un error",
     "go_home": "Tornar al inici",
     "unexpected_error": "Error"

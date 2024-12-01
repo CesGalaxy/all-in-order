@@ -54,6 +54,16 @@
     }
   },
   "Extra": {
+    "DocType": {
+      "md": {
+        "desc": "Un formato de texto enriquecido para crear documentos simples.",
+        "name": "Markdown"
+      },
+      "other": {
+        "desc": "No se ha podido encontrar el tipo del documento.",
+        "name": "Desconocido"
+      }
+    },
     "error_occurred": "Ha ocurrido un error",
     "go_home": "Volver al inicio",
     "unexpected_error": "Ha ocurrido un error inesperado"

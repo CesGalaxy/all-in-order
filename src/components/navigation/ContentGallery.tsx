@@ -1,11 +1,13 @@
-import { HTMLAttributes, Key, ReactNode } from "react";
+import type { HTMLAttributes, Key, ReactNode } from "react";
 
-export interface ContentGalleryProps<T> extends HTMLAttributes<HTMLUListElement> {
+export interface ContentGalleryProps<T> extends Omit<HTMLAttributes<HTMLUListElement>, "children"> {
     items?: T[];
-    getItemKey: (item: T) => Key;
+    // FIXME: Prevent keys with a non Key value
+    getItemKey: keyof T | ((item: T) => Key);
     renderItem: (item: T) => ReactNode;
     emptyView?: ReactNode;
     itemProps?: HTMLAttributes<HTMLLIElement>;
+    children?: (children: ReactNode) => ReactNode;
 }
 
 export default function ContentGallery<T>({
@@ -14,11 +16,19 @@ export default function ContentGallery<T>({
                                               renderItem,
                                               emptyView,
                                               itemProps,
+                                              children = (c) => c,
                                               ...props
                                           }: ContentGalleryProps<T>) {
     return items && items.length > 0
         ? <ul {...props}>
-            {items.map(item => <li key={getItemKey(item)} {...itemProps}>{renderItem(item)}</li>)}
+            {children(
+                items.map(item => <li
+                    key={typeof getItemKey === "function" ? getItemKey(item) : item[getItemKey] as Key}
+                    {...itemProps}
+                >
+                    {renderItem(item)}
+                </li>)
+            )}
         </ul>
         : emptyView;
 }
