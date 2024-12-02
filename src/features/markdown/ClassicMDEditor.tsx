@@ -36,7 +36,7 @@ export interface MDEditorProps {
     saveContent?: (content: string) => Promise<boolean>;
 }
 
-export default function MDEditor({ docName, initialContent, saveContent }: MDEditorProps) {
+export default function ClassicMDEditor({ docName, initialContent, saveContent }: MDEditorProps) {
     const router = useTransitionRouter();
 
     const [content, setContent] = useState<string>(initialContent ?? "");
@@ -137,12 +137,10 @@ export default function MDEditor({ docName, initialContent, saveContent }: MDEdi
             </nav>
         </header>
         <div
-            className="w-full h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0
-            items-stretch justify-stretch
-            ">
+            className="w-full h-full flex-grow grid grid-cols-2 bg-content3 text-content3-foreground rounded-3xl divide-x divide-divider min-h-0 items-stretch justify-stretch">
             <form className="w-full h-full" action="">
                 <textarea
-                    className="w-full h-full px-4 py-6 bg-transparent text-content3-foreground outline-none m-0 resize-none"
+                    className="w-full h-full px-4 py-6 bg-transparent text-content3-foreground outline-none m-0 resize-none text-sm"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     name="content"
