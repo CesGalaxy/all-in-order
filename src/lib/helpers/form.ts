@@ -71,16 +71,11 @@ export interface FailedActionResponse<E extends string = string> {
 
 export type ActionErrors<E extends string> = Partial<Record<E, string[]>>;
 
-export type FormActionState<R extends ActionResponse<any>> = { submitted: false } | ({ submitted: true } & R);
-export type AutoFormActionState<T, E extends string = string> = FormActionState<ActionResponse<T, E>>;
+export type ActionState<R extends ActionResponse<any>> = { submitted: false } | ActionStateSubmitted<R>;
+export type AutoActionState<T, E extends string = string> = ActionState<ActionResponse<T, E>>;
 
-// export interface InputErrorValidationProps {
-//     isInvalid: true;
-//     errorMessage: string;
-// }
-// export function getInputValidationProps<T extends string>(key: T, response?: ActionResponse<T, any>): InputErrorValidationProps | {} {
-//     if (!response) return { isInvalid: "shit" };
-//     return (!response || response.ok || !response.errors || !response.errors[key])
-//         ? { isInvalid: false }
-//         : { isInvalid: true, errorMessage: response.errors[key]!.join("; ").concat(".") };
-// }
+export type ActionStateSubmitted<R extends ActionResponse<any>> = R & { submitted: true };
+
+export function mountActionState<R extends ActionResponse<any>>(response: R): ActionStateSubmitted<R> {
+    return { submitted: true, ...response };
+}

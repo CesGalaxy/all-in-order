@@ -1,13 +1,24 @@
 "use client";
 
 import { Link } from "@nextui-org/link";
-import { IconFolders, IconHome, IconMessage, IconMessages, IconPlayerPlay, IconTool } from "@tabler/icons-react";
+import {
+    IconFolders,
+    IconHome,
+    IconMessage,
+    IconMessages,
+    IconNotebook,
+    IconNotes,
+    IconPlayerPlay,
+    IconTool
+} from "@tabler/icons-react";
 import { useCallback } from "react";
 import { Divider } from "@nextui-org/divider";
 import { usePathname } from "next/navigation";
 
 const DESTINATIONS = [
     { name: "Overview", path: "", icon: <IconHome/> },
+    { name: "Summary", path: "summary", icon: <IconNotes/> },
+    { name: "Notebook", path: "notebook", icon: <IconNotebook/> },
     { name: "Files", path: "files", icon: <IconFolders/> },
     { name: "Practice", path: "practice", icon: <IconPlayerPlay/> },
     { name: "Community", path: "community", icon: <IconMessages/> },

@@ -3,8 +3,8 @@ import { ActionResponse } from "@/lib/helpers/form";
 import handleActionResultNotifications from "@/reactivity/functions/handleActionResultNotifications";
 
 export default function useActionFunction<Args extends any[] | [], Response extends ActionResponse<any>>(
-    serverAction: (...args: Args) => Promise<Response>
-): [loading: boolean, response: Response | undefined, action: (...args: Args) => Promise<Response>] {
+    serverAction: (...args: Args) => Promise<Response | undefined>
+): [loading: boolean, response: Response | undefined, action: (...args: Args) => Promise<Response | undefined>] {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState<Response>();
 

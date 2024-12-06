@@ -1,14 +1,23 @@
 "use client";
 
-import { Button, ButtonProps } from "@nextui-org/button";
+import { Button, ButtonGroupProvider, ButtonProps } from "@nextui-org/button";
 import React, { ReactNode } from "react";
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Modal, ModalProps, useDisclosure } from "@nextui-org/modal";
 
 export interface ModalButtonProps extends ButtonProps {
     modal: ReactNode;
+    modalProps?: Partial<Omit<ModalProps, "isOpen" | "onOpenChange">>;
 }
 
-export default function ModalButton({ modal, onPress, ...props }: ModalButtonProps) {
+export default function ModalButton({
+                                        modal,
+                                        onPress,
+                                        modalProps: {
+                                            placement = "top-center",
+                                            ...modalProps
+                                        } = {},
+                                        ...props
+                                    }: ModalButtonProps) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return <>
@@ -16,8 +25,10 @@ export default function ModalButton({ modal, onPress, ...props }: ModalButtonPro
             onOpen();
             onPress?.(e);
         }}/>
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
-            {modal}
-        </Modal>
+        <ButtonGroupProvider value={undefined as any}>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement={placement} {...modalProps}>
+                {modal}
+            </Modal>
+        </ButtonGroupProvider>
     </>
 }

@@ -21,7 +21,7 @@ import ErrorListView from "@/components/views/ErrorListView";
  * @returns {Promise<ActionResponse<T, E | "submit">> | ActionErrors<E> | undefined | null | string} - The result of the action.
  */
 export type ModalFormAction<T, E extends string> = (formData: FormData) => (
-    | Promise<ActionResponse<T, E | "submit">>
+    | Promise<ActionResponse<T, E | "submit"> | undefined>
     | ActionErrors<E | "submit">
     | undefined
     | null
@@ -43,9 +43,9 @@ export interface ModalFormProps<T, E extends string> {
     buttonRequireConfirmation?: boolean | null;
     buttonConfirmationTimeout?: number;
     isFormValid: boolean;
-    handleResponse?: (response: ActionResponse<T, E>, onClose: () => void) => void;
+    handleResponse?: null | "close" | ((response: ActionResponse<T, E>, onClose: () => void) => void);
     handleSuccess?: null | "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
-    handleError?: (error: FailedActionResponse<E>, onClose: () => void) => void;
+    handleError?: null | "close" | ((error: FailedActionResponse<E>, onClose: () => void) => void);
     hideCancelButton?: null | boolean;
     footer?: ReactNode;
     children?: ReactNode;
@@ -80,7 +80,7 @@ function ModalForm<
       children,
   }: ModalFormProps<T, E>): ReactElement {
     // Handle form submission
-    const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, E | "submit">> => {
+    const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, E | "submit"> | undefined> => {
         if (!action) return {
             ok: false,
             errors: { submit: ["No action provided. This is probably an internal error"] } as ActionErrors<E | "submit">
@@ -141,11 +141,18 @@ function ModalForm<
 
                         const response = await formAction(formData);
 
-                        if (handleResponse) handleResponse(response, onClose);
+                        if (!response) {
+                            if (handleResponse === "close") onClose();
+                            return;
+                        }
+
+                        if (handleResponse === "close") onClose(); else if (handleResponse) handleResponse(response, onClose);
 
                         if (response.ok) {
                             if (handleSuccess === "close") onClose();
                             else if (handleSuccess) handleSuccess(response, onClose);
+                        } else if (handleError === "close") {
+                            onClose();
                         } else if (handleError) {
                             handleError(response, onClose);
                         }

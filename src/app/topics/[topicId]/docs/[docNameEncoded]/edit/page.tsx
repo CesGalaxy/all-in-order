@@ -1,6 +1,6 @@
 import { getTopicDocument, updateTopicDocument } from "@/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
-import ClassicMDEditor from "@/features/markdown/ClassicMDEditor";
+import ClassicMDEditor from "@/features/markdown/classic/ClassicMDEditor";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import { getUser } from "@/supabase/auth/user";
@@ -43,7 +43,7 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
                 <EditorConfigBtn/>
             </nav>
         </aside>
-        {editorVersion === "classic" || true
+        {editorVersion === "classic"
             ? <ClassicMDEditor
                 docName={docName}
                 initialContent={await document.text()}

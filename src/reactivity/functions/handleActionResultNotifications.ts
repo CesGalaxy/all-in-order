@@ -1,7 +1,7 @@
-import { ActionResponse, FormActionState } from "@/lib/helpers/form";
+import { ActionResponse, ActionState } from "@/lib/helpers/form";
 import { toast } from "react-toastify";
 
-export default function handleActionResultNotifications(response?: ActionResponse<any, any> | FormActionState<any> | null) {
+export default function handleActionResultNotifications(response?: ActionResponse<any, any> | ActionState<any> | null) {
     if (response) {
         if ("submitted" in response && !response.submitted) return;
 

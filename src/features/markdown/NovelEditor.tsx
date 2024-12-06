@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { Tab, Tabs } from "@nextui-org/tabs";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { slashCommand, suggestionItems } from "@/features/markdown/tiptap/sugestions";
+import { Input } from "@nextui-org/input";
 
 export default function NovelEditor() {
     const [content, setContent] = useState<JSONContent>();
@@ -51,7 +52,24 @@ export default function NovelEditor() {
                         <Button radius="full" isIconOnly variant="light">
                             <IconChevronLeft/>
                         </Button>
-                        <h2 className="text-3xl vt-name-[doc-name]">{"docName"}</h2>
+                        <Popover placement="bottom-start">
+                            <PopoverTrigger>
+                                <h2 className="text-3xl vt-name-[doc-name] hover:bg-content1 -mx-2 px-2 cursor-pointer rounded-full">
+                                    {"docName"}
+                                </h2>
+                            </PopoverTrigger>
+                            <PopoverContent className="min-w-96 py-3 gap-4">
+                                <Input type="text" placeholder="Enter the doc name here" label="Name"/>
+                                <nav className="flex items-center gap-4 justify-end w-full">
+                                    <Button color="warning" variant="flat">
+                                        Transfer ownership
+                                    </Button>
+                                    <Button color="primary">
+                                        Rename
+                                    </Button>
+                                </nav>
+                            </PopoverContent>
+                        </Popover>
                     </nav>
                     <nav className="flex items-center gap-4">
                         <ButtonGroup>
