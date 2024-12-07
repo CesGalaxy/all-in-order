@@ -9,6 +9,6 @@
     "chalk": "^5.3.0"
   },
   "devDependencies": {
-    "@aio/ts": "^0.0.0"
+    "@aio/ts": "workspace:*"
   }
 }
