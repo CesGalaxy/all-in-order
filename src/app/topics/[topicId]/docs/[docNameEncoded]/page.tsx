@@ -8,9 +8,18 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 
-export default async function Page({ params: { topicId, docNameEncoded } }: {
-    params: { topicId: string, docNameEncoded: string }
-}) {
+export default async function Page(
+    props: {
+        params: Promise<{ topicId: string, docNameEncoded: string }>
+    }
+) {
+    const params = await props.params;
+
+    const {
+        topicId,
+        docNameEncoded
+    } = params;
+
     const topicPath = "/topics/" + topicId;
 
     const docLocatorSegments = docNameEncoded.split("-");
@@ -19,7 +28,8 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
     const docOwnership = docLocatorSegments[0] === "m" ? (await getUser(topicPath)).id : "_public";
     const docName = atob(decodeURIComponent(docLocatorSegments[1]));
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .storage
         .from("topic_documents")
         .download(`${topicId}/${docOwnership}/${docName}`);

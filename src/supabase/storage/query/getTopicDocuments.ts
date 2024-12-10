@@ -8,7 +8,8 @@ export interface TopicDocumentObject extends FileObject {
 }
 
 const getTopicDocuments = cache(async (topicId: number | string) => {
-    const publicReq = getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const publicReq = supabaseClient.storage
         .from("topic_documents")
         .list(topicId.toString());
 
@@ -29,7 +30,7 @@ const getTopicDocuments = cache(async (topicId: number | string) => {
 
     const user = await userReq;
     if (user) {
-        const { data, error: privateError } = await getSupabase().storage
+        const { data, error: privateError } = await supabaseClient.storage
             .from("topic_documents")
             .list(topicId + "/" + user.id);
 

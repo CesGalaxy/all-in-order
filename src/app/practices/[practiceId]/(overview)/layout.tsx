@@ -1,12 +1,14 @@
 import type React from "react";
-import Navigation from "@/app/practices/[practiceId]/(overview)/_components/Navigation";
+import PracticePageNavigation from "@/app/practices/[practiceId]/(overview)/_components/PracticePageNavigation";
 
-export default function Layout({ children, params: { practiceId } }: {
+export default async function Layout({ params, children }: {
     children: React.ReactNode,
-    params: { practiceId: string }
+    params: Promise<{ practiceId: string }>
 }) {
+    const { practiceId } = await params;
+
     return <>
-        <Navigation practiceId={practiceId}/>
+        <PracticePageNavigation practiceId={practiceId}/>
         {children}
     </>
 }

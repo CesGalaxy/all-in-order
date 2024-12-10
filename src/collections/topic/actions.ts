@@ -9,7 +9,8 @@ export async function createTopic(subjectId: number, formData: FormData): Promis
 
     if (validationError) return validationError;
 
-    return handleSupabaseResponse(await getSupabase()
+    const supabaseClient = await getSupabase();
+    return handleSupabaseResponse(await supabaseClient
         .from("topics")
         .insert({ ...validatedData, subject_id: subjectId })
         .select("id")
@@ -21,14 +22,16 @@ export async function updateTopic(subjectId: number, formData: FormData): Promis
 
     if (validationError) return validationError;
 
-    return handleSupabaseResponse<null>(await getSupabase()
+    const supabaseClient = await getSupabase();
+    return handleSupabaseResponse<null>(await supabaseClient
         .from("topics")
         .update(validatedData)
         .eq("subject_id", subjectId), x => x)
 }
 
 export async function deleteTopic(topicId: number) {
-    return handleSupabaseResponse<null>(await getSupabase()
+    const supabaseClient = await getSupabase();
+    return handleSupabaseResponse<null>(await supabaseClient
         .from("topics")
         .delete()
         .eq("id", topicId), x => x)

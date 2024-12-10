@@ -2,7 +2,9 @@ import required from "@/lib/helpers/required";
 import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
 import { getTranslations } from "next-intl/server";
 
-export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
+export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {
+    const { topicId } = await params;
+
     // Fetch the topic data, documents, and translations
     const docsRequest = getAllTopicDocuments(parseInt(topicId));
     const t = await getTranslations();

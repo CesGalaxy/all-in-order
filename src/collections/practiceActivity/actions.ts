@@ -9,7 +9,8 @@ import { Json } from "@aio/db/supabase";
 export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
     const { id } = await getMyProfile();
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("topic_activities")
         .insert({
             topic_id: topicId,
@@ -30,7 +31,8 @@ export default async function createPracticeActivity(topicId: number, practiceId
 
     if (typeof errorOrId === "string") return errorOrId;
 
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("practice_activities")
         .insert({
             activity_id: errorOrId,

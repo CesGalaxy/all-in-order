@@ -3,28 +3,26 @@
 import { Button } from "@nextui-org/button";
 import { IconBrandAndroid } from "@tabler/icons-react";
 import { Link } from "@nextui-org/link";
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 import { Divider } from "@nextui-org/divider";
 import { getTranslations } from "next-intl/server";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import required from "@/lib/helpers/required";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import SectionContainer from "@/components/containers/SectionContainer";
 
 export default async function Home() {
     const t = await getTranslations();
+    const supabaseClient = await getSupabase();
 
     // Get the public courses.
-    const { data, error } = await getSupabase()
+    const { data: courses, error } = await supabaseClient
         .from("courses")
         .select("*, subjects(*, topics(*))")
         .eq("is_public", true)
         .limit(6);
 
     if (error) return <ErrorView message={error.message}/>;
-
-    const courses = required(data);
 
     return <PageContainer className="w-full gap-16 grid grid-cols-1 xl:grid-cols-3 auto-rows-min">
         <header>

@@ -12,6 +12,8 @@ export interface MonthCalendarProps {
 }
 
 export default function MonthCalendar({ initialDate = new Date(), }: MonthCalendarProps) {
+    // FIXME: Linter error
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [selectedDate, setSelectedDate] = useState(initialDate);
 
     const currentYear = selectedDate.getFullYear();

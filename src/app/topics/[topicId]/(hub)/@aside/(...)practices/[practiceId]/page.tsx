@@ -21,10 +21,11 @@ import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePr
 import createPracticeActivity from "@/collections/practiceActivity/actions";
 import PracticePreviewTabs from "@/app/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 
-export default async function Page({ params: { topicId, practiceId } }: {
-    params: { topicId: string, practiceId: string }
-}) {
-    const { data, error } = await getSupabase()
+export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
+    const { topicId, practiceId } = await params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("practices")
         .select("id, title, topic_id, activities:topic_activities(*)")
         .eq("id", parseInt(practiceId))
@@ -44,7 +45,6 @@ export default async function Page({ params: { topicId, practiceId } }: {
         closeUrl={topicPath}
         actions={<PracticePreviewTabs currentTab="overview" practiceId={id}/>}
         contentClassName="p-4"
-        animate
     >
         {activities.length === 0
             ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>

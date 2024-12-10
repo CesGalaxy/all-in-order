@@ -12,7 +12,7 @@ export interface BlankViewProps {
 
 const COLUMN_CLASSNAME = "w-full h-full flex flex-wrap items-center justify-center gap-x-16 p-2 ";
 
-export default function Blank({ title, content, image, alt, children, small }: BlankViewProps) {
+export default function BlankView({ title, content, image, alt, children, small }: BlankViewProps) {
     return <div className="w-full px-2 group" data-small={small}>
         <div className={COLUMN_CLASSNAME + (small ? "gap-y-8" : "gap-y-16")}>
             <Image src={image} alt={alt} width={small ? 128 : 256}/>

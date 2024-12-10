@@ -4,14 +4,15 @@ import getSupabase from "@/supabase/server";
 import AsideModalContainer from "@/components/containers/AsideModal";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import EditPracticeForm from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/edit/_EditPracticeForm";
+import EditPracticeForm from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/edit/_form";
 import { Divider } from "@nextui-org/divider";
 import PracticePreviewTabs from "@/app/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 
-export default async function Page({ params: { topicId, practiceId } }: {
-    params: { topicId: string, practiceId: string }
-}) {
-    const { data, error } = await getSupabase()
+export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
+    const { topicId, practiceId } = await params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("practices")
         .select("id, title, description")
         .eq("id", parseInt(practiceId))

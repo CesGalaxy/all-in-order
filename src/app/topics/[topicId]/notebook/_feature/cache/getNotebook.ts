@@ -10,7 +10,8 @@ const getNotebook = cache(async (topicId: string | number) => {
 
     if (!user) return { error: "auth" };
 
-    const { data: files, error: storageError } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data: files, error: storageError } = await supabaseClient
         .storage
         .from("notebooks")
         .list(getNotebookRootPath(topicId, user.id));

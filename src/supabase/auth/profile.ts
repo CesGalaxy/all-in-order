@@ -25,7 +25,8 @@ export const getMaybeMyProfile = cache(async (): Promise<Profile | null> => {
 // });
 
 export const getProfileByUser = cache(async (user_id: string): Promise<Profile | null> => {
-    const { data } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data } = await supabaseClient
         .from("profiles")
         .select()
         .eq("user_id", user_id)

@@ -1,3 +1,5 @@
-export default function Loading() {
-    return <h1>Loading...</h1>
-}
+// import LoadingSpinnerPage from "@/components/pages/LoadingSpinnerPage";
+//
+// export default LoadingSpinnerPage;
+
+export { default } from "@/components/pages/LoadingSpinnerPage";

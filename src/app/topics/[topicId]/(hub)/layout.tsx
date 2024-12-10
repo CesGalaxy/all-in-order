@@ -7,11 +7,13 @@ import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/topics/[topicId]/(hub)/_components/navigation/TopicSidebar";
 import { AnimatePresence } from "framer-motion";
 
-export default async function Layout({ children, aside, params: { topicId } }: {
+export default async function Layout({ children, aside, params }: {
     children: ReactNode,
     aside: ReactNode,
-    params: { topicId: string }
+    params: Promise<{ topicId: string }>
 }) {
+    const { topicId } = await params;
+
     const dbRequest = getTopicData(parseInt(topicId));
 
     const { data, error } = await dbRequest;

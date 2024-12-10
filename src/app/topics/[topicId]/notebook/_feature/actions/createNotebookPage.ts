@@ -16,7 +16,8 @@ export default async function createNotebookPage(topicId: number | string, _prev
 
     const user = await getUser();
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .storage
         .from("notebooks")
         .upload(getNotebookRootPath(topicId, user.id) + name.trim() + ".txt", "");

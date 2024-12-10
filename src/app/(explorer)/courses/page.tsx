@@ -1,6 +1,6 @@
 "use server";
 
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
@@ -9,22 +9,23 @@ import NoCourses from "@/collections/course/components/views/NoCourses";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import CreateCourseButton from "@/collections/course/components/CreateCourseButton";
 import JoinCourseButton from "@/collections/course/components/JoinCourseButton";
-import Blank from "@/components/views/Blank";
+import BlankView from "@/components/views/BlankView";
 import noDataImage from "@/assets/pictures/no_data.svg";
 import { Link } from "@nextui-org/link";
 
 export default async function Courses() {
     const maybeProfile = await getMaybeMyProfile();
+    const supabaseClient = await getSupabase();
 
     if (!maybeProfile) {
-        const { data: courses, error } = await getSupabase()
+        const { data: courses, error } = await supabaseClient
             .from("courses")
             .select("*, subjects(*, topics(*))");
 
         if (error) return <ErrorView message={error.message}/>;
 
         return <PageContainer>
-            {courses && courses.length > 0
+            {courses.length > 0
                 ?
                 <ul className="w-full h-full gap-4 lg:gap-8 xl:gap-16 grid lg:grid-cols-2 xl:grid-cols-3 auto-rows-min">
                     {courses.map(course =>
@@ -35,19 +36,19 @@ export default async function Courses() {
                         />
                     )}
                 </ul>
-                : <Blank
+                : <BlankView
                     image={noDataImage}
                     alt="A weird place"
                     title={"There are no public courses!"}
                     content={"You are in a weird place."}
                 >
                     <Link href="/" underline="always" size="lg">Return to the home page</Link>
-                </Blank>
+                </BlankView>
             }
         </PageContainer>;
     }
 
-    const { data: courses, error } = await getSupabase()
+    const { data: courses, error } = await supabaseClient
         .from("courses")
         .select("id, name, description, is_public, members:course_members(profile, is_admin), subjects(id, name, color, topics(id, title))")
         .eq("members.profile", maybeProfile.id);

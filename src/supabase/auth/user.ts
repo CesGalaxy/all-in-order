@@ -17,7 +17,8 @@ export const getUser = cache(async (redirectPath = "/login"): Promise<User> => r
  * @returns The currently cached user, or null if the user is not logged in.
  */
 export const getMaybeUser = cache(async (): Promise<User | null> => {
-    const { data: { user } } = await getSupabase().auth.getUser();
+    const supabaseClient = await getSupabase();
+    const { data: { user } } = await supabaseClient.auth.getUser();
 
     return user as any;
-})
+});

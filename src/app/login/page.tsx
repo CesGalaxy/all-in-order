@@ -29,7 +29,7 @@ export default async function Page(props: { searchParams: Promise<SearchParams> 
         "use server";
 
         // Create the supabase client
-        const supabase = createSupabaseServerClient();
+        const supabase = await createSupabaseServerClient();
 
         // Validate the form data
         const { success, data, error } = AUTH_SCHEMA.safeParse(getFormFields(formData, ["email", "password"]));

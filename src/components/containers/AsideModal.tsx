@@ -15,7 +15,7 @@ export default function AsideModalContainer({
                                                 contentClassName,
                                                 animate
                                             }: {
-    children: ReactNode,
+    children?: ReactNode,
     closeUrl?: string,
     title?: string,
     className?: string,
@@ -24,8 +24,6 @@ export default function AsideModalContainer({
     animate?: boolean;
 }) {
     const router = useTransitionRouter();
-
-    const asd = document.getElementById('aside-modal');
 
     const close = () => closeUrl ? router.push(closeUrl) : router.back();
 

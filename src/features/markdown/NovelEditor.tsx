@@ -34,7 +34,7 @@ export default function NovelEditor() {
                 const json = editor.getJSON();
                 setContent(json);
             }}
-            extensions={[...defaultExtensions, slashCommand]}
+            extensions={[...defaultExtensions as any, slashCommand as any]}
             editorContainerProps={{
                 className: "w-full h-full flex-grow flex flex-col",
             }}

@@ -39,10 +39,23 @@
     "Practice": {
       "quick": "Lección rápida"
     },
+    "Subject": {
+      "delete": "Eliminar asignatura",
+      "delete_desc": "Eliminar la asignatura permanentemente",
+      "download": "Descargar asignatura",
+      "download_desc": "Descargar los datos de la asignatura",
+      "edit": "Estar asignatura",
+      "edit_desc": "Edita esta asignatura",
+      "share": "Compartir asignatura",
+      "share_desc": "Comparte esta asignatura"
+    },
     "Topic": {
       "create_doc": "Crear documento",
       "create_doc_new": "Crear un nuevo documento",
       "create_test": "Crear Test",
+      "import": "Importar tema",
+      "import_desc": "Importar un nuevo tema",
+      "new": "Nuevo tema",
       "no_documents": "No se han encontrado documentos.",
       "no_documents_yet": "No hay documentos disponibles para este tema aún.",
       "no_tests": "No se han encontrado tests.",
@@ -70,11 +83,13 @@
     "unexpected_error": "Ha ocurrido un error inesperado"
   },
   "Global": {
+    "actions": "Acciones",
     "cancel": "Cancelar",
     "content": "Contenido",
     "copy_link": "Copiar enlace",
     "copy_link_description": "Copia un enlace para compartir",
     "create": "Crear",
+    "danger_zone": "Zona de peligro",
     "dashboard": "Inicio",
     "delete": "Eliminar",
     "download": "Descargar",
@@ -85,6 +100,7 @@
     "settings": "Ajustes",
     "share": "Compartir",
     "start": "Empezar",
+    "storage": "",
     "title": "Título",
     "viewMore": "Ver más",
     "web_version": "Versión web"

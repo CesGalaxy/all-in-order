@@ -6,10 +6,12 @@ import { Button } from "@nextui-org/button";
 import { cn } from "@nextui-org/theme";
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import DeleteSubjectModal from "@/collections/subject/components/modals/DeleteSubjectModal";
+import { useTranslations } from "next-intl";
 
 const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
 
 export default function SubjectSidebarDropdown({ subjectId }: { subjectId: number }) {
+    const t = useTranslations();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return <Dropdown placement="right">
@@ -22,48 +24,48 @@ export default function SubjectSidebarDropdown({ subjectId }: { subjectId: numbe
             </Button>
         </DropdownTrigger>
         <DropdownMenu variant="faded" aria-label="Dropdown menu with description">
-            <DropdownSection title="Storage" showDivider>
+            <DropdownSection title={t("Global.storage")} showDivider>
                 <DropdownItem
                     key="import"
-                    description="Import a new topic"
+                    description={t("Dash.Topic.import_desc")}
                     startContent={<IconDatabaseImport className={iconClasses}/>}
                 >
-                    Import topic
+                    {t("Dash.Topic.import")}
                 </DropdownItem>
                 <DropdownItem
                     key="export"
-                    description="Download the subject data"
+                    description={t("Dash.Subject.download_desc")}
                     startContent={<IconDownload className={iconClasses}/>}
                 >
-                    Download subject
+                    {t("Dash.Subject.download")}
                 </DropdownItem>
             </DropdownSection>
-            <DropdownSection title="Actions" showDivider>
+            <DropdownSection title={t("Global.actions")} showDivider>
                 <DropdownItem
                     key="share"
-                    description="Share the subject"
+                    description={t("Dash.Subject.share_desc")}
                     startContent={<IconShare className={iconClasses}/>}
                 >
-                    Share subject
+                    {t("Dash.Subject.share")}
                 </DropdownItem>
                 <DropdownItem
                     key="edit"
-                    description="Allows you to edit the subject"
+                    description={t("Dash.Subject.edit_desc")}
                     startContent={<IconEdit className={iconClasses}/>}
                 >
-                    Edit subject
+                    {t("Dash.Subject.edit")}
                 </DropdownItem>
             </DropdownSection>
-            <DropdownSection title="Danger zone">
+            <DropdownSection title={t("Global.danger_zone")}>
                 <DropdownItem
                     key="delete"
                     className="text-danger"
                     color="danger"
-                    description="Permanently delete the subject"
+                    description={t("Dash.Subject.delete_desc")}
                     startContent={<IconTrash className={cn(iconClasses, "text-danger")}/>}
                     onPress={onOpen}
                 >
-                    Delete subject
+                    {t("Dash.Subject.delete")}
                 </DropdownItem>
             </DropdownSection>
         </DropdownMenu>

@@ -19,8 +19,15 @@ import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
 import { Json } from "@aio/db/supabase";
 
-export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
-    const { data, error } = await getSupabase()
+export default async function Page(props: { params: Promise<{ practiceId: string }> }) {
+    const params = await props.params;
+
+    const {
+        practiceId
+    } = params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("practices")
         .select("id, title, topic_id, activities:topic_activities(*)")
         .eq("id", parseInt(practiceId))
@@ -53,7 +60,8 @@ export default async function Page({ params: { practiceId } }: { params: { pract
 
         const perfection = Math.round((correct * 100) / total);
 
-        const { data, error } = await getSupabase()
+        const supabaseClient = await getSupabase();
+        const { data, error } = await supabaseClient
             .from("practice_attempts")
             // @ts-ignore
             .insert({

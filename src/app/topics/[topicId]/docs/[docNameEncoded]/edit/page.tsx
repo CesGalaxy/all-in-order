@@ -12,9 +12,18 @@ import NovelEditor from "@/features/markdown/NovelEditor";
 import EditorToolbar from "@/app/topics/[topicId]/docs/[docNameEncoded]/edit/_components/navigation/EditorToolbar";
 import EditorConfigBtn from "@/app/topics/[topicId]/docs/[docNameEncoded]/edit/_components/navigation/EditorConfigBtn";
 
-export default async function Page({ params: { topicId, docNameEncoded } }: {
-    params: { topicId: string, docNameEncoded: string }
-}) {
+export default async function Page(
+    props: {
+        params: Promise<{ topicId: string, docNameEncoded: string }>
+    }
+) {
+    const params = await props.params;
+
+    const {
+        topicId,
+        docNameEncoded
+    } = params;
+
     const topicUrl = "/topics/" + topicId;
 
     const docLocatorSegments = docNameEncoded.split("-");
@@ -22,13 +31,14 @@ export default async function Page({ params: { topicId, docNameEncoded } }: {
     const docOwnership = docLocatorSegments[0] === "m" ? (await getUser(topicUrl)).id : "_public";
     const docName = atob(decodeURIComponent(docLocatorSegments[1]));
 
-    const { data, error } = await getSupabase().from("topics").select("id").eq("id", topicId).maybeSingle();
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient.from("topics").select("id").eq("id", topicId).maybeSingle();
     if (error) return <ErrorView message={error.message}/>;
     const topic = required(data, topicUrl);
 
     const document = required(await getTopicDocument(topic.id, docOwnership + "/" + docName), topicUrl);
 
-    const editorVersion = cookies().get("md-editor-version")?.name;
+    const editorVersion = (await cookies()).get("md-editor-version")?.name;
 
     return <div className="w-full h-full flex-grow flex">
         <aside

@@ -1,10 +1,10 @@
 "use server";
 
-import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
+import { ActionResponse, mountActionError } from "@/lib/helpers/form";
 import { CREATE_NOTE_SCHEMA } from "@/collections/note/schemas";
 import { getMyProfile } from "@/supabase/auth/profile";
 import getSupabase from "@/supabase/server";
-import { handleDirectResponse } from "@/lib/helpers/supabase";
+import { handleCustomSingleResponse, handleSingleResponse } from "@/lib/helpers/supabase";
 
 export type CreateNoteActionResponse = ActionResponse<number, "title" | "content" | "form" | "db">;
 
@@ -21,19 +21,17 @@ export async function createNoteAction(subjectId: number, formData: FormData): P
 
     const { id: author_id } = await getMyProfile();
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const response = await supabaseClient
         .from("subject_notes")
         .insert({ ...validation.data, subject_id: subjectId, author_id })
         .select("id")
         .single();
 
-    if (error) return mountActionError({ db: [error.message] });
-
-    return mountActionSuccess(data.id);
+    return handleCustomSingleResponse(response, data => data.id);
 }
 
-export const deleteNoteAction = async (noteId: number) =>
-    handleDirectResponse(await getSupabase()
-        .from("subject_notes")
-        .delete()
-        .eq("id", noteId));
+export async function deleteNoteAction(noteId: number) {
+    const supabaseClient = await getSupabase();
+    return handleSingleResponse(await supabaseClient.from("subject_notes").delete().eq("id", noteId));
+}

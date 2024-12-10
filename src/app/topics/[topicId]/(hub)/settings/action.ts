@@ -1,6 +1,6 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
+import { createSupabaseServerClient } from "@/supabase/server";
 import { UPDATE_TOPICS_SETTINGS_SCHEMA } from "@/app/topics/[topicId]/(hub)/settings/schema";
 import { getFormFields, mountActionError } from "@/lib/helpers/form";
 import { revalidatePath } from "next/cache";
@@ -18,7 +18,8 @@ export default async function updateTopicSettings(topicId: number, _prevState: a
 
     const { title, description } = validation.data;
 
-    const { error } = await getSupabase()
+    const supabaseClient = await createSupabaseServerClient();
+    const { error } = await supabaseClient
         .from("topics")
         .update({
             title, description

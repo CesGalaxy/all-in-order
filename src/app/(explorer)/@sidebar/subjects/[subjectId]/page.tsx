@@ -5,8 +5,17 @@ import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import SubjectSidebarDropdown from "@/app/(explorer)/@sidebar/subjects/[subjectId]/SubjectSidebarDropdown";
+import { getTranslations } from "next-intl/server";
 
-export default async function Page({ params: { subjectId } }: { params: { subjectId: string } }) {
+export default async function Page(props: { params: Promise<{ subjectId: string }> }) {
+    const params = await props.params;
+
+    const {
+        subjectId
+    } = params;
+
+    const t = await getTranslations();
+
     const { data, error } = await getSubjectPageData(subjectId);
 
     const { id, name, description, topics } = required(data);
@@ -19,13 +28,13 @@ export default async function Page({ params: { subjectId } }: { params: { subjec
             </CardHeader>
             <Divider/>
             <CardBody as="ul" className="flex md:flex-col flex-wrap">
-                {topics.map(topic => <li key={topic.id}>
+                {topics.map((topic: any) => <li key={topic.id}>
                     <Link href={"/topics/" + topic.id}>{topic.title}</Link>
                 </li>)}
             </CardBody>
             <Divider/>
             <CardFooter>
-                <Button className="flex-grow !rounded-r-none" variant="faded">New topic</Button>
+                <Button className="flex-grow !rounded-r-none" variant="faded">{t("Dash.Topic.new")}</Button>
                 <SubjectSidebarDropdown subjectId={id}/>
             </CardFooter>
         </Card>

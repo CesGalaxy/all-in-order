@@ -1,7 +1,7 @@
 "use server";
 
 import addNotesImage from "@/assets/pictures/add_notes.svg";
-import Blank, { BlankViewProps } from "@/components/views/Blank";
+import BlankView, { BlankViewProps } from "@/components/views/BlankView";
 import CreateNoteButton from "@/collections/note/components/CreateNoteButton";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { createNoteAction } from "@/collections/note/action";
@@ -17,9 +17,9 @@ export default async function NoNotes({ subjectId, extraViewProps, action = crea
     const viewProps = { image: addNotesImage, alt: "", title: "No notes found", ...extraViewProps };
 
     // FIXME: This is shit
-    return <Blank {...viewProps}>
+    return <BlankView {...viewProps}>
         {maybeProfile && <nav className="flex items-center justify-center">
             <CreateNoteButton action={action}/>
         </nav>}
-    </Blank>;
+    </BlankView>;
 }

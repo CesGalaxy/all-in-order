@@ -78,7 +78,7 @@ function ModalForm<
       hideCancelButton = false,
       footer,
       children,
-  }: ModalFormProps<T, E>): ReactElement {
+  }: ModalFormProps<T, E>): ReactElement<any> {
     // Handle form submission
     const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, E | "submit"> | undefined> => {
         if (!action) return {

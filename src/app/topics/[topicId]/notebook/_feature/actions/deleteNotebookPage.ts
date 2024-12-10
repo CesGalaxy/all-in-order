@@ -12,7 +12,8 @@ export default async function deleteNotebookPage(topicId: number | string, name:
 
     const user = await getUser();
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .storage
         .from("notebooks")
         .remove([getNotebookRootPath(topicId, user.id) + name]);

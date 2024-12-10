@@ -3,24 +3,18 @@
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import AsideModalContainer from "@/components/containers/AsideModal";
 import ShareButton from "@/app/(explorer)/subjects/[subjectId]/@aside/(.)notes/[noteId]/_ShareButton";
 import EditButton from "@/app/(explorer)/subjects/[subjectId]/@aside/(.)notes/[noteId]/_EditButton";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 
-interface PageProps {
-    params: { subjectId: string, noteId: string }
-}
+export default async function Page(props: { params: Promise<{ subjectId: string, noteId: string }> }) {
+    const { subjectId, noteId } = await props.params;
 
-export default async function Page(props: PageProps) {
-    return <AsideModalContainer closeUrl={"/subjects/" + props.params.subjectId}>
-        <_Page {...props}/>
-    </AsideModalContainer>;
-}
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-async function _Page({ params: { subjectId, noteId } }: PageProps) {
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("subject_notes")
         .select()
         .eq("subject_id", parseInt(subjectId));
@@ -37,7 +31,8 @@ async function _Page({ params: { subjectId, noteId } }: PageProps) {
     async function editNote(title: string, content: string) {
         "use server";
 
-        const { error } = await getSupabase()
+        const supabaseClient = await getSupabase();
+        const { error } = await supabaseClient
             .from("subject_notes")
             .update({ title, content })
             .eq("id", parseInt(noteId));
@@ -47,7 +42,7 @@ async function _Page({ params: { subjectId, noteId } }: PageProps) {
         revalidatePath("/subjects/" + subjectId);
     }
 
-    return <div className="px-4">
+    return <div className="p-4">
         {note.title && <>
             <h1 className="text-3xl font-medium">{note.title}</h1>
             <hr/>

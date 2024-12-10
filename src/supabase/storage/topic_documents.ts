@@ -5,7 +5,8 @@ import { revalidatePath } from "next/cache";
 import getSupabase from "@/supabase/server";
 
 export const getTopicDocument = cache(async (topic_id: number, name: string) => {
-    const { data } = await getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const { data } = await supabaseClient.storage
         .from("topic_documents")
         .download(`${topic_id}/${name}`);
 
@@ -13,7 +14,8 @@ export const getTopicDocument = cache(async (topic_id: number, name: string) => 
 });
 
 export const getAllTopicDocuments = cache(async (topic_id: number) => {
-    const { data } = await getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const { data } = await supabaseClient.storage
         .from("topic_documents")
         .list(topic_id.toString());
 
@@ -21,7 +23,8 @@ export const getAllTopicDocuments = cache(async (topic_id: number) => {
 });
 
 export async function createTopicDocument(topic_id: number, name: string) {
-    const { data, error } = await getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient.storage
         .from("topic_documents")
         .upload(`${topic_id}/${name}.md`, "");
 
@@ -33,7 +36,8 @@ export async function createTopicDocument(topic_id: number, name: string) {
 }
 
 export async function updateTopicDocument(topic_id: number, name: string, content: string) {
-    const { data, error } = await getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient.storage
         .from("topic_documents")
         .update(`${topic_id}/${name}`, content);
 
@@ -45,7 +49,8 @@ export async function updateTopicDocument(topic_id: number, name: string, conten
 }
 
 export async function renameTopicDocument(topic_id: number, oldName: string, newName: string) {
-    const { data, error } = await getSupabase().storage
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient.storage
         .from("topic_documents")
         .move(`${topic_id}/${oldName}`, `${topic_id}/${newName}`);
 

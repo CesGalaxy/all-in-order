@@ -39,10 +39,23 @@
     "Practice": {
       "quick": "Quick practice"
     },
+    "Subject": {
+      "delete": "Delete subject",
+      "delete_desc": "Permanently delete the subject",
+      "download": "Download subject",
+      "download_desc": "Download the subject data",
+      "edit": "Edit subject",
+      "edit_desc": "Allows you to edit the subject",
+      "share": "Share subject",
+      "share_desc": "Share the subject"
+    },
     "Topic": {
       "create_doc": "Create document",
       "create_doc_new": "Create a new document",
       "create_test": "Create Test",
+      "import": "Import topic",
+      "import_desc": "Import a new topic",
+      "new": "New topic",
       "no_documents": "No documents found.",
       "no_documents_yet": "There are no documents available for this topic yet.",
       "no_tests": "No tests found.",
@@ -70,11 +83,13 @@
     "unexpected_error": "An unexpected error occurred"
   },
   "Global": {
+    "actions": "Actions",
     "cancel": "Cancel",
     "content": "Content",
     "copy_link": "Copy link",
     "copy_link_description": "Copy the shareable link",
     "create": "Create",
+    "danger_zone": "Danger zone",
     "dashboard": "Dashboard",
     "delete": "Delete",
     "download": "Download",
@@ -85,6 +100,7 @@
     "settings": "Settings",
     "share": "Share",
     "start": "Start",
+    "storage": "Storage",
     "title": "Title",
     "viewMore": "View more",
     "web_version": "Web Version"

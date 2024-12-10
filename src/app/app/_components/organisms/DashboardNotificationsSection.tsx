@@ -1,4 +1,4 @@
-import Blank from "@/components/views/Blank";
+import BlankView from "@/components/views/BlankView";
 import noDataImage from "@/assets/pictures/no_data.svg";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { Button } from "@nextui-org/button";
@@ -21,6 +21,6 @@ export default function DashboardNotificationsSection() {
             </Button>
         }
     >
-        <Blank image={noDataImage} alt="No notifications" title="No notifications"/>
+        <BlankView image={noDataImage} alt="No notifications" title="No notifications"/>
     </SectionContainer>;
 }

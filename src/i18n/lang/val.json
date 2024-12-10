@@ -39,10 +39,23 @@
     "Practice": {
       "quick": "Lessó ràpida"
     },
+    "Subject": {
+      "delete": "Eliminar matèria",
+      "delete_desc": "Eliminar la marèria de forma permanent",
+      "download": "Descarregar matèria",
+      "download_desc": "Descarregar les dades de la matèria",
+      "edit": "Editar matèria",
+      "edit_desc": "Edita aquesta matèria",
+      "share": "Comparteix matèria",
+      "share_desc": "Comparteix aquesta matèria"
+    },
     "Topic": {
       "create_doc": "Crear document",
       "create_doc_new": "Crear un nou document",
       "create_test": "Crear test",
+      "import": "Importar tema",
+      "import_desc": "Importar un nou temari",
+      "new": "Nou tema",
       "no_documents": "No s'han trobat documents",
       "no_documents_yet": "No hi han documents en aquest tema.",
       "no_tests": "No s'han trobat tests",
@@ -70,11 +83,13 @@
     "unexpected_error": "Error"
   },
   "Global": {
+    "actions": "Eïnes",
     "cancel": "Cancel·la",
     "content": "Contingut",
     "copy_link": "Copiar enllaç",
     "copy_link_description": "Copia un enllaç per a compartir",
     "create": "Crea",
+    "danger_zone": "Zona perillosa",
     "dashboard": "Inici",
     "delete": "Elimina",
     "download": "Descarregar",
@@ -85,6 +100,7 @@
     "settings": "Preferències",
     "share": "Comperteix",
     "start": "Començar",
+    "storage": "",
     "title": "Títol",
     "viewMore": "Veure més",
     "web_version": "Versió web"

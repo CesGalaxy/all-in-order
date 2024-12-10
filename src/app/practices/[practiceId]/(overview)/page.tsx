@@ -1,14 +1,21 @@
 "use server";
 
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import PracticeDetailsCard from "@/app/practices/[practiceId]/(overview)/_components/PracticeDetailsCard";
 import SimpleAttemptsTable from "@/app/practices/[practiceId]/(overview)/_components/SimpleAttemptsTable";
 
-export default async function Page({ params: { practiceId } }: { params: { practiceId: string } }) {
-    const { data, error } = await getSupabase()
+export default async function Page(props: { params: Promise<{ practiceId: string }> }) {
+    const params = await props.params;
+
+    const {
+        practiceId
+    } = params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("practices")
         .select("*, topic:topics(id, title), author:profiles(id, name, avatar_url), attempts:practice_attempts(id, perfection, started_at, ended_at)")
         .order("started_at", { referencedTable: 'practice_attempts', ascending: true })

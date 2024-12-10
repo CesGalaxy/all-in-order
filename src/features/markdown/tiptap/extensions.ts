@@ -8,6 +8,7 @@ import {
     TiptapLink,
 } from "novel/extensions";
 import { twMerge } from "tailwind-merge";
+import { Extension } from "showdown";
 
 // TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 
@@ -79,7 +80,7 @@ const starterKit = StarterKit.configure({
     gapcursor: false,
 });
 
-export const defaultExtensions = [
+export const defaultExtensions: Extension[] = [
     starterKit,
     placeholder,
     TiptapLink,

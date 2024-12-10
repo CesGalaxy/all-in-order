@@ -60,7 +60,7 @@ export default function NotebookSidebarPages() {
                 Add subpage
             </Button>
         </AccordionItem>;
-    }, [deletePage]);
+    }, [deletePage, topicId]);
 
     return <div className="min-w-48 max-w-96 py-2">
         <header className="mb-2 px-2 flex items-center justify-between font-medium text-lg">

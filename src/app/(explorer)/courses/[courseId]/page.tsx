@@ -2,7 +2,7 @@
 
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 import SectionContainer from "@/components/containers/SectionContainer";
 import required from "@/lib/helpers/required";
 import ModalButton from "@/components/utils/ModalButton";
@@ -19,10 +19,13 @@ import { Link } from "@nextui-org/link";
 import getHexColor from "@/lib/utils/color";
 import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
 
-export default async function Page({ params: { courseId } }: { params: { courseId: string } }) {
-    const { data, error } = await getSupabase()
+export default async function Page(props: { params: Promise<{ courseId: string }> }) {
+    const { courseId } = await props.params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("courses")
-        .select("*, subjects(id, name, color, topics(id, title)), members:course_members(profile:profiles(id, name, username), is_admin, created_at)")
+        .select("id, name, description, is_public, updated_at, created_at, subjects(id, name, color, topics(id, title)), members:course_members(profile:profiles(id, name, username), is_admin, created_at)")
         .eq("id", courseId)
         .maybeSingle();
 
@@ -31,18 +34,21 @@ export default async function Page({ params: { courseId } }: { params: { courseI
     const { id, name, description, is_public, updated_at, created_at, subjects, members } = required(data);
 
     return <PageContainer className="grid gap-16 lg:grid-cols-2">
-        <SectionContainer title="Course details" className="" trailing={
-            <ModalButton
-                color="primary"
-                radius="full"
-                size="sm"
-                startContent={<IconEdit/>}
-                modal={<EditCourseModal action={id} courseName={name} courseDescription={description}
-                                        courseVisibility={is_public}/>}
-            >
-                Edit
-            </ModalButton>
-        }>
+        <SectionContainer
+            title="Course details"
+            trailing={
+                <ModalButton
+                    color="primary"
+                    radius="full"
+                    size="sm"
+                    startContent={<IconEdit/>}
+                    modal={<EditCourseModal action={id} courseName={name} courseDescription={description}
+                                            courseVisibility={is_public}/>}
+                >
+                    Edit
+                </ModalButton>
+            }
+        >
             <Card className="lg:sticky lg:top-24">
                 <CardHeader>
                     <h2 className="font-bold text-3xl">{name}</h2>

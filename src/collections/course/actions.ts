@@ -24,7 +24,8 @@ export async function createCourseAction(data: CreateCourseFields): Promise<Crea
         return mountActionError({ form: formErrors, ...fieldErrors });
     }
 
-    const { error } = await getSupabase().from("courses").insert(validation.data);
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient.from("courses").insert(validation.data);
 
     if (error) return mountActionError({ db: [error.message] });
 
@@ -58,7 +59,8 @@ export async function updateCourseAction(courseId: number, data: UpdateCourseFie
     console.table([{ name, description, is_public }]);
 
     // Update the course
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("courses")
         .update({ name, description, is_public })
         .eq("id", courseId);
@@ -74,7 +76,8 @@ export async function updateCourseAction(courseId: number, data: UpdateCourseFie
 export type DeleteCourseActionResponse = ActionResponse<never, "db">;
 
 export async function deleteCourseAction(courseId: number): Promise<DeleteCourseActionResponse> {
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("courses")
         .delete()
         .eq("id", courseId);

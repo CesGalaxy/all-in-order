@@ -20,7 +20,8 @@ export async function createSubjectAction(course_id: number, name: string, descr
     console.table([validation.data]);
 
     // Update the course
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("subjects")
         .insert({ course_id, ...validation.data })
         .select("id")
@@ -47,7 +48,8 @@ export async function updateSubjectAction(subjectId: number, formData: FormData)
     console.table([validation.data]);
 
     // Update the course
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("subjects")
         .update(validation.data)
         .eq("id", subjectId);
@@ -62,7 +64,8 @@ export async function deleteSubjectAction(subjectId: number) {
     console.info("Deleting subject with the ID: " + subjectId);
 
     // Update the course
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("subjects")
         .delete()
         .eq("id", subjectId);

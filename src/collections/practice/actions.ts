@@ -9,7 +9,8 @@ export async function createPractice(topicId: number, formData: FormData): Promi
 
     if (validationError) return validationError;
 
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("practices")
         .insert({
             ...validatedData,

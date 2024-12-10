@@ -2,17 +2,16 @@
 
 import { Input, Textarea } from "@nextui-org/input";
 import updateTopicSettings from "@/app/topics/[topicId]/(hub)/settings/action";
-import { useFormState } from "react-dom";
 import { Topic } from "@aio/db/entities";
 import { Button } from "@nextui-org/button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { z } from "zod";
 import useValidatedState from "@/reactivity/hooks/useValidatedState";
-import { useMemo } from "react";
+import { useMemo, useActionState } from "react";
 
 export default function TopicSettingsForm({ topic }: { topic: Pick<Topic, "id" | "title" | "description"> }) {
     const action = useMemo(() => updateTopicSettings.bind(null, topic.id), [topic.id]);
-    const [state, dispatch, isPending] = useFormState(action, null);
+    const [state, dispatch, isPending] = useActionState(action, null);
 
     const
         [title, setTitle, titleValidation, validateTitle, isTitleValid] =

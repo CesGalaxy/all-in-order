@@ -7,17 +7,27 @@ import required from "@/lib/helpers/required";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { IconTrash, IconX } from "@tabler/icons-react";
-import Blank from "@/components/views/Blank";
+import BlankView from "@/components/views/BlankView";
 import throwAwayImage from "@/assets/pictures/throw_away.svg";
 import { Divider } from "@nextui-org/divider";
 import AYSButton from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/delete/_AYSButton";
 import ModalButton from "@/components/utils/ModalButton";
 import ModalForm from "@/components/utils/ModalForm";
 
-export default async function Page({ params: { topicId, practiceId } }: {
-    params: { topicId: string, practiceId: string }
-}) {
-    const { data, error } = await getSupabase()
+export default async function Page(
+    props: {
+        params: Promise<{ topicId: string, practiceId: string }>
+    }
+) {
+    const params = await props.params;
+
+    const {
+        topicId,
+        practiceId
+    } = params;
+
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("practices")
         .select("id, title, activities:topic_activities(count)")
         .eq("id", parseInt(practiceId))
@@ -38,7 +48,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
         actions={<Button as={Link} href={"/practices/" + id} startContent={<IconX/>} color="danger">Cancel</Button>}
     >
         <div className="px-8 w-full py-16">
-            <Blank
+            <BlankView
                 image={throwAwayImage}
                 alt="Delete practice"
                 title={`Are you sure?`}
@@ -65,7 +75,7 @@ export default async function Page({ params: { topicId, practiceId } }: {
                 } color="danger" variant="shadow" className="w-full" startContent={<IconTrash/>}>
                     Yes, delete the practice
                 </ModalButton>
-            </Blank>
+            </BlankView>
         </div>
     </AsideModalContainer>;
 }

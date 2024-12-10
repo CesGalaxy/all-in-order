@@ -4,9 +4,11 @@ import getTopicData from "@/app/topics/[topicId]/(hub)/query";
 import TopicSettingsForm from "@/app/topics/[topicId]/(hub)/settings/form";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 
-export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
+export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {
+    const { topicId } = await params;
+
     const { data, error } = await getTopicData(parseInt(topicId));
 
     if (error) return <ErrorView message={error.message}/>;

@@ -1,8 +1,7 @@
 "use client";
 
-import { type ReactNode, useCallback, useOptimistic, useState } from "react";
+import { type ReactNode, useCallback, useOptimistic, useState, useActionState } from "react";
 import NotebookContext from "@/app/topics/[topicId]/notebook/_feature/reactivity/context/NotebookContext";
-import { useFormState } from "react-dom";
 import createNotebookPage, {
     CreateNotebookPageResponse
 } from "@/app/topics/[topicId]/notebook/_feature/actions/createNotebookPage";
@@ -32,7 +31,7 @@ export default function NotebookProvider({ children, initialPages, topicId }: No
     );
 
     const [createPageState, createPageAction, isCreatingPage] =
-        useFormState<CreateNotebookPageResponse | undefined, FormData>(createNotebookPage.bind(null, 9), undefined);
+        useActionState<CreateNotebookPageResponse | undefined, FormData>(createNotebookPage.bind(null, 9), undefined);
 
     const [deleteModalSelected, setDeleteModalSelected] = useState<string>();
     const deleteModalDisclosure = useDisclosure();

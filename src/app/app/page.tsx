@@ -1,8 +1,8 @@
 import { getMyProfile } from "@/supabase/auth/profile";
-import DashboardCoursesSection from "@/app/app/_feature/components/organisms/DashboardCoursesSection";
-import DashboardProfileSection from "@/app/app/_feature/components/organisms/DashboardProfileSection";
-import DashboardNotificationsSection from "@/app/app/_feature/components/organisms/DashboardNotificationsSection";
-import PageContainer from "@/components/containers/Page";
+import DashboardCoursesSection from "@/app/app/_components/organisms/DashboardCoursesSection";
+import DashboardProfileSection from "@/app/app/_components/organisms/DashboardProfileSection";
+import DashboardNotificationsSection from "@/app/app/_components/organisms/DashboardNotificationsSection";
+import PageContainer from "@/components/containers/PageContainer";
 import { createCourseAction } from "@/collections/course/actions";
 import autoRevalidate from "@/lib/helpers/autoRevalidate";
 

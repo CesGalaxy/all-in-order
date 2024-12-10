@@ -1,3 +1,5 @@
+"use server";
+
 import required from "@/lib/helpers/required";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
@@ -6,11 +8,25 @@ import { redirect } from "next/navigation";
 import getTopicData from "@/app/topics/[topicId]/(hub)/query";
 import TopicRecentPracticesSection
     from "@/app/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
-import PageContainer from "@/components/containers/Page";
+import PageContainer from "@/components/containers/PageContainer";
 import getTopicDocuments from "@/supabase/storage/query/getTopicDocuments";
 import TopicRecentDocsSection from "@/app/topics/[topicId]/(hub)/_components/organisms/TopicRecentDocsSection";
 
-export default async function Page({ params: { topicId } }: { params: { topicId: string } }) {
+interface Params {
+    topicId: string;
+}
+
+interface SearchParams {
+    practicesOrderBy?: string;
+    docsOrderBy?: string;
+}
+
+export default async function Page({ params, searchParams }: {
+    params: Promise<Params>,
+    searchParams: Promise<SearchParams>
+}) {
+    const { topicId } = await params;
+
     // Fetch the topic data, documents, and translations
     const dbRequest = getTopicData(parseInt(topicId));
     const docsRequest = getTopicDocuments(parseInt(topicId));
@@ -29,7 +45,8 @@ export default async function Page({ params: { topicId } }: { params: { topicId:
 
         const { id } = await getMyProfile();
 
-        const { data, error } = await getSupabase()
+        const supabaseClient = await getSupabase();
+        const { data, error } = await supabaseClient
             .from("practices")
             // Idea for deltaX: suggest using topicId, so it doesn't have to wait for dbRequest before creating the function
             .insert({ topic_id: topic.id, title, description, created_by: id })

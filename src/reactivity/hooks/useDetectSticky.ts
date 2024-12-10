@@ -5,7 +5,7 @@ import { RefObject, useEffect, useState } from "react";
  * @param {object} ref optional react ref. if not provided, a new one will be used instead.
  * @param {object} observerSettings Observer's settings object
  */
-export default function useDetectSticky(ref: RefObject<HTMLElement>, observerSettings: object = { threshold: [1] }) {
+export default function useDetectSticky(ref: RefObject<HTMLElement | null>, observerSettings: object = { threshold: [1] }) {
     const [isSticky, setIsSticky] = useState(false)
 
     // mount 

@@ -32,7 +32,7 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
         <ContentGallery
             items={notes}
             getItemKey={note => note.id}
-            renderItem={note => <NoteCard note={note}/>}
+            renderItem={note => <NoteCard note={note} subjectId={subjectId}/>}
             emptyView={<NoNotes subjectId={subjectId} extraViewProps={{ small: true }} action={createNoteAction}/>}
         />
     </SectionContainer>;

@@ -3,17 +3,15 @@
 import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { TOPIC_DOC_NAME } from "@/collections/docs/schemas";
 import { getUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { createSupabaseServerClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
-
-type A = { id: string, path: string, fullPath: string };
 
 export async function createTopicDocument<R extends boolean = false>(
     topicId: number,
     isPrivate: boolean,
     name: string,
     redirectToEditor?: R
-): Promise<ActionResponse<R extends true ? never : A, "db" | "form">> {
+): Promise<ActionResponse<R extends true ? never : { id: string, path: string, fullPath: string }, "db" | "form">> {
     // Validate the input data
     const validation = TOPIC_DOC_NAME.safeParse(name);
 
@@ -25,7 +23,8 @@ export async function createTopicDocument<R extends boolean = false>(
 
     const path = `${topicId}/${isPrivate ? (await getUser()).id : '_public'}/${name}.md`;
 
-    const { data, error } = await getSupabase().storage
+    const supabaseClient = await createSupabaseServerClient();
+    const { data, error } = await supabaseClient.storage
         .from("topic_documents")
         .upload(path, "");
 
@@ -38,7 +37,8 @@ export async function createTopicDocument<R extends boolean = false>(
 }
 
 export async function deleteTopicDocument(topicId: number, docId: string): Promise<ActionResponse<null, "db">> {
-    const { error } = await getSupabase().storage
+    const supabaseClient = await createSupabaseServerClient();
+    const { error } = await supabaseClient.storage
         .from("topic_documents")
         .remove([`${topicId}/${docId}`]);
 
