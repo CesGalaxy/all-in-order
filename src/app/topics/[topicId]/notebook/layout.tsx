@@ -16,8 +16,6 @@ export default async function Layout({ params, children }: Readonly<{
 
     if (error) return <ErrorView message={"Unknown error:" + error}/>;
 
-    console.log("[Server] Files:", files?.map(file => file.name));
-
     return <NotebookProvider topicId={topicId} initialPages={files}>
         <div className="flex w-full h-full flex-grow">
             <NotebookSidebar/>

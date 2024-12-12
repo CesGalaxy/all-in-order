@@ -2,9 +2,12 @@
 
 import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
+import useNotebookPage from "@/app/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebookPage";
 
 export default function NbPageNavbar() {
-    return <Navbar shouldHideOnScroll isBordered className="" classNames={{ wrapper: "max-w-full" }}>
+    const a = useNotebookPage();
+
+    return <Navbar isBordered className="z-0" classNames={{ wrapper: "max-w-full" }}>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
             <NavbarItem>
                 <Link color="foreground" href="#">

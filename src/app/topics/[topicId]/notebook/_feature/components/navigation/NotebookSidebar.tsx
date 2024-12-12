@@ -2,11 +2,19 @@
 
 import { Button } from "@nextui-org/button";
 import {
+    IconAccessible,
+    IconCode,
     IconDatabase,
+    IconFlask,
+    IconHelp,
+    IconHistoryToggle,
+    IconLayout,
     IconNote,
     IconNotebook,
+    IconScript,
     IconSettings,
     IconShare,
+    IconTool,
     IconTypography,
     IconUsers
 } from "@tabler/icons-react";
@@ -15,6 +23,7 @@ import NotebookSidebarPages from "@/app/topics/[topicId]/notebook/_feature/compo
 import Image from "next/image";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
 import { Link } from "@nextui-org/link";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
 
 export default function NotebookSidebar() {
     return <aside
@@ -67,13 +76,49 @@ export default function NotebookSidebar() {
                             </Button>
                         </Tooltip>
                     </li>
-                    <li>
+                    <Dropdown>
                         <Tooltip placement="right" delay={200} closeDelay={0} content={"Settings"}>
-                            <Button isIconOnly>
-                                <IconSettings/>
-                            </Button>
+                            <li>
+                                <DropdownTrigger>
+                                    <Button isIconOnly>
+                                        <IconSettings/>
+                                    </Button>
+                                </DropdownTrigger>
+                            </li>
                         </Tooltip>
-                    </li>
+                        <DropdownMenu>
+                            <DropdownSection showDivider>
+                                <DropdownItem startContent={<IconScript/>}>
+                                    Macros
+                                </DropdownItem>
+                                <DropdownItem startContent={<IconCode/>}>
+                                    Developers
+                                </DropdownItem>
+                                <DropdownItem startContent={<IconHistoryToggle/>}>
+                                    History
+                                </DropdownItem>
+                            </DropdownSection>
+                            <DropdownSection showDivider>
+                                <DropdownItem startContent={<IconLayout/>}>
+                                    Layout
+                                </DropdownItem>
+                                <DropdownItem startContent={<IconFlask/>}>
+                                    Experiments
+                                </DropdownItem>
+                            </DropdownSection>
+                            <DropdownSection>
+                                <DropdownItem startContent={<IconHelp/>}>
+                                    Help & docs
+                                </DropdownItem>
+                                <DropdownItem startContent={<IconAccessible/>}>
+                                    Accessibility
+                                </DropdownItem>
+                                <DropdownItem startContent={<IconTool/>}>
+                                    Preferences
+                                </DropdownItem>
+                            </DropdownSection>
+                        </DropdownMenu>
+                    </Dropdown>
                 </ul>
             </nav>
             <NotebookSidebarPages/>

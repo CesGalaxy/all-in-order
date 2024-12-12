@@ -5,6 +5,8 @@ import { getUser } from "@/supabase/auth/user";
 import getSupabase from "@/supabase/server";
 import { getNotebookRootPath } from "@/app/topics/[topicId]/notebook/_feature/helpers/names";
 import NbPageNavbar from "@/app/topics/[topicId]/notebook/_feature/components/navigation/NbPageNavbar";
+import NotebookPageProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookPageProvider";
+import NbPageEditor from "@/app/topics/[topicId]/notebook/_feature/app/NbPageEditor";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string, nbPage: string }> }) {
     const { topicId, nbPage } = await params;
@@ -28,8 +30,21 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
 
     if (error) return <ErrorView message={error.message}/>;
 
-    return <div>
-        <NbPageNavbar/>
-        <p className="p-4 text-lg">Reading page <b>{fileName}</b> from the notebook of the topic with ID={topicId}.</p>
-    </div>
+    async function save(content: any) {
+        "use server";
+        return;
+    }
+
+    return <NotebookPageProvider
+        initialContent={[]}
+        saveAction={save}
+    >
+        <div className="w-full h-full flex flex-col items-stretch">
+            <NbPageNavbar/>
+            <p className="p-4 text-lg">
+                Reading page <b>{fileName}</b> from the notebook of the topic with ID={topicId}...
+            </p>
+            <NbPageEditor/>
+        </div>
+    </NotebookPageProvider>
 }

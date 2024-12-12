@@ -27,8 +27,6 @@ export default function NotebookSidebarPages() {
     const pageNavigation = useCallback((page: FileObject) => {
         const name = atob(page.name.replace(/\.json$/, ""));
 
-        console.log(page)
-
         return <AccordionItem
             key={page.id}
             title={<Link href={`/topics/${topicId}/notebook/${page.id}`} underline="hover" color="foreground">
