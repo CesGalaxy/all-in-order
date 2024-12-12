@@ -16,13 +16,17 @@ export default async function createNotebookPage(topicId: number | string, _prev
 
     const user = await getUser();
 
+    const fileName = btoa(name);
+    const path = getNotebookRootPath(topicId, user.id) + fileName + ".json";
+    const metadata = { name };
+
     const supabaseClient = await getSupabase();
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
         .storage
         .from("notebooks")
-        .upload(getNotebookRootPath(topicId, user.id) + name.trim() + ".txt", "");
+        .upload(path, "", { metadata });
 
     if (error) return mountActionState(mountActionError({ db: [error.message] }));
 
-    redirect(`/topics/${topicId}/notebook/${data?.id}`);
+    redirect(`/topics/${topicId}/notebook/${fileName}`);
 }

@@ -6,17 +6,14 @@ import { getNotebookRootPath } from "@/app/topics/[topicId]/notebook/_feature/he
 import { getUser } from "@/supabase/auth/user";
 import { redirect } from "next/navigation";
 
-export default async function deleteNotebookPage(topicId: number | string, name: string): Promise<ActionResponse<never>> {
-    if (name.length < 3) return mountActionError({ name: ["Name must be at least 3 characters"] });
-    if (name.length > 32) return mountActionError({ name: ["Name must be at most 32 characters"] });
-
+export default async function deleteNotebookPage(topicId: number | string, fileName: string): Promise<ActionResponse<never>> {
     const user = await getUser();
 
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient
         .storage
         .from("notebooks")
-        .remove([getNotebookRootPath(topicId, user.id) + name]);
+        .remove([getNotebookRootPath(topicId, user.id) + fileName]);
 
     if (error) return mountActionError({ db: [error.message] });
 

@@ -25,14 +25,16 @@ export default function NotebookSidebarPages() {
     } = useNotebook();
 
     const pageNavigation = useCallback((page: FileObject) => {
-        const title = page.name.replace(/\.txt$/, "");
+        const name = atob(page.name.replace(/\.json$/, ""));
+
+        console.log(page)
 
         return <AccordionItem
             key={page.id}
             title={<Link href={`/topics/${topicId}/notebook/${page.id}`} underline="hover" color="foreground">
-                {title}
+                {name}
             </Link>}
-            textValue={title}
+            textValue={name}
             classNames={{ heading: "group" }}
             startContent={<div>
                 <Dropdown>
