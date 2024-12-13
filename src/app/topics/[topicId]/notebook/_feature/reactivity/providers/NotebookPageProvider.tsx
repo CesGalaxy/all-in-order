@@ -2,21 +2,20 @@
 
 import { ReactNode, useCallback, useState } from "react";
 import NotebookPageContext from "@/app/topics/[topicId]/notebook/_feature/reactivity/context/NotebookPageContext";
+import { JSONContent } from "novel";
 
 export interface NotebookPageProviderProps {
-    initialContent: any;
-    saveAction: (content: any) => Promise<void>;
+    initialContent: JSONContent;
+    saveAction: (content: JSONContent) => Promise<boolean>;
     children?: ReactNode;
 }
 
 function NotebookPageProvider({ initialContent, saveAction, children }: NotebookPageProviderProps) {
-    const [content, setContent] = useState(initialContent);
+    const [content, setContent] = useState<JSONContent>(initialContent);
 
-    const save = useCallback(async () => {
-        await saveAction(content);
-    }, [saveAction, content]);
+    const saveContent = useCallback(() => saveAction(content), [saveAction, content]);
 
-    return <NotebookPageContext.Provider value={{ content, setContent }}>
+    return <NotebookPageContext.Provider value={{ content, setContent, saveContent }}>
         {children}
     </NotebookPageContext.Provider>
 }

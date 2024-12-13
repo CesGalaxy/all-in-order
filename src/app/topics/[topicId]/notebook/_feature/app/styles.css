@@ -1,4 +1,5 @@
 .ProseMirror {
+    @apply font-sans;
 }
 
 .ProseMirror .is-editor-empty:first-child::before {

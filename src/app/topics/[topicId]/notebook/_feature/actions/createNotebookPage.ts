@@ -24,7 +24,7 @@ export default async function createNotebookPage(topicId: number | string, _prev
     const { error } = await supabaseClient
         .storage
         .from("notebooks")
-        .upload(path, "", { metadata });
+        .upload(path, "{}", { metadata });
 
     if (error) return mountActionState(mountActionError({ db: [error.message] }));
 

@@ -29,7 +29,8 @@ export default function NotebookSidebarPages() {
 
         return <AccordionItem
             key={page.id}
-            title={<Link href={`/topics/${topicId}/notebook/${page.id}`} underline="hover" color="foreground">
+            title={<Link href={`/topics/${topicId}/notebook/${page.name.replace(/\.json$/, "")}`} underline="hover"
+                         color="foreground">
                 {name}
             </Link>}
             textValue={name}
@@ -63,8 +64,10 @@ export default function NotebookSidebarPages() {
     }, [deletePage, topicId]);
 
     return <div className="min-w-48 max-w-96 py-2">
-        <header className="mb-2 px-2 flex items-center justify-between font-medium text-lg">
-            <h1>Notebook</h1>
+        <header className="mb-2 px-2 flex items-center justify-between">
+            <Link href={`/topics/${topicId}/notebook`} color="foreground" className="font-medium text-lg">
+                <h1>Notebook</h1>
+            </Link>
             <Popover placement="bottom-start">
                 <PopoverTrigger>
                     <Button size="sm" isIconOnly isLoading={refreshingPages || isCreatingPage || !!optimisticPage}>

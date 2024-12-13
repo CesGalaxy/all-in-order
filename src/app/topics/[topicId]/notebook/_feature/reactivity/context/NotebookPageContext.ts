@@ -1,8 +1,10 @@
 import { createContext } from "react";
+import { JSONContent } from "novel";
 
 export interface NotebookPageContextData {
-    content: any;
-    setContent: (content: any) => void;
+    content: JSONContent;
+    setContent: (content: JSONContent) => void;
+    saveContent: () => Promise<boolean>;
 }
 
 const NotebookPageContext = createContext<NotebookPageContextData | null>(null);
