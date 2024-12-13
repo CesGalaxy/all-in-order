@@ -99,15 +99,15 @@ const NodeSelector = () => {
                 <span className='whitespace-nowrap text-sm'>{activeItem.name}</span>
             </Button>
         </PopoverTrigger>
-        <PopoverContent className='w-48 p-1'>
+        <PopoverContent className='w-48 p-1 items-start'>
             {items.map((item, index) => (
                 <EditorBubbleItem
                     key={index}
                     onSelect={(editor) => {
                         item.command(editor);
                     }}
-                    className='flex cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-accent'>
-                    <div className='flex items-center space-x-2'>
+                    className='flex cursor-pointer justify-between rounded px-2 py-1 text-sm hover:bg-content2 items-center'>
+                    <div className='flex gap-x-2'>
                         <div className='rounded-sm border p-1'>
                             <item.icon className='h-3 w-3'/>
                         </div>
