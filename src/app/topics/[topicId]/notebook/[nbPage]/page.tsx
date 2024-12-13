@@ -8,6 +8,32 @@ import NbPageNavbar from "@/app/topics/[topicId]/notebook/_feature/components/na
 import NotebookPageProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookPageProvider";
 import NbPageEditor from "@/app/topics/[topicId]/notebook/_feature/app/NbPageEditor";
 import { JSONContent } from "novel";
+import { cache } from "react";
+
+const getDocInfo = cache(async (path: string) => {
+    const supabaseClient = await getSupabase();
+    return await supabaseClient
+        .storage
+        .from("authenticated/notebooks")
+        .info(path);
+});
+
+export async function generateMetadata({ params }: { params: { topicId: string, nbPage: string } }) {
+    const { topicId, nbPage } = params;
+
+    const fileName = decodeURIComponent(nbPage);
+
+    const user = await getUser();
+
+    const path = getNotebookRootPath(topicId, user.id, fileName) + ".json";
+    const { data, error } = await getDocInfo(path);
+
+    if (error) return {};
+
+    return {
+        title: `${atob(fileName)} - Notebook`,
+    }
+}
 
 export default async function Page({ params }: { params: Promise<{ topicId: string, nbPage: string }> }) {
     const { topicId, nbPage } = await params;
@@ -20,10 +46,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
 
     const supabaseClient = await getSupabase();
     const [{ data: info, error: infoError }, { data, error }] = await Promise.all([
-        supabaseClient
-            .storage
-            .from("authenticated/notebooks")
-            .info(path),
+        getDocInfo(path),
         supabaseClient
             .storage
             .from("notebooks")
