@@ -4,11 +4,9 @@ import ErrorView from "@/components/views/ErrorView";
 import { getUser } from "@/supabase/auth/user";
 import getSupabase, { createSupabaseServerClient } from "@/supabase/server";
 import { getNotebookRootPath } from "@/app/topics/[topicId]/notebook/_feature/helpers/names";
-import NbPageNavbar from "@/app/topics/[topicId]/notebook/_feature/components/navigation/NbPageNavbar";
-import NotebookPageProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookPageProvider";
-import NbPageEditor from "@/app/topics/[topicId]/notebook/_feature/app/NbPageEditor";
 import { JSONContent } from "novel";
 import { cache } from "react";
+import NbPageEditTemplate from "@/app/topics/[topicId]/notebook/_feature/components/templates/NbPageEditTemplate";
 
 const getDocInfo = cache(async (path: string) => {
     const supabaseClient = await getSupabase();
@@ -18,7 +16,16 @@ const getDocInfo = cache(async (path: string) => {
         .info(path);
 });
 
-export async function generateMetadata({ params }: { params: Promise<{ topicId: string, nbPage: string }> }) {
+interface Params {
+    topicId: string;
+    nbPage: string;
+}
+
+interface SearchParams {
+    viewMode?: string;
+}
+
+export async function generateMetadata({ params }: { params: Promise<Params> }) {
     const { topicId, nbPage } = await params;
 
     const fileName = decodeURIComponent(nbPage);
@@ -35,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ topicId: 
     }
 }
 
-export default async function Page({ params }: { params: Promise<{ topicId: string, nbPage: string }> }) {
+export default async function Page({ params }: { params: Promise<Params>, searchParams: Promise<SearchParams> }) {
     const { topicId, nbPage } = await params;
 
     const fileName = decodeURIComponent(nbPage);
@@ -56,6 +63,8 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
     if (infoError) return <ErrorView message={infoError.message}/>;
     if (error) return <ErrorView message={error.message}/>;
 
+    const rawContent = await data.text();
+
     async function save(content: JSONContent) {
         "use server";
         const supabaseClient = await createSupabaseServerClient();
@@ -66,23 +75,10 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
         return !error;
     }
 
-    const rawContent = await data.text();
-
     try {
         const content = JSON.parse(rawContent) as JSONContent;
 
-        return <NotebookPageProvider
-            initialContent={content}
-            saveAction={save}
-        >
-            <div className="w-full h-full flex flex-col items-stretch">
-                <NbPageNavbar/>
-                {/*<p className="p-4 text-lg">*/}
-                {/*    Reading page <b>{fileName}</b> from the notebook of the topic with ID={topicId}...*/}
-                {/*</p>*/}
-                <NbPageEditor/>
-            </div>
-        </NotebookPageProvider>
+        return <NbPageEditTemplate content={content} saveAction={save} file={info}/>;
     } catch (e) {
         console.log(e)
         return <ErrorView message={"Error reading file contents"}/>;
