@@ -3,6 +3,7 @@
 import "./styles.css";
 import useNotebookPage from "@/app/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebookPage";
 import {
+    EditorBubble,
     EditorCommand,
     EditorCommandEmpty,
     EditorCommandItem,
@@ -13,6 +14,9 @@ import {
 import { defaultExtensions } from "@/app/topics/[topicId]/notebook/_feature/app/extensions";
 import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "@/app/topics/[topicId]/notebook/_feature/app/suggestions";
+import NodeSelector from "@/app/topics/[topicId]/notebook/_feature/app/selectors/NodeSelector";
+import TextButtons from "@/app/topics/[topicId]/notebook/_feature/app/selectors/TextButtons";
+import { Divider } from "@nextui-org/divider";
 
 export default function NbPageEditor() {
     const { content, setContent } = useNotebookPage();
@@ -62,6 +66,15 @@ export default function NbPageEditor() {
                     ))}
                 </EditorCommandList>
             </EditorCommand>
+            <EditorBubble
+                tippyOptions={{
+                    placement: "top",
+                }}
+                className='flex w-fit max-w-[90vw] overflow-hidden rounded-full bg-background'>
+                <NodeSelector/>
+                <Divider orientation="vertical"/>
+                <TextButtons/>
+            </EditorBubble>
         </EditorContent>
     </EditorRoot>;
 }

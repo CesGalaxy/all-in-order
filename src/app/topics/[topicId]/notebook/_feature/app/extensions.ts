@@ -1,4 +1,6 @@
 import {
+    GlobalDragHandle,
+    HighlightExtension,
     HorizontalRule,
     Placeholder,
     StarterKit,
@@ -83,4 +85,7 @@ export const defaultExtensions: any[] = [
     taskList,
     taskItem,
     horizontalRule,
+    HighlightExtension,
+    GlobalDragHandle,
+    // TiptapUnderline
 ];
