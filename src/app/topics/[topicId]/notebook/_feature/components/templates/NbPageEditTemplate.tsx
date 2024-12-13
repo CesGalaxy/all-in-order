@@ -3,8 +3,7 @@ import NotebookPageProvider from "@/app/topics/[topicId]/notebook/_feature/react
 import NbPageNavbar from "@/app/topics/[topicId]/notebook/_feature/components/navigation/NbPageNavbar";
 import NbPageEditor from "@/app/topics/[topicId]/notebook/_feature/app/NbPageEditor";
 import type { Camelize, FileObjectV2 } from "@supabase/storage-js";
-import { Button } from "@nextui-org/button";
-import { IconCategory } from "@tabler/icons-react";
+import NbPageFAB from "@/app/topics/[topicId]/notebook/_feature/components/navigation/NbPageFAB";
 
 export interface NbPageEditTemplateProps {
     content: JSONContent,
@@ -23,9 +22,7 @@ export default function NbPageEditTemplate({ content, saveAction, file }: NbPage
             {/*    Reading page <b>{fileName}</b> from the notebook of the topic with ID={topicId}...*/}
             {/*</p>*/}
             <NbPageEditor/>
-            <Button isIconOnly size="lg" radius="full" className="absolute bottom-4 right-4" variant="light">
-                <IconCategory/>
-            </Button>
+            <NbPageFAB/>
         </div>
     </NotebookPageProvider>
 
