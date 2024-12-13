@@ -89,7 +89,7 @@ const items: SelectorItem[] = [
 const NodeSelector = () => {
     const { editor } = useEditor();
     if (!editor) return null;
-    const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
+    const activeItem = items.filter(item => item.isActive(editor)).pop() ?? {
         name: "Multiple",
     };
 

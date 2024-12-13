@@ -18,8 +18,8 @@ const getDocInfo = cache(async (path: string) => {
         .info(path);
 });
 
-export async function generateMetadata({ params }: { params: { topicId: string, nbPage: string } }) {
-    const { topicId, nbPage } = params;
+export async function generateMetadata({ params }: { params: Promise<{ topicId: string, nbPage: string }> }) {
+    const { topicId, nbPage } = await params;
 
     const fileName = decodeURIComponent(nbPage);
 
