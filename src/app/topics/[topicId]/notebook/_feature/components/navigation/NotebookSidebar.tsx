@@ -88,32 +88,32 @@ export default function NotebookSidebar() {
                         </Tooltip>
                         <DropdownMenu>
                             <DropdownSection showDivider>
-                                <DropdownItem startContent={<IconScript/>}>
+                                <DropdownItem key="macros" startContent={<IconScript/>}>
                                     Macros
                                 </DropdownItem>
-                                <DropdownItem startContent={<IconCode/>}>
+                                <DropdownItem key="devs" startContent={<IconCode/>}>
                                     Developers
                                 </DropdownItem>
-                                <DropdownItem startContent={<IconHistoryToggle/>}>
+                                <DropdownItem key="history" startContent={<IconHistoryToggle/>}>
                                     History
                                 </DropdownItem>
                             </DropdownSection>
                             <DropdownSection showDivider>
-                                <DropdownItem startContent={<IconLayout/>}>
+                                <DropdownItem key="layout" startContent={<IconLayout/>}>
                                     Layout
                                 </DropdownItem>
-                                <DropdownItem startContent={<IconFlask/>}>
+                                <DropdownItem key="experiments" startContent={<IconFlask/>}>
                                     Experiments
                                 </DropdownItem>
                             </DropdownSection>
                             <DropdownSection>
-                                <DropdownItem startContent={<IconHelp/>}>
+                                <DropdownItem key="help" startContent={<IconHelp/>}>
                                     Help & docs
                                 </DropdownItem>
-                                <DropdownItem startContent={<IconAccessible/>}>
+                                <DropdownItem key="accessibility" startContent={<IconAccessible/>}>
                                     Accessibility
                                 </DropdownItem>
-                                <DropdownItem startContent={<IconTool/>}>
+                                <DropdownItem key="preferences" startContent={<IconTool/>}>
                                     Preferences
                                 </DropdownItem>
                             </DropdownSection>

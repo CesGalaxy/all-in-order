@@ -7,16 +7,13 @@ import { Button } from "@nextui-org/button";
 import { toast } from "react-toastify";
 import { IconAdjustments } from "@tabler/icons-react";
 import { useDisclosure } from "@nextui-org/modal";
-import { Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@nextui-org/drawer";
+import { Drawer } from "@nextui-org/drawer";
 import type { Camelize, FileObjectV2 } from "@supabase/storage-js";
-import { Divider } from "@nextui-org/divider";
-import TodoInfo from "@/components/dev/TodoInfo";
+import NbPageDetailsDrawer from "@/app/topics/[topicId]/notebook/_feature/components/modals/NbPageDetailsDrawer";
 
 export default function NbPageNavbar({ file }: { file: Camelize<FileObjectV2> }) {
     const { saveContent } = useNotebookPage();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-    console.log(file)
 
     const name = atob(file.name.split("/")[2].replace(".json", ""));
 
@@ -59,21 +56,7 @@ export default function NbPageNavbar({ file }: { file: Camelize<FileObjectV2> })
         </Navbar>
         <Drawer isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} isKeyboardDismissDisabled
                 hideCloseButton>
-            <DrawerContent>{onClose => <>
-                <DrawerHeader>{name}</DrawerHeader>
-                <DrawerBody>
-                    <TodoInfo>Add page options</TodoInfo>
-                </DrawerBody>
-                <Divider/>
-                <DrawerFooter className="grid grid-cols-2">
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                        Cancel
-                    </Button>
-                    <Button color="primary" onPress={onClose}>
-                        Save
-                    </Button>
-                </DrawerFooter>
-            </>}</DrawerContent>
+            <NbPageDetailsDrawer name={name}/>
         </Drawer>
     </>;
 }

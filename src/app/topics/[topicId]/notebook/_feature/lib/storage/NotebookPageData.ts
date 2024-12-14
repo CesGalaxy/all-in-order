@@ -1,12 +1,19 @@
+import { JSONContent } from "novel";
+
 export default interface NotebookPageData {
     appearance: {
         font: {
-            family: string;
-            size: number;
+            family: string,
         },
-        page: {
-            fullWidth: boolean;
-            width: number;
+    },
+    content: JSONContent,
+};
+
+export const BlankNotebookPage: NotebookPageData = {
+    appearance: {
+        font: {
+            family: "sans",
         },
-    }
-}
+    },
+    content: {},
+};

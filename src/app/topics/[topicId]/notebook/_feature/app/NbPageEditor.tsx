@@ -19,7 +19,7 @@ import TextButtons from "@/app/topics/[topicId]/notebook/_feature/app/selectors/
 import { Divider } from "@nextui-org/divider";
 
 export default function NbPageEditor() {
-    const { content, setContent } = useNotebookPage();
+    const { data: { appearance, content }, setContent } = useNotebookPage();
 
     return <EditorRoot>
         <EditorContent
@@ -37,8 +37,10 @@ export default function NbPageEditor() {
                     keydown: (_view, event) => handleCommandNavigation(event),
                 },
                 attributes: {
-                    class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full h-full flex-grow`,
-                }
+                    class: "prose prose-lg dark:prose-invert -prose-headings:font-title -font-default " +
+                        "focus:outline-none max-w-full h-full flex-grow " +
+                        (appearance.font.family),
+                },
             }}
             immediatelyRender={false}
             className="relative flex-grow w-full border-muted rounded-3xl vt-name-[doc-e-wrapper] flex flex-col pt-4 px-4 pb-16"

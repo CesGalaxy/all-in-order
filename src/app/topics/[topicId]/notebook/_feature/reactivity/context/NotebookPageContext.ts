@@ -1,8 +1,10 @@
-import { createContext } from "react";
-import { JSONContent } from "novel";
+import { createContext, type Dispatch, type SetStateAction } from "react";
+import type { JSONContent } from "novel";
+import type NotebookPageData from "@/app/topics/[topicId]/notebook/_feature/lib/storage/NotebookPageData";
 
 export interface NotebookPageContextData {
-    content: JSONContent;
+    data: NotebookPageData;
+    setData: Dispatch<SetStateAction<NotebookPageData>>;
     setContent: (content: JSONContent) => void;
     saveContent: () => Promise<boolean>;
 }

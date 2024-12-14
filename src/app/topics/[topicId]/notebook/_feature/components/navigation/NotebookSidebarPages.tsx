@@ -46,11 +46,11 @@ export default function NotebookSidebarPages() {
                     </DropdownTrigger>
                     <DropdownMenu>
                         <DropdownSection showDivider>
-                            <DropdownItem startContent={<IconWriting/>}>Rename</DropdownItem>
-                            <DropdownItem startContent={<IconTool/>}>Properties</DropdownItem>
+                            <DropdownItem key="rename" startContent={<IconWriting/>}>Rename</DropdownItem>
+                            <DropdownItem key="props" startContent={<IconTool/>}>Properties</DropdownItem>
                         </DropdownSection>
                         <DropdownSection>
-                            <DropdownItem startContent={<IconTrash/>} color="danger"
+                            <DropdownItem key="delete" startContent={<IconTrash/>} color="danger"
                                           onPress={() => deletePage(page.name)}>Delete</DropdownItem>
                         </DropdownSection>
                     </DropdownMenu>
@@ -63,7 +63,7 @@ export default function NotebookSidebarPages() {
         </AccordionItem>;
     }, [deletePage, topicId]);
 
-    return <div className="min-w-48 max-w-96 py-2">
+    return <div className="min-w-48 max-w-96 py-2 h-full flex flex-col">
         <header className="mb-2 px-2 flex items-center justify-between">
             <Link href={`/topics/${topicId}/notebook`} color="foreground" className="font-medium text-lg">
                 <h1>Notebook</h1>
@@ -96,7 +96,7 @@ export default function NotebookSidebarPages() {
                 </PopoverContent>
             </Popover>
         </header>
-        <nav>
+        <nav className="flex-grow">
             <Accordion isCompact>
                 {[
                     optimisticPage && <AccordionItem
@@ -109,5 +109,14 @@ export default function NotebookSidebarPages() {
                 ]}
             </Accordion>
         </nav>
+        <footer className="w-full px-2 flex">
+            <Input
+                placeholder="Search..."
+                className="w-min flex-grow"
+                radius="full"
+                variant="faded"
+                size="sm"
+            />
+        </footer>
     </div>
 }

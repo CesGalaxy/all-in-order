@@ -5,6 +5,7 @@ import getSupabase from "@/supabase/server";
 import { getNotebookRootPath } from "@/app/topics/[topicId]/notebook/_feature/helpers/names";
 import { getUser } from "@/supabase/auth/user";
 import { redirect } from "next/navigation";
+import { BlankNotebookPage } from "@/app/topics/[topicId]/notebook/_feature/lib/storage/NotebookPageData";
 
 export type CreateNotebookPageResponse = ActionResponse<never>;
 
@@ -24,7 +25,7 @@ export default async function createNotebookPage(topicId: number | string, _prev
     const { error } = await supabaseClient
         .storage
         .from("notebooks")
-        .upload(path, "{}", { metadata });
+        .upload(path, JSON.stringify(BlankNotebookPage), { metadata });
 
     if (error) return mountActionState(mountActionError({ db: [error.message] }));
 

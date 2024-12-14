@@ -2,6 +2,18 @@
     @apply font-sans;
 }
 
+.ProseMirror.serif {
+    @apply font-serif;
+}
+
+.ProseMirror.sans {
+    @apply font-sans;
+}
+
+.ProseMirror.mono {
+    @apply font-mono;
+}
+
 .ProseMirror .is-editor-empty:first-child::before {
     content: attr(data-placeholder);
     float: left;
