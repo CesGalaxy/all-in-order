@@ -48,6 +48,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                     href={`/practices/${practiceId}/attempts`}
                     startContent={<IconHistory/>}
                     description="Review your previous attempts"
+                    key="attempts"
                 >
                     {t('App.attempts')}
                 </DropdownItem>
@@ -55,6 +56,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                     href={`/practices/${practiceId}/stats`}
                     startContent={<IconChartHistogram/>}
                     description="Check how you have evolved"
+                    key="stats"
                 >
                     Progress & stats
                 </DropdownItem>
@@ -64,6 +66,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                     href={`/practices/${practiceId}`}
                     startContent={<IconEye/>}
                     description="Preview & edit the questions"
+                    key="details"
                 >
                     Details
                 </DropdownItem>
@@ -71,6 +74,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                     href={`/practices/${practiceId}/edit`}
                     startContent={<IconEdit/>}
                     description="Edit the practice details"
+                    key="edit"
                 >
                     {t('Global.edit')}
                 </DropdownItem>
@@ -80,6 +84,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                     description="Permanently delete this practice"
                     color="danger"
                     className="text-danger"
+                    key="delete"
                 >
                     {t("Global.delete")}
                 </DropdownItem>

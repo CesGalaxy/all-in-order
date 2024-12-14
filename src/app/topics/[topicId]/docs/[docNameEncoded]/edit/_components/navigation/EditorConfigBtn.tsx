@@ -10,9 +10,9 @@ export default function EditorConfigBtn() {
             <Button isIconOnly radius="full" variant="light"><IconSettings/></Button>
         </DropdownTrigger>
         <DropdownMenu>
-            <DropdownItem>Accessibility</DropdownItem>
-            <DropdownItem>Color theme</DropdownItem>
-            <DropdownItem>Preferences</DropdownItem>
+            <DropdownItem key="accessibility">Accessibility</DropdownItem>
+            <DropdownItem key="color-theme">Color theme</DropdownItem>
+            <DropdownItem key="preferences">Preferences</DropdownItem>
         </DropdownMenu>
     </Dropdown>;
 }

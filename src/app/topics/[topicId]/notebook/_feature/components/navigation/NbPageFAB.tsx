@@ -12,13 +12,13 @@ export default function NbPageFAB() {
             </Button>
         </DropdownTrigger>
         <DropdownMenu>
-            <DropdownItem startContent={<IconDownload/>} shortcut="⌘⇧D">
+            <DropdownItem key="download" startContent={<IconDownload/>} shortcut="⌘⇧D">
                 Download
             </DropdownItem>
-            <DropdownItem startContent={<IconPrinter/>} shortcut="⌘P">
+            <DropdownItem key="print" startContent={<IconPrinter/>} shortcut="⌘P">
                 Print
             </DropdownItem>
-            <DropdownItem startContent={<IconDeviceFloppy/>} shortcut="⌘S">
+            <DropdownItem key="save" startContent={<IconDeviceFloppy/>} shortcut="⌘S">
                 Save
             </DropdownItem>
         </DropdownMenu>

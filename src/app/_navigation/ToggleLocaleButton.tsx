@@ -15,14 +15,17 @@ function ToggleLocaleButton() {
         </DropdownTrigger>
         <DropdownMenu>
             <DropdownItem
+                key="en"
                 onPress={() => updateLocale('en')}
                 startContent={<Avatar alt="English" className="w-6 h-6" src="https://flagcdn.com/gb.svg"/>}
             >English</DropdownItem>
             <DropdownItem
+                key="es"
                 onPress={() => updateLocale('es')}
                 startContent={<Avatar alt="Español" className="w-6 h-6" src="https://flagcdn.com/es.svg"/>}
             >Español</DropdownItem>
             <DropdownItem
+                key="val"
                 onPress={() => updateLocale('val')}
                 startContent={<Avatar alt="Valenciá" className="w-6 h-6"
                                       src="https://upload.wikimedia.org/wikipedia/commons/1/16/Flag_of_the_Valencian_Community_%282x3%29.svg"/>}
