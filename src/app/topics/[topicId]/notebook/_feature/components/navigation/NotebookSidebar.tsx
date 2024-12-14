@@ -27,7 +27,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger 
 
 export default function NotebookSidebar() {
     return <aside
-        className="bg-content2 sticky top-16 h-[calc(100vh-64px)] min-w-16 divide-y-large divide-y-reverse divide-divider"
+        className="bg-content2 sticky top-16 h-[calc(100vh-64px)] min-w-16 divide-y-large divide-y-reverse divide-divider shrink-0"
     >
         <div className="divide-x-large flex divide-divider h-full w-full">
             <nav className="w-16 flex flex-col items-center justify-between py-4">

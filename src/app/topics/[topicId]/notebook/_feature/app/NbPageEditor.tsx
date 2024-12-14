@@ -11,15 +11,18 @@ import {
     EditorContent,
     EditorRoot
 } from "novel";
-import { defaultExtensions } from "@/app/topics/[topicId]/notebook/_feature/app/extensions";
 import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "@/app/topics/[topicId]/notebook/_feature/app/suggestions";
 import NodeSelector from "@/app/topics/[topicId]/notebook/_feature/app/selectors/NodeSelector";
 import TextButtons from "@/app/topics/[topicId]/notebook/_feature/app/selectors/TextButtons";
 import { Divider } from "@nextui-org/divider";
+import { useMemo } from "react";
+import configureExtensions from "@/app/topics/[topicId]/notebook/_feature/app/configureExtensions";
 
 export default function NbPageEditor() {
-    const { data: { appearance, content }, setContent } = useNotebookPage();
+    const { data: { appearance, content }, setContent, setTocItems } = useNotebookPage();
+
+    const extensions = useMemo(() => [...configureExtensions({ setTocItems }), slashCommand], []);
 
     return <EditorRoot>
         <EditorContent
@@ -28,7 +31,7 @@ export default function NbPageEditor() {
                 const json = editor.getJSON();
                 setContent(json);
             }}
-            extensions={[...defaultExtensions, slashCommand]}
+            extensions={extensions}
             editorContainerProps={{
                 className: "w-full h-full flex-grow flex flex-col max-w-[1024px] mx-auto",
             }}
