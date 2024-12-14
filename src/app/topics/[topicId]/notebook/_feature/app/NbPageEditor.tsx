@@ -22,7 +22,7 @@ import configureExtensions from "@/app/topics/[topicId]/notebook/_feature/app/co
 export default function NbPageEditor() {
     const { data: { appearance, content }, setContent, setTocItems } = useNotebookPage();
 
-    const extensions = useMemo(() => [...configureExtensions({ setTocItems }), slashCommand], []);
+    const extensions = useMemo(() => [...configureExtensions({ setTocItems }), slashCommand], [setTocItems]);
 
     return <EditorRoot>
         <EditorContent
@@ -46,7 +46,7 @@ export default function NbPageEditor() {
                 },
             }}
             immediatelyRender={false}
-            className="relative flex-grow w-full border-muted rounded-3xl vt-name-[doc-e-wrapper] flex flex-col pt-4 px-4 pb-16"
+            className="relative flex-grow w-full border-muted rounded-3xl vt-name-[doc-e-wrapper] flex flex-col px-4 py-16"
         >
             <EditorCommand
                 className='z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-divider bg-background px-1 py-2 shadow-md transition-all'>

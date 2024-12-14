@@ -65,13 +65,14 @@ export default async function Page({ params }: { params: Promise<Params>, search
 
     const rawContent = await download.text();
 
-    async function save(data: NotebookPageData) {
+    async function save(data: string) {
         "use server";
         const supabaseClient = await createSupabaseServerClient();
         const { error } = await supabaseClient
             .storage
             .from("notebooks")
-            .update(path, JSON.stringify(data));
+            .update(path, data);
+        console.log(error)
         return !error;
     }
 

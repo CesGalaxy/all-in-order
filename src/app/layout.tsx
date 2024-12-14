@@ -39,7 +39,7 @@ export default function RootLayout({ children }: Readonly<{
     getMaybeMyProfile().then();
 
     return <ViewTransitions>
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning className="scroll-smooth">
         <body className={kanit.className + " bg-background text-foreground w-full h-screen transition-background"}>
         <Providers>
             <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">

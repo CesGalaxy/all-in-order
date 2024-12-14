@@ -8,7 +8,7 @@ import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
 
 export interface NotebookPageProviderProps {
     initialData: NotebookPageData;
-    saveAction: (content: NotebookPageData) => Promise<boolean>;
+    saveAction: (content: string) => Promise<boolean>;
     children?: ReactNode;
 }
 
@@ -17,7 +17,7 @@ function NotebookPageProvider({ initialData, saveAction, children }: NotebookPag
     const [tocItems, setTocItems] = useState<TableOfContentData>([]);
 
     const setContent = useCallback((content: JSONContent) => setData({ ...data, content }), [data]);
-    const saveContent = useCallback(() => saveAction(data), [saveAction, data]);
+    const saveContent = useCallback(() => saveAction(JSON.stringify(data)), [saveAction, data]);
 
     return <NotebookPageContext.Provider value={{ data, setData, setContent, saveContent, tocItems, setTocItems }}>
         {children}

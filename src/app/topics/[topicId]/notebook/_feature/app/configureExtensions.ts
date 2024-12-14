@@ -50,6 +50,7 @@ export default function configureExtensions({ setTocItems }: Props): any[] {
                 spellcheck: "false"
             }
         },
+        heading: { HTMLAttributes: { class: "scroll-mt-20" } },
         horizontalRule: false,
         dropcursor: { color: "#DBEAFE", width: 4, },
         gapcursor: false,

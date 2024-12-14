@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
 import { Link } from "@nextui-org/link";
+import { EditorInstance } from "novel";
 
 const LEVEL_CLASS = [
     "text-xl",
@@ -15,18 +16,20 @@ const LEVEL_CLASS = [
 
 export interface NbPageTableOfContentsProps {
     items?: TableOfContentData;
-    editor?: any;
+    editor?: EditorInstance;
 }
 
 export default function NbPageTableOfContents({ items = [], editor }: NbPageTableOfContentsProps) {
     const onItemClick = useCallback((e: any, id: string) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (!editor) return;
 
         const element = editor.view.dom.querySelector(`[data-toc-id="${id}"`)
+        if (!element) return;
         const pos = editor.view.posAtDOM(element, 0)
 
         const tr = editor.view.state.tr
+        tr.setSelection(editor.view.state.selection.constructor(tr.doc.resolve(pos)))
         // tr.setSelection(new TextSelection(tr.doc.resolve(pos)))
         editor.view.dispatch(tr);
         editor.view.focus();
@@ -34,7 +37,7 @@ export default function NbPageTableOfContents({ items = [], editor }: NbPageTabl
         // if (history.pushState) history.pushState(null, "", `#${id}`);
 
         window.scrollTo({
-            top: element.getBoundingClientRect().top + window.scrollY,
+            top: element.getBoundingClientRect().top + window.scrollY - 50,
             behavior: 'smooth',
         });
     }, [editor]);
@@ -47,7 +50,7 @@ export default function NbPageTableOfContents({ items = [], editor }: NbPageTabl
         key={item.id}
         className={
             `${
-                item.isActive && !item.isScrolledOver ? 'bg-primary-200 hover:bg-primary-500' : 'hover:bg-gray-100'
+                item.isActive && !item.isScrolledOver ? 'bg-primary-200 hover:bg-primary-500' : 'hover:bg-default-100'
             } ${
                 item.isScrolledOver ? '--text-primary' : ''
             } block py-2 px-4 rounded-xl ${LEVEL_CLASS[item.level - 1]}`
@@ -55,7 +58,7 @@ export default function NbPageTableOfContents({ items = [], editor }: NbPageTabl
         color="foreground"
         href={`#${item.id}`}
         underline="hover"
-        // onClick={e => onItemClick(e, item.id)}
+        onPress={e => onItemClick(e, item.id)}
         data-item-index={item.itemIndex}
     >
         {item.textContent}

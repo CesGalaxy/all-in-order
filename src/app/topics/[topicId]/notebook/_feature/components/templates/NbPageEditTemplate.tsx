@@ -7,7 +7,7 @@ import NotebookPageData from "@/app/topics/[topicId]/notebook/_feature/lib/stora
 
 export interface NbPageEditTemplateProps {
     data: NotebookPageData,
-    saveAction: (content: NotebookPageData) => Promise<boolean>,
+    saveAction: (content: string) => Promise<boolean>,
     file: Camelize<FileObjectV2>
 }
 
