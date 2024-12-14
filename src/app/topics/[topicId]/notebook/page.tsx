@@ -6,7 +6,8 @@ import ErrorView from "@/components/views/ErrorView";
 
 export default async function Page({ params }: { params: Promise<{ topicId: number }> }) {
     const { topicId } = await params;
-    const { files, error } = await getNotebook(topicId);
+
+    const { files, error } = await getNotebook(topicId)
 
     if (error) return <ErrorView message={"Unknown error:" + error}/>;
 

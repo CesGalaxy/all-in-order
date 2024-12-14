@@ -113,6 +113,35 @@ export type Database = {
           },
         ]
       }
+      nb_vocabulary: {
+        Row: {
+          areas: Json
+          definitions: Json
+          topic: number
+          user: string
+        }
+        Insert: {
+          areas: Json
+          definitions: Json
+          topic: number
+          user: string
+        }
+        Update: {
+          areas?: Json
+          definitions?: Json
+          topic?: number
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nb_vocabulary_topic_fkey"
+            columns: ["topic"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       practice_activities: {
         Row: {
           activity_id: number

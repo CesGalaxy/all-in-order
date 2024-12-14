@@ -9,6 +9,9 @@ import { FileObject } from "@supabase/storage-js";
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import DeleteNotebookPageModal
     from "@/app/topics/[topicId]/notebook/_feature/components/modals/DeleteNotebookPageModal";
+import { NotebookVocabularyData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookVocabularyData";
+import NotebookVocabularyProvider
+    from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookVocabularyProvider";
 
 export interface PagesOptimistic {
     pages: FileObject[],
@@ -18,10 +21,18 @@ export interface PagesOptimistic {
 export interface NotebookProviderProps {
     topicId: number | string;
     initialPages?: FileObject[];
+    initialVocabulary?: NotebookVocabularyData | null;
+    userId: string;
     children: ReactNode;
 }
 
-export default function NotebookProvider({ children, initialPages, topicId }: NotebookProviderProps) {
+export default function NotebookProvider({
+                                             children,
+                                             initialPages,
+                                             topicId,
+                                             initialVocabulary,
+                                             userId,
+                                         }: NotebookProviderProps) {
     const [{ pages, optimisticPage }, addOptimisticPage] = useOptimistic<PagesOptimistic, string>(
         { pages: initialPages ?? [] },
         (state, title) => ({
@@ -57,10 +68,12 @@ export default function NotebookProvider({ children, initialPages, topicId }: No
         deletePage,
         topicId,
     }}>
-        {children}
-        {deleteModalSelected &&
-            <Modal isOpen={deleteModalDisclosure.isOpen} onOpenChange={deleteModalDisclosure.onOpenChange}>
-                <DeleteNotebookPageModal topicId={topicId} name={deleteModalSelected}/>
-            </Modal>}
+        <NotebookVocabularyProvider initialVocabulary={initialVocabulary || undefined} userId={userId}>
+            {children}
+            {deleteModalSelected &&
+                <Modal isOpen={deleteModalDisclosure.isOpen} onOpenChange={deleteModalDisclosure.onOpenChange}>
+                    <DeleteNotebookPageModal topicId={topicId} name={deleteModalSelected}/>
+                </Modal>}
+        </NotebookVocabularyProvider>
     </NotebookContext.Provider>
 }

@@ -3,6 +3,6 @@ import NotebookPageContext from "@/app/topics/[topicId]/notebook/_feature/reacti
 
 export default function useNotebookPage() {
     const context = useContext(NotebookPageContext);
-    if (!context) throw new Error("useNotebook must be used within a NotebookProvider");
+    if (!context) throw new Error("useNotebookPage must be used within a NotebookPageProvider");
     return context;
 }

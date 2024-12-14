@@ -5,6 +5,7 @@ import NotebookSidebar from "@/app/topics/[topicId]/notebook/_feature/components
 import getNotebook from "@/app/topics/[topicId]/notebook/_feature/cache/getNotebook";
 import ErrorView from "@/components/views/ErrorView";
 import NotebookProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookProvider";
+import { getUser } from "@/supabase/auth/user";
 
 
 export default async function Layout({ params, children }: Readonly<{
@@ -12,11 +13,13 @@ export default async function Layout({ params, children }: Readonly<{
     children: ReactNode
 }>) {
     const { topicId } = await params;
-    const { error, files } = await getNotebook(topicId);
+    const { error, files, vocabulary } = await getNotebook(topicId);
 
     if (error) return <ErrorView message={"Unknown error:" + error}/>;
 
-    return <NotebookProvider topicId={topicId} initialPages={files}>
+    const user = await getUser();
+
+    return <NotebookProvider topicId={topicId} initialPages={files} initialVocabulary={vocabulary} userId={user.id}>
         <div className="flex w-full h-full flex-grow">
             <NotebookSidebar/>
             <div className="flex-grow overflow-auto flex flex-col bg-content2">
