@@ -7,19 +7,25 @@ import ErrorView from "@/components/views/ErrorView";
 import NotebookProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookProvider";
 import { getUser } from "@/supabase/auth/user";
 
-
 export default async function Layout({ params, children }: Readonly<{
     params: Promise<{ topicId: string }>,
     children: ReactNode
 }>) {
     const { topicId } = await params;
-    const { error, files, vocabulary } = await getNotebook(topicId);
+    const nb = await getNotebook(topicId);
 
-    if (error) return <ErrorView message={"Unknown error:" + error}/>;
+    if ("error" in nb) return <ErrorView message={"Unknown error @ " + nb.error}>
+        <pre className="bg-slate-800 mt-4 max-w-3xl text-wrap rounded-xl py-2 px-4 text-danger-400 shadow-xl">
+            {JSON.stringify(nb.errorData, null, 2)}
+        </pre>
+    </ErrorView>;
 
     const user = await getUser();
+    const { data, files } = nb;
 
-    return <NotebookProvider topicId={topicId} initialPages={files} initialVocabulary={vocabulary} userId={user.id}>
+    console.log(data);
+
+    return <NotebookProvider topicId={parseInt(topicId)} initialPages={files} initialData={data} userId={user.id}>
         <div className="flex w-full h-full flex-grow">
             <NotebookSidebar/>
             <div className="flex-grow overflow-auto flex flex-col bg-content2">

@@ -1,20 +1,21 @@
 "use client";
 
-import {
-    NotebookVocabularyArea,
-    NotebookVocabularyData,
-    NotebookVocabularyDefinition
-} from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookVocabularyData";
 import { createContext, Dispatch, SetStateAction } from "react";
 import { ActionResponse } from "@/lib/helpers/form";
+import { NotebookVocabularyAreaData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
+import {
+    NewNotebookVocabularyArea,
+    NewNotebookVocabularyDefinition
+} from "@/app/topics/[topicId]/notebook/_feature/actions/vocabulary";
+import { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 
 export interface NotebookVocabularyContextValue {
-    areas: Record<string, NotebookVocabularyArea>;
-    definitions: Record<string, NotebookVocabularyDefinition>;
-    setData: Dispatch<SetStateAction<NotebookVocabularyData>>;
-    addDefinitions: (definitions: Record<string, NotebookVocabularyDefinition>) => Promise<ActionResponse<null>>;
+    areas: NotebookVocabularyAreaData[];
+    setAreas: Dispatch<SetStateAction<NotebookVocabularyAreaData[]>>;
+    addDefinitionsState: ActionFunctionState<ActionResponse<null>, [definitions: NewNotebookVocabularyDefinition[]]>
+    addAreasState: ActionFunctionState<ActionResponse<null>, [areas: NewNotebookVocabularyArea[]]>
     showAddDefinitionsModal: () => void;
-    loading: boolean;
+    showAddAreasModal: () => void;
 }
 
 const NotebookVocabularyContext = createContext<NotebookVocabularyContextValue | null>(null);

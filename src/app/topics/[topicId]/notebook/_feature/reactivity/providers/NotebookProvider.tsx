@@ -9,9 +9,9 @@ import { FileObject } from "@supabase/storage-js";
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import DeleteNotebookPageModal
     from "@/app/topics/[topicId]/notebook/_feature/components/modals/DeleteNotebookPageModal";
-import { NotebookVocabularyData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookVocabularyData";
 import NotebookVocabularyProvider
     from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookVocabularyProvider";
+import { NotebookData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
 
 export interface PagesOptimistic {
     pages: FileObject[],
@@ -19,18 +19,18 @@ export interface PagesOptimistic {
 }
 
 export interface NotebookProviderProps {
-    topicId: number | string;
+    topicId: number;
+    initialData: NotebookData;
     initialPages?: FileObject[];
-    initialVocabulary?: NotebookVocabularyData | null;
     userId: string;
     children: ReactNode;
 }
 
 export default function NotebookProvider({
                                              children,
+                                             initialData: { areas: initialVocabularyAreas, ...initialData },
                                              initialPages,
                                              topicId,
-                                             initialVocabulary,
                                              userId,
                                          }: NotebookProviderProps) {
     const [{ pages, optimisticPage }, addOptimisticPage] = useOptimistic<PagesOptimistic, string>(
@@ -67,8 +67,10 @@ export default function NotebookProvider({
         isCreatingPage,
         deletePage,
         topicId,
+        // TODO: Add realtime updates
+        entity: initialData,
     }}>
-        <NotebookVocabularyProvider initialVocabulary={initialVocabulary || undefined} userId={userId}>
+        <NotebookVocabularyProvider initialVocabularyAreas={initialVocabularyAreas} userId={userId}>
             {children}
             {deleteModalSelected &&
                 <Modal isOpen={deleteModalDisclosure.isOpen} onOpenChange={deleteModalDisclosure.onOpenChange}>

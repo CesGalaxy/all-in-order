@@ -18,7 +18,7 @@ export default async function createNotebookPage(topicId: number | string, _prev
     const user = await getUser();
 
     const fileName = btoa(name);
-    const path = getNotebookRootPath(topicId, user.id) + fileName + ".json";
+    const path = getNotebookRootPath(topicId, user.id, fileName) + ".json";
     const metadata = { name };
 
     const supabaseClient = await getSupabase();

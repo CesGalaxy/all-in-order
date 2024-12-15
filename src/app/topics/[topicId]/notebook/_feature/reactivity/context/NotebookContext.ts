@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { CreateNotebookPageResponse } from "@/app/topics/[topicId]/notebook/_feature/actions/createNotebookPage";
 import { FileObject } from "@supabase/storage-js";
+import { NotebookEntity } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
 
 export interface NotebookContextData {
     pages: FileObject[];
@@ -11,7 +12,8 @@ export interface NotebookContextData {
     createPageState?: CreateNotebookPageResponse;
     isCreatingPage: boolean;
     deletePage: (name: string) => void;
-    topicId: number | string;
+    topicId: number;
+    entity: NotebookEntity;
 }
 
 const NotebookContext = createContext<NotebookContextData | null>(null);

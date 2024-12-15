@@ -10,18 +10,23 @@ import useNotebookVocabulary from "@/app/topics/[topicId]/notebook/_feature/reac
 
 export default function NotebookSidebarVocabulary() {
     const { topicId } = useNotebook();
-    const { showAddDefinitionsModal } = useNotebookVocabulary();
+    const {
+        addDefinitionsState: [loading],
+        showAddDefinitionsModal,
+        showAddAreasModal,
+        areas
+    } = useNotebookVocabulary();
 
     return <div className="min-w-48 max-w-96 py-2 h-full flex flex-col">
         <header className="mb-2 px-2 flex items-center justify-between">
             <Link href={`/topics/${topicId}/notebook/vocabulary`} color="foreground" className="font-medium text-lg">
                 <h1>Vocabulary</h1>
             </Link>
-            <Dropdown placement="bottom-start">
+            <Dropdown placement="bottom-start" isDisabled={loading}>
                 <Tooltip content={"Add more content"}>
                     <div>
                         <DropdownTrigger>
-                            <Button size="sm" isIconOnly>
+                            <Button size="sm" isIconOnly isLoading={loading}>
                                 <IconTextPlus/>
                             </Button>
                         </DropdownTrigger>
@@ -32,10 +37,23 @@ export default function NotebookSidebarVocabulary() {
                         key="definition"
                         startContent={<IconPencilPlus/>}
                         onPress={showAddDefinitionsModal}
+                        isDisabled={!areas || areas.length === 0}
                     >Definition</DropdownItem>
-                    <DropdownItem key="area" startContent={<IconFolderPlus/>}>Area</DropdownItem>
+                    <DropdownItem
+                        key="area"
+                        startContent={<IconFolderPlus/>}
+                        onPress={showAddAreasModal}
+                    >Area</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
         </header>
+        <ul>
+            {areas.map(area => <li key={area.id} className="px-2 py-1">
+                <Link href={`/topics/${topicId}/notebook/vocabulary/${area.name}`} color="foreground"
+                      className="font-medium" isBlock size="lg">
+                    {area.icon} {area.name}
+                </Link>
+            </li>)}
+        </ul>
     </div>;
 }

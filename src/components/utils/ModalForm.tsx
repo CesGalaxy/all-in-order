@@ -1,5 +1,12 @@
 "use client";
 
+// Dear developer,
+// This piece of shit works, it really does.
+// Do yourself a favor, and don't touch it!
+// I've never made such complex code
+// don't ask me about it.
+// ~ César 2024
+
 import {
     ActionErrors,
     ActionResponse,
@@ -10,7 +17,7 @@ import {
 import { type ComponentProps, type ReactElement, type ReactNode, useCallback, useEffect, useState } from "react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button, ButtonProps } from "@nextui-org/button";
-import useActionFunction from "@/reactivity/hooks/useActionFunction";
+import useActionFunction, { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 
 /**
@@ -33,9 +40,15 @@ export type ModalFormAction<T, E extends string> = (formData: FormData) => (
  * @template E - The type of the error keys.
  */
 export interface ModalFormProps<T, E extends string> {
+    // Modal settings
     title: ReactNode;
     modalProps?: Partial<Omit<ComponentProps<typeof ModalContent>, "children">>;
+
+    // Action function
     action?: ModalFormAction<T, E> | null;
+    altActionState?: ActionFunctionState<ActionResponse<T, E>, [formData: FormData]>;
+
+    // Action button
     buttonLabel?: ReactNode | null;
     buttonIcon?: ReactNode | null;
     buttonProps?: Omit<ButtonProps, "children" | "startContent" | "formAction" | "type">;
@@ -43,10 +56,16 @@ export interface ModalFormProps<T, E extends string> {
     buttonRequireConfirmation?: boolean | null;
     buttonConfirmationTimeout?: number;
     isFormValid: boolean;
+
+    // The cancel button (close modal)
+    hideCancelButton?: null | boolean;
+
+    // Handle response
     handleResponse?: null | "close" | ((response: ActionResponse<T, E>, onClose: () => void) => void);
     handleSuccess?: null | "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
     handleError?: null | "close" | ((error: FailedActionResponse<E>, onClose: () => void) => void);
-    hideCancelButton?: null | boolean;
+
+    // Children & footer
     footer?: ReactNode;
     children?: ReactNode;
 }
@@ -58,48 +77,56 @@ export interface ModalFormProps<T, E extends string> {
  * @param {ModalFormProps<T, E>} props - The props for the ModalForm component.
  * @returns {JSX.Element} - The rendered ModalForm component.
  */
-function ModalForm<
-    T,
-    E extends string,
->({
-      title,
-      action,
-      modalProps: { as: modalAs = "form", ...modalProps } = {},
-      buttonLabel = "Ok",
-      buttonIcon,
-      buttonProps: { className = "", isDisabled: forceDisable, isLoading: forceLoad, ...buttonProps } = {},
-      buttonInitialWait,
-      buttonRequireConfirmation,
-      buttonConfirmationTimeout = 5000,
-      isFormValid,
-      handleResponse,
-      handleSuccess,
-      handleError,
-      hideCancelButton = false,
-      footer,
-      children,
-  }: ModalFormProps<T, E>): ReactElement<any> {
+function ModalForm<T, E extends string>({
+                                            title,
+                                            action,
+                                            altActionState,
+                                            modalProps: { as: modalAs = "form", ...modalProps } = {},
+                                            buttonLabel = "Ok",
+                                            buttonIcon,
+                                            buttonProps: {
+                                                className = "",
+                                                isDisabled: forceDisable,
+                                                isLoading: forceLoad,
+                                                ...buttonProps
+                                            } = {},
+                                            buttonInitialWait,
+                                            buttonRequireConfirmation,
+                                            buttonConfirmationTimeout = 5000,
+                                            isFormValid,
+                                            handleResponse,
+                                            handleSuccess,
+                                            handleError,
+                                            hideCancelButton = false,
+                                            footer,
+                                            children,
+                                        }: ModalFormProps<T, E>): ReactElement<any> {
+    type ModalErrors = E | "submit";
+
     // Handle form submission
-    const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, E | "submit"> | undefined> => {
+    const handleSubmit = useCallback(async (formData: FormData): Promise<ActionResponse<T, ModalErrors> | undefined> => {
         if (!action) return {
             ok: false,
-            errors: { submit: ["No action provided. This is probably an internal error"] } as ActionErrors<E | "submit">
-        } satisfies FailedActionResponse<E | "submit">;
+            errors: { submit: ["No action provided. This is probably an internal error"] } as ActionErrors<ModalErrors>
+        } satisfies FailedActionResponse<ModalErrors>;
 
         const act = action(formData);
 
-        if (typeof act === "string") {
-            return mountActionError({ submit: [act] } as ActionErrors<E | "submit">);
-        } else if (act instanceof Promise) {
+        if (typeof act === "string")
+            return mountActionError({ submit: [act] } as ActionErrors<ModalErrors>);
+        else if (act instanceof Promise)
             return await act;
-        } else if (typeof act === "object" && act !== null && act !== undefined && Object.values(act).every(Array.isArray)) {
+        else if (typeof act === "object" && act !== null && !Array.isArray(act) && Object.values(act).every(Array.isArray))
             return mountActionError(act);
-        } else {
-            return mountActionError({ submit: ["Invalid action"] } as ActionErrors<E | "submit">);
-        }
+        else
+            return mountActionError({ submit: ["Invalid action"] } as ActionErrors<ModalErrors>);
     }, [action]);
 
-    const [loading, result, formAction] = useActionFunction(handleSubmit);
+    // Action state
+    const automaticActionState = useActionFunction(handleSubmit);
+    const [loading, result, formAction] = altActionState || automaticActionState;
+
+    // Submission confirmation state
     const [waiting, setWaiting] = useState(Boolean(buttonInitialWait));
     const [pendingConfirmation, setPendingConfirmation] = useState(false);
 
@@ -146,7 +173,8 @@ function ModalForm<
                             return;
                         }
 
-                        if (handleResponse === "close") onClose(); else if (handleResponse) handleResponse(response, onClose);
+                        if (handleResponse === "close") onClose();
+                        else if (handleResponse) handleResponse(response, onClose);
 
                         if (response.ok) {
                             if (handleSuccess === "close") onClose();

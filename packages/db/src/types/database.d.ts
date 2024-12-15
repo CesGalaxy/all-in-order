@@ -113,28 +113,126 @@ export type Database = {
           },
         ]
       }
-      nb_vocabulary: {
+      nb_vocab_areas: {
         Row: {
-          areas: Json
-          definitions: Json
+          color: number
+          created_at: string
+          description: string
+          icon: string | null
+          id: number
+          name: string
+          notebook: number
+          notes: string
+          updated_at: string | null
+        }
+        Insert: {
+          color: number
+          created_at?: string
+          description: string
+          icon?: string | null
+          id?: number
+          name: string
+          notebook: number
+          notes: string
+          updated_at?: string | null
+        }
+        Update: {
+          color?: number
+          created_at?: string
+          description?: string
+          icon?: string | null
+          id?: number
+          name?: string
+          notebook?: number
+          notes?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nb_vocab_areas_notebook_fkey"
+            columns: ["notebook"]
+            isOneToOne: false
+            referencedRelation: "notebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nb_vocab_definitions: {
+        Row: {
+          area: number | null
+          created_at: string
+          definition: string
+          id: number
+          notebook: number
+          notes: string | null
+          term: string
+          updated_at: string | null
+        }
+        Insert: {
+          area?: number | null
+          created_at?: string
+          definition: string
+          id?: number
+          notebook: number
+          notes?: string | null
+          term: string
+          updated_at?: string | null
+        }
+        Update: {
+          area?: number | null
+          created_at?: string
+          definition?: string
+          id?: number
+          notebook?: number
+          notes?: string | null
+          term?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nb_vocab_definitions_area_fkey"
+            columns: ["area"]
+            isOneToOne: false
+            referencedRelation: "nb_vocab_areas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nb_vocab_definitions_notebook_fkey"
+            columns: ["notebook"]
+            isOneToOne: false
+            referencedRelation: "notebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notebooks: {
+        Row: {
+          color: number | null
+          created_at: string
+          id: number
+          is_active: boolean
           topic: number
           user: string
         }
         Insert: {
-          areas: Json
-          definitions: Json
+          color?: number | null
+          created_at?: string
+          id?: number
+          is_active?: boolean
           topic: number
           user: string
         }
         Update: {
-          areas?: Json
-          definitions?: Json
+          color?: number | null
+          created_at?: string
+          id?: number
+          is_active?: boolean
           topic?: number
           user?: string
         }
         Relationships: [
           {
-            foreignKeyName: "nb_vocabulary_topic_fkey"
+            foreignKeyName: "notebooks_topic_fkey"
             columns: ["topic"]
             isOneToOne: false
             referencedRelation: "topics"

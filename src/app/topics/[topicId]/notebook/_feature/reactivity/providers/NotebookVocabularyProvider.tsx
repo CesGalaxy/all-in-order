@@ -1,45 +1,41 @@
 "use client";
 
-import { type ReactNode, useCallback, useEffect, useState } from "react";
-import {
-    NotebookVocabularyData,
-    NotebookVocabularyDefinition
-} from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookVocabularyData";
+import { type ReactNode, useEffect, useState } from "react";
 import NotebookVocabularyContext
     from "@/app/topics/[topicId]/notebook/_feature/reactivity/context/NotebookVocabularyContext";
 import { createSupabaseClient } from "@/supabase/client";
 import useNotebook from "@/app/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebook";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
-import updateNotebookVocabulary from "@/app/topics/[topicId]/notebook/_feature/actions/updateNotebookVocabulary";
 import { Modal, useDisclosure } from "@nextui-org/modal";
 import NbAddDefinitionsModal from "@/app/topics/[topicId]/notebook/_feature/components/modals/NbAddDefinitionsModal";
-
-const DEFAULT_VOCABULARY: NotebookVocabularyData = {
-    definitions: {},
-    areas: {}
-}
+import { NotebookVocabularyAreaData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
+import {
+    addNotebookVocabularyAreas,
+    addNotebookVocabularyDefinitions
+} from "@/app/topics/[topicId]/notebook/_feature/actions/vocabulary";
+import NbAddAreasModal from "@/app/topics/[topicId]/notebook/_feature/components/modals/NbAddAreasModal";
 
 export interface NotebookVocabularyProviderProps {
-    initialVocabulary?: NotebookVocabularyData;
+    initialVocabularyAreas: NotebookVocabularyAreaData[];
     userId: string;
     children?: ReactNode;
 }
 
 export default function NotebookVocabularyProvider({
                                                        children,
-                                                       initialVocabulary,
+                                                       initialVocabularyAreas,
                                                        userId
                                                    }: NotebookVocabularyProviderProps) {
-    const { topicId } = useNotebook();
-    const [data, setData] = useState<NotebookVocabularyData>(initialVocabulary || DEFAULT_VOCABULARY);
+    const { topicId, entity: { id: notebookId } } = useNotebook();
+    const [areas, setAreas] = useState<NotebookVocabularyAreaData[]>(initialVocabularyAreas);
 
-    const [loading, _, updateVocabulary] = useActionFunction(updateNotebookVocabulary.bind(null, topicId));
-
-    const addDefinitions = useCallback((definitions: Record<string, NotebookVocabularyDefinition>) =>
-            updateVocabulary({ ...data.definitions, ...definitions }),
-        [data.definitions, updateVocabulary]);
-
+    // Definitions -> Add
+    const addDefinitionsState = useActionFunction(addNotebookVocabularyDefinitions.bind(null, topicId));
     const addDefinitionsModalDisclosure = useDisclosure();
+
+    // Areas -> Add
+    const addAreasState = useActionFunction(addNotebookVocabularyAreas.bind(null, topicId));
+    const addAreasModalDisclosure = useDisclosure();
 
     useEffect(() => {
         const subscription = createSupabaseClient()
@@ -47,14 +43,22 @@ export default function NotebookVocabularyProvider({
             .on(
                 'postgres_changes',
                 {
-                    event: 'UPDATE',
+                    event: '*',
                     schema: 'public',
-                    table: 'nb_vocabulary',
-                    filter: 'topic=eq.' + topicId + '&user=eq.' + userId
+                    table: 'nb_vocab_areas',
+                    filter: 'notebook=eq.' + notebookId,
                 },
-                payload => {
-                    console.log(payload);
-                }
+                payload => console.log(payload)
+            )
+            .on(
+                'postgres_changes',
+                {
+                    event: '*',
+                    schema: 'public',
+                    table: 'nb_vocab_definitions',
+                    filter: 'notebook=eq.' + notebookId,
+                },
+                payload => console.log(payload)
             )
             .subscribe();
 
@@ -63,18 +67,22 @@ export default function NotebookVocabularyProvider({
                 .then(() => console.log("Unsubscribed"))
                 .catch(console.error);
         }
-    }, [topicId, userId]);
+    }, [notebookId, topicId, userId]);
 
     return <NotebookVocabularyContext.Provider value={{
-        ...data,
-        setData,
-        addDefinitions,
-        loading,
-        showAddDefinitionsModal: addDefinitionsModalDisclosure.onOpen
+        areas,
+        setAreas,
+        addDefinitionsState,
+        addAreasState,
+        showAddDefinitionsModal: addDefinitionsModalDisclosure.onOpen,
+        showAddAreasModal: addAreasModalDisclosure.onOpen
     }}>
         {children}
         <Modal onOpenChange={addDefinitionsModalDisclosure.onOpenChange} isOpen={addDefinitionsModalDisclosure.isOpen}>
             <NbAddDefinitionsModal/>
+        </Modal>
+        <Modal onOpenChange={addAreasModalDisclosure.onOpenChange} isOpen={addAreasModalDisclosure.isOpen}>
+            <NbAddAreasModal/>
         </Modal>
     </NotebookVocabularyContext.Provider>
 }
