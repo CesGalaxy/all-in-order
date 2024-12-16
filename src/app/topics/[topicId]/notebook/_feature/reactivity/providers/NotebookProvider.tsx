@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useActionState, useCallback, useOptimistic, useState } from "react";
+import { type ReactNode, useActionState, useCallback, useEffect, useOptimistic, useState } from "react";
 import NotebookContext from "@/app/topics/[topicId]/notebook/_feature/reactivity/context/NotebookContext";
 import createNotebookPage, {
     CreateNotebookPageResponse
@@ -12,6 +12,9 @@ import DeleteNotebookPageModal
 import NotebookVocabularyProvider
     from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookVocabularyProvider";
 import { NotebookData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
+import { Topic } from "@aio/db/entities";
+import getTopicData from "@/app/topics/[topicId]/(hub)/query";
+import { toast } from "react-toastify";
 
 export interface PagesOptimistic {
     pages: FileObject[],
@@ -41,6 +44,8 @@ export default function NotebookProvider({
         }),
     );
 
+    const [topic, setTopic] = useState<Topic>();
+
     const [createPageState, createPageAction, isCreatingPage] =
         useActionState<CreateNotebookPageResponse | undefined, FormData>(createNotebookPage.bind(null, 9), undefined);
 
@@ -57,6 +62,16 @@ export default function NotebookProvider({
         deleteModalDisclosure.onOpen();
     }, [deleteModalDisclosure]);
 
+    useEffect(() => {
+        if (!topic) {
+            getTopicData(topicId).then(({ data, error }) => {
+                console.log(data, error);
+                if (data) setTopic(data);
+                if (error) toast.error("Failed to load topic data");
+            });
+        }
+    }, [topic, topicId])
+
     return <NotebookContext.Provider value={{
         pages,
         optimisticPage,
@@ -66,6 +81,7 @@ export default function NotebookProvider({
         createPageState,
         isCreatingPage,
         deletePage,
+        topic,
         topicId,
         // TODO: Add realtime updates
         entity: initialData,

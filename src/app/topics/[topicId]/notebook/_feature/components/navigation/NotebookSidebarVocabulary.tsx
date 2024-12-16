@@ -47,9 +47,10 @@ export default function NotebookSidebarVocabulary() {
                 </DropdownMenu>
             </Dropdown>
         </header>
-        <ul>
+        <ul className="flex gap-2 flex-wrap">
             {areas.map(area => <li key={area.id} className="px-2 py-1">
-                <Link href={`/topics/${topicId}/notebook/vocabulary/${area.name}`} color="foreground"
+                <Link href={`/topics/${topicId}/notebook/vocabulary/${encodeURIComponent(area.name)}`}
+                      color="foreground"
                       className="font-medium" isBlock size="lg">
                     {area.icon} {area.name}
                 </Link>
