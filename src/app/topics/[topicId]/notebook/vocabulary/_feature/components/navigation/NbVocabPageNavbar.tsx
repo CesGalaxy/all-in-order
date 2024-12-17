@@ -26,6 +26,8 @@ import { Button, ButtonGroup, ButtonGroupProvider } from "@nextui-org/button";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import useNotebook from "@/app/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebook";
+import NbVocabAreaDownloadOptions
+    from "@/app/topics/[topicId]/notebook/vocabulary/_feature/components/navigation/NbVocabAreaDownloadOptions";
 
 const PRACTICE_MODES = [
     {
@@ -79,9 +81,14 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
             <Button size="lg" isIconOnly variant="light">
                 <IconPrinter/>
             </Button>
-            <Button size="lg" isIconOnly variant="light">
-                <IconDownload/>
-            </Button>
+            <Popover>
+                <PopoverTrigger>
+                    <Button size="lg" isIconOnly variant="light">
+                        <IconDownload/>
+                    </Button>
+                </PopoverTrigger>
+                <NbVocabAreaDownloadOptions/>
+            </Popover>
             <Button size="lg" isIconOnly variant="light">
                 <IconShare/>
             </Button>
@@ -131,40 +138,38 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
                         <PopoverTrigger>
                             <Button isIconOnly><IconChevronDown/></Button>
                         </PopoverTrigger>
-                        <PopoverContent>{titleProps => <>
-                            <div className="px-1 py-2 w-full min-w-64 flex flex-col gap-2">
-                                <p className="text-small font-bold text-foreground" {...titleProps}>
-                                    Stats
-                                </p>
-                                <ul className="divide-y divide-divider">
-                                    <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
-                                        <IconPercentage size={32}/>
-                                        <span className="flex flex-col flex-start">
+                        <PopoverContent>{titleProps => <div className="px-1 py-2 w-full min-w-64 flex flex-col gap-2">
+                            <p className="text-small font-bold text-foreground" {...titleProps}>
+                                Stats
+                            </p>
+                            <ul className="divide-y divide-divider">
+                                <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
+                                    <IconPercentage size={32}/>
+                                    <span className="flex flex-col flex-start">
                                             <span>Perfection</span>
                                             <b>100%</b>
                                         </span>
-                                    </li>
-                                    <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
-                                        <IconMeteor size={32}/>
-                                        <span className="flex flex-col flex-start">
+                                </li>
+                                <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
+                                    <IconMeteor size={32}/>
+                                    <span className="flex flex-col flex-start">
                                             <span>Attempts</span>
                                             <b>12</b>
                                         </span>
-                                    </li>
-                                    <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
-                                        <IconTimeline size={32}/>
-                                        <span className="flex flex-col flex-start">
+                                </li>
+                                <li className="flex gap-4 items-center bg-content2 hover:bg-content3 first:rounded-t-xl last:rounded-b-xl py-1 px-2">
+                                    <IconTimeline size={32}/>
+                                    <span className="flex flex-col flex-start">
                                             <span>Latest attempt</span>
                                             <b>Yesterday</b>
                                         </span>
-                                    </li>
-                                </ul>
-                                <ButtonGroupProvider value={undefined as any}>
-                                    <Button startContent={<IconShare/>}>Share</Button>
-                                    <Button color="danger" startContent={<IconTrash/>}>Delete</Button>
-                                </ButtonGroupProvider>
-                            </div>
-                        </>}</PopoverContent>
+                                </li>
+                            </ul>
+                            <ButtonGroupProvider value={undefined as any}>
+                                <Button startContent={<IconShare/>}>Share</Button>
+                                <Button color="danger" startContent={<IconTrash/>}>Delete</Button>
+                            </ButtonGroupProvider>
+                        </div>}</PopoverContent>
                     </Popover>
                 </ButtonGroup>
             </NavbarItem>
