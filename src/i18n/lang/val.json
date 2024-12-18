@@ -17,7 +17,7 @@
     "practice": "Practica",
     "resources": "Recursos",
     "score": "Puntuació",
-    "subjects": "Matéries",
+    "subjects": "Matèries",
     "tasks": "Tasques",
     "tests": "Tests",
     "topics": "Temes"
@@ -32,7 +32,7 @@
   "Dash": {
     "Course": {
       "new_create": "Crear un curs nou!",
-      "no_public": "No hi han cusros públics!"
+      "no_public": "No hi han cursos públics!"
     },
     "Note": {
       "create": "Crear una nota",
@@ -48,11 +48,11 @@
       "untitled": "Nota sense títol"
     },
     "Practice": {
-      "quick": "Lessó ràpida"
+      "quick": "Lliçó ràpida"
     },
     "Subject": {
       "delete": "Eliminar matèria",
-      "delete_desc": "Eliminar la marèria de forma permanent",
+      "delete_desc": "Eliminar la matèria de forma permanent",
       "download": "Descarregar matèria",
       "download_desc": "Descarregar les dades de la matèria",
       "edit": "Editar matèria",
@@ -112,7 +112,7 @@
     "options": "Opcions",
     "save": "Guarda",
     "settings": "Preferències",
-    "share": "Comperteix",
+    "share": "Comparteix",
     "start": "Començar",
     "storage": "",
     "title": "Títol",

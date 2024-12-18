@@ -16,7 +16,7 @@
     "notes": "Notas",
     "practice": "Practicar",
     "resources": "Recursos",
-    "score": "Puncuación",
+    "score": "Puntuación",
     "subjects": "Materias",
     "tasks": "Tareas",
     "tests": "Tests",
@@ -32,7 +32,7 @@
   "Dash": {
     "Course": {
       "new_create": "Crear un nuevo curso!",
-      "no_public": "No hay cusros públicos!"
+      "no_public": "No hay cursos públicos!"
     },
     "Note": {
       "create": "Crear una nota",
