@@ -23,7 +23,7 @@ import {
     IconVocabulary
 } from "@tabler/icons-react";
 import { Button, ButtonGroup, ButtonGroupProvider } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import useNotebook from "@/app/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebook";
 import NbVocabAreaDownloadOptions
@@ -56,7 +56,7 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
     const { topic, topicId } = useNotebook();
 
     return <Navbar isBordered maxWidth="full">
-        <NavbarContent justify="start">
+        <NavbarContent justify="start" className="hidden lg:flex">
             <NavbarItem>
                 <Breadcrumbs>
                     <BreadcrumbItem
@@ -78,7 +78,7 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
             </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
-            <Button size="lg" isIconOnly variant="light">
+            <Button size="lg" isIconOnly variant="light" className="hidden lg:inline-flex">
                 <IconPrinter/>
             </Button>
             <Popover>
@@ -89,7 +89,7 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
                 </PopoverTrigger>
                 <NbVocabAreaDownloadOptions/>
             </Popover>
-            <Button size="lg" isIconOnly variant="light">
+            <Button size="lg" isIconOnly variant="light" className="hidden lg:inline-flex">
                 <IconShare/>
             </Button>
             <Dropdown>
@@ -108,6 +108,14 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
                     <DropdownItem startContent={<IconClipboardPlus/>} key="add_to_page">
                         Add to page
                     </DropdownItem>
+                    <DropdownSection showDivider title={"More"} className="lg:hidden">
+                        <DropdownItem startContent={<IconPrinter/>} key="print">
+                            Print
+                        </DropdownItem>
+                        <DropdownItem startContent={<IconShare/>} key="share">
+                            Share
+                        </DropdownItem>
+                    </DropdownSection>
                     <DropdownItem color="danger" startContent={<IconTrash/>} key="delete" className="text-danger">
                         Delete
                     </DropdownItem>

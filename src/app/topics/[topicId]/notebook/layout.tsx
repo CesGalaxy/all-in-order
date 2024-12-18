@@ -7,10 +7,9 @@ import ErrorView from "@/components/views/ErrorView";
 import NotebookProvider from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookProvider";
 import { getUser } from "@/supabase/auth/user";
 
-export default async function Layout({ params, children, aside }: Readonly<{
+export default async function Layout({ params, children }: Readonly<{
     params: Promise<{ topicId: string }>,
-    children: ReactNode,
-    aside: ReactNode
+    children: ReactNode
 }>) {
     const { topicId } = await params;
     const nb = await getNotebook(topicId);
@@ -25,15 +24,14 @@ export default async function Layout({ params, children, aside }: Readonly<{
     const { data, files } = nb;
 
     return <NotebookProvider topicId={parseInt(topicId)} initialPages={files} initialData={data} userId={user.id}>
-        <div className="flex w-full h-full flex-grow">
+        <div className="flex flex-col md:flex-row w-full h-full flex-grow">
             <NotebookSidebar/>
             <div className="flex-grow overflow-auto flex flex-col bg-content2">
-                <div className="bg-background rounded-bl-3xl flex-grow">
+                <div className="bg-background rounded-bl-3xl flex-grow flex flex-col">
                     {children}
                 </div>
                 {/* Footer will go here */}
             </div>
-            {aside}
         </div>
     </NotebookProvider>
 }

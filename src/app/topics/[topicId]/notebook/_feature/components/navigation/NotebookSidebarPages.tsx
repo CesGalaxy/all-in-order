@@ -63,9 +63,9 @@ export default function NotebookSidebarPages() {
         </AccordionItem>;
     }, [deletePage, topicId]);
 
-    return <div className="min-w-48 max-w-96 py-2 h-full flex flex-col">
+    return <div className="w-full md:w-auto md:min-w-48 md:max-w-96 py-2 h-full flex flex-col">
         <header className="mb-2 px-2 flex items-center justify-between">
-            <Link href={`/topics/${topicId}/notebook`} color="foreground" className="font-medium text-lg">
+            <Link href={`/topics/${topicId}/notebook`} color="foreground" size="lg" className="font-medium">
                 <h1>Notebook</h1>
             </Link>
             <Popover placement="bottom-start">

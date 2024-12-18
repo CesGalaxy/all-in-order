@@ -17,7 +17,7 @@ export default function NotebookSidebarVocabulary() {
         areas
     } = useNotebookVocabulary();
 
-    return <div className="min-w-48 max-w-96 py-2 h-full flex flex-col">
+    return <div className="w-full md:w-auto md:min-w-48 md:max-w-96 py-2 h-full flex flex-col">
         <header className="mb-2 px-2 flex items-center justify-between">
             <Link href={`/topics/${topicId}/notebook/vocabulary`} color="foreground" className="font-medium text-lg">
                 <h1>Vocabulary</h1>
