@@ -4,9 +4,14 @@
     "tools": "AI Tools"
   },
   "App": {
+    "Actions": {
+      "returnHome": "Return to the home page",
+      "theme_change": "Change theme"
+    },
     "agenda": "Agenda",
     "attempts": "Attempts",
     "calendar": "Calendar",
+    "courses": "Courses",
     "documents": "Documents",
     "notes": "Notes",
     "practice": "Practice",
@@ -18,13 +23,19 @@
     "topics": "Topics"
   },
   "Auth": {
+    "email_example": "someone@example.com",
     "login": "Login",
     "logout": "Logout",
     "sign_up": "Sign Up",
     "signed_in_as": "Signed in as {identity}"
   },
   "Dash": {
+    "Course": {
+      "new_create": "Create a new course!",
+      "no_public": "There are no public courses!"
+    },
     "Note": {
+      "create": "Create a note",
       "delete": "Delete note",
       "delete_description": "Permanently delete the note",
       "edit": "Edit note",
@@ -80,11 +91,14 @@
     },
     "error_occurred": "An error ocurred",
     "go_home": "Go to home",
-    "unexpected_error": "An unexpected error occurred"
+    "unexpected_error": "An unexpected error occurred",
+    "weird_place": "A weird place",
+    "weird_place_you": "You are in a weird place..."
   },
   "Global": {
     "actions": "Actions",
     "cancel": "Cancel",
+    "close": "Close",
     "content": "Content",
     "copy_link": "Copy link",
     "copy_link_description": "Copy the shareable link",
@@ -103,6 +117,7 @@
     "storage": "Storage",
     "title": "Title",
     "viewMore": "View more",
+    "view_all": "View all",
     "web_version": "Web Version"
   },
   "Home": {

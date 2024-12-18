@@ -12,8 +12,10 @@ import JoinCourseButton from "@/collections/course/components/JoinCourseButton";
 import BlankView from "@/components/views/BlankView";
 import noDataImage from "@/assets/pictures/no_data.svg";
 import { Link } from "@nextui-org/link";
+import { getTranslations } from "next-intl/server";
 
 export default async function Courses() {
+    const t = await getTranslations();
     const maybeProfile = await getMaybeMyProfile();
     const supabaseClient = await getSupabase();
 
@@ -38,11 +40,13 @@ export default async function Courses() {
                 </ul>
                 : <BlankView
                     image={noDataImage}
-                    alt="A weird place"
-                    title={"There are no public courses!"}
-                    content={"You are in a weird place."}
+                    alt={t("Extra.weird_place")}
+                    title={t("Dash.Course.no_public")}
+                    content={t("Extra.weird_place_you")}
                 >
-                    <Link href="/" underline="always" size="lg">Return to the home page</Link>
+                    <Link href="/" underline="always" size="lg">
+                        {t("App.Actions.returnHome")}
+                    </Link>
                 </BlankView>
             }
         </PageContainer>;
@@ -60,7 +64,7 @@ export default async function Courses() {
             ? <ul className="w-full gap-4 lg:gap-8 xl:gap-16 grid lg:grid-cols-2 xl:grid-cols-3 auto-rows-min">
                 <Card as="li" className="p-4 justify-center gap-4">
                     <CardHeader as="header" className="font-bold text-3xl justify-center">
-                        Create a new course!
+                        {t("Dash.Course.new_create")}
                     </CardHeader>
                     <CardFooter as="nav" className="flex flex-wrap gap-4 items-center justify-center">
                         <CreateCourseButton/>

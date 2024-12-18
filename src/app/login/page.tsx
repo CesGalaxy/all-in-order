@@ -8,6 +8,7 @@ import { FORM_SCHEMAS, getFormFields } from "@/lib/helpers/form";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/supabase/server";
 import { getMaybeUser } from "@/supabase/auth/user";
+import { getTranslations } from "next-intl/server";
 
 const AUTH_SCHEMA = z.object({
     email: FORM_SCHEMAS.EMAIL,
@@ -21,6 +22,7 @@ export interface SearchParams {
 export default async function Page(props: { searchParams: Promise<SearchParams> }) {
     const { redirectUrl } = await props.searchParams;
 
+    const t = await getTranslations();
     const maybeUser = await getMaybeUser();
 
     if (maybeUser) redirect(redirectUrl || "/app");
@@ -56,15 +58,15 @@ export default async function Page(props: { searchParams: Promise<SearchParams> 
     return <div className="flex items-center justify-center w-full h-full flex-grow">
         <Card className="p-8">
             <CardHeader>
-                <h1 className="text-4xl font-bold uppercase">Login</h1>
+                <h1 className="text-4xl font-bold uppercase">{t("Auth.login")}</h1>
             </CardHeader>
             <CardBody>
                 <form action={login}>
-                    <Input isRequired label="Email" placeholder="someone@example.com" type="email" name="email"/>
+                    <Input isRequired label="Email" placeholder={t("Auth.email_example")} type="email" name="email"/>
                     <br/>
-                    <Input isRequired label="Password" placeholder="" type="password" name="password"/>
+                    <Input isRequired label="Password" type="password" name="password"/>
                     <br/>
-                    <Button color="primary" className="w-full" type="submit">Login</Button>
+                    <Button color="primary" className="w-full" type="submit">{t("Auth.login")}</Button>
                 </form>
             </CardBody>
         </Card>

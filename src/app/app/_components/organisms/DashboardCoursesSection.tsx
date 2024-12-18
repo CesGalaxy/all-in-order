@@ -8,6 +8,7 @@ import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import NoCourses from "@/collections/course/components/views/NoCourses";
+import { getTranslations } from "next-intl/server";
 
 export interface DashboardCoursesSectionProps {
     createCourseAction?: CreateCourseModalAction;
@@ -15,6 +16,8 @@ export interface DashboardCoursesSectionProps {
 }
 
 async function DashboardCoursesSection({ createCourseAction, profileId }: DashboardCoursesSectionProps) {
+    const t = await getTranslations();
+
     return <SectionContainer
         title="My Courses"
         className="xl:col-span-2 w-full"
@@ -27,7 +30,7 @@ async function DashboardCoursesSection({ createCourseAction, profileId }: Dashbo
                 startContent={<IconPlus/>}
                 modal={<CreateCourseModal action={createCourseAction}/>}
             >
-                Create course
+                {t("Dash.Course.new_create")}
             </ModalButton>
         }
     >

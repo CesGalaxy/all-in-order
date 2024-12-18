@@ -4,9 +4,14 @@
     "tools": "Ferramentes amb IA"
   },
   "App": {
+    "Actions": {
+      "returnHome": "Tornar a la pàgina d'inici",
+      "theme_change": "Colors"
+    },
     "agenda": "Agenda",
     "attempts": "Intents",
     "calendar": "Calendari",
+    "courses": "Cursos",
     "documents": "Documents",
     "notes": "Notes",
     "practice": "Practica",
@@ -18,13 +23,19 @@
     "topics": "Temes"
   },
   "Auth": {
+    "email_example": "persona@correu.es",
     "login": "Accedeix",
     "logout": "Tanca sessió",
     "sign_up": "Crear compte",
     "signed_in_as": "Accedint com a {identity}"
   },
   "Dash": {
+    "Course": {
+      "new_create": "Crear un curs nou!",
+      "no_public": "No hi han cusros públics!"
+    },
     "Note": {
+      "create": "Crear una nota",
       "delete": "Eliminar nota",
       "delete_description": "Elimina la nota per sempre",
       "edit": "Editar note",
@@ -80,11 +91,14 @@
     },
     "error_occurred": "Hi ha un error",
     "go_home": "Tornar al inici",
-    "unexpected_error": "Error"
+    "unexpected_error": "Error",
+    "weird_place": "Un lloc misterios",
+    "weird_place_you": "Et trobes a un lloc misterios..."
   },
   "Global": {
     "actions": "Eïnes",
     "cancel": "Cancel·la",
+    "close": "Tanca",
     "content": "Contingut",
     "copy_link": "Copiar enllaç",
     "copy_link_description": "Copia un enllaç per a compartir",
@@ -103,10 +117,11 @@
     "storage": "",
     "title": "Títol",
     "viewMore": "Veure més",
+    "view_all": "Mostra tot",
     "web_version": "Versió web"
   },
   "Home": {
-    "create_resumes_with_ai": "Crea resums amb l'IA",
+    "create_resumes_with_ai": "Crea resums amb l'IA ✨",
     "public_courses": "Cursos Públics"
   },
   "Social": {

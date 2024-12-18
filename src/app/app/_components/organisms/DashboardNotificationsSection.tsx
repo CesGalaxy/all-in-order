@@ -3,8 +3,11 @@ import noDataImage from "@/assets/pictures/no_data.svg";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import { useTranslations } from "next-intl";
 
 export default function DashboardNotificationsSection() {
+    const t = useTranslations();
+    
     return <SectionContainer
         title="Notifications"
         trailing={
@@ -17,7 +20,7 @@ export default function DashboardNotificationsSection() {
                 radius="full"
                 showAnchorIcon
             >
-                View all
+                {t("Global.view_all")}
             </Button>
         }
     >

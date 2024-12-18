@@ -4,9 +4,14 @@
     "tools": "Herramientas IA"
   },
   "App": {
+    "Actions": {
+      "returnHome": "Volver a la página de inicio",
+      "theme_change": "Cambiar tema"
+    },
     "agenda": "Agenda",
     "attempts": "Intentos",
     "calendar": "Calendario",
+    "courses": "Cursos",
     "documents": "Documentos",
     "notes": "Notas",
     "practice": "Practicar",
@@ -18,13 +23,19 @@
     "topics": "Temas"
   },
   "Auth": {
+    "email_example": "alguien@ejemplo.es",
     "login": "Acceder",
     "logout": "Cerrar sesión",
     "sign_up": "Registrarse",
     "signed_in_as": "Accediendo como {identity}"
   },
   "Dash": {
+    "Course": {
+      "new_create": "Crear un nuevo curso!",
+      "no_public": "No hay cusros públicos!"
+    },
     "Note": {
+      "create": "Crear una nota",
       "delete": "Eliminar nota",
       "delete_description": "Eliminar la nota permanentemente",
       "edit": "Editar nota",
@@ -80,11 +91,14 @@
     },
     "error_occurred": "Ha ocurrido un error",
     "go_home": "Volver al inicio",
-    "unexpected_error": "Ha ocurrido un error inesperado"
+    "unexpected_error": "Ha ocurrido un error inesperado",
+    "weird_place": "Un lugar extraño",
+    "weird_place_you": "Estás en un lugar extraño..."
   },
   "Global": {
     "actions": "Acciones",
     "cancel": "Cancelar",
+    "close": "Cerrar",
     "content": "Contenido",
     "copy_link": "Copiar enlace",
     "copy_link_description": "Copia un enlace para compartir",
@@ -103,6 +117,7 @@
     "storage": "",
     "title": "Título",
     "viewMore": "Ver más",
+    "view_all": "Ver todo",
     "web_version": "Versión web"
   },
   "Home": {

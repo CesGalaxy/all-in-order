@@ -25,7 +25,7 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
             radius="full"
             variant="flat"
         >
-            Create a note
+            {t("Dash.Note.create")}
         </ModalButton>}
         className="w-full flex flex-col"
     >

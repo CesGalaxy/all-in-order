@@ -47,7 +47,7 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                     startContent={<IconBrightness/>}
                     onPress={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 >
-                    Change theme
+                    {t("App.Actions.theme_change")}
                 </DropdownItem>
                 <DropdownItem
                     key="logout"
@@ -60,38 +60,34 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
             </DropdownMenu>
         </Dropdown>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-            <ModalContent>
-                {(onClose) => (
-                    <>
-                        <ModalHeader className="flex flex-col gap-1">My Profile</ModalHeader>
-                        <ModalBody>
-                            <Input
-                                isReadOnly
-                                startContent={<IconUser/>}
-                                defaultValue={profile.name}
-                                label="Name"
-                                placeholder="Name"/>
-                            <Input
-                                isReadOnly
-                                startContent={<IconAt/>}
-                                defaultValue={profile.username}
-                                label="Username"
-                                placeholder="Username"/>
-                            <Divider/>
-                            <Textarea
-                                isReadOnly
-                                defaultValue={profile.bio || ""}
-                                label="Bio"
-                                placeholder="Bio"/>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="danger" variant="light" onPress={onClose}>
-                                Close
-                            </Button>
-                        </ModalFooter>
-                    </>
-                )}
-            </ModalContent>
+            <ModalContent>{(onClose) => <>
+                <ModalHeader className="flex flex-col gap-1">My Profile</ModalHeader>
+                <ModalBody>
+                    <Input
+                        isReadOnly
+                        startContent={<IconUser/>}
+                        defaultValue={profile.name}
+                        label="Name"
+                        placeholder="Name"/>
+                    <Input
+                        isReadOnly
+                        startContent={<IconAt/>}
+                        defaultValue={profile.username}
+                        label="Username"
+                        placeholder="Username"/>
+                    <Divider/>
+                    <Textarea
+                        isReadOnly
+                        defaultValue={profile.bio || ""}
+                        label="Bio"
+                        placeholder="Bio"/>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" variant="light" onPress={onClose}>
+                        {t("Global.close")}
+                    </Button>
+                </ModalFooter>
+            </>}</ModalContent>
         </Modal>
     </>;
 }
