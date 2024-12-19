@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: Promise<Params>, search
     if (infoError) return <ErrorView message={infoError.message}/>;
     if (downloadError) return <ErrorView message={downloadError.message}/>;
 
-    async function save(data: string) {
+    async function save(path: string, data: string) {
         "use server";
         const supabaseClient = await createSupabaseServerClient();
         return await supabaseClient.storage.from("notebooks").update(path, data).then(r => !r.error);
@@ -56,7 +56,7 @@ export default async function Page({ params }: { params: Promise<Params>, search
         const rawContent = await download.text();
         const data = JSON.parse(rawContent) as NotebookPageData;
 
-        return <NbPageEditTemplate data={data} saveAction={save} file={info}/>;
+        return <NbPageEditTemplate data={data} saveAction={save.bind(null, path)} file={info}/>;
     } catch (e) {
         console.log(e)
         return <ErrorView message={"Error reading file contents"}/>;

@@ -17,6 +17,7 @@ import {
 import { type ComponentProps, type ReactElement, type ReactNode, useCallback, useEffect, useState } from "react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button, ButtonProps } from "@nextui-org/button";
+import { Divider } from "@nextui-org/divider";
 import useActionFunction, { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 
@@ -32,7 +33,8 @@ export type ModalFormAction<T, E extends string> = (formData: FormData) => (
     | ActionErrors<E | "submit">
     | undefined
     | null
-    | string);
+    | string
+    | void);
 
 /**
  * Props for the ModalForm component.
@@ -65,7 +67,8 @@ export interface ModalFormProps<T, E extends string> {
     handleSuccess?: null | "close" | ((response: SuccessfulActionResponse<T>, onClose: () => void) => void);
     handleError?: null | "close" | ((error: FailedActionResponse<E>, onClose: () => void) => void);
 
-    // Children & footer
+    // Children, footer and other props
+    showFooterDivider?: boolean;
     footer?: ReactNode;
     children?: ReactNode;
 }
@@ -98,6 +101,7 @@ function ModalForm<T, E extends string>({
                                             handleSuccess,
                                             handleError,
                                             hideCancelButton = false,
+                                            showFooterDivider,
                                             footer,
                                             children,
                                         }: ModalFormProps<T, E>): ReactElement<any> {
@@ -147,6 +151,7 @@ function ModalForm<T, E extends string>({
                 {children}
                 {result?.ok === false && result.errors && <ErrorListView errors={result.errors}/>}
             </ModalBody>}
+            {showFooterDivider && <Divider/>}
             <ModalFooter>
                 {footer && <div className="self-center flex-grow w-full">{footer}</div>}
                 {!hideCancelButton && <Button color="danger" variant="flat" onPress={onClose} type="button">

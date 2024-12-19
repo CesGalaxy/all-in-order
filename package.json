@@ -39,7 +39,7 @@
     "@nextui-org/system": "^2.4.2",
     "@nextui-org/table": "^2.2.6",
     "@nextui-org/tabs": "^2.2.5",
-    "@nextui-org/theme": "^2.4.1",
+    "@nextui-org/theme": "^2.4.3",
     "@nextui-org/tooltip": "^2.2.5",
     "@nextui-org/user": "^2.2.4",
     "@supabase/postgrest-js": "^1.17.7",

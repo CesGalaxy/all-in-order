@@ -31,10 +31,9 @@ export type QuestionData = QuestionChoiceData | QuestionFillTheGapData | Questio
 export type QuestionAttempt = QuestionChoiceAttempt | QuestionFillTheGapAttempt | QuestionTrueOrFalseAttempt;
 export type QuestionAnswer = QuestionChoiceAnswer | QuestionFillTheGapAnswer | QuestionTrueOrFalseAnswer;
 
-export type QuestionDraft<T extends BaseQuestion<U> = BaseQuestion<any>, U extends Json = any> =
-    Omit<T, "title" | "details" | "type">
-    | string
-    | undefined;
+export type QuestionDraft<T extends BaseQuestion<any> = BaseQuestion<any>> =
+    | Omit<T, "title" | "details" | "type">
+    | string;
 
 export const QUESTION_ATTEMPT_GENERATORS = {
     choice: generateChoiceQuestionAttempt,

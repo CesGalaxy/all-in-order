@@ -18,12 +18,12 @@ const INITIAL_CHOICES: [number, string, boolean][] = [
 export default CreateChoiceQuestion;
 
 function CreateChoiceQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionChoiceData, "choice">,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData, "choice">>>
+    draft?: QuestionDraft<QuestionChoiceData>,
+    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData>>>
 }) {
     const [choices, setChoices] = useState<[number, string, boolean][]>(INITIAL_CHOICES);
-    const [method, setMethod] = useState<ChoicesInputMethod>("checklist");
-    const [single, setSingle] = useState(false);
+    const [method, setMethod] = useState<ChoicesInputMethod>(typeof draft === "object" ? draft.method : "checklist");
+    const [single, setSingle] = useState(typeof draft === "object" ? draft.single : false);
 
     const areChoicesValid = useMemo(() => choices.length > 1 && choices.some(c => c[2]), [choices]);
 

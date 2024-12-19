@@ -4,11 +4,11 @@ import { Tab, Tabs } from "@nextui-org/tabs";
 
 export type PracticeTab = "overview" | "edit" | "attempts" | "stats";
 
-export default function PracticePreviewTabs({ currentTab, practiceId }: {
+export default function PracticePreviewTabs({ practiceId }: {
     currentTab?: PracticeTab,
-    practiceId?: number
+    practiceId?: number | string
 }) {
-    return <Tabs aria-label="Pages" selectedKey={currentTab}>
+    return <Tabs aria-label="Pages">
         <Tab
             key="overview"
             title="Overview"

@@ -16,14 +16,14 @@
         opacity: 1;
     }
     100% {
-        transform: translateX(100px);
+        transform: translateX(100%);
         opacity: 0;
     }
 }
 
 @keyframes from-left {
     0% {
-        transform: translateX(100px);
+        transform: translateX(100%);
         opacity: 0;
     }
     100% {

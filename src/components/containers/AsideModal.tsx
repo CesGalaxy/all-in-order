@@ -17,7 +17,7 @@ export default function AsideModalContainer({
                                             }: {
     children?: ReactNode,
     closeUrl?: string,
-    title?: string,
+    title?: ReactNode,
     className?: string,
     actions?: ReactNode,
     contentClassName?: string,
