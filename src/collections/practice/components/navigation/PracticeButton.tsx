@@ -22,7 +22,7 @@ export default function PracticeButton({ practiceId, ready }: { practiceId: numb
                 {t('App.practice')}
             </Button>
         </DropdownTrigger>
-        <DropdownMenu disabledKeys={ready ? [] : ["start", "quick"]}>
+        <DropdownMenu disabledKeys={ready ? ["quick"] : ["start", "quick"]}>
             <DropdownSection title={t('App.practice')} showDivider>
                 <DropdownItem
                     href={`/practices/${practiceId}/start`}

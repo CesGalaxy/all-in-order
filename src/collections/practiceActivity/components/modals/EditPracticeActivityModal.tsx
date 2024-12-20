@@ -2,7 +2,7 @@
 
 import { Input, Textarea } from "@nextui-org/input";
 import { IconDeviceFloppy, IconExclamationCircle } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { QuestionData, QuestionDraft } from "@aio/db/features/questions";
 import { Divider } from "@nextui-org/divider";
 import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
@@ -10,6 +10,7 @@ import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFill
 import { Chip } from "@nextui-org/chip";
 import CreateTrueOrFalseQuestion from "@/features/beta_question/create/CreateTrueOrFalseQuestion";
 import ModalForm from "@/components/utils/ModalForm";
+import { ActionResponse } from "@/lib/helpers/form";
 
 const QUESTION_CREATORS = {
     "choice": CreateChoiceQuestion,
@@ -19,11 +20,10 @@ const QUESTION_CREATORS = {
     "fill_the_gap4": CreateFillTheGapQuestion,
 }
 
-function CreatePracticeActivityModal({
-                                         initialData, initialTags
-                                     }: {
+function CreatePracticeActivityModal({ action, initialData, initialTags }: {
+    action: (data: QuestionData, tags: string[]) => Promise<ActionResponse<any>>,
     initialData: QuestionData,
-    initialTags: string[]
+    initialTags: string[],
 }) {
     const [title, setTitle] = useState(initialData.title);
     const [details, setDetails] = useState(initialData.details);
@@ -35,12 +35,20 @@ function CreatePracticeActivityModal({
 
     const QuestionCreator = useMemo(() => QUESTION_CREATORS[initialData.type], [initialData.type]);
 
+    const addTag = useCallback(() => {
+        const tag = newTag.trim().toLowerCase();
+        if (tags.includes(tag) || tags.length > 4) return;
+        setTags([...tags, tag]);
+        setNewTag("");
+    }, [newTag, tags]);
+
     return <ModalForm
         title={"Edit an activity"}
         isFormValid={!!title && typeof draft === "object" && tags.length <= 5}
         action={() => {
             if (typeof draft !== "object" || !title || tags.length > 5) return;
             const data: QuestionData = { title, details, type: initialData.type, ...draft } as QuestionData;
+            return action(data, tags);
         }}
         handleSuccess="close"
         footer={typeof draft === "string" &&
@@ -85,14 +93,7 @@ function CreatePracticeActivityModal({
             onKeyDown={e => {
                 if (e.key === "Enter" || e.key === "," || e.key === " ") {
                     e.preventDefault();
-
-                    const tag = newTag.trim().toLowerCase();
-
-                    // Prevent duplicates or more than 5 tags
-                    if (tags.includes(tag) || tags.length > 4) return;
-
-                    setTags([...tags, tag]);
-                    setNewTag("");
+                    addTag();
                 }
             }}
             size="sm"

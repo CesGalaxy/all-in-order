@@ -1,6 +1,7 @@
 "use client";
 
 import { Tab, Tabs } from "@nextui-org/tabs";
+import { usePathname } from "next/navigation";
 
 export type PracticeTab = "overview" | "edit" | "attempts" | "stats";
 
@@ -8,26 +9,28 @@ export default function PracticePreviewTabs({ practiceId }: {
     currentTab?: PracticeTab,
     practiceId?: number | string
 }) {
-    return <Tabs aria-label="Pages">
+    const pathname = usePathname();
+
+    return <Tabs aria-label="Pages" selectedKey={pathname}>
         <Tab
-            key="overview"
+            key={`/practices/${practiceId}/`}
             title="Overview"
             href={`/practices/${practiceId}/`}
         />
         <Tab
-            key="edit"
+            key={`/practices/${practiceId}/edit/`}
             title="Edit"
-            href={`/practices/${practiceId}/edit`}
+            href={`/practices/${practiceId}/edit/`}
         />
         <Tab
-            key="attempts"
+            key={`/practices/${practiceId}/attempts/`}
             title="Attempts"
-            href={`/practices/${practiceId}/attempts`}
+            href={`/practices/${practiceId}/attempts/`}
         />
         <Tab
-            key="stats"
+            key={`/practices/${practiceId}/stats/`}
             title="Stats"
-            href={`/practices/${practiceId}/stats`}
+            href={`/practices/${practiceId}/stats/`}
         />
     </Tabs>
 }

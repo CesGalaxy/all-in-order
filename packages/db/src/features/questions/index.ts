@@ -33,7 +33,7 @@ export type QuestionAnswer = QuestionChoiceAnswer | QuestionFillTheGapAnswer | Q
 
 export type QuestionDraft<T extends BaseQuestion<any> = BaseQuestion<any>> =
     | Omit<T, "title" | "details" | "type">
-    | string;
+    | string | undefined;
 
 export const QUESTION_ATTEMPT_GENERATORS = {
     choice: generateChoiceQuestionAttempt,

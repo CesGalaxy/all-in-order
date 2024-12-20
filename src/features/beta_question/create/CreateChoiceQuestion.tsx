@@ -15,32 +15,40 @@ const INITIAL_CHOICES: [number, string, boolean][] = [
     [2, "Example choice 3", false],
 ];
 
-export default CreateChoiceQuestion;
+const ERROR_MESSAGE = "At least one choice must be correct";
 
 function CreateChoiceQuestion({ draft, setDraft }: {
     draft?: QuestionDraft<QuestionChoiceData>,
     setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData>>>
 }) {
-    const [choices, setChoices] = useState<[number, string, boolean][]>(INITIAL_CHOICES);
+    const [choices, setChoices] = useState<[number, string, boolean][]>(typeof draft === "object"
+        ? Object.entries(draft.choices).map(([choice, isCorrect]) => [Math.random(), choice, isCorrect])
+        : INITIAL_CHOICES
+    );
     const [method, setMethod] = useState<ChoicesInputMethod>(typeof draft === "object" ? draft.method : "checklist");
-    const [single, setSingle] = useState(typeof draft === "object" ? draft.single : false);
+    const [single, setSingle] = useState(typeof draft === "object" ? draft.single : true);
 
-    const areChoicesValid = useMemo(() => choices.length > 1 && choices.some(c => c[2]), [choices]);
+    // Check that at least one choice is marked as correct
+    const validChoices = useMemo(() => choices.filter(c => c[2]), [choices]);
+    const areChoicesValid = useMemo(() => choices.length > 1 && validChoices.some(Boolean), [validChoices, choices]);
 
     useEffect(() => {
-        if (areChoicesValid) {
-            const choicesMap = Object.fromEntries(choices.map(([_, choice, isCorrect]) => [choice, isCorrect]));
-
-            setDraft({ choices: choicesMap, method, single });
-        }
+        if (areChoicesValid) setDraft({
+            choices: Object.fromEntries(choices.map(([_, choice, isCorrect]) => [choice, isCorrect])),
+            method,
+            single
+        });
     }, [areChoicesValid, choices, method, setDraft, single]);
 
     useEffect(() => {
-        if (!areChoicesValid && typeof draft !== "string") setDraft("At least one choice must be correct");
+        if (!areChoicesValid && draft !== ERROR_MESSAGE) setDraft(ERROR_MESSAGE);
     }, [areChoicesValid, draft, setDraft]);
 
-    return <div>
+    useEffect(() => {
+        if (!single && validChoices.length === 1) setSingle(true);
+    }, [validChoices.length, single]);
 
+    return <div>
         <ul className="flex flex-col items-stretch gap-4">
             {choices.map(([id, choice, isCorrect], i) => <ButtonGroup key={id} className="flex items-stretch" as="li">
                 <Input
@@ -81,26 +89,25 @@ function CreateChoiceQuestion({ draft, setDraft }: {
             >
                 <SelectItem
                     key="checklist"
-                    description="Show a list with the possible choices"
-                    startContent={<IconListCheck/>}
+                    description="Show a list with the choices"
+                    startContent={<IconListCheck className="shrink-0"/>}
                 >
                     Checklist
                 </SelectItem>
                 <SelectItem
                     key="slots"
-                    description="Add a slot for each valid answers"
-                    startContent={<IconTransitionBottom/>}
+                    description="A slot for each valid answers"
+                    startContent={<IconTransitionBottom className="shrink-0"/>}
                 >
                     Slots
                 </SelectItem>
             </Select>
         </nav>
         <br/>
-        <Checkbox
-            isSelected={single}
-            onValueChange={setSingle}
-        >
+        <Checkbox isSelected={single} onValueChange={setSingle} isDisabled={validChoices.length === 1}>
             Must select all correct choices
         </Checkbox>
     </div>;
 }
+
+export default CreateChoiceQuestion;

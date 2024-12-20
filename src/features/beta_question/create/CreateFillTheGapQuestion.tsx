@@ -35,8 +35,8 @@ type Segment = string | Omit<Gap, "position">;
 export default CreateFillTheGapQuestion;
 
 function CreateFillTheGapQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionFillTheGapData, "fill_the_gap">,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionFillTheGapData, "fill_the_gap">>>
+    draft?: QuestionDraft<QuestionFillTheGapData>,
+    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionFillTheGapData>>>
 }) {
     const [segments, setSegments] = useState<Record<string, Segment>>(INITIAL_SEGMENTS);
 

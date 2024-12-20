@@ -35,6 +35,7 @@
     "@nextui-org/scroll-shadow": "^2.3.3",
     "@nextui-org/select": "^2.4.7",
     "@nextui-org/skeleton": "^2.2.3",
+    "@nextui-org/spinner": "^2.2.4",
     "@nextui-org/switch": "^2.2.6",
     "@nextui-org/system": "^2.4.2",
     "@nextui-org/table": "^2.2.6",

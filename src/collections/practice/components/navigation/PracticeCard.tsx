@@ -19,7 +19,7 @@ export default function PracticeCard({ practice }: { practice: PracticeSectionPr
         </CardHeader>
         <CardBody className="w-full flex-row items-center justify-evenly px-0">
             <div className="w-fit flex flex-col items-center">
-                <Link href={`/src/app/@navbar/practices/${practice.id}/attempts`}
+                <Link href={`/practices/${practice.id}/attempts`}
                       className="text-default-500 text-xs uppercase">{t("App.score")}</Link>
                 <b>
                     {practice.attempts.reduce((acc, attempt) => acc + attempt.perfection, 0)
@@ -28,7 +28,7 @@ export default function PracticeCard({ practice }: { practice: PracticeSectionPr
                 </b>
             </div>
             <div className="w-fit flex flex-col items-center">
-                <Link href={`/src/app/@navbar/practices/${practice.id}/attempts`}
+                <Link href={`/practices/${practice.id}/attempts`}
                       className="text-default-500 text-xs uppercase">{t("App.attempts")}</Link>
                 <b>{practice.attempts.length}</b>
             </div>

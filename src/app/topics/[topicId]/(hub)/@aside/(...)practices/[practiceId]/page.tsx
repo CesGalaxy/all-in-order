@@ -16,7 +16,7 @@ import QuestionSolutionButton
     from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
-import createPracticeActivity from "@/collections/practiceActivity/actions";
+import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
 import { getTopicAsidePractice } from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/query";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
@@ -30,15 +30,21 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
 
     if (error) return <ErrorView message={error.message}/>;
 
-    const { activities, id, topic_id } = required(data, topicPath);
+    const { activities, id, topic_id, attempts } = required(data, topicPath);
+
+    const averageScore = attempts
+            .map(attempt => attempt.perfection)
+            .reduce((a, b) => a + b, 0)
+        / attempts.length;
 
     return activities.length === 0
         ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
         : <div>
-            <nav>
+            <nav className="flex items-center justify-between gap-8">
                 <CreatePracticeActivityButton>
                     <CreatePracticeActivityModal action={createPracticeActivity.bind(null, topic_id, id)}/>
                 </CreatePracticeActivityButton>
+                <span className="text-lg"><b>{attempts.length}</b> attempts with a <b>{averageScore}%</b> average score</span>
             </nav>
             <br/>
             <ul className="flex flex-col items-stretch gap-4">
@@ -57,9 +63,14 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
                             <QuestionSolutionButton data={data}/>
                             <Tooltip content="Edit question">
                                 <ModalButton
-                                    modal={<EditPracticeActivityModal initialData={data} initialTags={tags}/>}
+                                    modal={<EditPracticeActivityModal
+                                        action={updatePracticeActivity.bind(null, topic_id, id)}
+                                        initialData={data}
+                                        initialTags={tags}
+                                    />}
                                     isIconOnly
                                     variant="flat"
+                                    modalProps={{ size: "xl" }}
                                 >
                                     <IconEdit/>
                                 </ModalButton>

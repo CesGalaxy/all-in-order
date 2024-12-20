@@ -5,6 +5,7 @@ import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getMyProfile } from "@/supabase/auth/profile";
 import { Json } from "@aio/db/supabase";
+import { mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 
 export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
     const { id } = await getMyProfile();
@@ -43,4 +44,17 @@ export default async function createPracticeActivity(topicId: number, practiceId
 
     revalidatePath("/practices/" + practiceId);
     revalidatePath("/topics/" + topicId);
+}
+
+export async function updatePracticeActivity(topicId: number, activityId: number, question: QuestionData, tags: string[]) {
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
+        .from("topic_activities")
+        .update({ data: question as unknown as Json, tags })
+        .eq("id", activityId);
+
+    if (error) return mountActionError({ db: [error.message] });
+
+    revalidatePath("/practices/", "layout");
+    return mountActionSuccess(null);
 }

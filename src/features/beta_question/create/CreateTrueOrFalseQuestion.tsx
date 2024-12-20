@@ -9,8 +9,8 @@ import { IconTrash } from "@tabler/icons-react";
 import { QuestionTrueOrFalseData } from "@aio/db/features/questions/TrueOrFalse";
 
 function CreateTrueOrFalseQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionTrueOrFalseData, "true_or_false">,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionTrueOrFalseData, "true_or_false">>>
+    draft?: QuestionDraft<QuestionTrueOrFalseData>,
+    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionTrueOrFalseData>>>
 }) {
     const [rows, setRows] = useState<Record<string, [string, boolean]>>({
         ["2"]: ["This is true", true],

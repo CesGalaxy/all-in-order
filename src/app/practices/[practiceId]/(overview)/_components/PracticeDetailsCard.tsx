@@ -46,17 +46,17 @@ export default function PracticeDetailsCard({
             {description && <p className="text-default">{description}</p>}
             <ul className="flex items-center justify-evenly">
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/src/app/@navbar/practices/${id}/stats`}
+                    <Link href={`/practices/${id}/stats`}
                           className="text-default-500 text-xs uppercase">avg. duration</Link>
                     <b>{averageDuration}s</b>
                 </div>
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/src/app/@navbar/practices/${id}/stats`}
+                    <Link href={`/practices/${id}/stats`}
                           className="text-default-500 text-xs uppercase">avg. score</Link>
                     <b>{averagePerfection}%</b>
                 </div>
                 <div className="w-fit flex flex-col items-center">
-                    <Link href={`/src/app/@navbar/practices/${id}/attempts`}
+                    <Link href={`/practices/${id}/attempts`}
                           className="text-default-500 text-xs uppercase">Attempts</Link>
                     <b>{attemptsCount}</b>
                 </div>
@@ -88,7 +88,14 @@ export default function PracticeDetailsCard({
                 </li>
                 <li>
                     <p className="text-tiny uppercase font-bold mb-2">Topic</p>
-                    <Chip startContent={<IconBooks/>} size="lg">{topic!.title}</Chip>
+                    <Chip
+                        as={Link}
+                        href={`/topics/${topic!.id}`}
+                        startContent={<IconBooks/>}
+                        size="lg"
+                    >
+                        {topic!.title}
+                    </Chip>
                 </li>
                 <li>
                     <p className="text-tiny uppercase font-bold mb-2">Updated</p>

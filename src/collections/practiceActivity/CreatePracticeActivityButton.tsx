@@ -9,7 +9,13 @@ export default function CreatePracticeActivityButton({ children }: { children: R
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return <>
-        <Button onPress={onOpen} color="primary" startContent={<IconPencilPlus/>}>Add activity</Button>
+        <Button
+            onPress={onOpen}
+            color="primary"
+            startContent={<IconPencilPlus className="shrink-0"/>}
+        >
+            Add activity
+        </Button>
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}

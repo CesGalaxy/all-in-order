@@ -17,7 +17,7 @@ export default async function Page(props: { params: Promise<{ practiceId: string
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient
         .from("practices")
-        .select("*, topic:topics(id, title), author:profiles(id, name, avatar_url), attempts:practice_attempts(id, perfection, started_at, ended_at)")
+        .select("id, title, description, created_at, topic:topics(id, title), author:profiles(id, name, avatar_url), attempts:practice_attempts(id, perfection, started_at, ended_at)")
         .order("started_at", { referencedTable: 'practice_attempts', ascending: true })
         .limit(10, { referencedTable: 'practice_attempts' })
         .eq("id", practiceId)
@@ -25,7 +25,7 @@ export default async function Page(props: { params: Promise<{ practiceId: string
 
     if (error) return <ErrorView message={error.message}/>;
 
-    const { id, title, description, topic, author, created_at, updated_at, attempts } = required(data);
+    const { id, title, description, topic, author, created_at, attempts } = required(data);
 
     const attemptsCount = attempts.length;
     const averagePerfection = attempts
