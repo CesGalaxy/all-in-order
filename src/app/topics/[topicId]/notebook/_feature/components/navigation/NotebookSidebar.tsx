@@ -3,6 +3,7 @@
 import { Button } from "@nextui-org/button";
 import {
     IconAccessible,
+    IconArrowBack,
     IconCode,
     IconDatabase,
     IconFlask,
@@ -43,7 +44,7 @@ const SIDEBARS = {
 export type SidebarType = "pages" | "vocabulary" | "notes" | "data";
 
 export default function NotebookSidebar() {
-    const { topic } = useNotebook();
+    const { topic, topicId } = useNotebook();
     const [sidebar, setSidebar] = useState<SidebarType | null>("vocabulary");
     const [show, setShow] = useState(false);
     const pathname = usePathname();
@@ -99,6 +100,13 @@ export default function NotebookSidebar() {
                         ))}
                     </ul>
                     <ul className="w-16 flex flex-col items-center gap-4">
+                        <li>
+                            <Tooltip placement="right" delay={200} closeDelay={0} content={"Back to topic"}>
+                                <Button isIconOnly variant="light" as={Link} href={"/topics/" + topicId}>
+                                    <IconArrowBack/>
+                                </Button>
+                            </Tooltip>
+                        </li>
                         <li>
                             <Tooltip placement="right" delay={200} closeDelay={0} content={"Share"}>
                                 <Button isIconOnly><IconShare/></Button>

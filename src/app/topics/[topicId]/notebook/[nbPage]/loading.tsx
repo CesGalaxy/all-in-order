@@ -1,11 +1,7 @@
-"use server";
-
 import PageContainer from "@/components/containers/PageContainer";
 import { Skeleton } from "@nextui-org/skeleton";
-import { connection } from "next/server";
 
-export default async function _loading() {
-    await connection();
+export default function Loading() {
     return <PageContainer className="flex flex-col h-full items-center justify-center">
         <div className="max-w-96 w-full space-y-5 p-4">
             <Skeleton className="rounded-lg">

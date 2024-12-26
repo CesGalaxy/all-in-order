@@ -30,6 +30,6 @@ export default async function Layout({ children, aside, params }: {
                 {children}
             </AnimatePresence>
         </div>
-        {aside}
+        <div className="absolute w-0 h-0 overflow-hidden">{aside}</div>
     </div>;
 }
