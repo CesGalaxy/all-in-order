@@ -7,14 +7,14 @@ import NotebookPageData from "@/app/topics/[topicId]/notebook/_feature/lib/stora
 
 export interface NbPageEditTemplateProps {
     data: NotebookPageData,
-    saveAction: (content: string) => Promise<boolean>,
-    file: Camelize<FileObjectV2>
+    file: Camelize<FileObjectV2>;
+    path: string;
 }
 
-export default function NbPageEditTemplate({ data, saveAction, file }: NbPageEditTemplateProps) {
+export default function NbPageEditTemplate({ data, file, path }: NbPageEditTemplateProps) {
     return <NotebookPageProvider
         initialData={data}
-        saveAction={saveAction}
+        path={path}
     >
         <div className="w-full h-full flex flex-col items-stretch relative">
             <NbPageNavbar file={file}/>

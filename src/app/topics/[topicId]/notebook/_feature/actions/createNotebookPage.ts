@@ -25,7 +25,8 @@ export default async function createNotebookPage(topicId: number | string, _prev
     const { error } = await supabaseClient
         .storage
         .from("notebooks")
-        .upload(path, JSON.stringify(BlankNotebookPage), { metadata });
+        // TODO: Try 'no-cache' too
+        .upload(path, JSON.stringify(BlankNotebookPage), { metadata, cacheControl: "no-store" });
 
     if (error) return mountActionState(mountActionError({ db: [error.message] }));
 

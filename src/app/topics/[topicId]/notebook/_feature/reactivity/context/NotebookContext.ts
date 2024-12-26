@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext } from "react";
 import { CreateNotebookPageResponse } from "@/app/topics/[topicId]/notebook/_feature/actions/createNotebookPage";
 import { FileObject } from "@supabase/storage-js";

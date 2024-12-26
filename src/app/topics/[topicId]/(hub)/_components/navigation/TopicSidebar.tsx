@@ -11,7 +11,6 @@ import {
     IconPlayerPlay,
     IconTool
 } from "@tabler/icons-react";
-import { useCallback } from "react";
 import { Divider } from "@nextui-org/divider";
 import { usePathname } from "next/navigation";
 
@@ -26,18 +25,17 @@ const DESTINATIONS = [
     { name: "Settings", path: "settings", icon: <IconTool/> },
 ]
 
+const DESTINATION_CLASS = "w-full md:text-lg gap-1 sm:gap-2 md:gap-4 rounded-full px-2 py-1 lg:px-4 lg:py-2 hover:bg-content2 transition-all";
+
 export interface TopicSidebarProps {
-    topicId?: number | string;
+    topicId: number | string;
     topicTitle?: string;
     topicDescription?: string | null;
 }
 
 export default function TopicSidebar({ topicId, topicTitle, topicDescription }: TopicSidebarProps) {
-    const topicPath = topicId ? "/topics/" + topicId + "/" : "";
-
+    const topicPath = "/topics/" + topicId;
     const pathname = usePathname();
-
-    const isCurrentPath = useCallback((path: string) => pathname === topicPath + (path ? (path + "/") : ""), [pathname, topicPath]);
 
     return <div className="w-full h-full">
         <header>
@@ -49,8 +47,9 @@ export default function TopicSidebar({ topicId, topicTitle, topicDescription }: 
             <ul className="w-full flex flex-wrap lg:flex-col sm:gap-1 lg:gap-4">
                 {DESTINATIONS.map(({ name, path, icon }) => <li key={path}>
                     <Link
-                        href={topicPath + path}
-                        className="w-full md:text-lg gap-1 sm:gap-2 md:gap-4 rounded-full px-2 py-1 lg:px-4 lg:py-2 hover:bg-content2 text-foreground transition-all"
+                        href={topicPath + "/" + path}
+                        className={DESTINATION_CLASS}
+                        color={pathname === topicPath + "/" + (path ? path + "/" : "") ? "primary" : "foreground"}
                     >
                         {icon}{name}
                     </Link>

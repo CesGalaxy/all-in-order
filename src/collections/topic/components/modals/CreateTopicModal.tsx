@@ -33,6 +33,7 @@ export default function CreateTopicModal({ action }: CreateTopicModalProps) {
         <Input
             autoFocus
             label="Title"
+            name="title"
             placeholder="Enter the title of the topic"
             variant="bordered"
             isRequired
@@ -44,6 +45,7 @@ export default function CreateTopicModal({ action }: CreateTopicModalProps) {
         />
         <Textarea
             label="Description"
+            name="description"
             placeholder="A description for the topic (optional)"
             variant="bordered"
             rows={3}

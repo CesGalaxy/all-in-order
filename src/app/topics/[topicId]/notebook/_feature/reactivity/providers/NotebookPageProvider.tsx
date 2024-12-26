@@ -5,19 +5,24 @@ import NotebookPageContext from "@/app/topics/[topicId]/notebook/_feature/reacti
 import { JSONContent } from "novel";
 import NotebookPageData from "@/app/topics/[topicId]/notebook/_feature/lib/storage/NotebookPageData";
 import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
+import { createSupabaseClient } from "@/supabase/client";
 
 export interface NotebookPageProviderProps {
     initialData: NotebookPageData;
-    saveAction: (content: string) => Promise<boolean>;
     children?: ReactNode;
+    path: string;
 }
 
-function NotebookPageProvider({ initialData, saveAction, children }: NotebookPageProviderProps) {
+function NotebookPageProvider({ initialData, children, path }: NotebookPageProviderProps) {
     const [data, setData] = useState<NotebookPageData>(initialData);
     const [tocItems, setTocItems] = useState<TableOfContentData>([]);
 
     const setContent = useCallback((content: JSONContent) => setData({ ...data, content }), [data]);
-    const saveContent = useCallback(() => saveAction(JSON.stringify(data)), [saveAction, data]);
+    const saveContent = useCallback(async () => await createSupabaseClient()
+        .storage
+        .from("notebooks")
+        .update(path, JSON.stringify(data))
+        .then(({ error }) => !error), [data, path]);
 
     return <NotebookPageContext.Provider value={{ data, setData, setContent, saveContent, tocItems, setTocItems }}>
         {children}

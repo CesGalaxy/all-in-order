@@ -14,6 +14,7 @@ export default function DeleteNotebookPageModal({ topicId, name }: {
         buttonLabel={"Yes, delete"}
         handleResponse="close"
     >
-        <p>You are about to delete the page <strong>{name}</strong>. This action is irreversible!</p>
+        <p>You are about to delete the page <strong>{atob(name.replace(".json", ""))}</strong>. This action is
+            irreversible!</p>
     </ModalForm>
 }

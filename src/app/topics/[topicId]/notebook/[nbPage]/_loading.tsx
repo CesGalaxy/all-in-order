@@ -1,12 +1,12 @@
-import NotebookAside from "@/app/topics/[topicId]/notebook/_feature/components/containers/NotebookAside";
-import { Skeleton } from "@nextui-org/skeleton";
+"use server";
 
-export default function Loading() {
-    return <NotebookAside
-        title={<Skeleton className="rounded-lg w-32">
-            <div className="h-6 rounded-lg bg-default-300"/>
-        </Skeleton>}
-    >
+import PageContainer from "@/components/containers/PageContainer";
+import { Skeleton } from "@nextui-org/skeleton";
+import { connection } from "next/server";
+
+export default async function _loading() {
+    await connection();
+    return <PageContainer className="flex flex-col h-full items-center justify-center">
         <div className="max-w-96 w-full space-y-5 p-4">
             <Skeleton className="rounded-lg">
                 <div className="h-6 rounded-lg bg-default-200"/>
@@ -26,5 +26,5 @@ export default function Loading() {
                 </Skeleton>
             </div>
         </div>
-    </NotebookAside>
+    </PageContainer>
 }

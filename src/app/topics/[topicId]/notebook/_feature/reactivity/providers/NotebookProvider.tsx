@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useActionState, useCallback, useEffect, useOptimistic, useState } from "react";
+import { type ReactNode, useActionState, useCallback, useEffect, useOptimistic, useRef, useState } from "react";
 import NotebookContext from "@/app/topics/[topicId]/notebook/_feature/reactivity/context/NotebookContext";
 import createNotebookPage, {
     CreateNotebookPageResponse
@@ -13,8 +13,8 @@ import NotebookVocabularyProvider
     from "@/app/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookVocabularyProvider";
 import { NotebookData } from "@/app/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
 import { Topic } from "@aio/db/entities";
-import getTopicData from "@/app/topics/[topicId]/(hub)/query";
 import { toast } from "react-toastify";
+import { createSupabaseClient } from "@/supabase/client";
 
 export interface PagesOptimistic {
     pages: FileObject[],
@@ -45,9 +45,10 @@ export default function NotebookProvider({
     );
 
     const [topic, setTopic] = useState<Topic>();
+    const isRequestingTopicData = useRef(false);
 
     const [createPageState, createPageAction, isCreatingPage] =
-        useActionState<CreateNotebookPageResponse | undefined, FormData>(createNotebookPage.bind(null, 9), undefined);
+        useActionState<CreateNotebookPageResponse | undefined, FormData>(createNotebookPage.bind(null, topicId), undefined);
 
     const [deleteModalSelected, setDeleteModalSelected] = useState<string>();
     const deleteModalDisclosure = useDisclosure();
@@ -63,12 +64,23 @@ export default function NotebookProvider({
     }, [deleteModalDisclosure]);
 
     useEffect(() => {
-        if (!topic) {
-            getTopicData(topicId).then(({ data, error }) => {
-                console.log(data, error);
-                if (data) setTopic(data);
-                if (error) toast.error("Failed to load topic data");
-            });
+        if (!topic && !isRequestingTopicData.current) {
+            const QUERY_SUBJECT = "subject:subjects(id, name, course:courses(id, name))";
+            const QUERY_PRACTICES = "practices(*, activities:topic_activities(count), attempts:practice_attempts(perfection))";
+
+            isRequestingTopicData.current = true;
+
+            createSupabaseClient()
+                .from("topics")
+                .select(`*, ${QUERY_SUBJECT}, ${QUERY_PRACTICES}`)
+                .limit(10, { referencedTable: 'practices.practice_attempts' })
+                .eq("id", topicId)
+                .maybeSingle()
+                .then(({ data, error }) => {
+                    console.log(data, error);
+                    if (data) setTopic(data);
+                    if (error) toast.error("Failed to load topic data");
+                });
         }
     }, [topic, topicId])
 
