@@ -31,6 +31,7 @@ export default async function Layout({ children, params }: {
         actions={<PracticePreviewTabs practiceId={practiceId}/>}
         contentClassName="p-4"
         animate
+        showExpandButton
     >
         {children}
     </AsideModalContainer>

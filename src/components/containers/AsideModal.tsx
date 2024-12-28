@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
-import { IconArrowBack } from "@tabler/icons-react";
+import { IconArrowBack, IconArrowsMaximize } from "@tabler/icons-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
@@ -13,7 +13,8 @@ export default function AsideModalContainer({
                                                 className,
                                                 actions,
                                                 contentClassName,
-                                                animate
+                                                animate,
+                                                showExpandButton
                                             }: {
     children?: ReactNode,
     closeUrl?: string,
@@ -22,6 +23,7 @@ export default function AsideModalContainer({
     actions?: ReactNode,
     contentClassName?: string,
     animate?: boolean;
+    showExpandButton?: boolean;
 }) {
     const router = useTransitionRouter();
 
@@ -43,6 +45,9 @@ export default function AsideModalContainer({
                     <Button isIconOnly onPress={close}>
                         <IconArrowBack/>
                     </Button>
+                    {showExpandButton && <Button isIconOnly onPress={() => location.reload()}>
+                        <IconArrowsMaximize/>
+                    </Button>}
                     {title && <h2 className="text-xl font-bold">{title}</h2>}
                 </nav>
                 {actions && <div className="flex items-center justify-end gap-4">

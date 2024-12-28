@@ -13,10 +13,11 @@ import QuestionSolutionButton
     from "@/app/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
-import { updatePracticeActivity } from "@/collections/practiceActivity/actions";
+import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
 import { Divider } from "@nextui-org/divider";
 import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
 import { generateQuestionAttempt } from "@aio/db/features/questions";
+import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
 
 export interface EditPracticeModalProps {
     details: {
@@ -96,7 +97,13 @@ export default function EditPracticeModal({ details, activities, topicId }: Edit
                     </CardFooter>
                 </Card>)}
                 <ul>
-                    <Button color="primary" startContent={<IconPlus/>}>Add a new activity</Button>
+                    <ModalButton
+                        color="primary"
+                        startContent={<IconPlus/>}
+                        modal={<CreatePracticeActivityModal
+                            action={createPracticeActivity.bind(null, topicId, details.id)}/>}
+                        modalProps={{ size: "xl" }}
+                    >Add a new activity</ModalButton>
                 </ul>
             </ul>
         </ModalBody>

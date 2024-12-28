@@ -20,7 +20,7 @@ const QUESTION_CREATORS = {
     "fill_the_gap4": CreateFillTheGapQuestion,
 }
 
-function CreatePracticeActivityModal({ action, initialData, initialTags }: {
+function EditPracticeActivityModal({ action, initialData, initialTags }: {
     action: (data: QuestionData, tags: string[]) => Promise<ActionResponse<any>>,
     initialData: QuestionData,
     initialTags: string[],
@@ -108,4 +108,4 @@ function CreatePracticeActivityModal({ action, initialData, initialTags }: {
     </ModalForm>;
 }
 
-export default CreatePracticeActivityModal;
+export default EditPracticeActivityModal;

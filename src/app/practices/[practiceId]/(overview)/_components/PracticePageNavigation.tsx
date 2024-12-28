@@ -15,8 +15,8 @@ export default function PracticePageNavigation({ practiceId }: { practiceId: num
     }, [pathname]);
 
     return <Tabs
-        className="w-full container mx-auto"
-        classNames={{ tabList: "w-full" }}
+        className="w-screen"
+        classNames={{ tabList: "w-full rounded-none" }}
         color="primary"
         selectedKey={currentTab}
     >
