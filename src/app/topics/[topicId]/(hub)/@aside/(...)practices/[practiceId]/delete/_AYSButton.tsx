@@ -52,7 +52,7 @@ export default function AYSButton() {
                                             color="danger"
                                             variant="shadow"
                                             className="w-full"
-                                            onClick={onClose}
+                                            onPress={onClose}
                                             startContent={<IconTrash/>}
                                         >
                                             Delete

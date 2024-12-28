@@ -41,7 +41,7 @@ function EditPracticeForm({ practiceTitle, practiceDescription, action }: EditPr
             startContent={<IconDeviceFloppy/>}
             isDisabled={!title}
             isLoading={loading}
-            onClick={async () => {
+            onPress={async () => {
                 setLoading(true);
                 const error = await action(title, description);
                 setLoading(false);

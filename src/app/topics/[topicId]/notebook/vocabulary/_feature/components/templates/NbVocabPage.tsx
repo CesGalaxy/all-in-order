@@ -27,7 +27,7 @@ export default function NbVocabPage({ area }: NbVocabPageProps) {
             <NbVocabDefinitionsTable definitions={area.definitions}/>
         </PageContainer>
         <ModalButton
-            modal={<NbAddDefinitionsModal/>}
+            modal={<NbAddDefinitionsModal defaultArea={area.id.toString()}/>}
             color="primary"
             radius="none"
             size="lg"

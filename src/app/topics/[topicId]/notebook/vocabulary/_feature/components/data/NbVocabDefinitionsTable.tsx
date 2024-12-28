@@ -16,7 +16,7 @@ export interface NbVocabDefinitionsTableProps {
 }
 
 export default function NbVocabDefinitionsTable({ definitions }: NbVocabDefinitionsTableProps) {
-    return <Table>
+    return <Table aria-label="Definitions table">
         <TableHeader columns={COLUMNS}>
             {column => <TableColumn key={column.key}>{column.label}</TableColumn>}
         </TableHeader>

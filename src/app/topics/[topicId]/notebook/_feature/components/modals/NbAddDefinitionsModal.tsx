@@ -8,10 +8,10 @@ import { wrapActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import { Select, SelectItem } from "@nextui-org/select";
 import { IconFolder } from "@tabler/icons-react";
 
-export default function NbAddDefinitionsModal() {
+export default function NbAddDefinitionsModal({ defaultArea }: { defaultArea?: string }) {
     const [term, setTerm] = useState("");
     const [definition, setDefinition] = useState("");
-    const [area, setArea] = useState<string>();
+    const [area, setArea] = useState<string | undefined>(defaultArea);
 
     const { addDefinitionsState, areas } = useNotebookVocabulary();
 
