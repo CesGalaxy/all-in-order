@@ -4,12 +4,11 @@ import { Kanit } from "next/font/google";
 import type React from "react";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { ViewTransitions } from "next-view-transitions";
-import Providers from "@/app/providers";
 
 // Styles
 import 'react-toastify/dist/ReactToastify.min.css';
 import "./globals.css";
-import AppNavbar from "@/app/_navigation/Navbar";
+import { RootProvidersClient } from "@/app/providers.client";
 
 const kanit = Kanit({ weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin"] });
 
@@ -30,10 +29,7 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({ children }: Readonly<{
-    children: React.ReactNode;
-    navbar: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     // Preload user data while rendering the layout
     // then() is just for linting purposes
     getMaybeMyProfile().then();
@@ -41,12 +37,9 @@ export default function RootLayout({ children }: Readonly<{
     return <ViewTransitions>
         <html lang="en" suppressHydrationWarning className="scroll-smooth">
         <body className={kanit.className + " bg-background text-foreground w-full h-screen transition-background"}>
-        <Providers>
-            <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">
-                <AppNavbar/>
-                {children}
-            </div>
-        </Providers>
+        <RootProvidersClient>
+            {children}
+        </RootProvidersClient>
         </body>
         </html>
     </ViewTransitions>;

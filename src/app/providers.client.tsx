@@ -1,6 +1,5 @@
 'use client'
 
-import { NextUIProvider } from "@nextui-org/system";
 import { ToastContainer } from "react-toastify";
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -11,7 +10,7 @@ declare global {
     }
 }
 
-export function ProvidersClient({ children }: { children: ReactNode }) {
+export function RootProvidersClient({ children }: { children: ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
@@ -33,8 +32,8 @@ export function ProvidersClient({ children }: { children: ReactNode }) {
         });
     }, []);
 
-    return <NextUIProvider navigate={router.push} className="w-full h-full">
+    return <>
         <ToastContainer position="bottom-right"/>
         {children}
-    </NextUIProvider>;
+    </>;
 }

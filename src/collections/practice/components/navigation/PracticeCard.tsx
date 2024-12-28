@@ -2,7 +2,9 @@ import { useTranslations } from "next-intl";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import PracticeButton from "@/collections/practice/components/navigation/PracticeButton";
-import { PracticeSectionProps } from "@/app/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
+import {
+    PracticeSectionProps
+} from "@/app/(app)/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
 
 export default function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"][any] }) {
     const t = useTranslations();
