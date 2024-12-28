@@ -6,18 +6,21 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import PracticeDetailsCard from "@/app/practices/[practiceId]/(overview)/_components/PracticeDetailsCard";
 import SimpleAttemptsTable from "@/app/practices/[practiceId]/(overview)/_components/SimpleAttemptsTable";
+import PracticePageActivities from "@/app/practices/[practiceId]/(overview)/_components/PracticePageActivities";
 
-export default async function Page(props: { params: Promise<{ practiceId: string }> }) {
-    const params = await props.params;
+const DATA = "id, title, description, created_at";
+const TOPIC = "topic:topics(id, title)";
+const AUTHOR = "author:profiles(id, name, avatar_url)";
+const ATTEMPTS = "attempts:practice_attempts(id, perfection, started_at, ended_at)";
+const ACTIVITIES = "activities:topic_activities(*)"
 
-    const {
-        practiceId
-    } = params;
+export default async function Page({ params }: { params: Promise<{ practiceId: string }> }) {
+    const { practiceId } = await params;
 
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient
         .from("practices")
-        .select("id, title, description, created_at, topic:topics(id, title), author:profiles(id, name, avatar_url), attempts:practice_attempts(id, perfection, started_at, ended_at)")
+        .select(`${DATA}, ${TOPIC}, ${AUTHOR}, ${ATTEMPTS}, ${ACTIVITIES}`)
         .order("started_at", { referencedTable: 'practice_attempts', ascending: true })
         .limit(10, { referencedTable: 'practice_attempts' })
         .eq("id", practiceId)
@@ -25,7 +28,7 @@ export default async function Page(props: { params: Promise<{ practiceId: string
 
     if (error) return <ErrorView message={error.message}/>;
 
-    const { id, title, description, topic, author, created_at, attempts } = required(data);
+    const { id, title, description, topic, author, created_at, attempts, activities } = required(data);
 
     const attemptsCount = attempts.length;
     const averagePerfection = attempts
@@ -43,8 +46,8 @@ export default async function Page(props: { params: Promise<{ practiceId: string
         duration: (new Date(attempt.ended_at).getTime() - new Date(attempt.started_at).getTime()) / 1000
     }));
 
-    return <PageContainer>
-        <header className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+    return <PageContainer className="">
+        <header className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
             <PracticeDetailsCard {...{
                 id,
                 title,
@@ -54,12 +57,15 @@ export default async function Page(props: { params: Promise<{ practiceId: string
                 averageDuration,
                 created_at,
                 author,
-                topic: topic!
+                topic: topic!,
+                activities: activities as any,
             }}/>
             <aside className=""></aside>
         </header>
-        <br/>
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="xl:col-span-2 -mx-2">
+                <PracticePageActivities activities={activities as any}/>
+            </div>
             <SimpleAttemptsTable practiceId={id} attempts={attemptsRows} {...{ averagePerfection, averageDuration }}/>
         </div>
     </PageContainer>

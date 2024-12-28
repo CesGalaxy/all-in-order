@@ -1,10 +1,21 @@
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Chip } from "@nextui-org/chip";
-import { IconBooks, IconCalendar, IconMeteor, IconPlayerPlay, IconRobot, IconUser } from "@tabler/icons-react";
+import {
+    IconBooks,
+    IconCalendar,
+    IconEdit,
+    IconMeteor,
+    IconPlayerPlay,
+    IconRobot,
+    IconUser
+} from "@tabler/icons-react";
 import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import { Avatar } from "@nextui-org/avatar";
+import ModalButton from "@/components/utils/ModalButton";
+import EditPracticeModal from "@/app/practices/[practiceId]/(overview)/_components/EditPracticeModal";
+import { TopicActivity } from "@aio/db/entities";
 
 export interface PracticeDetailsCardProps {
     title: string;
@@ -24,6 +35,7 @@ export interface PracticeDetailsCardProps {
         title: string;
     };
     id: number;
+    activities: TopicActivity[];
 }
 
 export default function PracticeDetailsCard({
@@ -36,7 +48,8 @@ export default function PracticeDetailsCard({
                                                 created_at,
                                                 updated_at,
                                                 topic,
-                                                id
+                                                id,
+                                                activities,
                                             }: PracticeDetailsCardProps) {
     return <Card as="main" className="xl:col-span-2">
         <CardHeader className="text-xl font-medium">
@@ -106,16 +119,26 @@ export default function PracticeDetailsCard({
             </ul>
         </CardBody>
         <Divider/>
-        <CardFooter className="gap-4">
-            <Button
-                color="primary"
-                as={Link}
-                href="start"
-                startContent={<IconPlayerPlay/>}
-            >
-                Practice now!
-            </Button>
-            <Button startContent={<IconMeteor/>}>Quick lesson</Button>
+        <CardFooter className="gap-4 justify-between *:flex *:items-center *:gap-4">
+            <nav>
+                <Button
+                    color="primary"
+                    as={Link}
+                    href="start"
+                    startContent={<IconPlayerPlay/>}
+                >
+                    Practice now!
+                </Button>
+                <Button startContent={<IconMeteor/>}>Quick lesson</Button>
+            </nav>
+            <nav>
+                <ModalButton
+                    modal={<EditPracticeModal details={{ id, title, description }} activities={activities}
+                                              topicId={topic.id}/>}
+                    modalProps={{ size: "full" }}
+                    startContent={<IconEdit/>}
+                >Edit</ModalButton>
+            </nav>
         </CardFooter>
     </Card>;
 }
