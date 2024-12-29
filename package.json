@@ -29,6 +29,7 @@
     "@nextui-org/dropdown": "^2.3.7",
     "@nextui-org/form": "^2.1.7",
     "@nextui-org/input": "^2.4.6",
+    "@nextui-org/kbd": "^2.2.5",
     "@nextui-org/link": "^2.2.5",
     "@nextui-org/modal": "^2.2.5",
     "@nextui-org/navbar": "^2.2.5",
@@ -58,6 +59,7 @@
     "@tiptap-pro/extension-table-of-contents": "^2.16.3",
     "ai": "^3.4.33",
     "chalk": "^5.3.0",
+    "cmdk": "^1.0.4",
     "emoji-picker-react": "^4.12.0",
     "framer-motion": "12.0.0-alpha.2",
     "next": "15.1.2",
@@ -70,7 +72,8 @@
     "react-toastify": "^10.0.6",
     "showdown": "^2.1.0",
     "tailwind-merge": "^2.5.5",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@aio/ts": "workspace:*",

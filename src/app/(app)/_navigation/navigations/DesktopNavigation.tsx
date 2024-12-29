@@ -1,19 +1,18 @@
-import { NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { NavbarItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
-import { NavbarPage } from "@/app/(app)/_navigation/Navbar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/client";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import AppNavbarCourses from "@/app/(app)/_navigation/navigations/AppNavbarCourses";
 
-export default function DesktopNavigation({ currentPage }: { currentPage?: NavbarPage }) {
+export default function DesktopNavigation() {
     const t = useTranslations();
 
-    return <NavbarContent className="hidden sm:flex gap-8" justify="center">
+    return <ul className="hidden lg:flex gap-8 pl-4 justify-start items-center">
         <Popover backdrop="blur">
             <PopoverTrigger>
-                <NavbarItem isActive={currentPage === 'subjects'} role="button">
-                    <span className="text-foreground group-data-[active=true]:text-primary">{t("App.courses")}</span>
+                <NavbarItem role="button">
+                    <span className="text-foreground">{t("App.courses")}</span>
                 </NavbarItem>
             </PopoverTrigger>
             <PopoverContent>
@@ -22,17 +21,17 @@ export default function DesktopNavigation({ currentPage }: { currentPage?: Navba
                 </Suspense>
             </PopoverContent>
         </Popover>
-        <NavbarItem isActive={currentPage === 'agenda'}>
-            <Link href="/agenda" aria-current={currentPage === 'agenda' ? 'page' : undefined}>
-                <span className="text-foreground group-data-[active=true]:text-primary">{t("App.agenda")}</span>
+        <NavbarItem>
+            <Link href="/agenda">
+                <span className="text-foreground">{t("App.agenda")}</span>
             </Link>
         </NavbarItem>
-        <NavbarItem isActive={currentPage === 'docs'}>
-            <Link href="/content" aria-current={currentPage === 'docs' ? 'page' : undefined}>
-                <span className="text-foreground group-data-[active=true]:text-primary">{t("App.documents")}</span>
+        <NavbarItem>
+            <Link href="/content">
+                <span className="text-foreground">{t("App.documents")}</span>
             </Link>
         </NavbarItem>
-    </NavbarContent>;
+    </ul>;
 }
 
 function Fallback() {

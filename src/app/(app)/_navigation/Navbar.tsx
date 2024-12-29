@@ -13,7 +13,7 @@ import LogoNameCol from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { getLocale, getTranslations } from "next-intl/server";
-import ToggleLocaleButton from "@/app/(app)/_navigation/ToggleLocaleButton";
+import { NavbarSearchButton, NavbarSmallSearchButton, ToggleLocaleButton } from "@/app/(app)/_navigation/buttons";
 import { Divider } from "@nextui-org/divider";
 import DesktopNavigation from "@/app/(app)/_navigation/navigations/DesktopNavigation";
 import { IconHome } from "@tabler/icons-react";
@@ -22,11 +22,7 @@ import news from "@/news.json";
 
 export type NavbarPage = 'subjects' | 'agenda' | 'docs';
 
-export interface NavbarProps {
-    currentPage?: NavbarPage;
-}
-
-export default async function AppNavbar({ currentPage }: NavbarProps) {
+export default async function AppNavbar() {
     const profile = await getMaybeMyProfile();
 
     const t = await getTranslations();
@@ -34,18 +30,22 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
 
     return <Nav shouldHideOnScroll classNames={{ item: "group" }} isBordered className="transition-background h-16">
         <NavbarContent>
-            <NavbarMenuToggle className="sm:hidden"/>
-            <NavbarBrand>
-                <Link href="/public">
-                    <Image src={LogoNameCol} alt="All In Order" height={64} priority/>
+            <NavbarMenuToggle className="lg:hidden"/>
+            <NavbarBrand className="grow-0 shrink-0 min-w-[187px] h-16">
+                <Link href="/">
+                    <Image src={LogoNameCol} alt="All In Order" height={64} width={187} priority/>
                 </Link>
             </NavbarBrand>
+            {profile && <>
+                <Divider className="h-7 hidden lg:flex" orientation="vertical"/>
+                <DesktopNavigation/>
+            </>}
         </NavbarContent>
-        <DesktopNavigation currentPage={currentPage}/>
         <NavbarContent className="hidden sm:flex" justify="end">
             <ToggleLocaleButton/>
             {profile
                 ? <>
+                    <NavbarSearchButton/>
                     <NavbarItem>
                         <Button as={Link} color="primary" href="/app" className="hidden md:inline-flex">
                             {t('Global.dashboard')}
@@ -71,7 +71,13 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
         </NavbarContent>
         <NavbarContent className="sm:hidden !flex-grow-0" justify="end">
             {profile
-                ? <ProfileAvatar profile={profile}/>
+                ? <>
+                    <NavbarSmallSearchButton/>
+                    <Button as={Link} href="/app" color="primary" isIconOnly radius="full" variant="flat">
+                        <IconHome/>
+                    </Button>
+                    <ProfileAvatar profile={profile}/>
+                </>
                 : <NavbarItem>
                     <Button variant="flat" color="primary" as={Link} href="/login">
                         {t('Auth.login')}
@@ -79,19 +85,19 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
                 </NavbarItem>}
         </NavbarContent>
         <NavbarMenu>
-            <NavbarMenuItem isActive={currentPage === 'subjects'} className="group">
-                <Link href="/subjects" aria-current={currentPage === 'subjects' ? 'page' : undefined}>
-                    <span className="text-foreground group-data-[active]:text-primary">{t("App.subjects")}</span>
+            <NavbarMenuItem>
+                <Link href="/subjects">
+                    <span className="text-foreground">{t("App.subjects")}</span>
                 </Link>
             </NavbarMenuItem>
-            <NavbarMenuItem isActive={currentPage === 'agenda'} className="group">
-                <Link href="/agenda" aria-current={currentPage === 'agenda' ? 'page' : undefined}>
-                    <span className="text-foreground group-data-[active]:text-primary">{t("App.agenda")}</span>
+            <NavbarMenuItem>
+                <Link href="/agenda">
+                    <span className="text-foreground">{t("App.agenda")}</span>
                 </Link>
             </NavbarMenuItem>
-            <NavbarMenuItem isActive={currentPage === 'docs'} className="group">
-                <Link href="/content" aria-current={currentPage === 'docs' ? 'page' : undefined}>
-                    <span className="text-foreground group-data-[active]:text-primary">{t("App.documents")}</span>
+            <NavbarMenuItem>
+                <Link href="/content">
+                    <span className="text-foreground">{t("App.documents")}</span>
                 </Link>
             </NavbarMenuItem>
             <Divider/>
@@ -103,17 +109,14 @@ export default async function AppNavbar({ currentPage }: NavbarProps) {
                     <small className="font-mono">{news.id}</small>
                 </header>
                 <ul className="list-disc pl-6">
-                    {news[locale].map((newsDetails, index) =>
-                        <li key={index} className="text-default-500 text-sm">
-                            {newsDetails}
-                        </li>)}
+                    {news[locale].map((newsDetails, index) => <li key={index} className="text-default-500 text-sm">
+                        {newsDetails}
+                    </li>)}
                 </ul>
             </section>
             <Divider/>
             <nav className="flex items-center justify-between w-full">
-                <Button as={Link} color="primary" href="/app">
-                    {t('Global.dashboard')}
-                </Button>
+                <Button as={Link} color="primary" href="/app">{t('Global.dashboard')}</Button>
                 <ToggleLocaleButton/>
             </nav>
         </NavbarMenu>

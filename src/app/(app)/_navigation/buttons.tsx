@@ -2,11 +2,13 @@
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
-import { IconLanguage } from "@tabler/icons-react";
+import { IconLanguage, IconSearch } from "@tabler/icons-react";
 import { Avatar } from "@nextui-org/avatar";
 import { updateLocale } from "@/app/(app)/_navigation/actions";
+import { Kbd } from "@nextui-org/kbd";
+import { useCmdkStore } from "@/features/cmdk/store";
 
-function ToggleLocaleButton() {
+export function ToggleLocaleButton() {
     return <Dropdown>
         <DropdownTrigger>
             <Button isIconOnly variant="light" aria-label="Language" title="Language">
@@ -34,4 +36,19 @@ function ToggleLocaleButton() {
     </Dropdown>;
 }
 
-export default ToggleLocaleButton;
+export function NavbarSearchButton() {
+    const { open } = useCmdkStore();
+    return <Button
+        startContent={<IconSearch/>}
+        variant="flat"
+        endContent={<Kbd keys={"command"} className="ml-2 hidden lg:inline-block">K</Kbd>}
+        onPress={open}
+    >
+        Search
+    </Button>;
+}
+
+export function NavbarSmallSearchButton() {
+    const { open } = useCmdkStore();
+    return <Button isIconOnly variant="flat" radius="full" onPress={open}><IconSearch/></Button>;
+}
