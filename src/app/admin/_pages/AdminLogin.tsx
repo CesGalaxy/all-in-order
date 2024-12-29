@@ -8,7 +8,10 @@ import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import { Form } from "@nextui-org/form";
 import { IconBrandGithub, IconBrandGoogle, IconEye, IconEyeOff } from "@tabler/icons-react";
+import Image from "next/image";
+import NameCol from "@/assets/logo/NameCol.svg";
 
+// TODO: Make this the login screen for the whole app
 export default function AdminLogin() {
     const [isVisible, setIsVisible] = React.useState(false);
 
@@ -20,9 +23,10 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="flex h-full w-full items-center justify-center flex-grow">
+        <div className="flex h-full w-full items-center justify-center flex-grow bg-background text-foreground">
             <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
                 <div className="flex flex-col items-center pb-6">
+                    <Image src={NameCol} alt="All In Order" width={256}/>
                     <p className="text-xl font-medium">Welcome Back</p>
                     <p className="text-small text-default-500">Log in to your account to continue</p>
                 </div>

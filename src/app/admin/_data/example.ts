@@ -1,3 +1,5 @@
+"use client";
+
 import type { DataProvider } from "@refinedev/core";
 
 const API_URL = "https://api.fake-rest.refine.dev";
