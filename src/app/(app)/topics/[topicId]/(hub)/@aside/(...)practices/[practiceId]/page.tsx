@@ -28,7 +28,8 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
 
     const topicPath = "/topics/" + topicId;
 
-    if (error) return <ErrorView message={error.message}/>;
+    if (error) console.error(error)
+    if (error) return <ErrorView message={"" + error.message}/>;
 
     const { activities, id, topic_id, attempts } = required(data, topicPath);
 

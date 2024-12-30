@@ -38,6 +38,7 @@ export default async function Layout({ children, params }: {
 }
 
 function Title({ practiceId }: { practiceId: string }) {
-    const { data } = use(getTopicAsidePractice(practiceId));
+    const { data, error } = use(getTopicAsidePractice(practiceId));
+    if (error) console.error(error)
     return data ? data.title : "Practice";
 }
