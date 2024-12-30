@@ -10,8 +10,10 @@ import { AnimatePresence } from "framer-motion";
 export default async function Layout({ children, aside, params }: {
     children: ReactNode,
     aside: ReactNode,
-    params: Promise<{ topicId: string }>
+    params: Promise<{ topicId: string }>,
+    searchParams: Promise<{}>
 }) {
+    // FIXME: This doesn't work with the intercepted route if it doesn't have the segment on it
     const { topicId } = await params;
 
     const dbRequest = getTopicData(parseInt(topicId));

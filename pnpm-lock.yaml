@@ -227,8 +227,8 @@ importers:
         specifier: ^8.4.49
         version: 8.4.49
       supabase:
-        specifier: ^1.226.4
-        version: 1.226.4
+        specifier: ^2.1.1
+        version: 2.1.1
       tailwindcss:
         specifier: ^3.4.16
         version: 3.4.17
@@ -6024,6 +6024,11 @@ packages:
 
   supabase@1.226.4:
     resolution: {integrity: sha512-qEzoagrqZs5T7sAlfZzehX3PJ13cSBrJVs2vrh6xC+B0VI0wgOBw2gCNRcsOMJMpSr0V1l0XueCiFBWPm2U03w==}
+    engines: {npm: '>=8'}
+    hasBin: true
+
+  supabase@2.1.1:
+    resolution: {integrity: sha512-KPP4LrvMmu6IWIcqSOcPbepTGT2Fv05TMiYwbcEaKgCVUznDNtlyXQTImJhjP+8FhNuJ+tF9SLoQgMQqDei+jA==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -14128,6 +14133,15 @@ snapshots:
       ts-interface-checker: 0.1.13
 
   supabase@1.226.4:
+    dependencies:
+      bin-links: 5.0.0
+      https-proxy-agent: 7.0.6
+      node-fetch: 3.3.2
+      tar: 7.4.3
+    transitivePeerDependencies:
+      - supports-color
+
+  supabase@2.1.1:
     dependencies:
       bin-links: 5.0.0
       https-proxy-agent: 7.0.6
