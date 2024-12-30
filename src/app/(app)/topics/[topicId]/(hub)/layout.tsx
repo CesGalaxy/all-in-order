@@ -7,7 +7,7 @@ import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/TopicSidebar";
 import { AnimatePresence } from "framer-motion";
 
-export default async function Layout({ children, params }: {
+export default async function Layout({ children, aside, params }: {
     children: ReactNode,
     aside: ReactNode,
     params: Promise<{ topicId: string }>
