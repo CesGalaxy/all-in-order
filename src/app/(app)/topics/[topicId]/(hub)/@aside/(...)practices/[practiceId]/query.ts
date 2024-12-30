@@ -14,5 +14,6 @@ export const getTopicAsidePractice = cache(async (practiceId: string | number) =
             .maybeSingle();
     } catch (e) {
         console.error("CATCH: ", e);
+        return { data: null, error: { message: "Fuck you all" } } as any;
     }
 });
