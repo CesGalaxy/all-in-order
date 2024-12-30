@@ -10,7 +10,7 @@ import { IconTrash, IconX } from "@tabler/icons-react";
 import BlankView from "@/components/views/BlankView";
 import throwAwayImage from "@/assets/pictures/throw_away.svg";
 import { Divider } from "@nextui-org/divider";
-import AYSButton from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/delete/_AYSButton";
+import AYSButton from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/delete/_AYSButton";
 import ModalButton from "@/components/utils/ModalButton";
 import ModalForm from "@/components/utils/ModalForm";
 

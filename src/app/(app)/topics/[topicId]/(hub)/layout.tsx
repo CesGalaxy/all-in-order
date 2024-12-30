@@ -7,9 +7,8 @@ import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/TopicSidebar";
 import { AnimatePresence } from "framer-motion";
 
-export default async function Layout({ children, aside, params }: {
+export default async function Layout({ children, params }: {
     children: ReactNode,
-    aside: ReactNode,
     params: Promise<{ topicId: string }>
 }) {
     const { topicId } = await params;
@@ -30,6 +29,5 @@ export default async function Layout({ children, aside, params }: {
                 {children}
             </AnimatePresence>
         </div>
-        <div className="absolute w-0 h-0 overflow-hidden">{aside}</div>
     </div>;
 }

@@ -1,7 +1,7 @@
 import { ReactNode, Suspense, use } from "react";
 import PracticePreviewTabs from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 import AsideModalContainer from "@/components/containers/AsideModal";
-import { getTopicAsidePractice } from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/query";
+import { getTopicAsidePractice } from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/query";
 import { Skeleton } from "@nextui-org/skeleton";
 
 interface Params {
@@ -38,6 +38,6 @@ export default async function Layout({ children, params }: {
 }
 
 function Title({ practiceId }: { practiceId: string }) {
-    const { data, error } = use(getTopicAsidePractice(practiceId));
+    const { data } = use(getTopicAsidePractice(practiceId));
     return data ? data.title : "Practice";
 }
