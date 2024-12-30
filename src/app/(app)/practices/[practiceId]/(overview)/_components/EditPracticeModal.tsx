@@ -10,7 +10,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { Alert } from "@nextui-org/alert";
 import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import QuestionSolutionButton
-    from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
+    from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
 import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
