@@ -34,8 +34,8 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
     const { activities, id, topic_id, attempts } = required(data, topicPath);
 
     const averageScore = attempts
-            .map(attempt => attempt.perfection)
-            .reduce((a, b) => a + b, 0)
+            .map((attempt: any) => attempt.perfection)
+            .reduce((a: any, b: any) => a + b, 0)
         / attempts.length;
 
     return activities.length === 0
