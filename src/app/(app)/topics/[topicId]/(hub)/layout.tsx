@@ -10,16 +10,18 @@ import { AnimatePresence } from "framer-motion";
 export default async function Layout({ children, aside, params }: {
     children: ReactNode,
     aside: ReactNode,
-    params: Promise<{ topicId: string }>,
-    searchParams: Promise<{}>
+    params: Promise<{ topicId: string }>
 }) {
     // FIXME: This doesn't work with the intercepted route if it doesn't have the segment on it
     const { topicId } = await params;
+    console.log("LAYOUT:", topicId);
 
     const dbRequest = getTopicData(parseInt(topicId));
 
     const { data, error } = await dbRequest;
-    if (error) return <ErrorView message={error.message}/>;
+    if (error) return <ErrorView message={error.message}>
+        <p>TOPIC ID: {topicId}</p>
+    </ErrorView>;
     const { id, title, description } = required(data);
 
     // Note: it works, don't touch it
