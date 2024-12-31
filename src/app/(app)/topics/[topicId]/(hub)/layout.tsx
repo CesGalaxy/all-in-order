@@ -7,14 +7,14 @@ import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/TopicSidebar";
 import { AnimatePresence } from "framer-motion";
 
-export default async function Layout({ children, aside, params }: {
+export default async function Layout({ children, params }: {
     children: ReactNode,
-    aside: ReactNode,
     params: Promise<{ topicId: string }>
 }) {
     // FIXME: This doesn't work with the intercepted route if it doesn't have the segment on it
-    const { topicId } = await params;
-    console.log("LAYOUT:", topicId);
+    const p = await params;
+    const { topicId } = p;
+    console.log("LAYOUT:", p);
 
     const dbRequest = getTopicData(parseInt(topicId));
 
@@ -34,6 +34,6 @@ export default async function Layout({ children, aside, params }: {
                 {children}
             </AnimatePresence>
         </div>
-        <div className="absolute w-0 h-0 overflow-hidden">{aside}</div>
+
     </div>;
 }

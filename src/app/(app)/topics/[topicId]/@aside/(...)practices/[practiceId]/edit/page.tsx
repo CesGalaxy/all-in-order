@@ -3,7 +3,7 @@
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import EditPracticeForm from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/edit/_form";
+import EditPracticeForm from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/edit/_form";
 import { Divider } from "@nextui-org/divider";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
