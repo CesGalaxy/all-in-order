@@ -7,21 +7,21 @@ import required from "@/lib/helpers/required";
 import TopicSidebar from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/TopicSidebar";
 import { AnimatePresence } from "framer-motion";
 
-export default async function Layout({ children, params }: {
+export default async function Layout({ children, aside, params }: {
     children: ReactNode,
+    aside: ReactNode,
     params: Promise<{ topicId: string }>
 }) {
     // FIXME: This doesn't work with the intercepted route if it doesn't have the segment on it
-    const p = await params;
-    const { topicId } = p;
-    console.log("LAYOUT:", p);
+    const { topicId } = await params;
+
+    // Check that the topicId is a number
+    if (isNaN(parseInt(topicId))) return <div className="absolute w-0 h-0 overflow-hidden">{aside}</div>;
 
     const dbRequest = getTopicData(parseInt(topicId));
 
     const { data, error } = await dbRequest;
-    if (error) return <ErrorView message={error.message}>
-        <p>TOPIC ID: {topicId}</p>
-    </ErrorView>;
+    if (error) return <ErrorView message={error.message}>TOPIC ID: {topicId}</ErrorView>;
     const { id, title, description } = required(data);
 
     // Note: it works, don't touch it
@@ -34,6 +34,6 @@ export default async function Layout({ children, params }: {
                 {children}
             </AnimatePresence>
         </div>
-
+        <div className="absolute w-0 h-0 overflow-hidden">{aside}</div>
     </div>;
 }

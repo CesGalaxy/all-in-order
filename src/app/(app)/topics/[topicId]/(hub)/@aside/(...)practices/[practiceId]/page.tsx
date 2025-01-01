@@ -13,11 +13,11 @@ import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { generateQuestionAttempt } from "@aio/db/features/questions";
 import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
 import QuestionSolutionButton
-    from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
+    from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
 import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
-import { getTopicAsidePractice } from "@/app/(app)/topics/[topicId]/@aside/(...)practices/[practiceId]/query";
+import { getTopicAsidePractice } from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/query";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
 
