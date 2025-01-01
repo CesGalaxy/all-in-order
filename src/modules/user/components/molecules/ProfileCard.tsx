@@ -9,7 +9,7 @@ export default function ProfileCard({ profile }: {
 }) {
     return <Card className="w-full">
         <CardHeader className="justify-between">
-            <div className="flex gap-5">
+            <div className="flex gap-4">
                 <Avatar
                     isBordered
                     radius="full"

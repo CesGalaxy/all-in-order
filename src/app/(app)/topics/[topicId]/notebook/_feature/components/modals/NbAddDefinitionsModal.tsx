@@ -22,7 +22,7 @@ export default function NbAddDefinitionsModal({ defaultArea }: { defaultArea?: s
         title={"New definition"}
         isFormValid={true}
         altActionState={wrapActionFunctionState(addDefinitionsState,
-            action => action([{ term, definition, area: Number(area) }]))}
+            action => action(Number(area), [{ term, definition }]))}
         handleSuccess="close"
     >
         <Input

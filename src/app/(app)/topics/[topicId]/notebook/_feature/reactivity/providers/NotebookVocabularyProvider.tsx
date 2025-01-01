@@ -31,11 +31,11 @@ export default function NotebookVocabularyProvider({
     const [areas, setAreas] = useState<NotebookVocabularyAreaData[]>(initialVocabularyAreas);
 
     // Definitions -> Add
-    const addDefinitionsState = useActionFunction(addNotebookVocabularyDefinitions.bind(null, topicId));
+    const addDefinitionsState = useActionFunction(addNotebookVocabularyDefinitions);
     const addDefinitionsModalDisclosure = useDisclosure();
 
     // Areas -> Add
-    const addAreasState = useActionFunction(addNotebookVocabularyAreas.bind(null, topicId));
+    const addAreasState = useActionFunction(addNotebookVocabularyAreas.bind(null, notebookId));
     const addAreasModalDisclosure = useDisclosure();
 
     useEffect(() => {

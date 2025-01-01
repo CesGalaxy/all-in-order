@@ -12,7 +12,7 @@ import { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 export interface NotebookVocabularyContextValue {
     areas: NotebookVocabularyAreaData[];
     setAreas: Dispatch<SetStateAction<NotebookVocabularyAreaData[]>>;
-    addDefinitionsState: ActionFunctionState<ActionResponse<null>, [definitions: NewNotebookVocabularyDefinition[]]>
+    addDefinitionsState: ActionFunctionState<ActionResponse<null>, [area: number, definitions: NewNotebookVocabularyDefinition[]]>
     addAreasState: ActionFunctionState<ActionResponse<null>, [areas: NewNotebookVocabularyArea[]]>
     showAddDefinitionsModal: () => void;
     showAddAreasModal: () => void;

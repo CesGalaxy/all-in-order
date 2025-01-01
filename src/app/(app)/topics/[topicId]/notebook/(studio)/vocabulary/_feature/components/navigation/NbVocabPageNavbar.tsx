@@ -28,6 +28,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import useNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebook";
 import NbVocabAreaDownloadOptions
     from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_feature/components/navigation/NbVocabAreaDownloadOptions";
+import useNotebookVocabulary
+    from "@/app/(app)/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebookVocabulary";
 
 const PRACTICE_MODES = [
     {
@@ -54,6 +56,7 @@ export interface NbVocabPageNavbarProps {
 
 export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabPageNavbarProps) {
     const { topic, topicId } = useNotebook();
+    const { showAddDefinitionsModal } = useNotebookVocabulary();
 
     return <Navbar isBordered maxWidth="full">
         <NavbarContent justify="start" className="hidden lg:flex">
@@ -99,7 +102,7 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
                     </Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                    <DropdownItem startContent={<IconTextPlus/>} key="new_definition">
+                    <DropdownItem startContent={<IconTextPlus/>} key="new_definition" onPress={showAddDefinitionsModal}>
                         New definition
                     </DropdownItem>
                     <DropdownItem startContent={<IconEdit/>} key="edit">
@@ -135,7 +138,7 @@ export default function NbVocabPageNavbar({ area: { id, icon, name } }: NbVocabP
                                     key={mode.key}
                                     description={mode.description}
                                     startContent={<mode.icon size={32}/>}
-                                    href={"practice?mode=" + mode.key}
+                                    href={`/topics/${topicId}/notebook/vocabulary/practice?mode=${mode.key}&area=${id}`}
                                 >
                                     {mode.label}
                                 </DropdownItem>

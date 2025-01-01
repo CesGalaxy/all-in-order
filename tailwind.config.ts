@@ -5,13 +5,14 @@ import ContainerQueries from "@tailwindcss/container-queries";
 import typography from "@tailwindcss/typography";
 
 const config: Config = {
-  content: [
-    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(accordion|alert|avatar|breadcrumbs|button|card|checkbox|chip|drawer|dropdown|form|input|kbd|link|modal|navbar|popover|radio|scroll-shadow|select|skeleton|spinner|toggle|table|tabs|user|divider|ripple|menu|listbox|spacer).js"
-  ],
+    content: [
+        "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/modules/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/@nextui-org/theme/dist/components/(accordion|alert|avatar|breadcrumbs|button|card|checkbox|chip|drawer|dropdown|form|input|kbd|link|modal|navbar|popover|radio|scroll-shadow|select|skeleton|spinner|toggle|table|tabs|user|divider|ripple|menu|listbox|spacer).js"
+    ],
     theme: {
         extend: {
             backgroundImage: {

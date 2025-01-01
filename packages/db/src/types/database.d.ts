@@ -113,6 +113,47 @@ export type Database = {
           },
         ]
       }
+      nb_notes: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          notebook: number
+          style: Json
+          tags: string[]
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          notebook: number
+          style: Json
+          tags?: string[]
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          notebook?: number
+          style?: Json
+          tags?: string[]
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nb_notes_notebook_fkey"
+            columns: ["notebook"]
+            isOneToOne: false
+            referencedRelation: "notebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       nb_vocab_areas: {
         Row: {
           created_at: string

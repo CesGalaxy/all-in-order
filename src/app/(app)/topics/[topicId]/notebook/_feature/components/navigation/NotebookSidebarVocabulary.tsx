@@ -20,7 +20,7 @@ export default function NotebookSidebarVocabulary() {
 
     return <div className="w-full md:w-auto md:min-w-48 md:max-w-96 py-2 h-full flex flex-col">
         <header className="mb-2 px-2 flex items-center justify-between">
-            <Link href={`/src/app/%5Blang%5D/topics/${topicId}/notebook/vocabulary`} color="foreground"
+            <Link href={`/topics/${topicId}/notebook/vocabulary`} color="foreground"
                   className="font-medium text-lg">
                 <h1>Vocabulary</h1>
             </Link>
@@ -52,7 +52,7 @@ export default function NotebookSidebarVocabulary() {
         <ul className="flex gap-2 flex-wrap">
             {areas.map(area => <li key={area.id} className="px-2 py-1">
                 <Link
-                    href={`/src/app/%5Blang%5D/topics/${topicId}/notebook/vocabulary/${encodeURIComponent(area.name)}`}
+                    href={`/topics/${topicId}/notebook/vocabulary/${encodeURIComponent(area.name)}`}
                     color="foreground"
                     className="font-medium" isBlock size="lg">
                     {area.icon} {area.name}

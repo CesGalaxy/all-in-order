@@ -36,19 +36,21 @@ import useNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/reactivi
 import { usePathname } from "next/navigation";
 
 const SIDEBARS = {
-    "pages": { tooltip: "Pages", icon: <IconNotebook/> },
-    "vocabulary": { tooltip: "Vocabulary", icon: <IconTypography/> },
-    "notes": { tooltip: "Notes", icon: <IconNote/> },
-    "data": { tooltip: "Data", icon: <IconDatabase/> }
+    "pages": { tooltip: "Pages", icon: <IconNotebook/>, link: false },
+    "vocabulary": { tooltip: "Vocabulary", icon: <IconTypography/>, link: false },
+    "notes": { tooltip: "Notes", icon: <IconNote/>, link: true },
+    "data": { tooltip: "Data", icon: <IconDatabase/>, link: false }
 };
 
 export type SidebarType = "pages" | "vocabulary" | "notes" | "data";
 
 export default function NotebookSidebar() {
-    const { topic, topicId } = useNotebook();
-    const [sidebar, setSidebar] = useState<SidebarType | null>("vocabulary");
-    const [show, setShow] = useState(false);
     const pathname = usePathname();
+    const { topic, topicId } = useNotebook();
+    const [sidebar, setSidebar] = useState<SidebarType | null>(null);
+    const [show, setShow] = useState(false);
+
+    const rootPath = `/topics/${topicId}/notebook/`;
 
     const SidebarContent = useMemo(() => {
         switch (sidebar) {
@@ -90,10 +92,15 @@ export default function NotebookSidebar() {
                                 </Button>
                             </Tooltip>
                         </li>
-                        {Object.entries(SIDEBARS).map(([key, { tooltip, icon }]) => (
+                        {Object.entries(SIDEBARS).map(([key, { tooltip, icon, link }]) => (
                             <li key={key}>
                                 <Tooltip placement="right" delay={200} closeDelay={0} content={tooltip}>
-                                    <Button isIconOnly onPress={() => openSidebar(key as SidebarType)}>
+                                    <Button
+                                        as={link ? Link : undefined}
+                                        href={rootPath + key}
+                                        isIconOnly
+                                        onPress={() => openSidebar(key as SidebarType)}
+                                    >
                                         {icon}
                                     </Button>
                                 </Tooltip>
@@ -153,7 +160,7 @@ export default function NotebookSidebar() {
                                     <DropdownItem key="accessibility" startContent={<IconAccessible/>}>
                                         Accessibility
                                     </DropdownItem>
-                                    <DropdownItem key="preferences" startContent={<IconTool/>}>
+                                    <DropdownItem key="prefs" startContent={<IconTool/>} href={rootPath + "settings"}>
                                         Preferences
                                     </DropdownItem>
                                 </DropdownSection>
