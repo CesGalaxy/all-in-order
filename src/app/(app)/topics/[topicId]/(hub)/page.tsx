@@ -7,10 +7,10 @@ import { getMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
 import getTopicData from "@/app/(app)/topics/[topicId]/(hub)/query";
 import TopicRecentPracticesSection
-    from "@/app/(app)/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
+    from "@/app/(app)/topics/[topicId]/(hub)/_components/templates/TopicRecentPracticesSection";
 import PageContainer from "@/components/containers/PageContainer";
 import getTopicDocuments from "@/supabase/storage/query/getTopicDocuments";
-import TopicRecentDocsSection from "@/app/(app)/topics/[topicId]/(hub)/_components/organisms/TopicRecentDocsSection";
+import TopicRecentDocsSection from "@/app/(app)/topics/[topicId]/(hub)/_components/templates/TopicRecentDocsSection";
 
 interface Params {
     topicId: string;
@@ -34,7 +34,7 @@ export default async function Page({ params, searchParams }: {
     // Handle the received topic data
     const { data, error } = await dbRequest;
     if (error) return <ErrorView message={error.message}/>;
-    const { practices, ...topic } = required(data);
+    const { practices, ...topic } = required(data, false);
 
     // Handle the received documents
     const { privateError, privateData, publicError, publicData } = await docsRequest;

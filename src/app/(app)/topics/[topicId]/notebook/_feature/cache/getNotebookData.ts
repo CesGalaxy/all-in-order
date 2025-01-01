@@ -4,8 +4,8 @@ import { cache } from "react";
 import getSupabase from "@/supabase/server";
 import { getUser } from "@/supabase/auth/user";
 import { NotebookData } from "@/app/(app)/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
-import setupNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/actions/setupNotebook";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
 const getNotebookData = cache(async (topicId: string | number) => {
     const user = await getUser();
@@ -18,7 +18,7 @@ const getNotebookData = cache(async (topicId: string | number) => {
         .returns<NotebookData[]>()
         .maybeSingle();
 
-    if (!query.error && !query.data) return setupNotebook(topicId);
+    if (!query.error && !query.data) redirect(`/topics/${topicId}/notebook/setup`);
 
     return query as PostgrestSingleResponse<NotebookData>;
 });

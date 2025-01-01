@@ -13,8 +13,7 @@ export default async function Layout({ children, params }: {
     children: ReactNode,
     params: Promise<Params>
 }) {
-    const { topicId, practiceId } = await params;
-    const topicPath = "/topics/" + topicId;
+    const { practiceId } = await params;
 
     return <AsideModalContainer
         title={
@@ -27,7 +26,6 @@ export default async function Layout({ children, params }: {
             </Suspense>
         }
         className="md:w-1/2 md:min-w-96"
-        closeUrl={topicPath}
         actions={<PracticePreviewTabs practiceId={practiceId}/>}
         contentClassName="p-4"
         animate

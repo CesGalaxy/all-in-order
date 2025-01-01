@@ -4,7 +4,7 @@ import { Link } from "@nextui-org/link";
 import PracticeButton from "@/collections/practice/components/navigation/PracticeButton";
 import {
     PracticeSectionProps
-} from "@/app/(app)/topics/[topicId]/(hub)/_components/organisms/TopicRecentPracticesSection";
+} from "@/app/(app)/topics/[topicId]/(hub)/_components/templates/TopicRecentPracticesSection";
 
 export default function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"][any] }) {
     const t = useTranslations();

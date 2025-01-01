@@ -115,37 +115,28 @@ export type Database = {
       }
       nb_vocab_areas: {
         Row: {
-          color: number
           created_at: string
           description: string
-          icon: string | null
+          icon: string
           id: number
           name: string
           notebook: number
-          notes: string
-          updated_at: string | null
         }
         Insert: {
-          color: number
           created_at?: string
           description: string
-          icon?: string | null
+          icon: string
           id?: number
           name: string
           notebook: number
-          notes: string
-          updated_at?: string | null
         }
         Update: {
-          color?: number
           created_at?: string
           description?: string
-          icon?: string | null
+          icon?: string
           id?: number
           name?: string
           notebook?: number
-          notes?: string
-          updated_at?: string | null
         }
         Relationships: [
           {
@@ -159,32 +150,29 @@ export type Database = {
       }
       nb_vocab_definitions: {
         Row: {
-          area: number | null
+          area: number
           created_at: string
           definition: string
           id: number
-          notebook: number
-          notes: string | null
+          tags: string[]
           term: string
           updated_at: string | null
         }
         Insert: {
-          area?: number | null
+          area: number
           created_at?: string
           definition: string
           id?: number
-          notebook: number
-          notes?: string | null
+          tags?: string[]
           term: string
           updated_at?: string | null
         }
         Update: {
-          area?: number | null
+          area?: number
           created_at?: string
           definition?: string
           id?: number
-          notebook?: number
-          notes?: string | null
+          tags?: string[]
           term?: string
           updated_at?: string | null
         }
@@ -196,38 +184,34 @@ export type Database = {
             referencedRelation: "nb_vocab_areas"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "nb_vocab_definitions_notebook_fkey"
-            columns: ["notebook"]
-            isOneToOne: false
-            referencedRelation: "notebooks"
-            referencedColumns: ["id"]
-          },
         ]
       }
       notebooks: {
         Row: {
-          color: number | null
+          alias: string | null
           created_at: string
           id: number
           is_active: boolean
           topic: number
+          updated_at: string | null
           user: string
         }
         Insert: {
-          color?: number | null
+          alias?: string | null
           created_at?: string
           id?: number
           is_active?: boolean
           topic: number
+          updated_at?: string | null
           user: string
         }
         Update: {
-          color?: number | null
+          alias?: string | null
           created_at?: string
           id?: number
           is_active?: boolean
           topic?: number
+          updated_at?: string | null
           user?: string
         }
         Relationships: [
@@ -739,6 +723,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      binary_quantize:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: unknown
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
       create_agenda: {
         Args: {
           project_id: number
@@ -764,6 +761,30 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: number
       }
+      halfvec_avg: {
+        Args: {
+          "": number[]
+        }
+        Returns: unknown
+      }
+      halfvec_out: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      halfvec_send: {
+        Args: {
+          "": unknown
+        }
+        Returns: string
+      }
+      halfvec_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
+      }
       has_access_to_course: {
         Args: {
           profile_id: number
@@ -785,6 +806,30 @@ export type Database = {
         }
         Returns: boolean
       }
+      hnsw_bit_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnsw_halfvec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnsw_sparsevec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnswhandler: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
       is_course_admin: {
         Args: {
           profile_id: number
@@ -805,6 +850,117 @@ export type Database = {
           topic_id: number
         }
         Returns: boolean
+      }
+      ivfflat_bit_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      ivfflat_halfvec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      ivfflathandler: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      l2_norm:
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+      l2_normalize:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
+      sparsevec_out: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      sparsevec_send: {
+        Args: {
+          "": unknown
+        }
+        Returns: string
+      }
+      sparsevec_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
+      }
+      vector_avg: {
+        Args: {
+          "": number[]
+        }
+        Returns: string
+      }
+      vector_dims:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+      vector_norm: {
+        Args: {
+          "": string
+        }
+        Returns: number
+      }
+      vector_out: {
+        Args: {
+          "": string
+        }
+        Returns: unknown
+      }
+      vector_send: {
+        Args: {
+          "": string
+        }
+        Returns: string
+      }
+      vector_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
       }
     }
     Enums: {

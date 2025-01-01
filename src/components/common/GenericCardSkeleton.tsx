@@ -10,3 +10,9 @@ export default function GenericCardSkeleton() {
         </div>
     </div>;
 }
+
+export function GenericCardGridSkeleton({ amount = 6 }: { amount?: number }) {
+    return <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {[...Array(amount)].map((_, i) => <GenericCardSkeleton key={i}/>)}
+    </div>;
+}

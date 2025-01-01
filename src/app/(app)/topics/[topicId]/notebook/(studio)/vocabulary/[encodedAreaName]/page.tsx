@@ -2,7 +2,8 @@ import getSupabase from "@/supabase/server";
 import { getUser } from "@/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 import { notFound } from "next/navigation";
-import NbVocabPage from "@/app/(app)/topics/[topicId]/notebook/vocabulary/_feature/components/templates/NbVocabPage";
+import NbVocabPage
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_feature/components/templates/NbVocabPage";
 
 interface Params {
     topicId: string;

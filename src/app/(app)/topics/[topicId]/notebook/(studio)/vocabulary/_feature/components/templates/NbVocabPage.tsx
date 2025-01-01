@@ -1,7 +1,7 @@
 import NbVocabPageNavbar
-    from "@/app/(app)/topics/[topicId]/notebook/vocabulary/_feature/components/navigation/NbVocabPageNavbar";
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_feature/components/navigation/NbVocabPageNavbar";
 import NbVocabDefinitionsTable
-    from "@/app/(app)/topics/[topicId]/notebook/vocabulary/_feature/components/data/NbVocabDefinitionsTable";
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_feature/components/data/NbVocabDefinitionsTable";
 import PageContainer from "@/components/containers/PageContainer";
 import { IconPencilPlus } from "@tabler/icons-react";
 import ModalButton from "@/components/utils/ModalButton";

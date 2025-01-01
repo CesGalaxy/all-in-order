@@ -21,8 +21,8 @@ export default async function Layout({ children, aside, params }: {
     const dbRequest = getTopicData(parseInt(topicId));
 
     const { data, error } = await dbRequest;
-    if (error) return <ErrorView message={error.message}>TOPIC ID: {topicId}</ErrorView>;
-    const { id, title, description } = required(data);
+    if (error) return <ErrorView message={error.message}/>;
+    const { id, title, description } = required(data, false);
 
     // Note: it works, don't touch it
     return <div className="w-full flex flex-col lg:flex-row p-2 md:p-4 lg:p-8 gap-x-4 gap-y-8">

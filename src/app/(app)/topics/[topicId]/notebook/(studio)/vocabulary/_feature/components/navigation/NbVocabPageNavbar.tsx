@@ -27,7 +27,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger 
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import useNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/reactivity/hooks/useNotebook";
 import NbVocabAreaDownloadOptions
-    from "@/app/(app)/topics/[topicId]/notebook/vocabulary/_feature/components/navigation/NbVocabAreaDownloadOptions";
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_feature/components/navigation/NbVocabAreaDownloadOptions";
 
 const PRACTICE_MODES = [
     {

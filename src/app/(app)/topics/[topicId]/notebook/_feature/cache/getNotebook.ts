@@ -28,7 +28,7 @@ const getNotebook = cache(async (topicId: string | number): Promise<NotebookQuer
 
     const supabaseClient = await getSupabase();
 
-    const [{ data, error: dataError }, { data: files, error: storageError },] = await Promise.all([
+    const [{ data, error: dataError }, { data: files, error: storageError }] = await Promise.all([
         getNotebookData(topicId),
         supabaseClient
             .storage

@@ -3,7 +3,7 @@ import CreateCourseModal, { CreateCourseModalAction } from "@/collections/course
 import { IconPlus } from "@tabler/icons-react";
 import ModalButton from "@/components/utils/ModalButton";
 import { Suspense } from "react";
-import GenericCardSkeleton from "@/components/common/GenericCardSkeleton";
+import { GenericCardGridSkeleton } from "@/components/common/GenericCardSkeleton";
 import getSupabase from "@/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
@@ -11,7 +11,7 @@ import NoCourses from "@/collections/course/components/views/NoCourses";
 import { getTranslations } from "next-intl/server";
 
 export interface DashboardCoursesSectionProps {
-    createCourseAction?: CreateCourseModalAction;
+    createCourseAction: CreateCourseModalAction;
     profileId: number;
 }
 
@@ -22,7 +22,7 @@ async function DashboardCoursesSection({ createCourseAction, profileId }: Dashbo
         title="My Courses"
         className="xl:col-span-2 w-full"
         trailing={
-            createCourseAction && <ModalButton
+            <ModalButton
                 color="primary"
                 radius="full"
                 size="sm"
@@ -34,16 +34,10 @@ async function DashboardCoursesSection({ createCourseAction, profileId }: Dashbo
             </ModalButton>
         }
     >
-        <Suspense fallback={<DashboardCoursesListSkeleton/>}>
+        <Suspense fallback={<GenericCardGridSkeleton/>}>
             <DashboardCoursesList profileId={profileId}/>
         </Suspense>
     </SectionContainer>;
-}
-
-function DashboardCoursesListSkeleton() {
-    return <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[...Array(6)].map((_, i) => <GenericCardSkeleton key={i}/>)}
-    </div>;
 }
 
 async function DashboardCoursesList({ profileId }: { profileId: number }) {

@@ -6,8 +6,7 @@ import { handleSingleResponse } from "@/lib/helpers/supabase";
 export interface NewNotebookVocabularyDefinition {
     term: string;
     definition: string;
-    notes?: string;
-    area?: number;
+    // notes?: string;
 }
 
 export interface NewNotebookVocabularyArea {
@@ -16,11 +15,11 @@ export interface NewNotebookVocabularyArea {
     icon: string;
 }
 
-export async function addNotebookVocabularyDefinitions(notebookId: number, definitions: NewNotebookVocabularyDefinition[]) {
+export async function addNotebookVocabularyDefinitions(area: number, definitions: NewNotebookVocabularyDefinition[]) {
     const supabaseClient = await getSupabase();
     const response = await supabaseClient
         .from("nb_vocab_definitions")
-        .insert(definitions.map(def => ({ ...def, notebook: notebookId })));
+        .insert(definitions.map(d => ({ ...d, area })));
 
     return handleSingleResponse(response);
 }

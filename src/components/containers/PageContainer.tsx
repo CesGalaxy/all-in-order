@@ -2,7 +2,7 @@ import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-    tabs?: string[];
+    // tabs?: string[];
     children?: React.ReactNode;
 }
 

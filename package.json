@@ -86,6 +86,7 @@
     "eslint": "^9.16.0",
     "eslint-config-next": "15.1.2",
     "postcss": "^8.4.49",
+    "sherif": "^1.1.1",
     "supabase": "^2.1.1",
     "tailwindcss": "^3.4.16",
     "tailwindcss-view-transitions": "^0.1.1",

@@ -15,10 +15,10 @@
     "supabase:gen": "supabase gen types typescript --project-id lqhpujmpehjkdqbxcret > src/types/database.d.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.46.1"
+    "@supabase/supabase-js": "^2.47.2"
   },
   "devDependencies": {
     "@aio/ts": "workspace:*",
-    "supabase": "^1.219.2"
+    "supabase": "^2.1.1"
   }
 }

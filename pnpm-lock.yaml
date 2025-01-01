@@ -226,6 +226,9 @@ importers:
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
+      sherif:
+        specifier: ^1.1.1
+        version: 1.1.1
       supabase:
         specifier: ^2.1.1
         version: 2.1.1
@@ -270,15 +273,15 @@ importers:
   packages/db:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.46.1
+        specifier: ^2.47.2
         version: 2.47.10
     devDependencies:
       '@aio/ts':
         specifier: workspace:*
         version: link:../ts
       supabase:
-        specifier: ^1.219.2
-        version: 1.226.4
+        specifier: ^2.1.1
+        version: 2.1.1
 
   packages/eslint-config:
     devDependencies:
@@ -295,7 +298,7 @@ importers:
         specifier: ^8.15.0
         version: 8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2)
       eslint:
-        specifier: ^9.15.0
+        specifier: ^9.16.0
         version: 9.17.0(jiti@1.21.7)
       eslint-config-prettier:
         specifier: ^9.1.0
@@ -316,7 +319,7 @@ importers:
         specifier: ^15.12.0
         version: 15.14.0
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.2
         version: 5.7.2
       typescript-eslint:
         specifier: ^8.15.0
@@ -331,6 +334,8 @@ importers:
       '@aio/ts':
         specifier: workspace:*
         version: link:../ts
+
+  packages/tailwind-config: {}
 
   packages/ts: {}
 
@@ -5841,6 +5846,40 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
+  sherif-darwin-arm64@1.1.1:
+    resolution: {integrity: sha512-67WeOqkp6/glNIvNINi5FjFmyJU65XUmA+ow16DBHXaR3C7mA6eQNjP3Ro3EMLRXzzvj9cMJ0k7vLsbxWCzBkw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  sherif-darwin-x64@1.1.1:
+    resolution: {integrity: sha512-FVRuABcXT5cNcCLrWyH0WomkHQ/HMQodwklUVPpuDg08p7dZo8AZNsRmmCh//l8U6G56LW9dQJbkgOq8yI4MHg==}
+    cpu: [x64]
+    os: [darwin]
+
+  sherif-linux-arm64@1.1.1:
+    resolution: {integrity: sha512-jFZMQ5v/R0dUcER4zR9NG/y1tGwdDI5R+ZqBG6iyDwviT5jpRTGXBQSSss4yaflLbOq1HpQeXzfMJX408BWklg==}
+    cpu: [arm64]
+    os: [linux]
+
+  sherif-linux-x64@1.1.1:
+    resolution: {integrity: sha512-l3N+wwDjCSCC/MKI9/4RLIpMVfnMlQ2EhzmimhZuLt3v8+lfkG7+at0De5idkJXejoHyXNLKAiTRxYaVsXwGpQ==}
+    cpu: [x64]
+    os: [linux]
+
+  sherif-windows-arm64@1.1.1:
+    resolution: {integrity: sha512-eRt/4GWSeJUdaP3Gu38zpK/mCTLRQl+KaPfBbJ9CC+jzUxsiFE0+hMcvc0gecvMqAHYpQAWJ2y3oiMuJ2mwQ8A==}
+    cpu: [arm64]
+    os: [win32]
+
+  sherif-windows-x64@1.1.1:
+    resolution: {integrity: sha512-yRBJMcoyqederEv+Jgz8Nnv63xXRppZn/XUCTukFDKgY41v8JDnU3CeS79F7DxakS8vu9Y6kGATvwpShbGYzeA==}
+    cpu: [x64]
+    os: [win32]
+
+  sherif@1.1.1:
+    resolution: {integrity: sha512-571FkeQKaRZJJj4w55LEATkUC2kkoxkdlYuBx3V5N+O3P++4dgpCO1+goQBHbVJivmTpL7zkcLWLfymWf1BtUw==}
+    hasBin: true
+
   showdown@2.1.0:
     resolution: {integrity: sha512-/6NVYu4U819R2pUIk79n67SYgJHWCce0a5xTP979WbNp0FL9MN1I1QK662IDU1b6JzKTvmhgI7T7JYIxBi3kMQ==}
     hasBin: true
@@ -6020,11 +6059,6 @@ packages:
   sucrase@3.35.0:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
     engines: {node: '>=16 || 14 >=14.17'}
-    hasBin: true
-
-  supabase@1.226.4:
-    resolution: {integrity: sha512-qEzoagrqZs5T7sAlfZzehX3PJ13cSBrJVs2vrh6xC+B0VI0wgOBw2gCNRcsOMJMpSr0V1l0XueCiFBWPm2U03w==}
-    engines: {npm: '>=8'}
     hasBin: true
 
   supabase@2.1.1:
@@ -11209,8 +11243,8 @@ snapshots:
       '@typescript-eslint/parser': 8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2)
       eslint: 9.17.0(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0)(eslint@9.17.0(jiti@1.21.7))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)(eslint@9.17.0(jiti@1.21.7))
+      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.17.0(jiti@1.21.7))
       eslint-plugin-react: 7.37.3(eslint@9.17.0(jiti@1.21.7))
       eslint-plugin-react-hooks: 5.1.0(eslint@9.17.0(jiti@1.21.7))
@@ -11233,7 +11267,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0)(eslint@9.17.0(jiti@1.21.7)):
+  eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.0
@@ -11245,22 +11279,22 @@ snapshots:
       is-glob: 4.0.3
       stable-hash: 0.0.4
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)(eslint@9.17.0(jiti@1.21.7))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0)(eslint@9.17.0(jiti@1.21.7)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2)
       eslint: 9.17.0(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0)(eslint@9.17.0(jiti@1.21.7))
+      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)(eslint@9.17.0(jiti@1.21.7)):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -11271,7 +11305,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.17.0(jiti@1.21.7)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0)(eslint@9.17.0(jiti@1.21.7))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.18.2(eslint@9.17.0(jiti@1.21.7))(typescript@5.7.2))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7)))(eslint@9.17.0(jiti@1.21.7))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -13921,6 +13955,33 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
+  sherif-darwin-arm64@1.1.1:
+    optional: true
+
+  sherif-darwin-x64@1.1.1:
+    optional: true
+
+  sherif-linux-arm64@1.1.1:
+    optional: true
+
+  sherif-linux-x64@1.1.1:
+    optional: true
+
+  sherif-windows-arm64@1.1.1:
+    optional: true
+
+  sherif-windows-x64@1.1.1:
+    optional: true
+
+  sherif@1.1.1:
+    optionalDependencies:
+      sherif-darwin-arm64: 1.1.1
+      sherif-darwin-x64: 1.1.1
+      sherif-linux-arm64: 1.1.1
+      sherif-linux-x64: 1.1.1
+      sherif-windows-arm64: 1.1.1
+      sherif-windows-x64: 1.1.1
+
   showdown@2.1.0:
     dependencies:
       commander: 9.5.0
@@ -14131,15 +14192,6 @@ snapshots:
       mz: 2.7.0
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
-
-  supabase@1.226.4:
-    dependencies:
-      bin-links: 5.0.0
-      https-proxy-agent: 7.0.6
-      node-fetch: 3.3.2
-      tar: 7.4.3
-    transitivePeerDependencies:
-      - supports-color
 
   supabase@2.1.1:
     dependencies:

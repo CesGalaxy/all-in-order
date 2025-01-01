@@ -61,7 +61,7 @@ export default function NotebookSidebar() {
 
     useEffect(() => setShow(false), [pathname]);
 
-    const openSidebar = (newSidebar: SidebarType) => setSidebar(newSidebar === sidebar ? null : newSidebar);
+    const openSidebar = (newSidebar: SidebarType) => setSidebar(newSidebar === sidebar ? (show ? sidebar : null) : newSidebar);
 
     return <>
         <nav className="md:hidden border-b border-b-divider sticky top-16 flex items-center justify-between">
