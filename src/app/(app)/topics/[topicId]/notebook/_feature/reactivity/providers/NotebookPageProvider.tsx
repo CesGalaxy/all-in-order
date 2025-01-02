@@ -21,7 +21,7 @@ function NotebookPageProvider({ initialData, children, path }: NotebookPageProvi
     const saveContent = useCallback(async () => await createSupabaseClient()
         .storage
         .from("notebooks")
-        .update(path, JSON.stringify(data))
+        .update(path, JSON.stringify(data), { cacheControl: "0" })
         .then(({ error }) => !error), [data, path]);
 
     return <NotebookPageContext.Provider value={{ data, setData, setContent, saveContent, tocItems, setTocItems }}>

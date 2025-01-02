@@ -47,7 +47,7 @@ export type SidebarType = "pages" | "vocabulary" | "notes" | "data";
 export default function NotebookSidebar() {
     const pathname = usePathname();
     const { topic, topicId } = useNotebook();
-    const [sidebar, setSidebar] = useState<SidebarType | null>(null);
+    const [sidebar, setSidebar] = useState<SidebarType | null>("pages");
     const [show, setShow] = useState(false);
 
     const rootPath = `/topics/${topicId}/notebook/`;

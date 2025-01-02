@@ -2,7 +2,7 @@
 
 import ErrorView from "@/components/views/ErrorView";
 import { getUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { createSupabaseServerClient } from "@/supabase/server";
 import { getNotebookRootPath } from "@/app/(app)/topics/[topicId]/notebook/_feature/helpers/names";
 import NbPageEditTemplate from "@/app/(app)/topics/[topicId]/notebook/_feature/components/templates/NbPageEditTemplate";
 import NotebookPageData from "@/app/(app)/topics/[topicId]/notebook/_feature/lib/storage/NotebookPageData";
@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: Promise<Params>, search
     const user = await getUser();
     const path = getNotebookRootPath(topicId, user.id, fileName) + ".json";
 
-    const supabaseClient = await getSupabase();
+    const supabaseClient = await createSupabaseServerClient(true);
     const [{ data: info, error: infoError }, { data: download, error: downloadError }] = await Promise.all([
         supabaseClient.storage.from("authenticated/notebooks").info(path),
         supabaseClient.storage.from("notebooks").download(path)

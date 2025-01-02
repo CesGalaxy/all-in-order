@@ -53,7 +53,7 @@ export default async function Page({ params, searchParams }: {
             redirect(topicPath + "/notebook");
         }
 
-        if (typeof name === "string") {
+        if (typeof name === "string" && name.trim()) {
             if (name.trim().length > 2 && name.trim().length < 64) await setup(name);
             else redirect(topicPath + "/notebook/setup/?formError=Invalid notebook name");
         } else {

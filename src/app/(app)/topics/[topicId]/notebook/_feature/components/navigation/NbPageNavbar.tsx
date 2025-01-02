@@ -11,7 +11,7 @@ import { Drawer } from "@nextui-org/drawer";
 import type { Camelize, FileObjectV2 } from "@supabase/storage-js";
 import NbPageDetailsDrawer from "@/app/(app)/topics/[topicId]/notebook/_feature/components/modals/NbPageDetailsDrawer";
 
-export default function NbPageNavbar({ file }: { file: Camelize<FileObjectV2> }) {
+export default function NbPageNavbar({ file, path }: { file: Camelize<FileObjectV2>, path: string }) {
     const { saveContent } = useNotebookPage();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

@@ -26,7 +26,7 @@ export default async function createNotebookPage(topicId: number | string, _prev
         .storage
         .from("notebooks")
         // TODO: Try 'no-cache' too
-        .upload(path, JSON.stringify(BlankNotebookPage), { metadata, cacheControl: "no-store" });
+        .upload(path, JSON.stringify(BlankNotebookPage), { metadata, cacheControl: "0" });
 
     if (error) return mountActionState(mountActionError({ db: [error.message] }));
 

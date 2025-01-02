@@ -81,6 +81,7 @@ export default function NotebookSidebarPages() {
                             placeholder="Page name"
                             aria-label="Page name"
                             autoComplete="off"
+                            autoFocus
                             startContent={
                                 <div className="pointer-events-none flex items-center">
                                     <span className="text-default-400 text-small">Notebook/</span>

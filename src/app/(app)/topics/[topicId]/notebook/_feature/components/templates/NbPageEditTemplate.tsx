@@ -18,7 +18,7 @@ export default function NbPageEditTemplate({ data, file, path }: NbPageEditTempl
         path={path}
     >
         <div className="w-full h-full flex flex-col items-stretch relative">
-            <NbPageNavbar file={file}/>
+            <NbPageNavbar file={file} path={path}/>
             {/*<p className="p-4 text-lg">*/}
             {/*    Reading page <b>{fileName}</b> from the notebook of the topic with ID={topicId}...*/}
             {/*</p>*/}

@@ -8,7 +8,7 @@ import { Database } from "@aio/db/supabase";
 
 const getSupabase = cache(createSupabaseServerClient);
 
-export async function createSupabaseServerClient() {
+export async function createSupabaseServerClient(forceNoCache: boolean = false) {
     const cookieStore = await cookies();
 
     return createServerClient<Database>(
@@ -31,8 +31,23 @@ export async function createSupabaseServerClient() {
                     }
                 },
             },
+            global: forceNoCache ? {
+                fetch: createFetch({
+                    cache: "no-store",
+                    next: {
+                        revalidate: 0,
+                    }
+                }),
+            } : undefined,
         }
     )
 }
+
+const createFetch = (options: Pick<RequestInit, "next" | "cache">) =>
+    (url: RequestInfo | URL, init?: RequestInit) => fetch(
+        typeof url === "string" ? (url + (url.includes("?") ? "&" : "?") + "noCacheVersion=" + Date.now()) : url, {
+            ...init,
+            ...options,
+        });
 
 export default getSupabase;
