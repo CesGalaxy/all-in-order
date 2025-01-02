@@ -11,3 +11,5 @@ export interface NotebookData extends NotebookEntity {
 export interface NotebookVocabularyAreaData extends NotebookVocabularyAreaEntity {
     definitions: NotebookVocabularyDefinitionEntity[];
 }
+
+export type NotebookNoteEntity = Tables<"nb_notes">;

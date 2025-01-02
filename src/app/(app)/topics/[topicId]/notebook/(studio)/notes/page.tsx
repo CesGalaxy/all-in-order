@@ -6,9 +6,10 @@ import required from "@/lib/helpers/required";
 import PageContainer from "@/components/containers/PageContainer";
 import NbNotesPageNavbar
     from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/components/organisms/NbNotesPageNavbar";
-import ContentGallery from "@/components/navigation/ContentGallery";
-import BlankView from "@/components/views/BlankView";
-import AddNotesPicture from "@/assets/pictures/add_notes.svg";
+import NotebookNotesProvider
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/reactivity/providers/NotebookNotesProvider";
+import NotebookNotesGallery
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/components/data/NotebookNotesGallery";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {
     const { topicId } = await params;
@@ -18,19 +19,10 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
     if (error) return <ErrorView message={error.message}/>
     const { notes } = required(data, topicPath);
 
-    return <PageContainer>
-        <NbNotesPageNavbar/>
-        <ContentGallery
-            items={notes}
-            getItemKey={note => note.id}
-            renderItem={note => <div>{note.content}</div>}
-            emptyView={<div className="p-32">
-                <BlankView
-                    image={AddNotesPicture}
-                    alt="No notes"
-                    title={"There are no notes - yet!"}
-                    content="Start creating from the button at the top right corner"/>
-            </div>}
-        />
-    </PageContainer>
+    return <NotebookNotesProvider notes={notes}>
+        <PageContainer>
+            <NbNotesPageNavbar/>
+            <NotebookNotesGallery/>
+        </PageContainer>
+    </NotebookNotesProvider>
 }

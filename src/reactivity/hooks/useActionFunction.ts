@@ -1,6 +1,8 @@
-import { useCallback, useState } from "react";
+"use client";
+
 import { ActionResponse } from "@/lib/helpers/form";
-import handleActionResultNotifications from "@/reactivity/functions/handleActionResultNotifications";
+import useActionResponse from "@/reactivity/hooks/useActionResponse";
+import { useActionState, useCallback, useRef } from "react";
 
 export type ActionFunctionState<Response extends ActionResponse<any> | undefined, Args extends any[] | []> = [
     loading: boolean,
@@ -11,21 +13,22 @@ export type ActionFunctionState<Response extends ActionResponse<any> | undefined
 export default function useActionFunction<Response extends ActionResponse<any> | undefined, Args extends any[] | []>(
     serverAction: (...args: Args) => Promise<Response>,
 ): ActionFunctionState<Response, Args> {
-    const [loading, setLoading] = useState(false);
-    const [response, setResponse] = useState<Response>();
+    const responseRef = useRef<Promise<Response> | undefined>(undefined);
 
-    const action = useCallback(async (...args: Args) => {
-        setLoading(true);
-        const response = await serverAction(...args);
-        setResponse(response);
-        setLoading(false);
+    const [state, dispatch, isPending] = useActionState<Response | undefined, Args>((_, args) => {
+        responseRef.current = serverAction(...args);
+        return responseRef.current;
+    }, undefined);
 
-        handleActionResultNotifications(response);
+    const action = useCallback((...args: Args) => {
+        dispatch(args);
+        if (!responseRef.current) throw new Error("Response is not set");
+        return responseRef.current;
+    }, [dispatch]);
 
-        return response;
-    }, [serverAction, setLoading])
+    useActionResponse(state);
 
-    return [loading, response, action];
+    return [isPending, state, action];
 }
 
 export function wrapActionFunctionState<Response extends ActionResponse<any> | undefined, Args extends any[] | []>(

@@ -173,7 +173,7 @@ function ModalForm<T, E extends string>({
 
                         const response = await formAction(formData);
 
-                        console.log(response);
+                        console.debug(response);
 
                         if (!response) {
                             if (handleResponse === "close") onClose();

@@ -1,17 +1,20 @@
 "use client";
 
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconNote } from "@tabler/icons-react";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import NbNotesPageSearchbar
     from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/components/molecules/NbNotesPageSearchbar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import useNotebookNotes
+    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/reactivity/hooks/useNotebookNotes";
 
 export default function NbNotesPageNavbar() {
-    return <header className="flex items-center justify-between w-full">
+    const { showAddNoteModal } = useNotebookNotes();
+    return <header className="flex items-center justify-between w-full mb-8">
         <NbNotesPageSearchbar/>
         <nav className="flex items-center">
             <ButtonGroup color="primary">
-                <Button>Add New</Button>
+                <Button onPress={showAddNoteModal} startContent={<IconNote/>}>Add New</Button>
                 <Dropdown>
                     <DropdownTrigger>
                         <Button isIconOnly><IconChevronDown/></Button>
