@@ -1,10 +1,10 @@
 "use server";
 
 import type { ReactNode } from "react";
-import NotebookSidebar from "@/app/(app)/topics/[topicId]/notebook/_feature/components/navigation/NotebookSidebar";
-import getNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/cache/getNotebook";
+import NotebookSidebar from "@/modules/notebook/app/components/navigation/NotebookSidebar";
+import getNotebook from "@/modules/notebook/app/cache/getNotebook";
 import ErrorView from "@/components/views/ErrorView";
-import NotebookProvider from "@/app/(app)/topics/[topicId]/notebook/_feature/reactivity/providers/NotebookProvider";
+import NotebookProvider from "@/modules/notebook/app/reactivity/providers/NotebookProvider";
 import { getUser } from "@/supabase/auth/user";
 
 export default async function Layout({ params, children }: Readonly<{

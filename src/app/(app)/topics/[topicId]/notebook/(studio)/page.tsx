@@ -1,7 +1,7 @@
 "use server";
 
-import NotebookIndex from "@/app/(app)/topics/[topicId]/notebook/_feature/components/navigation/NotebookIndex";
-import getNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/cache/getNotebook";
+import NotebookIndex from "@/modules/notebook/pages/components/navigation/NotebookIndex";
+import getNotebook from "@/modules/notebook/app/cache/getNotebook";
 import ErrorView from "@/components/views/ErrorView";
 
 export default async function Page({ params }: { params: Promise<{ topicId: number }> }) {

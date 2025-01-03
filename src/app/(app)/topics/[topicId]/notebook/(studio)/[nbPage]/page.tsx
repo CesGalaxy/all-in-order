@@ -3,9 +3,9 @@
 import ErrorView from "@/components/views/ErrorView";
 import { getUser } from "@/supabase/auth/user";
 import { createSupabaseServerClient } from "@/supabase/server";
-import { getNotebookRootPath } from "@/app/(app)/topics/[topicId]/notebook/_feature/helpers/names";
-import NbPageEditTemplate from "@/app/(app)/topics/[topicId]/notebook/_feature/components/templates/NbPageEditTemplate";
-import NotebookPageData from "@/app/(app)/topics/[topicId]/notebook/_feature/lib/storage/NotebookPageData";
+import { getNotebookRootPath } from "@/modules/notebook/pages/lib/helpers/names";
+import NbPageEditTemplate from "@/modules/notebook/pages/components/pages/NbPageEditTemplate";
+import NotebookPageData from "@/modules/notebook/app/supabase/storage/NotebookPageData";
 
 interface Params {
     topicId: string;

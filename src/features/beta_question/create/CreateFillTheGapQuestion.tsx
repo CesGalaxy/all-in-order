@@ -132,7 +132,7 @@ function CreateFillTheGapQuestion({ draft, setDraft }: {
                                 {segment.type === "text"
                                     ? <ul className="flex flex-col items-stretch">
                                         {segment.correctValues.map((value, i) => <Input
-                                            key={Math.random()}
+                                            key={i}
                                             aria-label={`Correct value ${i}`}
                                             value={value}
                                             variant="faded"
@@ -180,7 +180,7 @@ function CreateFillTheGapQuestion({ draft, setDraft }: {
                                     : <>
                                         <ul className="flex flex-col items-stretch">
                                             {segment.correctValues.map((value, i) => <Input
-                                                key={Math.random()}
+                                                key={i}
                                                 aria-label={`Correct value ${i}`}
                                                 value={value}
                                                 variant="faded"
@@ -229,7 +229,7 @@ function CreateFillTheGapQuestion({ draft, setDraft }: {
                                         <Divider/>
                                         <ul className="flex flex-col items-stretch">
                                             {segment.wrongValues?.map((value, i) => <Input
-                                                key={Math.random()}
+                                                key={i}
                                                 aria-label={`Wrong value ${i}`}
                                                 value={value}
                                                 variant="faded"
@@ -319,11 +319,7 @@ function CreateFillTheGapQuestion({ draft, setDraft }: {
             >
                 Add gap
             </Button>
-            <Button
-                size="lg"
-                variant="faded"
-                startContent={<IconEye/>}
-            >
+            <Button size="lg" variant="faded" startContent={<IconEye/>}>
                 Preview
             </Button>
         </ButtonGroup>

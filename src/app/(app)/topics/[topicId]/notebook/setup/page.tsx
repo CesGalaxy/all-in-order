@@ -11,7 +11,7 @@ import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
 import { IconDatabase, IconNotebook, IconVocabulary } from "@tabler/icons-react";
-import setupNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/actions/setupNotebook";
+import setupNotebook from "@/modules/notebook/app/actions/setupNotebook";
 
 export default async function Page({ params, searchParams }: {
     params: Promise<{ topicId: string }>,

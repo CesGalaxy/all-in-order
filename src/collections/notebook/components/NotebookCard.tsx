@@ -1,4 +1,4 @@
-import { NotebookEntity } from "@/app/(app)/topics/[topicId]/notebook/_feature/lib/db/NotebookData";
+import { NotebookEntity } from "@/modules/notebook/app/supabase/db/NotebookData";
 import { Card, CardHeader } from "@nextui-org/card";
 import { Topic } from "@aio/db/entities";
 import { Link } from "@nextui-org/link";

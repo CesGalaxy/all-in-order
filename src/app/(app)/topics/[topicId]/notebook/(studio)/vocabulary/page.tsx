@@ -1,4 +1,4 @@
-import getNotebook from "@/app/(app)/topics/[topicId]/notebook/_feature/cache/getNotebook";
+import getNotebook from "@/modules/notebook/app/cache/getNotebook";
 import ErrorView from "@/components/views/ErrorView";
 
 interface Params {

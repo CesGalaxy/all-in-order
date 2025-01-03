@@ -1,15 +1,12 @@
 "use server";
 
-import getNotebookNotes from "@/app/(app)/topics/[topicId]/notebook/_feature/cache/getNotebookNotes";
+import getNotebookNotes from "@/modules/notebook/app/cache/getNotebookNotes";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import PageContainer from "@/components/containers/PageContainer";
-import NbNotesPageNavbar
-    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/components/organisms/NbNotesPageNavbar";
-import NotebookNotesProvider
-    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/reactivity/providers/NotebookNotesProvider";
-import NotebookNotesGallery
-    from "@/app/(app)/topics/[topicId]/notebook/(studio)/notes/_feature/components/data/NotebookNotesGallery";
+import NbNotesPageNavbar from "@/modules/notebook/notes/components/organisms/NbNotesPageNavbar";
+import NotebookNotesProvider from "@/modules/notebook/notes/reactivity/providers/NotebookNotesProvider";
+import NotebookNotesGallery from "@/modules/notebook/notes/components/data/NotebookNotesGallery";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {
     const { topicId } = await params;
