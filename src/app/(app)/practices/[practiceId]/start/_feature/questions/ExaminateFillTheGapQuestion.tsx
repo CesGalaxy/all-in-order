@@ -38,7 +38,7 @@ function ExaminateFillTheGapQuestion({ attempt: { segments }, draft, setAnswer }
             : segment.type === "text"
                 ? <Input
                     key={index}
-                    className="w-32 lg:w-64 xl:w-96"
+                    className="w-48 md:w-64 lg:w-72 xl:w-96 shrink-0"
                     placeholder={segment.hint}
                     value={answers[getGapIndex(index)]}
                     onValueChange={value =>
@@ -46,9 +46,15 @@ function ExaminateFillTheGapQuestion({ attempt: { segments }, draft, setAnswer }
                 />
                 : <Select
                     key={index}
-                    className="w-32 lg:w-64 xl:w-96"
+                    className="min-w-32 md:min-w-64 xl:min-w-96 w-fit shrink-0"
                     placeholder={segment.hint}
                     aria-label={segment.hint || "Fill the gap"}
+                    popoverProps={{
+                        placement: "bottom",
+                        triggerScaleOnOpen: false,
+                        offset: 5,
+                        className: "fixed left-0 w-full px-4",
+                    }}
                     selectedKeys={[...(answers[getGapIndex(index)] ? [answers[getGapIndex(index)]] : [])]}
                     onSelectionChange={value =>
                         setAnswers(answers.map((v, i) =>

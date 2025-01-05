@@ -24,7 +24,7 @@ function ExaminateChoiceQuestion({ attempt, draft, setAnswer }: Props) {
                 : "Choose the correct answer"}
         </header>
         <Divider className="my-4"/>
-        <ul className="flex flex-col items-stretch gap-4 p-4">
+        <ul className="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-4 p-4">
             {isMultiple
                 ? <Multiple attempt={attempt} draft={draft} setAnswer={setAnswer}/>
                 : <Single attempt={attempt} draft={draft} setAnswer={setAnswer}/>}

@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-import LogoNameCol from "@/assets/logo/NameCol.svg";
+import Logo from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -28,12 +28,12 @@ export default async function AppNavbar() {
     const t = await getTranslations();
     const locale = await getLocale() as "en" | "es" | "val";
 
-    return <Nav shouldHideOnScroll classNames={{ item: "group" }} isBordered className="transition-background h-16">
-        <NavbarContent className="gap-0 lg:gap-4">
+    return <Nav shouldHideOnScroll isBordered className="transition-background h-16">
+        <NavbarContent className="gap-1 lg:gap-4">
             <NavbarMenuToggle className="lg:hidden"/>
-            <NavbarBrand className="grow-0 shrink-0 min-w-[187px] h-16">
+            <NavbarBrand className="grow-0 shrink-0 min-w-32 sm:min-w-[187px] h-16">
                 <Link href="/">
-                    <Image src={LogoNameCol} alt="All In Order" height={64} width={187} priority/>
+                    <Image src={Logo} alt="All In Order" height={64} width={187} priority className="w-32 sm:w-auto"/>
                 </Link>
             </NavbarBrand>
             {profile && <>
