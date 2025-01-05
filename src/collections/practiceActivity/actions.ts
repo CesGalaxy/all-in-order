@@ -1,13 +1,13 @@
 "use server";
 
-import { QuestionData } from "@aio/db/features/questions";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
 import { getMyProfile } from "@/supabase/auth/profile";
 import { Json } from "@aio/db/supabase";
 import { mountActionError, mountActionSuccess } from "@/lib/helpers/form";
+import { Question } from "@/modules/learn/question";
 
-export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
+export async function createActivityAndReturn(topicId: number, question: Question, tags: string[]) {
     const { id } = await getMyProfile();
 
     const supabaseClient = await getSupabase();
@@ -27,7 +27,7 @@ export async function createActivityAndReturn(topicId: number, question: Questio
     return data.id;
 }
 
-export default async function createPracticeActivity(topicId: number, practiceId: number, question: QuestionData, tags: string[]) {
+export default async function createPracticeActivity(topicId: number, practiceId: number, question: Question, tags: string[]) {
     const errorOrId = await createActivityAndReturn(topicId, question, tags);
 
     if (typeof errorOrId === "string") return errorOrId;
@@ -46,7 +46,7 @@ export default async function createPracticeActivity(topicId: number, practiceId
     revalidatePath("/topics/" + topicId);
 }
 
-export async function updatePracticeActivity(topicId: number, activityId: number, question: QuestionData, tags: string[]) {
+export async function updatePracticeActivity(topicId: number, activityId: number, question: Question, tags: string[]) {
     const supabaseClient = await getSupabase();
     const { error } = await supabaseClient
         .from("topic_activities")

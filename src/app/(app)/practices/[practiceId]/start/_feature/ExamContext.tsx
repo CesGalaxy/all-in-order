@@ -11,13 +11,13 @@ import {
     useMemo,
     useState
 } from "react";
-import { QuestionAnswer, QuestionAttempt, QuestionData } from "@aio/db/features/questions";
 import { toast } from "react-toastify";
+import { Question, QuestionAnswer, QuestionAttempt } from "@/modules/learn/question";
 
 export interface Activity {
     id: number;
     tags: string[];
-    data: QuestionData;
+    data: Question;
     attempt: QuestionAttempt;
     answer?: QuestionAnswer;
     answerDraft?: QuestionAnswer;

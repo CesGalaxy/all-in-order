@@ -1,6 +1,6 @@
 "use client";
 
-import { GapAttempt, QuestionFillTheGapAnswer, QuestionFillTheGapAttempt } from "@aio/db/features/questions/FillTheGap";
+import { GapAttempt, QuestionFillTheGapAnswer, QuestionFillTheGapAttempt } from "@/modules/learn/question/FillTheGap";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
@@ -59,8 +59,7 @@ function ExaminateFillTheGapQuestion({ attempt: { segments }, draft, setAnswer }
                                 : v
                         ))}
                 >
-                    {segment.answers.map((answer, index) =>
-                        <SelectItem key={answer}>{answer}</SelectItem>)}
+                    {segment.answers.map(answer => <SelectItem key={answer}>{answer}</SelectItem>)}
                 </Select>
         )}
     </ul>

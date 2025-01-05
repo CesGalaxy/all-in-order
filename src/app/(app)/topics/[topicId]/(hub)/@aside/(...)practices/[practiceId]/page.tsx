@@ -5,13 +5,10 @@ import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { TopicActivity } from "@aio/db/entities";
-import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
-import { generateQuestionAttempt } from "@aio/db/features/questions";
-import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
 import QuestionSolutionButton
     from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
@@ -20,6 +17,14 @@ import createPracticeActivity, { updatePracticeActivity } from "@/collections/pr
 import { getTopicAsidePractice } from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/query";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
+import {
+    Question,
+    QUESTION_ATTEMPT_GENERATORS,
+    QUESTION_ICONS,
+    QUESTION_PREVIEWS,
+    QuestionType
+} from "@/modules/learn/question";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
     const { topicId, practiceId } = await params;
@@ -28,8 +33,8 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
 
     const topicPath = "/topics/" + topicId;
 
-    if (error) console.error(error)
     if (error) return <ErrorView message={"" + error.message}/>;
+    if (!data) notFound();
 
     const { activities, id, topic_id, attempts } = required(data, topicPath);
 
@@ -37,6 +42,17 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
             .map((attempt: any) => attempt.perfection)
             .reduce((a: any, b: any) => a + b, 0)
         / attempts.length;
+
+    const QuestionIcon = ({ type, className }: { type: QuestionType, className?: string }) => {
+        const Icon = QUESTION_ICONS[type];
+        return <Icon className={className}/>;
+    }
+
+    const PreviewQuestion = <T extends QuestionType, >({ data }: { data: Question<T> }) => {
+        const Preview = QUESTION_PREVIEWS[data.type];
+        // @ts-ignore
+        return <Preview attempt={QUESTION_ATTEMPT_GENERATORS[data.type](data)}/>;
+    }
 
     return activities.length === 0
         ? <NoPracticeActivities practiceId={id} topicId={topic_id}/>
@@ -49,7 +65,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
             </nav>
             <br/>
             <ul className="flex flex-col items-stretch gap-4">
-                {(activities as TopicActivity[]).map(({ id, data, tags }) => <Card as="li" key={id}>
+                {(activities as TopicActivity[]).map(({ id, data, tags }: any) => <Card as="li" key={id}>
                     <CardHeader className="items-start gap-4">
                         <div className="w-full flex-grow">
                             <div className="flex items-center gap-2">
@@ -66,7 +82,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
                                 <ModalButton
                                     modal={<EditPracticeActivityModal
                                         action={updatePracticeActivity.bind(null, topic_id, id)}
-                                        initialData={data}
+                                        initialData={data as any}
                                         initialTags={tags}
                                     />}
                                     isIconOnly
@@ -85,7 +101,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
                     </CardHeader>
                     <Divider/>
                     <CardBody>
-                        <PreviewQuestion type={data.type} attempt={generateQuestionAttempt(data)}/>
+                        <PreviewQuestion data={data as any}/>
                     </CardBody>
                     <CardFooter
                         className="justify-evenly text-xs text-default-500 uppercase *:flex *items-center *:gap-2"

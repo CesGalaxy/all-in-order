@@ -1,13 +1,13 @@
 "use client";
 
-import { ChoicesInputMethod, QuestionChoiceData } from "@aio/db/features/questions/Choice";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { QuestionDraft } from "@aio/db/features/questions";
+import { useEffect, useMemo, useState } from "react";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Input } from "@nextui-org/input";
 import { IconListCheck, IconRowInsertBottom, IconTransitionBottom, IconTrash } from "@tabler/icons-react";
 import { Select, SelectItem } from "@nextui-org/select";
+import { ChoicesInputMethod } from "@/modules/learn/question/Choice/index";
+import type { QuestionCreatorProps } from "@/modules/learn/question";
 
 const INITIAL_CHOICES: [number, string, boolean][] = [
     [0, "Example choice 1", true],
@@ -17,16 +17,13 @@ const INITIAL_CHOICES: [number, string, boolean][] = [
 
 const ERROR_MESSAGE = "At least one choice must be correct";
 
-function CreateChoiceQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionChoiceData>,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionChoiceData>>>
-}) {
-    const [choices, setChoices] = useState<[number, string, boolean][]>(typeof draft === "object"
-        ? Object.entries(draft.choices).map(([choice, isCorrect]) => [Math.random(), choice, isCorrect])
+function CreateChoiceQuestion({ draft, setDraft, initialData }: QuestionCreatorProps<'choice'>) {
+    const [choices, setChoices] = useState<[number, string, boolean][]>(initialData
+        ? Object.entries(initialData.choices).map(([choice, isCorrect]) => [Math.random(), choice, isCorrect])
         : INITIAL_CHOICES
     );
     const [method, setMethod] = useState<ChoicesInputMethod>(typeof draft === "object" ? draft.method : "checklist");
-    const [single, setSingle] = useState(typeof draft === "object" ? draft.single : true);
+    const [mustSelectAll, setMustSelectAll] = useState(typeof draft === "object" ? draft.mustSelectAll : true);
 
     // Check that at least one choice is marked as correct
     const validChoices = useMemo(() => choices.filter(c => c[2]), [choices]);
@@ -36,17 +33,17 @@ function CreateChoiceQuestion({ draft, setDraft }: {
         if (areChoicesValid) setDraft({
             choices: Object.fromEntries(choices.map(([_, choice, isCorrect]) => [choice, isCorrect])),
             method,
-            single
+            mustSelectAll
         });
-    }, [areChoicesValid, choices, method, setDraft, single]);
+    }, [areChoicesValid, choices, method, setDraft, mustSelectAll]);
 
     useEffect(() => {
         if (!areChoicesValid && draft !== ERROR_MESSAGE) setDraft(ERROR_MESSAGE);
     }, [areChoicesValid, draft, setDraft]);
 
     useEffect(() => {
-        if (!single && validChoices.length === 1) setSingle(true);
-    }, [validChoices.length, single]);
+        if (!mustSelectAll && validChoices.length === 1) setMustSelectAll(true);
+    }, [validChoices.length, mustSelectAll]);
 
     return <div>
         <ul className="flex flex-col items-stretch gap-4">
@@ -104,7 +101,7 @@ function CreateChoiceQuestion({ draft, setDraft }: {
             </Select>
         </nav>
         <br/>
-        <Checkbox isSelected={single} onValueChange={setSingle} isDisabled={validChoices.length === 1}>
+        <Checkbox isSelected={mustSelectAll} onValueChange={setMustSelectAll} isDisabled={validChoices.length === 1}>
             Must select all correct choices
         </Checkbox>
     </div>;

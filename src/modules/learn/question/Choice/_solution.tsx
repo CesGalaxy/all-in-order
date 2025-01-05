@@ -1,6 +1,6 @@
-import { QuestionChoiceData } from "@aio/db/features/questions/Choice";
 import { Chip } from "@nextui-org/chip";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { QuestionChoiceData } from "@/modules/learn/question/Choice";
 
 export default function ChoiceQuestionSolution({ question }: { question: QuestionChoiceData }) {
     return <ul className="flex items-center gap-4 flex-wrap">

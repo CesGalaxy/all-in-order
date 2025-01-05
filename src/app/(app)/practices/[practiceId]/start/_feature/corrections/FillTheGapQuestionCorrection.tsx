@@ -4,7 +4,7 @@ import {
     QuestionFillTheGapAnswer,
     QuestionFillTheGapAttempt,
     QuestionFillTheGapData
-} from "@aio/db/features/questions/FillTheGap";
+} from "@/modules/learn/question/FillTheGap";
 import { useCallback } from "react";
 import { Chip } from "@nextui-org/chip";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";

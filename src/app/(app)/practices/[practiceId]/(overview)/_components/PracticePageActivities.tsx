@@ -2,18 +2,33 @@
 
 import { TopicActivity } from "@aio/db/entities";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
-import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import { Tooltip } from "@nextui-org/tooltip";
-import { generateQuestionAttempt } from "@aio/db/features/questions";
-import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
+import {
+    Question,
+    QUESTION_ATTEMPT_GENERATORS,
+    QUESTION_ICONS,
+    QUESTION_PREVIEWS,
+    QuestionType
+} from "@/modules/learn/question";
 
 export interface PracticePageActivitiesProps {
     activities: TopicActivity[];
 }
 
 export default function PracticePageActivities({ activities }: PracticePageActivitiesProps) {
+    const QuestionIcon = ({ type, className }: { type: QuestionType, className?: string }) => {
+        const Icon = QUESTION_ICONS[type];
+        return <Icon className={className}/>;
+    }
+
+    const PreviewQuestion = <T extends QuestionType, >({ data }: { data: Question<T> }) => {
+        const Preview = QUESTION_PREVIEWS[data.type];
+        // @ts-ignore
+        return <Preview attempt={QUESTION_ATTEMPT_GENERATORS[data.type](data)}/>;
+    }
+
     return <Accordion variant="splitted" selectionMode="multiple">
-        {activities.map(({ id, data, tags }) => <AccordionItem
+        {activities.map(({ id, data, tags }: any) => <AccordionItem
             key={id}
             title={data.title}
             subtitle={<p>
@@ -24,7 +39,7 @@ export default function PracticePageActivities({ activities }: PracticePageActiv
                 <QuestionIcon type={data.type} className="hidden xl:block"/>
             </Tooltip>}
         >
-            <PreviewQuestion type={data.type} attempt={generateQuestionAttempt(data)}/>
+            <PreviewQuestion data={data}/>
         </AccordionItem>)}
     </Accordion>
 }

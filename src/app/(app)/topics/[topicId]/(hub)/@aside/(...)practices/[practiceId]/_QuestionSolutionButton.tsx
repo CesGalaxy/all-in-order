@@ -4,10 +4,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Button } from "@nextui-org/button";
 import { IconEye } from "@tabler/icons-react";
-import QuestionSolution from "@/features/beta_question/QuestionSolution";
-import { QuestionData } from "@aio/db/features/questions";
+import { Question, QUESTION_SOLUTIONS, QuestionType } from "@/modules/learn/question";
 
-export default function QuestionSolutionButton({ data }: { data: QuestionData }) {
+export default function QuestionSolutionButton<T extends QuestionType>({ data }: { data: Question<T> }) {
+    const QuestionSolution = QUESTION_SOLUTIONS[data.type];
     return <Popover backdrop="blur" placement="bottom-end">
         <Tooltip content="Preview answer">
             <div>
@@ -21,7 +21,8 @@ export default function QuestionSolutionButton({ data }: { data: QuestionData })
         <PopoverContent>
             <div className="px-1 py-2">
                 <div className="text-small font-bold mb-2">Solution:</div>
-                <QuestionSolution data={data}/>
+                {/* @ts-ignore */}
+                <QuestionSolution question={data}/>
             </div>
         </PopoverContent>
     </Popover>;

@@ -4,7 +4,6 @@ import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamC
 import ExaminateChoiceQuestion
     from "@/app/(app)/practices/[practiceId]/start/_feature/questions/ExaminateChoiceQuestion";
 import { useCallback, useMemo, useState } from "react";
-import { QuestionAnswer } from "@aio/db/features/questions";
 import { AnimatePresence, motion } from "framer-motion";
 import ChoiceQuestionCorrection
     from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/ChoiceQuestionCorrection";
@@ -12,10 +11,7 @@ import ExaminateFillTheGapQuestion
     from "@/app/(app)/practices/[practiceId]/start/_feature/questions/ExaminateFillTheGapQuestion";
 import FillTheGapQuestionCorrection
     from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/FillTheGapQuestionCorrection";
-import ExaminateTrueOrFalseQuestion
-    from "@/app/(app)/practices/[practiceId]/start/_feature/questions/ExaminateTrueOrFalseQuestion";
-import TrueOrFalseQuestionCorrection
-    from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/TrueOrFalseQuestionCorrection";
+import { QuestionAnswer, QuestionType } from "@/modules/learn/question";
 
 const variants = {
     "enter": (direction: number) => ({
@@ -40,13 +36,11 @@ const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velo
 const QUESTION_EXAMINATIONS = {
     choice: ExaminateChoiceQuestion,
     fill_the_gap: ExaminateFillTheGapQuestion,
-    true_or_false: ExaminateTrueOrFalseQuestion,
 }
 
 const QUESTION_CORRECTIONS = {
     choice: ChoiceQuestionCorrection,
     fill_the_gap: FillTheGapQuestionCorrection,
-    true_or_false: TrueOrFalseQuestionCorrection,
 }
 
 export default function ExamActivity() {
@@ -58,8 +52,8 @@ export default function ExamActivity() {
         updateCurrentActivity
     } = useExam();
 
-    const Examination = useMemo(() => QUESTION_EXAMINATIONS[data.type], [data.type]);
-    const Correction = useMemo(() => QUESTION_CORRECTIONS[data.type], [data.type]);
+    const Examination = useMemo(() => QUESTION_EXAMINATIONS[data.type as QuestionType], [data.type]);
+    const Correction = useMemo(() => QUESTION_CORRECTIONS[data.type as QuestionType], [data.type]);
 
     const setAnswer = useCallback(
         (answer?: QuestionAnswer) => updateCurrentActivity({ answerDraft: answer }),
@@ -105,7 +99,7 @@ export default function ExamActivity() {
         >
             {answer
                 ? <Correction {...{ data, attempt, answer, correct } as any}/>
-                : <Examination draft={answerDraft as any} attempt={attempt as any} setAnswer={setAnswer}/>
+                : <Examination draft={answerDraft as any} attempt={attempt as any} setAnswer={setAnswer as any}/>
             }
         </motion.div>
     </AnimatePresence>;

@@ -13,9 +13,9 @@ import {
 } from "@tabler/icons-react";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Chip } from "@nextui-org/chip";
-import { validateQuestion } from "@aio/db/features/questions";
 import { useCallback, useMemo } from "react";
 import SubmitExamButton from "@/app/(app)/practices/[practiceId]/start/_feature/SubmitExamButton";
+import { QUESTION_ANSWER_VALIDATORS } from "@/modules/learn/question";
 
 export default function BottomNavigation() {
     const {
@@ -31,7 +31,8 @@ export default function BottomNavigation() {
     const submitAnswer = useCallback(() => {
         if (!answerDraft) return;
 
-        const correct = validateQuestion(data, answerDraft);
+        // @ts-ignore
+        const correct = QUESTION_ANSWER_VALIDATORS[data.type](data, answerDraft);
 
         updateCurrentActivity({ answerDraft: undefined, answer: answerDraft, correct });
         console.log(correct);

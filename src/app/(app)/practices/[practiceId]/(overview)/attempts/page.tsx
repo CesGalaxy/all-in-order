@@ -6,12 +6,8 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import SimpleAttemptsTable from "@/app/(app)/practices/[practiceId]/(overview)/_components/SimpleAttemptsTable";
 
-export default async function Page(props: { params: Promise<{ practiceId: string }> }) {
-    const params = await props.params;
-
-    const {
-        practiceId
-    } = params;
+export default async function Page({ params }: { params: Promise<{ practiceId: string }> }) {
+    const { practiceId } = await params;
 
     // TODO: Add loading state
     const supabaseClient = await getSupabase();

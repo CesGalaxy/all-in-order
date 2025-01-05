@@ -33,8 +33,8 @@ export default function ProfileAvatar({ profile }: { profile: Profile }) {
                 />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" onPress={onOpen}>
-                    <p className="font-semibold">{t('Auth.signed_in_as', { identity: profile.name })}</p>
+                <DropdownItem key="profile" onPress={onOpen} className="font-semibold">
+                    {t('Auth.signed_in_as', { identity: profile.name })}
                 </DropdownItem>
                 <DropdownItem key="settings" href="/courses" startContent={<IconLayoutDashboard/>}>
                     {t('Dash.my_content.courses')}

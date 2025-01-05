@@ -1,7 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { QuestionDraft } from "@aio/db/features/questions";
+import { useEffect, useMemo, useState } from "react";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import {
@@ -15,12 +14,13 @@ import {
     IconWriting,
     IconX
 } from "@tabler/icons-react";
-import { Gap, QuestionFillTheGapData } from "@aio/db/features/questions/FillTheGap";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";
 import { Link } from "@nextui-org/link";
 import { Checkbox } from "@nextui-org/checkbox";
+import { QuestionCreatorProps } from "@/modules/learn/question";
+import { QuestionFillTheGapDataGap as Gap } from "@/modules/learn/question/FillTheGap/index";
 
 const INITIAL_SEGMENTS: Record<string, Segment> = {
     "[1]": "Hello",
@@ -34,10 +34,7 @@ type Segment = string | Omit<Gap, "position">;
 
 export default CreateFillTheGapQuestion;
 
-function CreateFillTheGapQuestion({ draft, setDraft }: {
-    draft?: QuestionDraft<QuestionFillTheGapData>,
-    setDraft: Dispatch<SetStateAction<QuestionDraft<QuestionFillTheGapData>>>
-}) {
+function CreateFillTheGapQuestion({ draft, setDraft }: QuestionCreatorProps<'fill_the_gap'>) {
     const [segments, setSegments] = useState<Record<string, Segment>>(INITIAL_SEGMENTS);
 
     const atLeastOneGap = useMemo(() => Object.values(segments).some(segment => typeof segment !== "string"), [segments]);

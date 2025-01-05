@@ -8,16 +8,20 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Alert } from "@nextui-org/alert";
-import QuestionIcon from "@/features/beta_question/QuestionIcon";
 import QuestionSolutionButton
     from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
 import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
 import { Divider } from "@nextui-org/divider";
-import PreviewQuestion from "@/features/beta_question/PreviewQuestion";
-import { generateQuestionAttempt } from "@aio/db/features/questions";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
+import {
+    Question,
+    QUESTION_ATTEMPT_GENERATORS,
+    QUESTION_ICONS,
+    QUESTION_PREVIEWS,
+    QuestionType
+} from "@/modules/learn/question";
 
 export interface EditPracticeModalProps {
     details: {
@@ -30,6 +34,17 @@ export interface EditPracticeModalProps {
 }
 
 export default function EditPracticeModal({ details, activities, topicId }: EditPracticeModalProps) {
+    const QuestionIcon = ({ type, className }: { type: QuestionType, className?: string }) => {
+        const Icon = QUESTION_ICONS[type];
+        return <Icon className={className}/>;
+    }
+
+    const PreviewQuestion = <T extends QuestionType, >({ data }: { data: Question<T> }) => {
+        const Preview = QUESTION_PREVIEWS[data.type];
+        // @ts-ignore
+        return <Preview attempt={QUESTION_ATTEMPT_GENERATORS[data.type](data)}/>;
+    }
+
     return <ModalContent>{onClose => <>
         <ModalHeader>{details.title}</ModalHeader>
         <ModalBody className="grid lg:grid-cols-2">
@@ -45,7 +60,7 @@ export default function EditPracticeModal({ details, activities, topicId }: Edit
                 <CardFooter className="">#{details.id}</CardFooter>
             </Card>
             <ul className="flex flex-col items-stretch gap-4">
-                {activities.map(({ id, data, tags, created_at, updated_at }) => <Card as="li" key={id}>
+                {activities.map(({ id, data, tags, created_at, updated_at }: any) => <Card as="li" key={id}>
                     <CardHeader className="items-start gap-4">
                         <div className="w-full flex-grow">
                             <div className="flex items-center gap-2">
@@ -81,7 +96,7 @@ export default function EditPracticeModal({ details, activities, topicId }: Edit
                     </CardHeader>
                     <Divider/>
                     <CardBody>
-                        <PreviewQuestion type={data.type} attempt={generateQuestionAttempt(data)}/>
+                        <PreviewQuestion data={data as any}/>
                     </CardBody>
                     <CardFooter
                         className="text-xs text-default-500 uppercase gap-8 *:flex *items-center *:gap-1"

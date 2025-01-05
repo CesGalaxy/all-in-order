@@ -1,4 +1,4 @@
-import { Gap, QuestionFillTheGapData } from "@aio/db/features/questions/FillTheGap";
+import { QuestionFillTheGapData, QuestionFillTheGapDataGap as Gap } from "@/modules/learn/question/FillTheGap";
 
 export default function FillTheGapQuestionSolution({ question }: { question: QuestionFillTheGapData }) {
     const solvedSegments: (string | Gap)[] = [];

@@ -9,7 +9,7 @@ function Page() {
         return <div>Loading...</div>;
     }
 
-    return <div>Product name: {data?.data.name}</div>;
+    return <div className="dark  text-foreground">Product name: {data?.data.name}</div>;
 }
 
 export default Page;

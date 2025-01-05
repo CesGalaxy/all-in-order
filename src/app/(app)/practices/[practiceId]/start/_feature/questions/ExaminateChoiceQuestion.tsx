@@ -1,8 +1,8 @@
 "use client";
 
-import { QuestionChoiceAnswer, QuestionChoiceAttempt } from "@aio/db/features/questions/Choice";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
+import { QuestionChoiceAnswer, QuestionChoiceAttempt } from "@/modules/learn/question/Choice";
 
 interface Props {
     attempt: QuestionChoiceAttempt,
@@ -11,14 +11,14 @@ interface Props {
 }
 
 function ExaminateChoiceQuestion({ attempt, draft, setAnswer }: Props) {
-    const { choices, correctChoices, single } = attempt;
+    const { correctChoices, mustSelectAll } = attempt;
 
     const isMultiple = correctChoices > 1;
 
     return <div>
         <header className="text-xl">
             {isMultiple
-                ? single
+                ? mustSelectAll
                     ? "Select at least 1 of the " + correctChoices + " correct answers"
                     : "Select the " + correctChoices + " correct answers"
                 : "Choose the correct answer"}

@@ -1,11 +1,11 @@
-import { QuestionFillTheGapAttempt } from "@aio/db/features/questions/FillTheGap";
+import { QuestionFillTheGapAttempt } from "@/modules/learn/question/FillTheGap";
 import { Chip } from "@nextui-org/chip";
 import { IconChevronUp } from "@tabler/icons-react";
 import { Tooltip } from "@nextui-org/tooltip";
 
-export default function PreviewFillTheGapQuestion({ question }: { question: QuestionFillTheGapAttempt }) {
+export default function PreviewFillTheGapQuestion({ attempt }: { attempt: QuestionFillTheGapAttempt }) {
     return <p className="flex items-center gap-1 flex-wrap">
-        {question.segments.map(
+        {attempt.segments.map(
             (segment, index) => typeof segment === "string"
                 ? <span key={index}>{segment}</span>
                 : <Tooltip

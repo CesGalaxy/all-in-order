@@ -1,15 +1,14 @@
 "use client";
 
-import { QuestionChoiceAnswer, QuestionChoiceAttempt, QuestionChoiceData } from "@aio/db/features/questions/Choice";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { IconCheck, IconChevronLeft, IconX } from "@tabler/icons-react";
 import { Checkbox } from "@nextui-org/checkbox";
+import { QuestionChoiceAnswer, QuestionChoiceAttempt, QuestionChoiceData } from "@/modules/learn/question/Choice";
 
 export default function ChoiceQuestionCorrection({
                                                      data,
-                                                     attempt: { choices, correctChoices, single },
+                                                     attempt: { choices, correctChoices, mustSelectAll },
                                                      answer,
-                                                     correct
                                                  }: {
     data: QuestionChoiceData,
     attempt: QuestionChoiceAttempt,
@@ -17,7 +16,7 @@ export default function ChoiceQuestionCorrection({
     correct: boolean
 }) {
     return <div>
-        {single
+        {mustSelectAll
             ? correctChoices === 1
                 ? <Single correction={data.choices} orderedChoices={choices} answer={answer.selectedChoices}/>
                 : <MultipleOptional correction={data.choices} orderedChoices={choices} answer={answer.selectedChoices}/>

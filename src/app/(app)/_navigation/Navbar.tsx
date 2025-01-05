@@ -29,7 +29,7 @@ export default async function AppNavbar() {
     const locale = await getLocale() as "en" | "es" | "val";
 
     return <Nav shouldHideOnScroll classNames={{ item: "group" }} isBordered className="transition-background h-16">
-        <NavbarContent>
+        <NavbarContent className="gap-0 lg:gap-4">
             <NavbarMenuToggle className="lg:hidden"/>
             <NavbarBrand className="grow-0 shrink-0 min-w-[187px] h-16">
                 <Link href="/">

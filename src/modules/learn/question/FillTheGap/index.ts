@@ -1,17 +1,21 @@
-import { BaseQuestion } from "./index";
+import { z } from "zod";
+import { QuestionAnswerValidator, QuestionAttemptGenerator } from "@/modules/learn/question";
 
-export interface QuestionFillTheGapData extends BaseQuestion<"fill_the_gap"> {
-    text: string;
-    gaps: Gap[];
-}
+export const QUESTION_FillTheGap_DATA_Gap = z.object({
+    position: z.number(),
+    type: z.enum(["text", "choice"]),
+    hint: z.string().optional(),
+    correctValues: z.array(z.string()),
+    wrongValues: z.array(z.string()).optional(),
+});
 
-export interface Gap {
-    position: number;
-    type: "text" | "choice";
-    hint?: string;
-    correctValues: string[];
-    wrongValues?: string[];
-}
+export const QUESTION_FillTheGap_DATA = z.object({
+    text: z.string(),
+    gaps: z.array(QUESTION_FillTheGap_DATA_Gap),
+});
+
+export type QuestionFillTheGapDataGap = z.infer<typeof QUESTION_FillTheGap_DATA_Gap>;
+export type QuestionFillTheGapData = z.infer<typeof QUESTION_FillTheGap_DATA>;
 
 export interface QuestionFillTheGapAttempt {
     segments: AttemptSegment[];
@@ -26,11 +30,11 @@ export interface GapAttempt {
     answers: string[];
 }
 
-export interface QuestionFillTheGapAnswer {
+export type QuestionFillTheGapAnswer = {
     answers: string[];
 }
 
-export function generateFillTheGapQuestionAttempt(data: QuestionFillTheGapData): QuestionFillTheGapAttempt {
+export const generateFillTheGapQuestionAttempt: QuestionAttemptGenerator<'fill_the_gap'> = (data) => {
     const segments: AttemptSegment[] = [];
     let currentTextSegment = "";
 
@@ -64,9 +68,8 @@ export function generateFillTheGapQuestionAttempt(data: QuestionFillTheGapData):
     return { segments };
 }
 
-export function validateFillTheGapQuestion({ gaps }: QuestionFillTheGapData, answer: QuestionFillTheGapAnswer): boolean {
-    return gaps.every((gap, index) => {
+export const validateFillTheGapQuestion: QuestionAnswerValidator<'fill_the_gap'> = ({ gaps }, answer) =>
+    gaps.every((gap, index) => {
         const answerValue = answer.answers[index];
         return gap.correctValues.includes(answerValue) && !(gap.wrongValues || []).includes(answerValue);
     });
-}

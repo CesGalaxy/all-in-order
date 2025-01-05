@@ -13,18 +13,14 @@ import { Activity, ExamProvider } from "@/app/(app)/practices/[practiceId]/start
 import Counter from "@/app/(app)/practices/[practiceId]/start/_feature/Counter";
 import BottomNavigation from "@/app/(app)/practices/[practiceId]/start/_feature/BottomNavigation";
 import CurrentQuestionTitle from "@/app/(app)/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
-import { generateQuestionAttempt, QuestionAnswer, QuestionData } from "@aio/db/features/questions";
 import ExamActivity from "@/app/(app)/practices/[practiceId]/start/_feature/ExamActivity";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { redirect } from "next/navigation";
 import { Json } from "@aio/db/supabase";
+import { Question, QUESTION_ATTEMPT_GENERATORS, QuestionAnswer, QuestionType } from "@/modules/learn/question";
 
-export default async function Page(props: { params: Promise<{ practiceId: string }> }) {
-    const params = await props.params;
-
-    const {
-        practiceId
-    } = params;
+export default async function Page({ params }: { params: Promise<{ practiceId: string }> }) {
+    const { practiceId } = await params;
 
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient
@@ -41,7 +37,7 @@ export default async function Page(props: { params: Promise<{ practiceId: string
 
     const generatedActivities = activities.map(activity => ({
         ...activity,
-        attempt: generateQuestionAttempt(activity.data as any as QuestionData),
+        attempt: QUESTION_ATTEMPT_GENERATORS[(activity.data as any).type as QuestionType](activity.data as any as Question),
     }));
 
     const now = new Date();

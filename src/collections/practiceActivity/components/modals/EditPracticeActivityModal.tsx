@@ -1,28 +1,17 @@
 "use client";
 
 import { Input, Textarea } from "@nextui-org/input";
-import { IconDeviceFloppy, IconExclamationCircle } from "@tabler/icons-react";
+import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useCallback, useMemo, useState } from "react";
-import { QuestionData, QuestionDraft } from "@aio/db/features/questions";
 import { Divider } from "@nextui-org/divider";
-import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
-import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFillTheGapQuestion";
 import { Chip } from "@nextui-org/chip";
-import CreateTrueOrFalseQuestion from "@/features/beta_question/create/CreateTrueOrFalseQuestion";
 import ModalForm from "@/components/utils/ModalForm";
 import { ActionResponse } from "@/lib/helpers/form";
+import { Question, QUESTION_CREATORS, QuestionDraft, QuestionType } from "@/modules/learn/question";
 
-const QUESTION_CREATORS = {
-    "choice": CreateChoiceQuestion,
-    "fill_the_gap": CreateFillTheGapQuestion,
-    "true_or_false": CreateTrueOrFalseQuestion,
-    "fill_the_gap3": CreateFillTheGapQuestion,
-    "fill_the_gap4": CreateFillTheGapQuestion,
-}
-
-function EditPracticeActivityModal({ action, initialData, initialTags }: {
-    action: (data: QuestionData, tags: string[]) => Promise<ActionResponse<any>>,
-    initialData: QuestionData,
+function EditPracticeActivityModal<T extends QuestionType>({ action, initialData, initialTags }: {
+    action: (data: Question<T>, tags: string[]) => Promise<ActionResponse<any>>,
+    initialData: Question<T>,
     initialTags: string[],
 }) {
     const [title, setTitle] = useState(initialData.title);
@@ -31,9 +20,10 @@ function EditPracticeActivityModal({ action, initialData, initialTags }: {
     const [tags, setTags] = useState<string[]>(initialTags);
     const [newTag, setNewTag] = useState("");
 
-    const [draft, setDraft] = useState<QuestionDraft>(initialData);
+    const [draft, setDraft] = useState<QuestionDraft<T>>(initialData);
 
-    const QuestionCreator = useMemo(() => QUESTION_CREATORS[initialData.type], [initialData.type]);
+    const QuestionCreator = useMemo(
+        () => QUESTION_CREATORS[initialData.type], [initialData.type]);
 
     const addTag = useCallback(() => {
         const tag = newTag.trim().toLowerCase();
@@ -47,15 +37,10 @@ function EditPracticeActivityModal({ action, initialData, initialTags }: {
         isFormValid={!!title && typeof draft === "object" && tags.length <= 5}
         action={() => {
             if (typeof draft !== "object" || !title || tags.length > 5) return;
-            const data: QuestionData = { title, details, type: initialData.type, ...draft } as QuestionData;
+            const data: Question = { title, details, type: initialData.type, ...draft };
             return action(data, tags);
         }}
         handleSuccess="close"
-        footer={typeof draft === "string" &&
-            <small className="text-danger flex items-center gap-2 justify-start flex-grow">
-                <IconExclamationCircle/>
-                {draft}
-            </small>}
         buttonLabel={"Save"}
         buttonIcon={<IconDeviceFloppy/>}
         showFooterDivider
@@ -104,7 +89,8 @@ function EditPracticeActivityModal({ action, initialData, initialTags }: {
             )}</ul>}
         />
         <Divider/>
-        <QuestionCreator draft={draft as any} setDraft={setDraft}/>
+        {/* @ts-ignore */}
+        <QuestionCreator draft={draft} setDraft={setDraft} initialData={initialData}/>
     </ModalForm>;
 }
 
