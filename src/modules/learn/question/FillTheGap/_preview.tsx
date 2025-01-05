@@ -4,7 +4,7 @@ import { IconChevronUp } from "@tabler/icons-react";
 import { Tooltip } from "@nextui-org/tooltip";
 
 export default function PreviewFillTheGapQuestion({ attempt }: { attempt: QuestionFillTheGapAttempt }) {
-    return <p className="flex items-center gap-1 flex-wrap">
+    return <ul className="flex items-center gap-1 flex-wrap">
         {attempt.segments.map(
             (segment, index) => typeof segment === "string"
                 ? <span key={index}>{segment}</span>
@@ -33,5 +33,5 @@ export default function PreviewFillTheGapQuestion({ attempt }: { attempt: Questi
                     </Chip>
                 </Tooltip>
         )}
-    </p>;
+    </ul>;
 }

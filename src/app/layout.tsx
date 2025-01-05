@@ -35,8 +35,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     getMaybeMyProfile().then();
 
     return <ViewTransitions>
-        <html lang="en" suppressHydrationWarning className="scroll-smooth">
-        <body className={kanit.className + " bg-background text-foreground w-full h-screen transition-background"}>
+        <html lang="en" suppressHydrationWarning className="scroll-smooth h-full">
+        <body className={kanit.className + " bg-background text-foreground w-full h-full transition-background"}>
         <RootProvidersClient>
             {children}
         </RootProvidersClient>

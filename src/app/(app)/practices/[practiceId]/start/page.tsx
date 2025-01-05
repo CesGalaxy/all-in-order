@@ -81,9 +81,9 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
         startedAt={now.valueOf()}
         finishExam={finishExam.bind(null, now.toUTCString())}
     >
-        <main className="w-full h-full flex flex-col flex-grow">
+        <main className="w-full h-dvh flex flex-col grow -mt-16">
             <header className="bg-content2 text-content2-foreground">
-                <Navbar className="bg-transparent -ml-4" classNames={{ wrapper: "pl-2" }}>
+                <Navbar className="bg-content2 -ml-4" classNames={{ wrapper: "pl-2" }} isBlurred={false}>
                     <NavbarContent>
                         <Button
                             as={Link}
@@ -94,7 +94,7 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
                             <IconDoorExit/>
                         </Button>
                         <NavbarBrand>
-                            <Link href="/public">
+                            <Link href="/">
                                 <Image src={LogoIcoCol} alt="All In Order" height={64} priority/>
                             </Link>
                         </NavbarBrand>
@@ -107,7 +107,7 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
                     <CurrentQuestionTitle/>
                 </nav>
             </header>
-            <div className="w-full h-full flex-grow container mx-auto relative">
+            <div className="w-full h-full grow container mx-auto relative overflow-x-auto">
                 <ExamActivity/>
             </div>
             <footer className="bg-content2 text-content2-foreground flex flex-col items-center gap-4 p-4 relative">
