@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 /**
  * If the given argument is null or undefined, it will redirect to the specified path.
@@ -6,6 +6,6 @@ import { redirect } from "next/navigation";
  * @param redirectPath The path to redirect to if the result is null or undefined.
  * @returns The result (not null nor undefined).
  */
-export default function required<T>(result?: T | null, redirectPath = "/"): T {
-    return result ?? redirect(redirectPath);
+export default function required<T>(result?: T | null, redirectPath: false | string = "/"): T {
+    return result ?? (redirectPath ? redirect(redirectPath) : notFound());
 }

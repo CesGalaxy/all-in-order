@@ -1,0 +1,24 @@
+{
+  "name": "@aio/db",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./entities": "./src/entities.ts",
+    "./supabase": "./src/types/database.d.ts",
+    "./features/questions": "./src/features/questions/index.ts",
+    "./features/questions/Choice": "./src/features/questions/QuestionChoice.ts",
+    "./features/questions/FillTheGap": "./src/features/questions/QuestionFillTheGap.ts",
+    "./features/questions/TrueOrFalse": "./src/features/questions/QuestionTrueOrFalse.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "supabase:gen": "supabase gen types typescript --project-id lqhpujmpehjkdqbxcret > src/types/database.d.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.2"
+  },
+  "devDependencies": {
+    "@aio/ts": "workspace:*",
+    "supabase": "^2.1.1"
+  }
+}

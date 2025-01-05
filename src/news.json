@@ -1,18 +1,18 @@
 {
-  "id": "0.0.1",
+  "id": "0.0.2",
   "en": [
-    "Topic practices",
-    "Chat with AI",
-    "Course management"
+    "Improved learning",
+    "Notebooks",
+    "Practice vocabulary"
   ],
   "es": [
-    "Prácticas de los temas",
-    "Chat con IA",
-    "Gestión de cursos"
+    "Aprendizaje mejorado",
+    "Cuadernos",
+    "Practicar vocabulario"
   ],
   "val": [
-    "Pràctiques dels temes",
-    "Xat amb IA",
-    "Gestió de cursos"
+    "Aprenentatge millorat",
+    "Quaderns",
+    "Practicar vocabulari"
   ]
 }

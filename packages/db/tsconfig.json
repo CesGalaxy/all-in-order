@@ -1,0 +1,12 @@
+{
+  "extends": "@aio/ts/base.json",
+  "compilerOptions": {
+    "baseUrl": "./src/"
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

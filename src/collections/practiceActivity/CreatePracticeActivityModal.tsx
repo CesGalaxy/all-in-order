@@ -3,35 +3,16 @@
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Input, Textarea } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import {
-    IconExclamationCircle,
-    IconLine,
-    IconListCheck,
-    IconMist,
-    IconPlayCard,
-    IconPlus,
-    IconSquareRoundedCheck
-} from "@tabler/icons-react";
+import { IconLine, IconListCheck, IconMist, IconPlayCard, IconPlus, IconSquareRoundedCheck } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
-import { QuestionData, QuestionDraft } from "@/features/beta_question";
+import { Question, QUESTION_CREATORS, QuestionDraft, QuestionType } from "@/modules/learn/question";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Divider } from "@nextui-org/divider";
-import CreateChoiceQuestion from "@/features/beta_question/create/CreateChoiceQuestion";
-import CreateFillTheGapQuestion from "@/features/beta_question/create/CreateFillTheGapQuestion";
 import { Chip } from "@nextui-org/chip";
-import CreateTrueOrFalseQuestion from "@/features/beta_question/create/CreateTrueOrFalseQuestion";
 
-const QUESTION_CREATORS = {
-    "choice": CreateChoiceQuestion,
-    "fill_the_gap": CreateFillTheGapQuestion,
-    "true_or_false": CreateTrueOrFalseQuestion,
-    "fill_the_gap3": CreateFillTheGapQuestion,
-    "fill_the_gap4": CreateFillTheGapQuestion,
-}
-
-export default function CreatePracticeActivityModal({ action }: {
-    action: (data: QuestionData, tags: string[]) => Promise<string | undefined>
+function CreatePracticeActivityModal({ action }: {
+    action: (data: Question, tags: string[]) => Promise<string | undefined>
 }) {
     const [title, setTitle] = useState("");
     const [details, setDetails] = useState("");
@@ -39,9 +20,9 @@ export default function CreatePracticeActivityModal({ action }: {
     const [tags, setTags] = useState<string[]>([]);
     const [newTag, setNewTag] = useState("");
 
-    const [questionType, setQuestionType] = useState<"choice" | "fill_the_gap">("choice");
+    const [questionType, setQuestionType] = useState<QuestionType>("choice");
 
-    const [draft, setDraft] = useState<QuestionDraft>();
+    const [draft, setDraft] = useState<QuestionDraft<any>>();
 
     const [loading, setLoading] = useState(false);
 
@@ -136,11 +117,11 @@ export default function CreatePracticeActivityModal({ action }: {
                 </ModalBody>
                 <Divider/>
                 <ModalFooter>
-                    {typeof draft === "string" &&
-                        <small className="text-danger flex items-center gap-2 justify-start flex-grow">
-                            <IconExclamationCircle/>
-                            {draft}
-                        </small>}
+                    {/*{typeof draft === "string" &&*/}
+                    {/*    <small className="text-danger flex items-center gap-2 justify-start flex-grow">*/}
+                    {/*        <IconExclamationCircle/>*/}
+                    {/*        {draft}*/}
+                    {/*    </small>}*/}
                     <Button color="danger" variant="flat" onPress={onClose}>
                         Cancel
                     </Button>
@@ -154,7 +135,7 @@ export default function CreatePracticeActivityModal({ action }: {
 
                             setLoading(true);
 
-                            const data: QuestionData = { title, details, type: questionType, ...draft } as QuestionData;
+                            const data: Question = { title, details, type: questionType, ...draft };
 
                             const error = await action(data, tags);
 
@@ -175,3 +156,5 @@ export default function CreatePracticeActivityModal({ action }: {
         )}
     </ModalContent>;
 }
+
+export default CreatePracticeActivityModal;

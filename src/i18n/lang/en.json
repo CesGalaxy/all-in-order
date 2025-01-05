@@ -1,0 +1,132 @@
+{
+  "AI": {
+    "chat_with": "Chat with AI",
+    "tools": "AI Tools"
+  },
+  "App": {
+    "Actions": {
+      "returnHome": "Return to the home page",
+      "theme_change": "Change theme"
+    },
+    "agenda": "Agenda",
+    "attempts": "Attempts",
+    "calendar": "Calendar",
+    "courses": "Courses",
+    "documents": "Documents",
+    "notes": "Notes",
+    "practice": "Practice",
+    "resources": "Resources",
+    "score": "Score",
+    "subjects": "Subjects",
+    "tasks": "Tasks",
+    "tests": "Tests",
+    "topics": "Topics"
+  },
+  "Auth": {
+    "email_example": "someone@example.com",
+    "login": "Login",
+    "logout": "Logout",
+    "sign_up": "Sign Up",
+    "signed_in_as": "Signed in as {identity}"
+  },
+  "Dash": {
+    "Course": {
+      "new_create": "Create a new course!",
+      "no_public": "There are no public courses!"
+    },
+    "Note": {
+      "create": "Create a note",
+      "delete": "Delete note",
+      "delete_description": "Permanently delete the note",
+      "edit": "Edit note",
+      "edit_description": "Edit the note contents",
+      "not_found": "Note not found",
+      "options": {
+        "pin": "Pin note",
+        "pin_description": "Pin the note to the top"
+      },
+      "untitled": "Untitled note"
+    },
+    "Practice": {
+      "quick": "Quick practice"
+    },
+    "Subject": {
+      "delete": "Delete subject",
+      "delete_desc": "Permanently delete the subject",
+      "download": "Download subject",
+      "download_desc": "Download the subject data",
+      "edit": "Edit subject",
+      "edit_desc": "Allows you to edit the subject",
+      "share": "Share subject",
+      "share_desc": "Share the subject"
+    },
+    "Topic": {
+      "create_doc": "Create document",
+      "create_doc_new": "Create a new document",
+      "create_test": "Create Test",
+      "import": "Import topic",
+      "import_desc": "Import a new topic",
+      "new": "New topic",
+      "no_documents": "No documents found.",
+      "no_documents_yet": "There are no documents available for this topic yet.",
+      "no_tests": "No tests found.",
+      "no_tests_details": "There are no tests available for this topic yet.",
+      "upload_doc": "Upload a document"
+    },
+    "my_content": {
+      "courses": "My Courses"
+    }
+  },
+  "Extra": {
+    "DocType": {
+      "md": {
+        "desc": "A simple rich text format with the basic features for creating documents.",
+        "desc_short": "A simple rich text format for simple docs",
+        "name": "Markdown"
+      },
+      "other": {
+        "desc": "We couldn't find the doc type.",
+        "name": "Unknown"
+      }
+    },
+    "error_occurred": "An error occurred",
+    "go_home": "Go to home",
+    "unexpected_error": "An unexpected error occurred",
+    "weird_place": "A weird place",
+    "weird_place_you": "You are in a weird place..."
+  },
+  "Global": {
+    "actions": "Actions",
+    "cancel": "Cancel",
+    "close": "Close",
+    "content": "Content",
+    "copy_link": "Copy link",
+    "copy_link_description": "Copy the shareable link",
+    "create": "Create",
+    "danger_zone": "Danger zone",
+    "dashboard": "Dashboard",
+    "delete": "Delete",
+    "download": "Download",
+    "edit": "Edit",
+    "open": "Open",
+    "options": "Options",
+    "save": "Save",
+    "settings": "Settings",
+    "share": "Share",
+    "start": "Start",
+    "storage": "Storage",
+    "title": "Title",
+    "viewMore": "View more",
+    "view_all": "View all",
+    "web_version": "Web Version"
+  },
+  "Home": {
+    "create_resumes_with_ai": "Create Resumes with AI ✨",
+    "public_courses": "Public Courses"
+  },
+  "Social": {
+    "Profile": {
+      "avatar_alt": "{name}'s avatar"
+    }
+  }
+}

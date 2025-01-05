@@ -1,15 +1,17 @@
 "use server";
 
-import { QuestionData } from "@/features/beta_question";
 import getSupabase from "@/supabase/server";
 import { revalidatePath } from "next/cache";
-import { getMyProfile } from "@/supabase/models/Profile";
-import { Json } from "@/supabase/database";
+import { getMyProfile } from "@/supabase/auth/profile";
+import { Json } from "@aio/db/supabase";
+import { mountActionError, mountActionSuccess } from "@/lib/helpers/form";
+import { Question } from "@/modules/learn/question";
 
-export async function createActivityAndReturn(topicId: number, question: QuestionData, tags: string[]) {
+export async function createActivityAndReturn(topicId: number, question: Question, tags: string[]) {
     const { id } = await getMyProfile();
 
-    const { data, error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { data, error } = await supabaseClient
         .from("topic_activities")
         .insert({
             topic_id: topicId,
@@ -25,12 +27,13 @@ export async function createActivityAndReturn(topicId: number, question: Questio
     return data.id;
 }
 
-export default async function createPracticeActivity(topicId: number, practiceId: number, question: QuestionData, tags: string[]) {
+export default async function createPracticeActivity(topicId: number, practiceId: number, question: Question, tags: string[]) {
     const errorOrId = await createActivityAndReturn(topicId, question, tags);
 
     if (typeof errorOrId === "string") return errorOrId;
 
-    const { error } = await getSupabase()
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
         .from("practice_activities")
         .insert({
             activity_id: errorOrId,
@@ -41,4 +44,17 @@ export default async function createPracticeActivity(topicId: number, practiceId
 
     revalidatePath("/practices/" + practiceId);
     revalidatePath("/topics/" + topicId);
+}
+
+export async function updatePracticeActivity(topicId: number, activityId: number, question: Question, tags: string[]) {
+    const supabaseClient = await getSupabase();
+    const { error } = await supabaseClient
+        .from("topic_activities")
+        .update({ data: question as unknown as Json, tags })
+        .eq("id", activityId);
+
+    if (error) return mountActionError({ db: [error.message] });
+
+    revalidatePath("/practices/", "layout");
+    return mountActionSuccess(null);
 }

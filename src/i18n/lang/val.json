@@ -1,0 +1,132 @@
+{
+  "AI": {
+    "chat_with": "Parla amb l'IA",
+    "tools": "Ferramentes amb IA"
+  },
+  "App": {
+    "Actions": {
+      "returnHome": "Tornar a la pàgina d'inici",
+      "theme_change": "Colors"
+    },
+    "agenda": "Agenda",
+    "attempts": "Intents",
+    "calendar": "Calendari",
+    "courses": "Cursos",
+    "documents": "Documents",
+    "notes": "Notes",
+    "practice": "Practica",
+    "resources": "Recursos",
+    "score": "Puntuació",
+    "subjects": "Matèries",
+    "tasks": "Tasques",
+    "tests": "Tests",
+    "topics": "Temes"
+  },
+  "Auth": {
+    "email_example": "persona@correu.es",
+    "login": "Accedeix",
+    "logout": "Tanca sessió",
+    "sign_up": "Crear compte",
+    "signed_in_as": "Accedint com a {identity}"
+  },
+  "Dash": {
+    "Course": {
+      "new_create": "Crear un curs nou!",
+      "no_public": "No hi han cursos públics!"
+    },
+    "Note": {
+      "create": "Crear una nota",
+      "delete": "Eliminar nota",
+      "delete_description": "Elimina la nota per sempre",
+      "edit": "Editar note",
+      "edit_description": "Editar els continguts",
+      "not_found": "Nota no trobada",
+      "options": {
+        "pin": "Fixar nota",
+        "pin_description": "Fixar la nota al dalt"
+      },
+      "untitled": "Nota sense títol"
+    },
+    "Practice": {
+      "quick": "Lliçó ràpida"
+    },
+    "Subject": {
+      "delete": "Eliminar matèria",
+      "delete_desc": "Eliminar la matèria de forma permanent",
+      "download": "Descarregar matèria",
+      "download_desc": "Descarregar les dades de la matèria",
+      "edit": "Editar matèria",
+      "edit_desc": "Edita aquesta matèria",
+      "share": "Comparteix matèria",
+      "share_desc": "Comparteix aquesta matèria"
+    },
+    "Topic": {
+      "create_doc": "Crear document",
+      "create_doc_new": "Crear un nou document",
+      "create_test": "Crear test",
+      "import": "Importar tema",
+      "import_desc": "Importar un nou temari",
+      "new": "Nou tema",
+      "no_documents": "No s'han trobat documents",
+      "no_documents_yet": "No hi han documents en aquest tema.",
+      "no_tests": "No s'han trobat tests",
+      "no_tests_details": "No hi han tests en aquest tema.",
+      "upload_doc": "Pujar documents"
+    },
+    "my_content": {
+      "courses": "Els meus cursos"
+    }
+  },
+  "Extra": {
+    "DocType": {
+      "md": {
+        "desc": "Un format per a la creació de documents amb text enriquit.",
+        "desc_short": "Format per a crear documents senzills",
+        "name": "Markdown"
+      },
+      "other": {
+        "desc": "No s'ha pogut trobar el tipus de document.",
+        "name": "Desconegut"
+      }
+    },
+    "error_occurred": "Hi ha un error",
+    "go_home": "Tornar al inici",
+    "unexpected_error": "Error",
+    "weird_place": "Un lloc misterios",
+    "weird_place_you": "Et trobes a un lloc misterios..."
+  },
+  "Global": {
+    "actions": "Eïnes",
+    "cancel": "Cancel·la",
+    "close": "Tanca",
+    "content": "Contingut",
+    "copy_link": "Copiar enllaç",
+    "copy_link_description": "Copia un enllaç per a compartir",
+    "create": "Crea",
+    "danger_zone": "Zona perillosa",
+    "dashboard": "Inici",
+    "delete": "Elimina",
+    "download": "Descarregar",
+    "edit": "Editar",
+    "open": "Obrir",
+    "options": "Opcions",
+    "save": "Guarda",
+    "settings": "Preferències",
+    "share": "Comparteix",
+    "start": "Començar",
+    "storage": "",
+    "title": "Títol",
+    "viewMore": "Veure més",
+    "view_all": "Mostra tot",
+    "web_version": "Versió web"
+  },
+  "Home": {
+    "create_resumes_with_ai": "Crea resums amb l'IA ✨",
+    "public_courses": "Cursos Públics"
+  },
+  "Social": {
+    "Profile": {
+      "avatar_alt": "Avatar de {name}"
+    }
+  }
+}
