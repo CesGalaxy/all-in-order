@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/supabase/server";
 import { getMaybeUser } from "@/supabase/auth/user";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@nextui-org/link";
 
 const AUTH_SCHEMA = z.object({
     email: FORM_SCHEMAS.EMAIL,
@@ -55,20 +56,20 @@ export default async function Page(props: { searchParams: Promise<SearchParams> 
         redirect(redirectUrl || "/app");
     }
 
-    return <div className="flex items-center justify-center w-full h-full flex-grow">
+    return <div className="flex items-center justify-center w-full h-full flex-grow flex-col gap-8">
         <Card className="p-8">
             <CardHeader>
                 <h1 className="text-4xl font-bold uppercase">{t("Auth.login")}</h1>
             </CardHeader>
-            <CardBody>
-                <form action={login}>
-                    <Input isRequired label="Email" placeholder={t("Auth.email_example")} type="email" name="email"/>
-                    <br/>
-                    <Input isRequired label="Password" type="password" name="password"/>
-                    <br/>
-                    <Button color="primary" className="w-full" type="submit">{t("Auth.login")}</Button>
-                </form>
+            <CardBody as="form" action={login}>
+                <Input isRequired label={t("Global.email")} placeholder={t("Auth.email_example")} type="email"
+                       name="email"/>
+                <br/>
+                <Input isRequired label={t("Global.password")} type="password" name="password"/>
+                <br/>
+                <Button color="primary" className="w-full" type="submit">{t("Auth.login")}</Button>
             </CardBody>
         </Card>
+        <Link href="/register">Don&#39;t have an account?</Link>
     </div>
 }

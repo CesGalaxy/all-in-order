@@ -13,7 +13,12 @@ import Logo from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import { getMaybeMyProfile } from "@/supabase/auth/profile";
 import { getLocale, getTranslations } from "next-intl/server";
-import { NavbarSearchButton, NavbarSmallSearchButton, ToggleLocaleButton } from "@/app/(app)/_navigation/buttons";
+import {
+    NavbarSearchButton,
+    NavbarSmallSearchButton,
+    ToggleLocaleButton,
+    ToggleThemeButton
+} from "@/app/(app)/_navigation/buttons";
 import { Divider } from "@nextui-org/divider";
 import DesktopNavigation from "@/app/(app)/_navigation/navigations/DesktopNavigation";
 import { IconHome } from "@tabler/icons-react";
@@ -57,10 +62,11 @@ export default async function AppNavbar() {
                     <ProfileAvatar profile={profile}/>
                 </>
                 : <>
+                    <ToggleThemeButton/>
                     <NavbarItem>
-                        <Link as={Link} href="/login">
+                        <Button as={Link} href="/login" variant="light">
                             {t('Auth.login')}
-                        </Link>
+                        </Button>
                     </NavbarItem>
                     <NavbarItem>
                         <Button as={Link} color="primary" href="/register" variant="flat">
@@ -117,7 +123,10 @@ export default async function AppNavbar() {
             <Divider/>
             <nav className="flex items-center justify-between w-full">
                 <Button as={Link} color="primary" href="/app">{t('Global.dashboard')}</Button>
-                <ToggleLocaleButton/>
+                <nav className="flex items-center gap-2">
+                    <ToggleThemeButton/>
+                    <ToggleLocaleButton/>
+                </nav>
             </nav>
         </NavbarMenu>
     </Nav>;

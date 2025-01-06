@@ -2,11 +2,12 @@
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
-import { IconLanguage, IconSearch } from "@tabler/icons-react";
+import { IconLanguage, IconMoon, IconSearch, IconSun } from "@tabler/icons-react";
 import { Avatar } from "@nextui-org/avatar";
 import { updateLocale } from "@/app/(app)/_navigation/actions";
 import { Kbd } from "@nextui-org/kbd";
 import { useCmdkStore } from "@/features/cmdk/store";
+import { useTheme } from "next-themes";
 
 export function ToggleLocaleButton() {
     return <Dropdown>
@@ -34,6 +35,19 @@ export function ToggleLocaleButton() {
             >Valencià</DropdownItem>
         </DropdownMenu>
     </Dropdown>;
+}
+
+export function ToggleThemeButton() {
+    const { theme, setTheme } = useTheme();
+
+    const toggle = () => {
+        if (theme == "dark") setTheme("light");
+        else setTheme("dark");
+    }
+
+    const icon = theme == "dark" ? <IconSun/> : <IconMoon/>;
+
+    return <Button isIconOnly variant="flat" radius="full" onPress={toggle}>{icon}</Button>
 }
 
 export function NavbarSearchButton() {

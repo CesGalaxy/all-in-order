@@ -1,25 +1,67 @@
-import { getMyProfile } from "@/supabase/auth/profile";
-import DashboardCoursesSection from "@/app/(app)/app/_components/templates/DashboardCoursesSection";
-import DashboardNotificationsSection from "@/app/(app)/app/_components/templates/DashboardNotificationsSection";
 import PageContainer from "@/components/containers/PageContainer";
 import { createCourseAction } from "@/collections/course/actions";
-import autoRevalidate from "@/lib/helpers/autoRevalidate";
 import ProfileCard from "@/modules/user/components/molecules/ProfileCard";
 import SectionContainer from "@/components/containers/SectionContainer";
+import ModalButton from "@/components/utils/ModalButton";
+import { IconPlus } from "@tabler/icons-react";
+import CreateCourseModal from "@/collections/course/components/modals/CreateCourseModal";
+import { Suspense } from "react";
+import { GenericCardGridSkeleton } from "@/components/common/GenericCardSkeleton";
+import DashboardCoursesList from "@/collections/course/components/data/DashboardCoursesList";
+import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
+import BlankView from "@/components/views/BlankView";
+import noDataImage from "@/assets/pictures/no_data.svg";
+import { useTranslations } from "next-intl";
 
-export default async function Page() {
-    const profile = await getMyProfile();
+export default function Page() {
+    const t = useTranslations();
 
     return <PageContainer className="w-full grid xl:grid-cols-3 gap-16">
-        <DashboardCoursesSection
-            profileId={profile.id}
-            createCourseAction={autoRevalidate(createCourseAction, "/app")}
-        />
+        <SectionContainer
+            title="My Courses"
+            className="xl:col-span-2 w-full"
+            trailing={
+                <ModalButton
+                    color="primary"
+                    radius="full"
+                    size="sm"
+                    variant="solid"
+                    startContent={<IconPlus/>}
+                    modal={<CreateCourseModal action={createCourseAction}/>}
+                >
+                    {t("Dash.Course.new_create")}
+                </ModalButton>
+            }
+        >
+            <Suspense fallback={<GenericCardGridSkeleton/>}>
+                <DashboardCoursesList/>
+            </Suspense>
+        </SectionContainer>
         <aside className="flex flex-col items-stretch gap-16 order-first xl:order-none w-full">
             <SectionContainer title="My Profile">
-                <ProfileCard profile={profile}/>
+                <Suspense fallback={<p>Loading</p>}>
+                    <ProfileCard/>
+                </Suspense>
             </SectionContainer>
-            <DashboardNotificationsSection/>
+            <SectionContainer
+                title="Notifications"
+                trailing={
+                    <Button
+                        as={Link}
+                        href="/app#notifications"
+                        color="primary"
+                        size="sm"
+                        variant="flat"
+                        radius="full"
+                        showAnchorIcon
+                    >
+                        {t("Global.view_all")}
+                    </Button>
+                }
+            >
+                <BlankView image={noDataImage} alt="No notifications" title="No notifications"/>
+            </SectionContainer>
         </aside>
     </PageContainer>;
 }

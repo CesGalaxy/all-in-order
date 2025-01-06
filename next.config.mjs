@@ -23,6 +23,15 @@ const nextConfig = {
             },
         ],
     },
+    redirects: async () => {
+        return [
+            {
+                source: '/register',
+                destination: '/signup',
+                permanent: true,
+            },
+        ];
+    },
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));
