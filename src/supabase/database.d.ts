@@ -122,7 +122,7 @@ export type Database = {
           style: Json
           tags: string[]
           title: string | null
-          updated_at: string | null
+          updated_at: string
         }
         Insert: {
           content: string
@@ -132,7 +132,7 @@ export type Database = {
           style: Json
           tags?: string[]
           title?: string | null
-          updated_at?: string | null
+          updated_at?: string
         }
         Update: {
           content?: string
@@ -142,7 +142,7 @@ export type Database = {
           style?: Json
           tags?: string[]
           title?: string | null
-          updated_at?: string | null
+          updated_at?: string
         }
         Relationships: [
           {

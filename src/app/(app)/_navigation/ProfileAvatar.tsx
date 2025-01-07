@@ -9,7 +9,7 @@ import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
 import { IconAt, IconBrightness, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
 import { Divider } from "@nextui-org/divider";
-import { Profile } from "@aio/db/entities";
+import { Profile } from "@/supabase/entities";
 import { useTheme } from "next-themes";
 
 export default function ProfileAvatar({ profile }: { profile: Profile }) {

@@ -4,7 +4,7 @@ import { cache } from "react";
 import { getMaybeUser } from "@/supabase/auth/user";
 import getSupabase from "@/supabase/server";
 import required from "@/lib/helpers/required";
-import { Profile } from "@aio/db/entities";
+import { Profile } from "@/supabase/entities";
 
 export const getMyProfile = cache(async (redirectPath = "/login") => required(await getMaybeMyProfile(), redirectPath));
 

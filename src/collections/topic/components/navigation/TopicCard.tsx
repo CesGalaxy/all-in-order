@@ -1,6 +1,6 @@
 "use client";
 
-import { Topic } from "@aio/db/entities";
+import { Topic } from "@/supabase/entities";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Divider } from "@nextui-org/divider";

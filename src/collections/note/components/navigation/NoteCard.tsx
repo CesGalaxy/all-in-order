@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { Link as TransitionLink } from "next-view-transitions";
 import NoteOptions from "@/collections/note/components/navigation/NoteOptions";
 import { Divider } from "@nextui-org/divider";
-import { SubjectNote } from "@aio/db/entities";
+import { SubjectNote } from "@/supabase/entities";
 import ModalButton from "@/components/utils/ModalButton";
 import NoteModal from "@/collections/note/components/modals/NoteModal";
 import { useTranslations } from "next-intl";

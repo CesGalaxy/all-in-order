@@ -1,7 +1,7 @@
 import NoTopics from "@/collections/topic/components/views/NoTopics";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { useTranslations } from "next-intl";
-import { Topic } from "@aio/db/entities";
+import { Topic } from "@/supabase/entities";
 import TopicCard from "@/collections/topic/components/navigation/TopicCard";
 import ContentGallery from "@/components/navigation/ContentGallery";
 import { IconPlus } from "@tabler/icons-react";

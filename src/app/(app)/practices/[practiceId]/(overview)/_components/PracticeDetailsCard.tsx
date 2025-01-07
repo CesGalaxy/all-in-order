@@ -15,7 +15,7 @@ import { Button } from "@nextui-org/button";
 import { Avatar } from "@nextui-org/avatar";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeModal from "@/app/(app)/practices/[practiceId]/(overview)/_components/EditPracticeModal";
-import { TopicActivity } from "@aio/db/entities";
+import { TopicActivity } from "@/supabase/entities";
 
 export interface PracticeDetailsCardProps {
     title: string;

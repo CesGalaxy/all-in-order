@@ -4,7 +4,7 @@ import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { TopicActivity } from "@aio/db/entities";
+import { TopicActivity } from "@/supabase/entities";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Divider } from "@nextui-org/divider";
 import { Button, ButtonGroup } from "@nextui-org/button";

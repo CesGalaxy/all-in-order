@@ -34,7 +34,7 @@ export default async function Page(
     const docName = atob(decodeURIComponent(docLocatorSegments[1]));
 
     const supabaseClient = await getSupabase();
-    const { data, error } = await supabaseClient.from("topics").select("id").eq("id", topicId).maybeSingle();
+    const { data, error } = await supabaseClient.from("topics").select("id").eq("id", parseInt(topicId)).maybeSingle();
     if (error) return <ErrorView message={error.message}/>;
     const topic = required(data, topicUrl);
 

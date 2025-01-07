@@ -1,7 +1,7 @@
 "use client";
 
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { TopicActivity } from "@aio/db/entities";
+import { TopicActivity } from "@/supabase/entities";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconChevronUp, IconCopy, IconEdit, IconPlus, IconPrinter, IconTrash } from "@tabler/icons-react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";

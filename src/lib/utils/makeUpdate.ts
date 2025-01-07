@@ -1,6 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Database, TablesUpdate } from "../types/database";
-import { Table } from "../types/utils";
+import { Database, TablesUpdate } from "@aio/db/supabase";
 
 export interface UpdateOptions {
     noUpdateTime?: boolean;
@@ -16,7 +15,7 @@ type NoTimestamps = { updated_at: never, created_at: never };
  * @param options Options for the update
  * @returns A request to update the row
  */
-export default function makeUpdate<T extends Table, O extends UpdateOptions | undefined>(
+export default function makeUpdate<T extends keyof Database["public"]["Tables"], O extends UpdateOptions | undefined>(
     supabaseClient: SupabaseClient<Database>,
     table: T,
     newData: TablesUpdate<T> & (O extends UpdateOptions ? (O["noUpdateTime"] extends true ? {} : NoTimestamps) : {}),

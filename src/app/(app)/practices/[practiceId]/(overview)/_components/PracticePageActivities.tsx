@@ -1,6 +1,6 @@
 "use client";
 
-import { TopicActivity } from "@aio/db/entities";
+import { TopicActivity } from "@/supabase/entities";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { Tooltip } from "@nextui-org/tooltip";
 import {

@@ -7,14 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "supabase:gen": "supabase gen types typescript --project-id lqhpujmpehjkdqbxcret > src/supabase/database.d.ts"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@ai-sdk/google": "^0.0.46",
-    "@aio/db": "workspace:^",
     "@mdxeditor/editor": "^3.20.0",
     "@next/bundle-analyzer": "15.1.2",
     "@nextui-org/accordion": "^2.2.5",
@@ -76,7 +73,6 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@aio/ts": "workspace:*",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20.17.9",

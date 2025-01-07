@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { PostgrestError } from "@supabase/supabase-js";
 import { Checkbox } from "@nextui-org/checkbox";
-import { Course } from "@aio/db/entities";
+import { Course } from "@/supabase/entities";
 
 export type RequiredCourse = Pick<Course, "name" | "description" | "is_public">
 

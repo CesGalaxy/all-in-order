@@ -1,4 +1,4 @@
-import { Tables } from "./types/database";
+import { Tables } from "@aio/db/supabase";
 
 export type Profile = Tables<"profiles">;
 

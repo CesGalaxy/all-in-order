@@ -55,12 +55,13 @@ export default function SimpleAttemptsTable({ practiceId, attempts }: SimpleAtte
 
     return <Table aria-label="Recent attempts" className={`vt-name-[attempts-simple-table]`}>
         <TableHeader columns={COLUMNS}>
-            {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+            {column => <TableColumn key={column.key}>{column.label}</TableColumn>}
         </TableHeader>
         <TableBody items={attempts} emptyContent={"You haven't practiced yet!"}>
-            {(item) => (
-                <TableRow key={item.id}>
-                    {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            {attempt => (
+                <TableRow key={attempt.id} href={`/practices/${practiceId}/attempts/${attempt.id}`}
+                          className="hover:bg-content2 cursor-pointer">
+                    {(columnKey) => <TableCell>{renderCell(attempt, columnKey)}</TableCell>}
                 </TableRow>
             )}
         </TableBody>

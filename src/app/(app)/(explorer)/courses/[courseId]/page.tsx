@@ -26,7 +26,7 @@ export default async function Page(props: { params: Promise<{ courseId: string }
     const { data, error } = await supabaseClient
         .from("courses")
         .select("id, name, description, is_public, updated_at, created_at, subjects(id, name, color, topics(id, title)), members:course_members(profile:profiles(id, name, username), is_admin, created_at)")
-        .eq("id", courseId)
+        .eq("id", parseInt(courseId))
         .maybeSingle();
 
     if (error) return <ErrorView message={error.message}/>;

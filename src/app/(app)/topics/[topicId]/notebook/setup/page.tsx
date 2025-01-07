@@ -25,14 +25,14 @@ export default async function Page({ params, searchParams }: {
     const topicRequest = supabaseClient
         .from("topics")
         .select('title')
-        .eq('id', topicId)
+        .eq('id', parseInt(topicId))
         .maybeSingle();
 
     const user = await getUser();
     const { data: nbData, error: nbError } = await supabaseClient
         .from("notebooks")
         .select('count')
-        .eq('topic', topicId)
+        .eq('topic', parseInt(topicId))
         .eq('user', user.id)
         .single();
 

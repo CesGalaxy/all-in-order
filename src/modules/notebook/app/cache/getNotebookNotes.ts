@@ -10,7 +10,7 @@ const getNotebookNotes = cache(async (topicId: string | number) => {
     return supabaseClient
         .from("notebooks")
         .select("alias, topic(id, title), notes:nb_notes(id, title, content, style, tags, updated_at, created_at)")
-        .eq("topic", topicId)
+        .eq("topic", Number(topicId))
         .eq("user", user.id)
         .order('updated_at', { referencedTable: 'nb_notes', ascending: true })
         .limit(1)
