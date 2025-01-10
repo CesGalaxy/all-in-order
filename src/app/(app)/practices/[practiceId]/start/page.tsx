@@ -73,7 +73,8 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
 
         if (error) return error.message;
 
-        redirect(`/practices/${id}/results/${data.id}`);
+        redirect(`/topics/${topic_id}`);
+        // redirect(`/practices/${id}/results/${data.id}`);
     }
 
     return <ExamProvider

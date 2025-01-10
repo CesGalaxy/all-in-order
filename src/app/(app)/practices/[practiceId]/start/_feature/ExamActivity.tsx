@@ -3,7 +3,7 @@
 import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
 import ExaminateChoiceQuestion
     from "@/app/(app)/practices/[practiceId]/start/_feature/questions/ExaminateChoiceQuestion";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ChoiceQuestionCorrection
     from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/ChoiceQuestionCorrection";
@@ -15,7 +15,7 @@ import { QuestionAnswer, QuestionType } from "@/modules/learn/question";
 
 const variants = {
     "enter": (direction: number) => ({
-        x: direction > 0 ? 1000 : -1000,
+        x: direction === 0 ? 0 : (direction > 0 ? 1000 : -1000),
         opacity: 0
     }),
     "center": {
@@ -25,7 +25,7 @@ const variants = {
     },
     "exit": (direction: number) => ({
         //zIndex: 0,
-        x: direction < 0 ? 1000 : -1000,
+        x: direction === 0 ? 0 : (direction < 0 ? 1000 : -1000),
         opacity: 0
     }),
 };
@@ -48,28 +48,16 @@ export default function ExamActivity() {
         activities,
         currentActivity: { id, data, attempt, answer, answerDraft, correct },
         currentActivityIndex,
-        setCurrentActivityIndex,
-        updateCurrentActivity
+        updateCurrentActivity,
+        animationDirection,
+        nextActivity,
+        prevActivity,
     } = useExam();
 
     const Examination = useMemo(() => QUESTION_EXAMINATIONS[data.type as QuestionType], [data.type]);
     const Correction = useMemo(() => QUESTION_CORRECTIONS[data.type as QuestionType], [data.type]);
 
-    const setAnswer = useCallback(
-        (answer?: QuestionAnswer) => updateCurrentActivity({ answerDraft: answer }),
-        [updateCurrentActivity]);
-
-    const [animationDirection, setAnimationDirection] = useState<-1 | 0 | 1>(0);
-
-    const nextActivity = useCallback(() => {
-        setAnimationDirection(1);
-        setCurrentActivityIndex(currentIndex => currentIndex + 1);
-    }, [setCurrentActivityIndex]);
-
-    const prevActivity = useCallback(() => {
-        setAnimationDirection(-1);
-        setCurrentActivityIndex(currentIndex => currentIndex === 0 ? currentIndex : currentIndex - 1);
-    }, [setCurrentActivityIndex]);
+    const setAnswer = useCallback((answerDraft?: QuestionAnswer) => updateCurrentActivity({ answerDraft }), [updateCurrentActivity]);
 
     return <AnimatePresence initial={false} custom={animationDirection}>
         <motion.div

@@ -35,6 +35,7 @@ export default function SubmitExamButton() {
             onOpen();
         } else if (error) {
             toast("An error occurred while submitting your answers", { type: "error" });
+            console.error(error);
         }
     }, [activities, onOpen, submitAnswers]);
 

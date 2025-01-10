@@ -57,7 +57,7 @@ export const generateFillTheGapQuestionAttempt: QuestionAttemptGenerator<'fill_t
                 segments.push({
                     hint: gap.hint,
                     type: gap.type,
-                    answers: [...gap.correctValues, ...(gap.wrongValues || [])]
+                    answers: [...gap.correctValues, ...(gap.wrongValues || [])].sort(() => .5 - Math.random()),
                 });
             }
         }
@@ -70,6 +70,7 @@ export const generateFillTheGapQuestionAttempt: QuestionAttemptGenerator<'fill_t
 
 export const validateFillTheGapQuestion: QuestionAnswerValidator<'fill_the_gap'> = ({ gaps }, answer) =>
     gaps.every((gap, index) => {
-        const answerValue = answer.answers[index];
-        return gap.correctValues.includes(answerValue) && !(gap.wrongValues || []).includes(answerValue);
+        const answerValue = answer.answers[index].trim().toLowerCase();
+        return gap.correctValues.map(v => v.trim().toLowerCase()).includes(answerValue);
+        // ¿? --> && !(gap.wrongValues || []).includes(answerValue);
     });

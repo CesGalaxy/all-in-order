@@ -32,6 +32,10 @@ export interface ExamContextData {
     readonly updateCurrentActivity: (activity: Partial<Activity>) => void;
     readonly startedAt: number;
     readonly submitAnswers: (answers: [QuestionAnswer, boolean][]) => Promise<string | undefined>;
+    readonly animationDirection: -1 | 0 | 1;
+    readonly setAnimationDirection: Dispatch<SetStateAction<-1 | 0 | 1>>;
+    readonly nextActivity: () => void;
+    readonly prevActivity: () => void;
 }
 
 const ExamContext = createContext<ExamContextData | null>(null);
@@ -71,6 +75,20 @@ function ExamProvider({ activities: rawActivities, children, startedAt, finishEx
         return await finishExam(answers);
     }, [activities, finishExam]);
 
+    const [animationDirection, setAnimationDirection] = useState<-1 | 0 | 1>(0);
+
+    const nextActivity = useCallback(() => {
+        if (currentActivityIndex === activities.length - 1) return;
+        setAnimationDirection(1);
+        setCurrentActivityIndex(currentIndex => currentIndex + 1);
+    }, [activities.length, currentActivityIndex]);
+
+    const prevActivity = useCallback(() => {
+        if (currentActivityIndex === 0) return;
+        setAnimationDirection(-1);
+        setCurrentActivityIndex(currentIndex => currentIndex === 0 ? currentIndex : currentIndex - 1);
+    }, [currentActivityIndex]);
+
     return <ExamContext.Provider
         value={{
             activities,
@@ -79,7 +97,11 @@ function ExamProvider({ activities: rawActivities, children, startedAt, finishEx
             currentActivity,
             updateCurrentActivity,
             startedAt,
-            submitAnswers
+            submitAnswers,
+            animationDirection,
+            setAnimationDirection,
+            nextActivity,
+            prevActivity,
         }}>
         {children}
     </ExamContext.Provider>;
