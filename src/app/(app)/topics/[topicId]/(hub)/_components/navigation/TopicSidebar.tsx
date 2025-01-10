@@ -29,7 +29,7 @@ const DESTINATION_CLASS = "w-full md:text-lg gap-1 sm:gap-2 md:gap-4 rounded-ful
 
 export interface TopicSidebarProps {
     topicId: number | string;
-    topicTitle?: string;
+    topicTitle: string;
     topicDescription?: string | null;
 }
 
@@ -39,7 +39,7 @@ export default function TopicSidebar({ topicId, topicTitle, topicDescription }: 
 
     return <div className="w-full h-full">
         <header>
-            <h1 className="text-2xl">{topicTitle || "LOADING..."}</h1>
+            <h1 className="text-2xl">{topicTitle}</h1>
             <p className="text-foreground-500">{topicDescription}</p>
         </header>
         <Divider className="my-4"/>

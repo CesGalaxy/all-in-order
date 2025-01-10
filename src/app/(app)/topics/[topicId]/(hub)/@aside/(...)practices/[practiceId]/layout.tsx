@@ -13,7 +13,7 @@ export default async function Layout({ children, params }: {
     children: ReactNode,
     params: Promise<Params>
 }) {
-    const { practiceId } = await params;
+    const { practiceId, topicId } = await params;
 
     return <AsideModalContainer
         title={
@@ -30,6 +30,7 @@ export default async function Layout({ children, params }: {
         contentClassName="p-4"
         animate
         showExpandButton
+        closeUrl={isNaN(Number(topicId)) ? undefined : `/topics/${topicId}`}
     >
         {children}
     </AsideModalContainer>

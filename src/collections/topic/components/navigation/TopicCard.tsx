@@ -5,9 +5,9 @@ import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Divider } from "@nextui-org/divider";
 import { useTranslations } from "next-intl";
-import { useTransitionRouter } from "next-view-transitions";
 import { Button } from "@nextui-org/button";
 import { IconDownload, IconEdit, IconPrinter, IconShare } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 
 export type RequiredTopic = Pick<Topic, "id" | "title" | "description">;
 
@@ -17,11 +17,12 @@ export interface TopicCardProps {
 
 export default function TopicCard({ topic }: TopicCardProps) {
     const t = useTranslations();
-    const router = useTransitionRouter();
+    const router = useRouter();
 
     const topicPath = '/topics/' + topic.id;
 
-    return <Card as="section" isPressable onPress={() => router.push(topicPath)}>
+    return <Card as="section" isPressable onPress={() => router.push(topicPath)}
+                 onMouseEnter={() => router.prefetch(topicPath)}>
         <CardHeader className="flex-col items-start" as="header">
             <h2 className="font-bold text-3xl">{topic.title}</h2>
             {topic.description && <small className="text-default-500">{topic.description}</small>}
