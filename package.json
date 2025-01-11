@@ -43,6 +43,7 @@
     "@nextui-org/theme": "^2.4.3",
     "@nextui-org/tooltip": "^2.2.5",
     "@nextui-org/user": "^2.2.4",
+    "@notionhq/client": "^2.2.15",
     "@refinedev/cli": "^2.16.42",
     "@refinedev/core": "^4.57.1",
     "@refinedev/devtools": "^1.2.12",
@@ -89,7 +90,7 @@
     "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@9.15.3",
   "pnpm": {
     "overrides": {
       "@types/react": "19.0.2",
