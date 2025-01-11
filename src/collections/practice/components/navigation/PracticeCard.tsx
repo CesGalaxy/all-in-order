@@ -2,11 +2,20 @@ import { useTranslations } from "next-intl";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import PracticeButton from "@/collections/practice/components/navigation/PracticeButton";
-import {
-    PracticeSectionProps
-} from "@/app/(app)/topics/[topicId]/(hub)/_components/templates/TopicRecentPracticesSection";
 
-export default function PracticeCard({ practice }: { practice: PracticeSectionProps["practices"][any] }) {
+export default function PracticeCard({ practice }: {
+    practice: {
+        created_at: string
+        created_by: number | null
+        description: string
+        id: number
+        title: string
+        topic_id: number
+        updated_at: string | null
+        activities: { count: number }[]
+        attempts: { perfection: number }[]
+    }
+}) {
     const t = useTranslations();
 
     const avg = practice.attempts.reduce((acc, attempt) => acc + attempt.perfection, 0) / practice.attempts.length;

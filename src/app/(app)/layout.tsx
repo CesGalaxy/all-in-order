@@ -1,7 +1,7 @@
 import type React from "react";
 import AppProviders from "@/app/(app)/providers";
 import AppNavbar from "@/app/(app)/_navigation/Navbar";
-import Cmdk from "@/features/cmdk/components/Cmdk";
+import AppCmdk from "@/features/cmdk/components/AppCmdk";
 
 export default function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
@@ -12,6 +12,6 @@ export default function RootLayout({ children }: Readonly<{
             <AppNavbar/>
             {children}
         </div>
-        <Cmdk/>
+        <AppCmdk/>
     </AppProviders>;
 }

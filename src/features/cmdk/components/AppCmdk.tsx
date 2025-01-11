@@ -8,6 +8,8 @@ import { IconSearch, IconX } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
+import CmdkHome from "@/features/cmdk/components/pages/CmdkHome";
+import "@/features/cmdk/styles/cmdk.css";
 
 interface SearchResultItem {
     content: string;
@@ -26,9 +28,9 @@ const RECENT_SEARCHES_KEY = "recent-searches";
 const MAX_RECENT_SEARCHES = 10;
 const MAX_RESULTS = 20;
 
-export default function Cmdk() {
-    const router = useRouter();
+export default function AppCmdk() {
     const pathname = usePathname();
+    const router = useRouter();
     const eventRef = useRef<"mouse" | "keyboard">("keyboard");
     const listRef = useRef<HTMLDivElement>(null);
     const { isOpen, open, close } = useCmdkStore();
@@ -37,6 +39,9 @@ export default function Cmdk() {
     const [activeItem, setActiveItem] = useState(0);
 
     const items: [] = useMemo(() => [], []);
+
+    // Close the menu when the page changes
+    useEffect(close, [pathname, close]);
 
     // Toggle the menu when ⌘K / CTRL K is pressed
     useEffect(() => {
@@ -102,7 +107,7 @@ export default function Cmdk() {
         size="xl"
         onClose={close}
     >
-        <ModalContent>
+        <ModalContent className="aio-cmdk overflow-hidden">
             <Command className="max-h-full overflow-y-auto" label="Quick search command" shouldFilter={false}>
                 <div className="flex items-center w-full px-4 border-b border-default-400/50 dark:border-default-100">
                     <IconSearch className="text-default-400 text-lg shrink-0"/>
@@ -123,7 +128,7 @@ export default function Cmdk() {
                 </div>
                 <Command.List
                     ref={listRef}
-                    className="px-4 mt-2 pb-4 overflow-y-auto max-h-[50vh]"
+                    className="p-4 overflow-y-auto max-h-[50vh]"
                     role="listbox"
                 >
                     <Command.Empty>
@@ -140,7 +145,7 @@ export default function Cmdk() {
                             </div>}
                     </Command.Empty>
 
-                    {query.trim().length === 0
+                    {query.trim().length === -1
                         ? <div className="flex flex-col text-center items-center justify-center h-32">
                             <p className="text-default-400">No recent searches</p>
                         </div>
@@ -154,6 +159,7 @@ export default function Cmdk() {
                     >
                         {/*{recentSearches.map((item, index) => renderItem(item, index, true))}*/}
                     </Command.Group>}
+                    {query.trim().length === 0 && <CmdkHome/>}
                 </Command.List>
             </Command>
         </ModalContent>
