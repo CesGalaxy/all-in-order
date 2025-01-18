@@ -1,8 +1,8 @@
 "use server";
 
-import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
+import { ActionResponse, handleZodError, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { CREATE_COURSE_SCHEMA, UPDATE_COURSE_SCHEMA } from "@/collections/course/schemas";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -14,24 +14,20 @@ export type CreateCourseFields = {
 
 export type CreateCourseActionResponse = ActionResponse<null, keyof CreateCourseFields | "form" | "db">;
 
-export async function createCourseAction(data: CreateCourseFields): Promise<CreateCourseActionResponse> {
+export async function createCourseAction(_data: CreateCourseFields): Promise<CreateCourseActionResponse> {
     // Validate the input data
-    const validation = CREATE_COURSE_SCHEMA.safeParse(data);
+    const validation = CREATE_COURSE_SCHEMA.safeParse(_data);
 
     // Handle error
-    if (!validation.success) {
-        const { formErrors, fieldErrors } = validation.error.flatten();
-        return mountActionError({ form: formErrors, ...fieldErrors });
-    }
+    if (!validation.success) return handleZodError(validation.error);
 
     const supabaseClient = await getSupabase();
-    const { error } = await supabaseClient.from("courses").insert(validation.data);
+    const { data, error } = await supabaseClient.from("courses").insert(validation.data).select("id").maybeSingle();
 
     if (error) return mountActionError({ db: [error.message] });
+    if (!data) return mountActionError({ db: ["Failed to create the course"] });
 
-    revalidatePath("/");
-
-    return mountActionSuccess(null);
+    redirect("/courses/" + data.id)
 }
 
 export interface UpdateCourseFields {
@@ -85,5 +81,5 @@ export async function deleteCourseAction(courseId: number): Promise<DeleteCourse
     if (error) return mountActionError({ db: [error.message] });
 
     revalidatePath("/");
-    redirect("/subjects");
+    redirect("/app");
 }

@@ -1,9 +1,9 @@
-import { getUser } from "@/supabase/auth/user";
-import { createSupabaseServerClient } from "@/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
 import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { Client } from "@notionhq/client";
+import getNotionClient from "@/modules/notebook/notion/lib/getNotionClient";
+import NotionPagesList from "@/modules/notebook/notion/components/NotionPagesList";
 
 const NOTION_API_URL = "https://api.notion.com/v1/oauth/authorize?client_id=178d872b-594c-8089-9682-00378b143de0";
 
@@ -29,24 +29,16 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
         redirect(`${NOTION_API_URL}&response_type=code&owner=user&redirect_uri=${redirectTo}&state=${state}`);
     }
 
-    const notion = new Client({ auth: notionToken });
-    const { results: pages } = await notion.search({
-        filter: {
-            property: "object",
-            value: "page",
-        },
-    })
+    const notion = await getNotionClient();
 
     return <div>
         <button onClick={async () => {
             "use server";
-            const supabaseClient = await createSupabaseServerClient();
-            const { data } = await supabaseClient.auth.getUserIdentities();
-            const notionIdentity = data!.identities.find(identity => identity.provider === "notion");
-            if (notionIdentity) await supabaseClient.auth.unlinkIdentity(notionIdentity);
+            const cookieStore = await cookies();
+            cookieStore.delete("notion_token");
             revalidatePath("/", "layout");
         }}>Unlink Notion
         </button>
-        <pre>{JSON.stringify({ pages, user }, null, 2)}</pre>
+        <NotionPagesList topicId={parseInt(topicId)}/>
     </div>
 }

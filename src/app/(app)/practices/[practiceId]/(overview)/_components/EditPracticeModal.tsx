@@ -1,15 +1,14 @@
 "use client";
 
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { TopicActivity } from "@/supabase/entities";
+import { TopicActivity } from "@/lib/supabase/entities";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconChevronUp, IconCopy, IconEdit, IconPlus, IconPrinter, IconTrash } from "@tabler/icons-react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Tooltip } from "@nextui-org/tooltip";
 import { Alert } from "@nextui-org/alert";
-import QuestionSolutionButton
-    from "@/app/(app)/topics/[topicId]/(hub)/@aside/(...)practices/[practiceId]/_QuestionSolutionButton";
+import QuestionSolutionButton from "@/app/(app)/@aside/(.)practices/[practiceId]/_QuestionSolutionButton";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
 import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";

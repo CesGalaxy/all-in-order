@@ -35,16 +35,19 @@ type QuestionRecord<T = any> = Record<QuestionType, T>;
 export interface QuestionData extends QuestionRecord<Json> {
     'choice': QuestionChoiceData;
     'fill_the_gap': QuestionFillTheGapData;
+    // 'relation': QuestionRelationData;
 }
 
 export interface QuestionAttempt extends QuestionRecord {
     'choice': QuestionChoiceAttempt;
     'fill_the_gap': QuestionFillTheGapAttempt;
+    // 'relation': QuestionRelationAttempt;
 }
 
 export interface QuestionAnswer extends QuestionRecord<Json> {
     'choice': QuestionChoiceAnswer;
     'fill_the_gap': QuestionFillTheGapAnswer;
+    // 'relation': QuestionRelationAnswer;
 }
 
 export type QuestionAttemptGenerator<T extends QuestionType> = (data: QuestionData[T]) => QuestionAttempt[T];
@@ -64,6 +67,7 @@ export interface QuestionCreatorProps<T extends QuestionType> {
 export const QUESTION_ATTEMPT_GENERATORS: { [T in QuestionType]: QuestionAttemptGenerator<T> } = {
     choice: generateChoiceQuestionAttempt,
     fill_the_gap: generateFillTheGapQuestionAttempt,
+    // relation: generateRelationQuestionAttempt,
 } satisfies QuestionRecord;
 
 export const QUESTION_ANSWER_VALIDATORS: { [T in QuestionType]: QuestionAnswerValidator<T> } = {
@@ -73,12 +77,14 @@ export const QUESTION_ANSWER_VALIDATORS: { [T in QuestionType]: QuestionAnswerVa
 
 export const QUESTION_CREATORS: { [T in QuestionType]: FC<QuestionCreatorProps<T>> } = {
     'choice': CreateChoiceQuestion,
-    'fill_the_gap': CreateFillTheGapQuestion
+    'fill_the_gap': CreateFillTheGapQuestion,
+    // 'relation': CreateRelationQuestion,
 } satisfies QuestionRecord;
 
 export const QUESTION_ICONS = {
     choice: IconListCheck,
     fill_the_gap: IconMist,
+    // relation: IconLine,
 } satisfies QuestionRecord;
 
 // TODO: Use data instead of attempt

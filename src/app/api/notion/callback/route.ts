@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
         console.log(data);
 
         const cookieStore = await cookies();
-        cookieStore.set("notion_token", data.access_token, { path: "/" });
+        cookieStore.set("notion_token", data.access_token);
 
         return NextResponse.redirect(query.get("state") || "/");
     } catch (e) {

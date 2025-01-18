@@ -2,7 +2,7 @@
 
 import { CREATE_PRACTICE_SCHEMA } from "@/collections/practice/schemas";
 import { ActionResponse, mountActionError, mountActionSuccess, validateForm } from "@/lib/helpers/form";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 
 export async function createPractice(topicId: number, formData: FormData): Promise<ActionResponse<null>> {
     const { validatedData, validationError } = validateForm(CREATE_PRACTICE_SCHEMA, ["title", "description"], formData);

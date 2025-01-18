@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { IconUserEdit } from "@tabler/icons-react";
-import { getMyProfile } from "@/supabase/auth/profile";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
 
 export default async function ProfileCard({}: {
     //profile: Pick<Profile, "name" | "username" | "bio" | "avatar_url">

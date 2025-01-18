@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect, useState } from "react";
 import NotebookVocabularyContext from "@/modules/notebook/vocabulary/reactivity/context/NotebookVocabularyContext";
-import { createSupabaseClient } from "@/supabase/client";
+import { createSupabaseClient } from "@/lib/supabase/client";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
 import { Modal, useDisclosure } from "@nextui-org/modal";

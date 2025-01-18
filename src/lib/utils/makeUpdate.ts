@@ -21,7 +21,7 @@ export default function makeUpdate<T extends keyof Database["public"]["Tables"],
     newData: TablesUpdate<T> & (O extends UpdateOptions ? (O["noUpdateTime"] extends true ? {} : NoTimestamps) : {}),
     options?: O
 ) {
-    delete newData.created_at;
+    // delete newData.created_at;
 
     // Update the updated_at field if it exists and instructed in the options
     if (!options?.noUpdateTime && 'updated_at' in newData) newData.updated_at = new Date(Date.now()).toISOString();

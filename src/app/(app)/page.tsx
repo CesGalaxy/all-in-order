@@ -6,7 +6,7 @@ import { Link } from "@nextui-org/link";
 import PageContainer from "@/components/containers/PageContainer";
 import { Divider } from "@nextui-org/divider";
 import { getTranslations } from "next-intl/server";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import SectionContainer from "@/components/containers/SectionContainer";

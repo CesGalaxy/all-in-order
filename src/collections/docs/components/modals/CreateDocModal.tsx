@@ -9,7 +9,7 @@ import { Switch } from "@nextui-org/switch";
 import { IconLock, IconLockOff } from "@tabler/icons-react";
 import { cn } from "@nextui-org/theme";
 import { useState } from "react";
-import { createTopicDocument } from "@/supabase/storage/topicDoc";
+import { createTopicDocument } from "@/lib/supabase/storage/topicDoc";
 import DocType from "@/features/docs/DocType";
 import { Select, SelectItem, SelectSection } from "@nextui-org/select";
 import DocTypeIcon from "@/features/docs/components/DocTypeIcon";

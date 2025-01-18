@@ -1,8 +1,8 @@
 "use server";
 
 import PageContainer from "@/components/containers/PageContainer";
-import { getMaybeMyProfile } from "@/supabase/auth/profile";
-import getSupabase from "@/supabase/server";
+import { getMaybeMyProfile } from "@/lib/supabase/auth/profile";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import CourseCard from "@/collections/course/components/navigation/CourseCard";
 import NoCourses from "@/collections/course/components/views/NoCourses";

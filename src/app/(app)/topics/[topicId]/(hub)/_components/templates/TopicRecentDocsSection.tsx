@@ -4,7 +4,7 @@ import SectionContainer from "@/components/containers/SectionContainer";
 import NoDocuments from "@/collections/docs/components/views/NoDocuments";
 import ModalButton from "@/components/utils/ModalButton";
 import { IconFilePlus, IconUpload } from "@tabler/icons-react";
-import getTopicDocuments from "@/supabase/storage/query/getTopicDocuments";
+import getTopicDocuments from "@/lib/supabase/storage/query/getTopicDocuments";
 import { AnimatePresence, motion } from "framer-motion";
 import DocumentCard from "@/collections/docs/components/navigation/DocumentCard";
 import CreateDocModal from "@/collections/docs/components/modals/CreateDocModal";

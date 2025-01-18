@@ -2,7 +2,7 @@
 
 import { CREATE_TOPIC_SCHEMA, UPDATE_TOPIC_SCHEMA } from "@/collections/topic/schemas";
 import { ActionResponse, handleSupabaseResponse, validateForm } from "@/lib/helpers/form";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 
 export async function createTopic(subjectId: number, formData: FormData): Promise<ActionResponse<number>> {
     const { validationError, validatedData } = validateForm(CREATE_TOPIC_SCHEMA, ["title", "description"], formData);

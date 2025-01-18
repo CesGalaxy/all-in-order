@@ -2,7 +2,7 @@
 
 import { Input, Textarea } from "@nextui-org/input";
 import updateTopicSettings from "@/app/(app)/topics/[topicId]/(hub)/settings/action";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 import { Button } from "@nextui-org/button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { z } from "zod";

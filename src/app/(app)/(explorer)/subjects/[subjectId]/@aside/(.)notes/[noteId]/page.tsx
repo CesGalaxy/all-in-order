@@ -1,6 +1,6 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import ShareButton from "@/app/(app)/(explorer)/subjects/[subjectId]/@aside/(.)notes/[noteId]/_ShareButton";

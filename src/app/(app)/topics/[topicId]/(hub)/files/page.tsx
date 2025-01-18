@@ -1,5 +1,5 @@
 import required from "@/lib/helpers/required";
-import { getAllTopicDocuments } from "@/supabase/storage/topic_documents";
+import { getAllTopicDocuments } from "@/lib/supabase/storage/topic_documents";
 import { getTranslations } from "next-intl/server";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {

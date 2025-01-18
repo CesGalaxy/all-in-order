@@ -1,6 +1,6 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { handleSingleResponse } from "@/lib/helpers/supabase";
 import { revalidatePath } from "next/cache";
 

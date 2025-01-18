@@ -1,8 +1,8 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { getMyProfile } from "@/supabase/auth/profile";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
 import { Json } from "@aio/db/supabase";
 import { mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { Question } from "@/modules/learn/question";

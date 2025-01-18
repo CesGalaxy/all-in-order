@@ -1,8 +1,8 @@
 "use server";
 
 import { cache } from "react";
-import { getUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
 
 const getNotebookNotes = cache(async (topicId: string | number) => {
     const user = await getUser();

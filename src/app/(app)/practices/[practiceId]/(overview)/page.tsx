@@ -1,7 +1,7 @@
 "use server";
 
 import PageContainer from "@/components/containers/PageContainer";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import PracticeDetailsCard from "@/app/(app)/practices/[practiceId]/(overview)/_components/PracticeDetailsCard";

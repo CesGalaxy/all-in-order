@@ -5,7 +5,7 @@ import NotebookPageContext from "@/modules/notebook/pages/reactivity/context/Not
 import { JSONContent } from "novel";
 import NotebookPageData from "@/modules/notebook/app/supabase/storage/NotebookPageData";
 import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
-import { createSupabaseClient } from "@/supabase/client";
+import { createSupabaseClient } from "@/lib/supabase/client";
 
 export interface NotebookPageProviderProps {
     initialData: NotebookPageData;

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export interface ConfirmActionModalProps {
     title?: string;
-    message?: string;
+    children?: ReactNode;
     onConfirm?: ModalFormAction<any, any>;
     confirmText?: ReactNode;
     confirmIcon?: ReactNode;
@@ -14,7 +14,7 @@ export interface ConfirmActionModalProps {
 
 function ConfirmActionModal({
                                 title = "Are you sure?",
-                                message,
+                                children,
                                 onConfirm,
                                 confirmText = "Yes",
                                 confirmIcon,
@@ -34,7 +34,7 @@ function ConfirmActionModal({
         buttonProps: { color: "danger", variant: "shadow" },
         ...extraFormProps,
     }}>
-        {message}
+        {children}
     </ModalForm>;
 }
 

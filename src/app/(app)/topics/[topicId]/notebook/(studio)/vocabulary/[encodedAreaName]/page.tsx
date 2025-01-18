@@ -1,5 +1,5 @@
-import getSupabase from "@/supabase/server";
-import { getUser } from "@/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 import { notFound } from "next/navigation";
 import NbVocabPageNavbar

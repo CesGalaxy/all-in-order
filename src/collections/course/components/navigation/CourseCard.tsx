@@ -10,7 +10,7 @@ import { Skeleton } from "@nextui-org/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
 import { useMemo } from "react";
 import { DeleteCourseModalAction } from "@/collections/course/components/modals/DeleteCourseModal";
-import { Course, CourseMember, Subject, Topic } from "@/supabase/entities";
+import { Course, CourseMember, Subject, Topic } from "@/lib/supabase/entities";
 import CourseCardFooter from "@/collections/course/components/navigation/CourseCardFooter";
 import { IconArrowRight } from "@tabler/icons-react";
 

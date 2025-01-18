@@ -1,1 +1,0 @@
-export { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";

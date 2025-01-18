@@ -5,7 +5,7 @@ import NotebookSidebar from "@/modules/notebook/app/components/navigation/Notebo
 import getNotebook from "@/modules/notebook/app/cache/getNotebook";
 import ErrorView from "@/components/views/ErrorView";
 import NotebookProvider from "@/modules/notebook/app/reactivity/providers/NotebookProvider";
-import { getUser } from "@/supabase/auth/user";
+import { getUser } from "@/lib/supabase/auth/user";
 
 export default async function Layout({ params, children }: Readonly<{
     params: Promise<{ topicId: string }>,

@@ -1,6 +1,6 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import PageContainer from "@/components/containers/PageContainer";
 import SectionContainer from "@/components/containers/SectionContainer";

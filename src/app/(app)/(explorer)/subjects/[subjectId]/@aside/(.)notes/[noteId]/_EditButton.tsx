@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
-import { SubjectNote } from "@/supabase/entities";
+import { SubjectNote } from "@/lib/supabase/entities";
 
 export type RequiredSubjectNote = Pick<SubjectNote, "title" | "content">
 

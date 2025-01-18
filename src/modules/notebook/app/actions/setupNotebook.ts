@@ -1,7 +1,7 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
-import { getUser } from "@/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
 import { NotebookData } from "@/modules/notebook/app/supabase/db/NotebookData";
 
 export default async function setupNotebook(topicId: number | string, alias: string | null) {

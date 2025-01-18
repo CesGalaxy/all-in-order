@@ -1,9 +1,9 @@
-import { getTopicDocument, updateTopicDocument } from "@/supabase/storage/topic_documents";
+import { getTopicDocument, updateTopicDocument } from "@/lib/supabase/storage/topic_documents";
 import required from "@/lib/helpers/required";
 import ClassicMDEditor from "@/features/markdown/classic/ClassicMDEditor";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import { getUser } from "@/supabase/auth/user";
+import { getUser } from "@/lib/supabase/auth/user";
 import Image from "next/image";
 import LogoIcoCol from "@/assets/logo/IcoCol.svg";
 import { Link } from "@nextui-org/link";

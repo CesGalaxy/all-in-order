@@ -2,7 +2,7 @@
 
 import { ActionResponse, getFormFields, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { CREATE_SUBJECT_SCHEMA, UPDATE_SUBJECT_SCHEMA } from "@/collections/subject/schemas";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 export type CreateSubjectActionResponse = ActionResponse<never, "name" | "description" | "color" | "form" | "db">;

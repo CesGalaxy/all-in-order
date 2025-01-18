@@ -3,9 +3,9 @@ import { Button } from "@nextui-org/button";
 import { IconArrowBack, IconMaximize, IconPencil } from "@tabler/icons-react";
 import { Input } from "@nextui-org/input";
 import { Link as TransitionLink } from "next-view-transitions";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { getUser } from "@/supabase/auth/user";
+import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 
 export default async function Page(

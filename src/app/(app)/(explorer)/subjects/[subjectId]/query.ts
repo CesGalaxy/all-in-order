@@ -1,5 +1,5 @@
 import { cache } from "react";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 
 export const getSubjectPageData = cache(async (subjectId: string) => {
     const supabaseClient = await getSupabase();

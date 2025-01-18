@@ -2,13 +2,13 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import type React from "react";
-import { getMaybeMyProfile } from "@/supabase/auth/profile";
+import { getMaybeMyProfile } from "@/lib/supabase/auth/profile";
 import { ViewTransitions } from "next-view-transitions";
+import RootProviders from "@/app/providers";
 
 // Styles
 import 'react-toastify/dist/ReactToastify.min.css';
 import "./globals.css";
-import { RootProvidersClient } from "@/app/providers.client";
 
 const kanit = Kanit({ weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin"] });
 
@@ -36,10 +36,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
     return <ViewTransitions>
         <html lang="en" suppressHydrationWarning className="scroll-smooth h-full">
-        <body className={kanit.className + " bg-background text-foreground w-full h-full transition-background"}>
-        <RootProvidersClient>
+        <body className={kanit.className + " bg-background text-foreground w-full h-full"}>
+        <RootProviders>
             {children}
-        </RootProvidersClient>
+        </RootProviders>
         </body>
         </html>
     </ViewTransitions>;

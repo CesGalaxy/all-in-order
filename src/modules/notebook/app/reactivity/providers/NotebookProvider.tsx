@@ -8,9 +8,9 @@ import { Modal, useDisclosure } from "@nextui-org/modal";
 import DeleteNotebookPageModal from "@/modules/notebook/pages/components/modals/DeleteNotebookPageModal";
 import NotebookVocabularyProvider from "@/modules/notebook/vocabulary/reactivity/providers/NotebookVocabularyProvider";
 import { NotebookData } from "@/modules/notebook/app/supabase/db/NotebookData";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 import { toast } from "react-toastify";
-import { createSupabaseClient } from "@/supabase/client";
+import { createSupabaseClient } from "@/lib/supabase/client";
 
 export interface PagesOptimistic {
     pages: FileObject[],

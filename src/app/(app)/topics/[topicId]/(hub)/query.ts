@@ -1,7 +1,7 @@
 "use server";
 
 import { cache } from "react";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 
 const QUERY_SUBJECT = "subject:subjects(id, name, course:courses(id, name))";
 const QUERY_PRACTICES = "practices(*, activities:topic_activities(count), attempts:practice_attempts(perfection))";

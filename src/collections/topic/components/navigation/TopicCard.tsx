@@ -1,6 +1,6 @@
 "use client";
 
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Divider } from "@nextui-org/divider";

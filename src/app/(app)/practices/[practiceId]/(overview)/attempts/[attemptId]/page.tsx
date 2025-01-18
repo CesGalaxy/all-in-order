@@ -1,9 +1,9 @@
 "use server";
 
 import PageContainer from "@/components/containers/PageContainer";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
-import { getMyProfile } from "@/supabase/auth/profile";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
 import { notFound } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";

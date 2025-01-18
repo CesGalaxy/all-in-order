@@ -67,10 +67,10 @@ function CreatePracticeActivityModal({ action }: {
                             <SelectItem key="true_or_false" startContent={<IconSquareRoundedCheck/>}>
                                 True or false
                             </SelectItem>
-                            <SelectItem key="fill_the_gap3" startContent={<IconLine/>}>
+                            <SelectItem key="relation" startContent={<IconLine/>}>
                                 Relation
                             </SelectItem>
-                            <SelectItem key="fill_the_gap4" startContent={<IconPlayCard/>}>
+                            <SelectItem key="pairs" startContent={<IconPlayCard/>}>
                                 Pairs
                             </SelectItem>
                         </Select>

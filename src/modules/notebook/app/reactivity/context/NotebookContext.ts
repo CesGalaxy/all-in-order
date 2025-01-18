@@ -4,7 +4,7 @@ import { createContext } from "react";
 import { CreateNotebookPageResponse } from "@/modules/notebook/pages/actions/createNotebookPage";
 import { FileObject } from "@supabase/storage-js";
 import { NotebookEntity } from "@/modules/notebook/app/supabase/db/NotebookData";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 
 export interface NotebookContextData {
     pages: FileObject[];

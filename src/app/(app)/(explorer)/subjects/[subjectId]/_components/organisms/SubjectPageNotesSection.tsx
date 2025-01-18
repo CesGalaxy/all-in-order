@@ -1,4 +1,4 @@
-import { SubjectNote } from "@/supabase/entities";
+import { SubjectNote } from "@/lib/supabase/entities";
 import NoNotes from "@/collections/note/components/views/NoNotes";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { useTranslations } from "next-intl";

@@ -1,8 +1,8 @@
 "use server";
 
 import { cache } from "react";
-import { getMaybeUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { getMaybeUser } from "@/lib/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
 import { getNotebookRootPath } from "@/modules/notebook/pages/lib/helpers/names";
 import getNotebookData from "@/modules/notebook/app/cache/getNotebookData";
 import { NotebookData } from "@/modules/notebook/app/supabase/db/NotebookData";

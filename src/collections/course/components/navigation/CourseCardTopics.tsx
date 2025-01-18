@@ -3,7 +3,7 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import { IconList } from "@tabler/icons-react";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 
 export type RequiredTopic = Pick<Topic, "id" | "title">;
 

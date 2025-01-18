@@ -3,7 +3,7 @@
 import { CREATE_NOTEBOOK_NOTE } from "@/modules/notebook/notes/schemas";
 import { ActionResponse, handleZodError } from "@/lib/helpers/form";
 import { handleCustomSingleResponse } from "@/lib/helpers/supabase";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
 type Response = ActionResponse<null, "title" | "content" | "db" | "form">;

@@ -27,7 +27,7 @@
         "./src/*"
       ],
       "@aio/db/supabase": [
-        "./src/supabase/database"
+        "./src/lib/supabase/database"
       ]
     },
     "target": "ES2017",

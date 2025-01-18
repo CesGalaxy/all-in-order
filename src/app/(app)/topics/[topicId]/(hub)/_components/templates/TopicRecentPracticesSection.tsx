@@ -3,8 +3,8 @@
 import NoPractices from "@/collections/practice/components/views/NoPractices";
 import PracticeCard from "@/collections/practice/components/navigation/PracticeCard";
 import { getTranslations } from "next-intl/server";
-import { getMyProfile } from "@/supabase/auth/profile";
-import getSupabase from "@/supabase/server";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
+import getSupabase from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";

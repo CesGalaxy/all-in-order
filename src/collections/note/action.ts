@@ -2,8 +2,8 @@
 
 import { ActionResponse, mountActionError } from "@/lib/helpers/form";
 import { CREATE_NOTE_SCHEMA } from "@/collections/note/schemas";
-import { getMyProfile } from "@/supabase/auth/profile";
-import getSupabase from "@/supabase/server";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
+import getSupabase from "@/lib/supabase/server";
 import { handleCustomSingleResponse, handleSingleResponse } from "@/lib/helpers/supabase";
 
 export type CreateNoteActionResponse = ActionResponse<number, "title" | "content" | "form" | "db">;

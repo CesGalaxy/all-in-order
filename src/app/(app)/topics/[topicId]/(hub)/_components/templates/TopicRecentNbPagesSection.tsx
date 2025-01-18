@@ -1,8 +1,8 @@
 "use server";
 
-import { getUser } from "@/supabase/auth/user";
+import { getUser } from "@/lib/supabase/auth/user";
 import { getNotebookRootPath } from "@/modules/notebook/pages/lib/helpers/names";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import ContentGallery from "@/components/navigation/ContentGallery";
 import { Button } from "@nextui-org/button";

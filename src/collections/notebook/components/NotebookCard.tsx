@@ -1,6 +1,6 @@
 import { NotebookEntity } from "@/modules/notebook/app/supabase/db/NotebookData";
 import { Card, CardHeader } from "@nextui-org/card";
-import { Topic } from "@/supabase/entities";
+import { Topic } from "@/lib/supabase/entities";
 import { Link } from "@nextui-org/link";
 
 export interface NotebookCardProps {
