@@ -4,7 +4,6 @@ import AppCmdk from "@/features/cmdk/components/AppCmdk";
 
 export default function Layout({ children }: Readonly<{
     children: React.ReactNode;
-    navbar: React.ReactNode;
 }>) {
     return <>
         <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">
