@@ -10,9 +10,9 @@ import { IconLock, IconLockOff } from "@tabler/icons-react";
 import { cn } from "@nextui-org/theme";
 import { useState } from "react";
 import { createTopicDocument } from "@/lib/supabase/storage/topicDoc";
-import DocType from "@/features/docs/DocType";
+import DocType from "@/modules/docs/app/DocType";
 import { Select, SelectItem, SelectSection } from "@nextui-org/select";
-import DocTypeIcon from "@/features/docs/components/DocTypeIcon";
+import DocTypeIcon from "@/modules/docs/app/components/DocTypeIcon";
 import { Divider } from "@nextui-org/divider";
 import { Checkbox } from "@nextui-org/checkbox";
 

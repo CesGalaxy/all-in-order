@@ -14,17 +14,8 @@ import AYSButton from "@/app/(app)/@aside/(.)practices/[practiceId]/delete/_AYSB
 import ModalButton from "@/components/utils/ModalButton";
 import ModalForm from "@/components/utils/ModalForm";
 
-export default async function Page(
-    props: {
-        params: Promise<{ topicId: string, practiceId: string }>
-    }
-) {
-    const params = await props.params;
-
-    const {
-        topicId,
-        practiceId
-    } = params;
+export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
+    const { topicId, practiceId } = await params;
 
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient

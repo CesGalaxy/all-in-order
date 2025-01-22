@@ -87,6 +87,11 @@
       "other": {
         "desc": "We couldn't find the doc type.",
         "name": "Unknown"
+      },
+      "sd": {
+        "desc": "A rich text format with tons of features for writting docs",
+        "desc_short": "A rich text format with tons of features",
+        "name": "SmartDoc"
       }
     },
     "error_occurred": "An error occurred",

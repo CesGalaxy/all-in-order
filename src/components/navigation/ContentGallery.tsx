@@ -8,6 +8,7 @@ export interface ContentGalleryProps<T> extends Omit<HTMLAttributes<HTMLUListEle
     emptyView?: ReactNode;
     itemProps?: HTMLAttributes<HTMLLIElement>;
     children?: (children: ReactNode) => ReactNode;
+    before?: ReactNode;
 }
 
 export default function ContentGallery<T>({
@@ -17,10 +18,12 @@ export default function ContentGallery<T>({
                                               emptyView,
                                               itemProps,
                                               children = (c) => c,
+                                              before,
                                               ...props
                                           }: ContentGalleryProps<T>) {
     return items && items.length > 0
         ? <ul {...props}>
+            {before}
             {children(
                 items.map(item => <li
                     key={typeof getItemKey === "function" ? getItemKey(item) : item[getItemKey] as Key}

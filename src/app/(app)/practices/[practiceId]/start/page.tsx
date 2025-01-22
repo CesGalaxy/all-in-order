@@ -95,7 +95,7 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
                             <IconDoorExit/>
                         </Button>
                         <NavbarBrand>
-                            <Link href="/">
+                            <Link href="/public">
                                 <Image src={LogoIcoCol} alt="All In Order" height={64} priority/>
                             </Link>
                         </NavbarBrand>

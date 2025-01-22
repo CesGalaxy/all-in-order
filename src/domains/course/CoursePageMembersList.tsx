@@ -5,19 +5,16 @@ import Image from "next/image";
 import { Button } from "@nextui-org/button";
 import { IconCrown, IconDots, IconUser } from "@tabler/icons-react";
 import { Chip } from "@nextui-org/chip";
-import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { notFound } from "next/navigation";
+import { getCourseMembers } from "@/collections/course/query";
+import ErrorView from "@/components/views/ErrorView";
 
-export default async function CoursePageMembersList({ request }: {
-    request: PromiseLike<PostgrestSingleResponse<{
-        profile: { id: number, name: string, username: string },
-        is_admin: boolean,
-        created_at: string
-    }[]>>
-}) {
-    const { data } = await request;
+export default async function CoursePageMembersList({ courseId }: { courseId: number }) {
+    const { data, error } = await getCourseMembers(courseId);
 
     // TODO: Handle error
-    if (!data) return <p>error</p>;
+    if (error) return <ErrorView message={error.message}/>
+    if (!data) return notFound();
 
     return <ul>
         {data.map(member =>
@@ -28,6 +25,7 @@ export default async function CoursePageMembersList({ request }: {
                         height={40}
                         src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
                         width={40}
+                        className="rounded-lg"
                     />
                     <div className="flex flex-col flex-grow">
                         <p className="text-md">{member.profile!.name}</p>
@@ -80,9 +78,9 @@ CoursePageMembersList.Skeleton = function CoursePageMembersListSkeleton() {
                 Member
             </Chip>
             <span className="text-default-500">
-                                Joined on&nbsp;
+                Joined on&nbsp;
                 <time dateTime="2022-01-01">January 1, 2022</time>
-                            </span>
+            </span>
         </CardFooter>
     </Card>;
 }

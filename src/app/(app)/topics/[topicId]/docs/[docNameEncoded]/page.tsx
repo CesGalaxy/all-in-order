@@ -1,4 +1,3 @@
-import { Converter } from "showdown";
 import { Button } from "@nextui-org/button";
 import { IconArrowBack, IconMaximize, IconPencil } from "@tabler/icons-react";
 import { Input } from "@nextui-org/input";
@@ -7,6 +6,8 @@ import getSupabase from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
+import { getDocTypeByExtension } from "@/modules/docs/app/DocType";
+import DocViewer from "@/modules/docs/app/DocViewer";
 
 export default async function Page(
     props: {
@@ -37,15 +38,7 @@ export default async function Page(
     if (error) redirect(topicPath);
 
     const content = await data.text();
-
-    const converter = new Converter({
-        // I'm doing this because of the typo warning
-        ["task" + "lists"]: true,
-        simplifiedAutoLink: true,
-        strikethrough: true,
-    });
-
-    const html = converter.makeHtml(content);
+    const type = getDocTypeByExtension(docName.split(".").pop()!);
 
     return <div className="w-full h-full flex-grow px-16 pt-8 flex flex-col">
         <div
@@ -67,8 +60,7 @@ export default async function Page(
                     <IconMaximize/>
                 </Button>
             </nav>
-            <div className="revert-tailwind-only-child flwx-grow overflow-auto px-8 vt-name-[doc-content]"
-                 dangerouslySetInnerHTML={{ __html: html }}/>
+            <DocViewer type={type} content={"# content"} name={docName}/>
         </div>
     </div>;
 }

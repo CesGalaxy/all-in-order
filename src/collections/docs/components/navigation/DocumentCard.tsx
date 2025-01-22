@@ -6,7 +6,7 @@ import { FileObject } from "@supabase/storage-js";
 import { useTranslations } from "next-intl";
 import { ComponentProps } from "react";
 import DocumentCardMenu from "@/collections/docs/components/navigation/DocumentCardMenu";
-import { DOC_TYPE_ABBREVIATIONS, DOC_TYPE_TRANSLATION, getDocTypeByExtension } from "@/features/docs/DocType";
+import { DOC_TYPE_ABBREVIATIONS, DOC_TYPE_TRANSLATION, getDocTypeByExtension } from "@/modules/docs/app/DocType";
 import { Tooltip } from "@nextui-org/tooltip";
 
 export interface DocumentCardProps {

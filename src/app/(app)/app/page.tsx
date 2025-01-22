@@ -7,7 +7,7 @@ import { IconPlus } from "@tabler/icons-react";
 import CreateCourseModal from "@/collections/course/components/modals/CreateCourseModal";
 import { Suspense } from "react";
 import { GenericCardGridSkeleton } from "@/components/common/GenericCardSkeleton";
-import DashboardCoursesList from "@/collections/course/components/data/DashboardCoursesList";
+import CoursesList from "@/collections/course/components/data/CoursesList";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import BlankView from "@/components/views/BlankView";
@@ -35,7 +35,7 @@ export default function Page() {
             }
         >
             <Suspense fallback={<GenericCardGridSkeleton/>}>
-                <DashboardCoursesList/>
+                <CoursesList/>
             </Suspense>
         </SectionContainer>
         <aside className="flex flex-col items-stretch gap-16 order-first xl:order-none w-full">

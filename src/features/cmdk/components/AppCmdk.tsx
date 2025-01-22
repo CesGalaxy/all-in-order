@@ -128,7 +128,15 @@ export default function AppCmdk() {
                 </div>
                 <Command.List
                     ref={listRef}
-                    className="p-4 overflow-y-auto max-h-[50vh]"
+                    className="
+                        p-4 overflow-y-auto max-h-[50vh]
+                        [&::-webkit-scrollbar]:w-1
+                        [&::-webkit-scrollbar-track]:rounded-full
+                        [&::-webkit-scrollbar-track]:mb-3
+                        [&::-webkit-scrollbar-track]:bg-transparent
+                        [&::-webkit-scrollbar-thumb]:rounded-full
+                        [&::-webkit-scrollbar-thumb]:bg-default-500
+                    "
                     role="listbox"
                 >
                     <Command.Empty>

@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { IconArrowBack, IconArrowsMaximize } from "@tabler/icons-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@nextui-org/theme";
 
 export default function AsideModalContainer({
                                                 children,
@@ -31,7 +31,7 @@ export default function AsideModalContainer({
 
     return <>
         <div className="fixed w-full h-full top-0 left-0 bg-black/50 z-40" onClick={close}/>
-        <aside className={twMerge(
+        <aside className={cn(
             "flex flex-col vt-name-[aside-modal] w-full h-full top-0 right-0",
             "bg-content2 text-content2-foreground max-w-full z-50 fixed",
             "sm:mx-8 sm:w-[calc(100%-64px)] sm:h-[calc(100%-32px)] sm:rounded-xl",
@@ -54,7 +54,7 @@ export default function AsideModalContainer({
                     {actions}
                 </div>}
             </header>
-            <div className={twMerge("w-full h-full flex-grow overflow-y-auto", contentClassName)}>
+            <div className={cn("w-full h-full flex-grow overflow-y-auto", contentClassName)}>
                 {children}
             </div>
         </aside>

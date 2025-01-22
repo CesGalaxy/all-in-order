@@ -1,5 +1,4 @@
 import {
-    Navbar as Nav,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
@@ -24,8 +23,7 @@ import DesktopNavigation from "@/app/(website)/_navigation/navigations/DesktopNa
 import { IconHome } from "@tabler/icons-react";
 import ProfileAvatar from "@/app/(website)/_navigation/ProfileAvatar";
 import news from "@/news.json";
-
-export type NavbarPage = 'subjects' | 'agenda' | 'docs';
+import DynamicNavbar from "@/app/(website)/_navigation/DynamicNavbar";
 
 export default async function AppNavbar() {
     const profile = await getMaybeMyProfile();
@@ -33,7 +31,7 @@ export default async function AppNavbar() {
     const t = await getTranslations();
     const locale = await getLocale() as "en" | "es" | "val";
 
-    return <Nav shouldHideOnScroll isBordered className="transition-background h-16">
+    return <DynamicNavbar>
         <NavbarContent className="gap-1 lg:gap-4">
             <NavbarMenuToggle className="lg:hidden"/>
             <NavbarBrand className="grow-0 shrink-0 min-w-32 sm:min-w-[187px] h-16">
@@ -129,5 +127,5 @@ export default async function AppNavbar() {
                 </nav>
             </nav>
         </NavbarMenu>
-    </Nav>;
+    </DynamicNavbar>;
 }

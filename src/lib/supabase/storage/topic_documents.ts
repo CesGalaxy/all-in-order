@@ -35,6 +35,14 @@ export async function createTopicDocument(topic_id: number, name: string) {
     revalidatePath("/topics/" + topic_id);
 }
 
+/**
+ *
+ * @param topic_id
+ * @param name
+ * @param content
+ *
+ * @returns Whether the action completed successfully
+ */
 export async function updateTopicDocument(topic_id: number, name: string, content: string) {
     const supabaseClient = await getSupabase();
     const { data, error } = await supabaseClient.storage

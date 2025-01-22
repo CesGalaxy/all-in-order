@@ -46,7 +46,7 @@ export default function CourseCard({
                 : false),
         [forceAdmin, course, profileId]);
 
-    return <Card className="p-4 w-full h-full" as="li">
+    return <Card className="p-4 w-full h-full" as="article">
         <CardHeader className="flex-col items-start" as="header">
             <div className="flex w-full items-center gap-4">
                 <h2 className="font-bold text-3xl flex-grow">{course.name}</h2>

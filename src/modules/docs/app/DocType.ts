@@ -17,6 +17,7 @@ enum DocType {
     // DOCUMENT_PAGE = 'document_page',
     OTHER = 'other',
     MD = 'md',
+    SD = 'sd',
 }
 
 // export const DOC_TYPE_NAMES = {
@@ -80,6 +81,7 @@ export const DOC_TYPE_ABBREVIATIONS = {
     // [DocType.DOCUMENT_PAGE]: 'PG',
     [DocType.OTHER]: 'UNKNOWN',
     [DocType.MD]: 'MD',
+    [DocType.SD]: 'SD',
 }
 
 export const DOC_TYPE_TRANSLATION = "Extra.DocType";
@@ -88,6 +90,8 @@ export function getDocTypeByExtension(ext?: string) {
     switch (ext?.toLowerCase().trim()) {
         case 'md':
             return DocType.MD;
+        case 'sd':
+            return DocType.SD;
         default:
             return DocType.OTHER
     }

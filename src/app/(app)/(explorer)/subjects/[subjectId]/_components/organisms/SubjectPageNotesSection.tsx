@@ -27,13 +27,14 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
         >
             {t("Dash.Note.create")}
         </ModalButton>}
-        className="w-full flex flex-col"
+        className="w-full"
     >
         <ContentGallery
             items={notes}
             getItemKey={note => note.id}
             renderItem={note => <NoteCard note={note} subjectId={subjectId}/>}
             emptyView={<NoNotes subjectId={subjectId} extraViewProps={{ small: true }} action={createNoteAction}/>}
+            className="space-y-4"
         />
     </SectionContainer>;
 }

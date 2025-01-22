@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 export default function NoteCard({ note, subjectId }: { note: SubjectNote, subjectId?: string | number }) {
     const t = useTranslations();
 
-    return <Card key={note.id} as="section" shadow="sm" radius="sm">
+    return <Card key={note.id} as="section" shadow="sm">
         <CardHeader className="justify-between flex-wrap gap-4">
             <h2 className="font-bold text-xl">{note.title}</h2>
             <ButtonGroup>

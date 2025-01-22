@@ -10,9 +10,8 @@ const withBundleAnalyzer = createNextBundleAnalyzer({
 const nextConfig = {
     trailingSlash: true,
     experimental: {
-        // optimizePackageImports: ["@tabler/icons-react"],
+        optimizePackageImports: ["@milkdown/kit"],
     },
-    transpilePackages: ['@aio/db'],
     images: {
         remotePatterns: [
             {

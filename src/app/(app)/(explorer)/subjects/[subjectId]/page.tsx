@@ -1,5 +1,4 @@
 import ErrorView from "@/components/views/ErrorView";
-import { getSubjectPageData } from "@/app/(app)/(explorer)/subjects/[subjectId]/query";
 import { revalidatePath } from "next/cache";
 import { createNoteAction } from "@/collections/note/action";
 import { notFound } from "next/navigation";
@@ -15,12 +14,12 @@ import { IconArrowsMaximize } from "@tabler/icons-react";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import PageContainer from "@/components/containers/PageContainer";
 import { getTranslations } from "next-intl/server";
+import { getSubjectWithContent } from "@/app/(app)/(explorer)/subjects/[subjectId]/query";
 
-export default async function Page(props: { params: Promise<{ subjectId: string }> }) {
-    const { subjectId } = await props.params;
+export default async function Page({ params }: { params: Promise<{ subjectId: string }> }) {
+    const { subjectId } = await params;
 
-    // Get the subject (with topics and notes), also handle query related and not found errors
-    const { data, error } = await getSubjectPageData(subjectId);
+    const { data, error } = await getSubjectWithContent(parseInt(subjectId));
     if (error) return <ErrorView message={error.message}/>;
     if (!data) return notFound();
     const { id, topics, notes } = data;
@@ -36,7 +35,7 @@ export default async function Page(props: { params: Promise<{ subjectId: string 
                 createNoteAction={async (formData: FormData) => {
                     "use server";
                     return await createNoteAction(id, formData)
-                        .finally(() => revalidatePath(`/subjects/${id}`, "layout"));
+                        .finally(() => revalidatePath(`/subjects/${id}`, "page"));
                 }}
                 subjectId={id}
             />

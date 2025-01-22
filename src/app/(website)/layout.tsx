@@ -1,5 +1,5 @@
 import type React from "react";
-import AppNavbar from "@/app/(website)/_navigation/Navbar";
+import AppNavbar from "@/app/(website)/_navigation/WebsiteNavbar";
 import AppCmdk from "@/features/cmdk/components/AppCmdk";
 
 export default function Layout({ children }: Readonly<{

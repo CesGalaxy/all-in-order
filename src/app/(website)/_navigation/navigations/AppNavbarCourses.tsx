@@ -1,6 +1,5 @@
 "use server";
 
-import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { IconArrowRight } from "@tabler/icons-react";
@@ -8,12 +7,10 @@ import { Link } from "@nextui-org/link";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import getHexColor from "@/lib/utils/color";
 import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
+import { getAllMyCourses } from "@/collections/course/query";
 
 export default async function AppNavbarCourses() {
-    const supabaseClient = await getSupabase();
-    const { data, error } = await supabaseClient
-        .from('courses')
-        .select('id, name, subjects(id, name, color, topics(id, title))');
+    const { data, error } = await getAllMyCourses();
 
     if (error) return <ErrorView message={error.message}/>;
 

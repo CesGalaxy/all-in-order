@@ -1,6 +1,5 @@
 "use server";
 
-import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import PageContainer from "@/components/containers/PageContainer";
 import SectionContainer from "@/components/containers/SectionContainer";
@@ -15,24 +14,15 @@ import EditCourseModal from "@/collections/course/components/modals/EditCourseMo
 import { Link } from "@nextui-org/link";
 import getHexColor from "@/lib/utils/color";
 import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
-import CoursePageMembersList from "@/app/(app)/(explorer)/courses/[courseId]/_components/CoursePageMembersList";
+import CoursePageMembersList from "@/domains/course/CoursePageMembersList";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { getCourse } from "@/collections/course/query";
 
 export default async function Page(props: { params: Promise<{ courseId: string }> }) {
     const { courseId } = await props.params;
 
-    const supabaseClient = await getSupabase();
-    const { data, error } = await supabaseClient
-        .from("courses")
-        .select("id, name, description, is_public, updated_at, created_at, subjects(id, name, color, topics(id, title))")
-        .eq("id", parseInt(courseId))
-        .maybeSingle();
-
-    const membersRequest = supabaseClient
-        .from("course_members")
-        .select("profile:profiles(id, name, username), is_admin, created_at")
-        .eq("course", parseInt(courseId));
+    const { data, error } = await getCourse(parseInt(courseId));
 
     if (error) return <ErrorView message={error.message}/>;
     if (!data) return notFound();
@@ -123,7 +113,7 @@ export default async function Page(props: { params: Promise<{ courseId: string }
             </ModalButton>
         }>
             <Suspense fallback={<CoursePageMembersList.Skeleton/>}>
-                <CoursePageMembersList request={membersRequest}/>
+                <CoursePageMembersList courseId={parseInt(courseId)}/>
             </Suspense>
         </SectionContainer>
     </PageContainer>;
