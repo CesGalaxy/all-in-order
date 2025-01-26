@@ -9,17 +9,8 @@ import ErrorView from "@/components/views/ErrorView";
 import { getDocTypeByExtension } from "@/modules/docs/app/DocType";
 import DocViewer from "@/modules/docs/app/DocViewer";
 
-export default async function Page(
-    props: {
-        params: Promise<{ topicId: string, docNameEncoded: string }>
-    }
-) {
-    const params = await props.params;
-
-    const {
-        topicId,
-        docNameEncoded
-    } = params;
+export default async function Page({ params }: { params: Promise<{ topicId: string, docNameEncoded: string }> }) {
+    const { topicId, docNameEncoded } = await params;
 
     const topicPath = "/topics/" + topicId;
 
@@ -60,7 +51,7 @@ export default async function Page(
                     <IconMaximize/>
                 </Button>
             </nav>
-            <DocViewer type={type} content={"# content"} name={docName}/>
+            <DocViewer type={type} content={content} name={docName}/>
         </div>
     </div>;
 }

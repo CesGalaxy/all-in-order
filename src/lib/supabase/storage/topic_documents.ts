@@ -15,11 +15,9 @@ export const getTopicDocument = cache(async (topic_id: number, name: string) => 
 
 export const getAllTopicDocuments = cache(async (topic_id: number) => {
     const supabaseClient = await getSupabase();
-    const { data } = await supabaseClient.storage
+    return supabaseClient.storage
         .from("topic_documents")
         .list(topic_id.toString());
-
-    return data;
 });
 
 export async function createTopicDocument(topic_id: number, name: string) {

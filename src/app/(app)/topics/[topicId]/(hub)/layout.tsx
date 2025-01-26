@@ -21,7 +21,7 @@ export default async function Layout({ children, params }: {
 
     // Note: it works, don't touch it
     return <div className="w-full flex flex-col lg:flex-row p-2 md:p-4 lg:p-8 gap-x-4 gap-y-8">
-        <aside className="w-full lg:w-1/4 lg:max-w-96 lg:min-w-48 sticky top-24 h-min">
+        <aside className="w-full lg:w-fit --lg:w-1/4 lg:max-w-96 sticky top-24 h-min">
             <TopicSidebar topicId={id} topicTitle={title} topicDescription={description}/>
         </aside>
         <div className="w-full flex-grow bg-content2 text-content2-foreground rounded-xl relative">

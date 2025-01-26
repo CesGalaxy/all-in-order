@@ -21,8 +21,8 @@ export default function EditMdDoc() {
     const { name, save } = useDocEditor();
 
     return <MilkdownProvider>
-        <div className="border-l border-l-divider w-full grow">
-            <Navbar isBordered shouldHideOnScroll maxWidth="full">
+        <div className="border-l border-l-divider w-full grow z-50">
+            <Navbar isBordered shouldHideOnScroll isBlurred={false} maxWidth="full">
                 <NavbarContent>
                     <NavbarItem>
                         <Popover>

@@ -49,7 +49,7 @@ export default function DocumentCard({
         </CardHeader>
         <CardFooter as={ButtonGroup} className="w-full">
             <Button color="primary" className="w-full" as={Link}
-                    href={`/topics/${topicId}/docs/${btoa(doc.name)}`}
+                    href={`/topics/${topicId}/docs/${doc.isPublic ? "p" : "m"}-${btoa(doc.name)}/edit`}
                     startContent={<IconEdit/>}>
                 {t("Global.edit")}
             </Button>

@@ -43,9 +43,9 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
                               saveAction={updateTopicDocument.bind(null, topic.id, docOwnership + "/" + docName)}>
         <div className="w-full grow flex flex-col lg:flex-row">
             <aside
-                className="w-full lg:w-16 lg:sticky top-0 flex lg:flex-col justify-between items-center lg:h-dvh">
+                className="w-full lg:w-16 lg:sticky top-0 flex lg:flex-col justify-between items-center lg:h-dvh z-50 bg-background">
                 <div className="h-16 bottom-full w-full flex items-center justify-center">
-                    <Link href="/public">
+                    <Link href="/">
                         <Image src={LogoIcoCol} alt="All In Order" height={64} priority/>
                     </Link>
                 </div>

@@ -8,7 +8,7 @@ const QUERY_PRACTICES = "practices(*, activities:topic_activities(count), attemp
 
 const getTopicData = cache(async (topicId: number) => {
     const supabaseClient = await getSupabase();
-    return await supabaseClient
+    return supabaseClient
         .from("topics")
         .select(`*, ${QUERY_SUBJECT}, ${QUERY_PRACTICES}`)
         .limit(10, { referencedTable: 'practices.practice_attempts' })

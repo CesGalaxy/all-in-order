@@ -4,12 +4,14 @@ import SectionContainer from "@/components/containers/SectionContainer";
 import NoDocuments from "@/collections/docs/components/views/NoDocuments";
 import ModalButton from "@/components/utils/ModalButton";
 import { IconFilePlus, IconUpload } from "@tabler/icons-react";
-import getTopicDocuments from "@/lib/supabase/storage/query/getTopicDocuments";
 import { AnimatePresence, motion } from "framer-motion";
 import DocumentCard from "@/collections/docs/components/navigation/DocumentCard";
 import CreateDocModal from "@/collections/docs/components/modals/CreateDocModal";
 import { getTranslations } from "next-intl/server";
 import ErrorView from "@/components/views/ErrorView";
+import { getAllTopicDocs } from "@/collections/docs/query";
+import getSupabase from "@/lib/supabase/server";
+import { FileObject, StorageError } from "@supabase/storage-js";
 
 export interface TopicRecentDocsSectionProps {
     topicId: number;
@@ -23,16 +25,41 @@ const VIEW_MODES_CLASSNAMES = {
 export default async function TopicRecentDocsSection({ topicId }: TopicRecentDocsSectionProps) {
     const t = await getTranslations();
 
-    const docsRequest = getTopicDocuments(topicId);
-    const { privateError, privateData, publicError, publicData } = await docsRequest;
-    if (privateError || publicError) return <ErrorView message={privateError?.message || publicError?.message}/>;
+    const { data, error } = await getAllTopicDocs(topicId);
+
+    if (error) return <ErrorView message={error.message}/>;
+    if (!data) return <p>No files</p>;
+
+    // Get all unique root folders (_public / user ids)
+    const rootFolders = [...new Set(data.map(doc => doc.Key!.split("/")[1]))];
+    const userIds = rootFolders.filter(folder => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(folder));
+
+    const sb = await getSupabase();
+
+    const [{ data: profiles, error: profilesError }, ...rootFoldersResponses] = await Promise.all([
+        sb.from("profiles").select("id, username").in("user_id", userIds),
+        ...rootFolders.map(folder => sb.storage.from("topic_documents").list(topicId + '/' + folder)),
+    ]);
+
+    const { rootFoldersContents, rootFoldersErrors } = rootFoldersResponses.reduce<{
+        rootFoldersContents: (FileObject & { isPublic: boolean })[][];
+        rootFoldersErrors: StorageError[];
+    }>((acc, response) => {
+        if (response.error) {
+            acc.rootFoldersErrors.push(response.error);
+        } else {
+            acc.rootFoldersContents.push(response.data.map(object => ({ ...object, isPublic: false })));
+        }
+
+        return acc;
+    }, { rootFoldersContents: [], rootFoldersErrors: [] });
 
     // const [filter, setFilter] = useState<"all" | "public" | "private">("all");
     // const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
     const viewMode = "grid";
 
-    const filteredDocs = [...publicData!, ...privateData!];
+    const docs = rootFoldersContents.flat();
 
     return <SectionContainer
         title={t("App.documents")}
@@ -69,11 +96,14 @@ export default async function TopicRecentDocsSection({ topicId }: TopicRecentDoc
             {/*<nav className="xl:hidden"><DocsVisibilityFilter filter={filter} setFilter={setFilter}/></nav>*/}
         </nav>}
     >
-        {privateData!.length === 0
+        {rootFoldersErrors.length > 0 && <ul className="text-danger">
+            {rootFoldersErrors.map((error, i) => <li key={i}>{error.message}</li>)}
+        </ul>}
+        {docs!.length === 0
             ? <NoDocuments topicId={topicId}/>
             : <ul className={VIEW_MODES_CLASSNAMES[viewMode]}>
                 <AnimatePresence initial={false}>
-                    {filteredDocs.map(doc => <DocumentCard
+                    {docs.map(doc => <DocumentCard
                         key={doc.id}
                         as={motion.li}
                         shadow="none"
@@ -88,4 +118,8 @@ export default async function TopicRecentDocsSection({ topicId }: TopicRecentDoc
             </ul>
         }
     </SectionContainer>;
+}
+
+async function WithUsers() {
+
 }
