@@ -2,8 +2,8 @@
 
 import { GapAttempt, QuestionFillTheGapAnswer, QuestionFillTheGapAttempt } from "@/modules/learn/question/FillTheGap";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Input } from "@heroui/input";
+import { Select, SelectItem } from "@heroui/select";
 
 function ExaminateFillTheGapQuestion({ attempt: { segments }, draft, setAnswer }: {
     attempt: QuestionFillTheGapAttempt,

@@ -1,10 +1,10 @@
 "use client";
 
 import { NotebookNoteEntity } from "@/modules/notebook/app/supabase/db/NotebookData";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
+import { Card, CardBody, CardHeader } from "@heroui/card";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { IconCopy, IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
-import { cn } from "@nextui-org/theme";
+import { cn } from "@heroui/theme";
 
 const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
 

@@ -8,8 +8,8 @@ import CreateCourseModal from "@/collections/course/components/modals/CreateCour
 import { Suspense } from "react";
 import { GenericCardGridSkeleton } from "@/components/common/GenericCardSkeleton";
 import CoursesList from "@/collections/course/components/data/CoursesList";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import BlankView from "@/components/views/BlankView";
 import noDataImage from "@/assets/pictures/no_data.svg";
 import { useTranslations } from "next-intl";

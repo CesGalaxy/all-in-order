@@ -1,7 +1,7 @@
 "use client";
 
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/breadcrumbs";
+import { Navbar, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 import {
     IconBooks,
     IconChevronDown,
@@ -22,9 +22,9 @@ import {
     IconTrash,
     IconVocabulary
 } from "@tabler/icons-react";
-import { Button, ButtonGroup, ButtonGroupProvider } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Button, ButtonGroup, ButtonGroupProvider } from "@heroui/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
 import NbVocabAreaDownloadOptions
     from "@/app/(app)/topics/[topicId]/notebook/(studio)/vocabulary/_components/navigation/NbVocabAreaDownloadOptions";

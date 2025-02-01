@@ -1,10 +1,10 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useCallback, useMemo, useState } from "react";
-import { Divider } from "@nextui-org/divider";
-import { Chip } from "@nextui-org/chip";
+import { Divider } from "@heroui/divider";
+import { Chip } from "@heroui/chip";
 import ModalForm from "@/components/utils/ModalForm";
 import { ActionResponse } from "@/lib/helpers/form";
 import { Question, QUESTION_CREATORS, QuestionDraft, QuestionType } from "@/modules/learn/question";

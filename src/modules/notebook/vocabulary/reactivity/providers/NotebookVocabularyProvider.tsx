@@ -5,7 +5,7 @@ import NotebookVocabularyContext from "@/modules/notebook/vocabulary/reactivity/
 import { createSupabaseClient } from "@/lib/supabase/client";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
 import useActionFunction from "@/reactivity/hooks/useActionFunction";
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Modal, useDisclosure } from "@heroui/modal";
 import NbAddDefinitionsModal from "@/modules/notebook/vocabulary/components/modals/NbAddDefinitionsModal";
 import { NotebookVocabularyAreaData } from "@/modules/notebook/app/supabase/db/NotebookData";
 import {

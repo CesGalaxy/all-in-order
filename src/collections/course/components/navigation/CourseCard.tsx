@@ -1,12 +1,12 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Link } from "@heroui/link";
 import getHexColor from "@/lib/utils/color";
 import NoSubjects from "@/collections/subject/components/views/NoSubjects";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
 import { EditCourseModalAction } from "@/collections/course/components/modals/EditCourseModal";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from "@heroui/skeleton";
 import { CreateSubjectModalAction } from "@/collections/subject/components/modals/CreateSubjectModal";
 import { useMemo } from "react";
 import { DeleteCourseModalAction } from "@/collections/course/components/modals/DeleteCourseModal";

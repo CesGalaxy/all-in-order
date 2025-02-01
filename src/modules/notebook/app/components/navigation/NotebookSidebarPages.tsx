@@ -1,14 +1,14 @@
 "use client";
 
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Accordion, AccordionItem } from "@heroui/accordion";
 import { IconDots, IconFile, IconFilePlus, IconLoader, IconTool, IconTrash, IconWriting } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Input } from "@nextui-org/input";
+import { Button } from "@heroui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Input } from "@heroui/input";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
 import ErrorListView from "@/components/views/ErrorListView";
-import { Link } from "@nextui-org/link";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
+import { Link } from "@heroui/link";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { FileObject } from "@supabase/storage-js";
 import { useCallback } from "react";
 
@@ -27,40 +27,42 @@ export default function NotebookSidebarPages() {
     const pageNavigation = useCallback((page: FileObject) => {
         const name = atob(page.name.replace(/\.json$/, ""));
 
-        return <AccordionItem
-            key={page.id}
-            title={<Link href={`/topics/${topicId}/notebook/${page.name.replace(/\.json$/, "")}`} underline="hover"
-                         color="foreground">
-                {name}
-            </Link>}
-            textValue={name}
-            classNames={{ heading: "group" }}
-            startContent={<div>
-                <Dropdown>
-                    <DropdownTrigger>
-                        <div role="button">
-                            <IconFile className="group-hover:hidden"/>
-                            <IconDots
-                                className="hidden group-hover:block bg-content3 hover:bg-content4 rounded-full"/>
-                        </div>
-                    </DropdownTrigger>
-                    <DropdownMenu>
-                        <DropdownSection showDivider>
-                            <DropdownItem key="rename" startContent={<IconWriting/>}>Rename</DropdownItem>
-                            <DropdownItem key="props" startContent={<IconTool/>}>Properties</DropdownItem>
-                        </DropdownSection>
-                        <DropdownSection>
-                            <DropdownItem key="delete" startContent={<IconTrash/>} color="danger"
-                                          onPress={() => deletePage(page.name)}>Delete</DropdownItem>
-                        </DropdownSection>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>}
-        >
-            <Button className="w-full" size="sm" startContent={<IconFilePlus/>} radius="full" variant="flat" isDisabled>
-                Add subpage
-            </Button>
-        </AccordionItem>;
+        return (
+            <AccordionItem
+                key={page.id}
+                title={<Link href={`/topics/${topicId}/notebook/${page.name.replace(/\.json$/, "")}`} underline="hover"
+                             color="foreground">
+                    {name}
+                </Link>}
+                textValue={name}
+                classNames={{ heading: "group" }}
+                startContent={<div>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <div role="button">
+                                <IconFile className="group-hover:hidden"/>
+                                <IconDots
+                                    className="hidden group-hover:block bg-content3 hover:bg-content4 rounded-full"/>
+                            </div>
+                        </DropdownTrigger>
+                        <DropdownMenu>
+                            <DropdownSection showDivider>
+                                <DropdownItem key="rename" startContent={<IconWriting/>}>Rename</DropdownItem>
+                                <DropdownItem key="props" startContent={<IconTool/>}>Properties</DropdownItem>
+                            </DropdownSection>
+                            <DropdownSection>
+                                <DropdownItem key="delete" startContent={<IconTrash/>} color="danger"
+                                              onPress={() => deletePage(page.name)}>Delete</DropdownItem>
+                            </DropdownSection>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>}
+            >
+                <Button className="w-full" size="sm" startContent={<IconFilePlus/>} radius="full" variant="flat" isDisabled>
+                    Add subpage
+                </Button>
+            </AccordionItem>
+        );
     }, [deletePage, topicId]);
 
     return <div className="w-full md:w-auto md:min-w-48 md:max-w-96 py-2 h-full flex flex-col">

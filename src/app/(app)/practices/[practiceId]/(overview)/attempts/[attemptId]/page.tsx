@@ -5,9 +5,9 @@ import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import { getMyProfile } from "@/lib/supabase/auth/profile";
 import { notFound } from "next/navigation";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import { Divider } from "@heroui/divider";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 
 export default async function Page({ params }: { params: Promise<{ practiceId: string, attemptId: string }> }) {
     const { practiceId, attemptId } = await params;

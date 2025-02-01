@@ -1,11 +1,11 @@
 "use client";
 
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconChevronDown, IconChevronLeft, IconDeviceFloppy, IconDownload } from "@tabler/icons-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Input } from "@nextui-org/input";
-import { Tab, Tabs } from "@nextui-org/tabs";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Input } from "@heroui/input";
+import { Tab, Tabs } from "@heroui/tabs";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 import useDocEditor from "@/modules/docs/app/reactivity/hooks/useDocEditor";
 
 export default function SmartDocEditorHeader() {

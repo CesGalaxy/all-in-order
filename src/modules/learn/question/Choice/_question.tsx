@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Checkbox } from "@nextui-org/checkbox";
-import { Input } from "@nextui-org/input";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Checkbox } from "@heroui/checkbox";
+import { Input } from "@heroui/input";
 import { IconListCheck, IconRowInsertBottom, IconTransitionBottom, IconTrash } from "@tabler/icons-react";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@heroui/select";
 import { ChoicesInputMethod } from "@/modules/learn/question/Choice/index";
 import type { QuestionCreatorProps } from "@/modules/learn/question";
 

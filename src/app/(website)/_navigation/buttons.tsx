@@ -1,11 +1,11 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import { IconLanguage, IconMoon, IconSearch, IconSun } from "@tabler/icons-react";
-import { Avatar } from "@nextui-org/avatar";
+import { Avatar } from "@heroui/avatar";
 import { updateLocale } from "@/app/(website)/_navigation/actions";
-import { Kbd } from "@nextui-org/kbd";
+import { Kbd } from "@heroui/kbd";
 import { useCmdkStore } from "@/features/cmdk/store";
 import { useTheme } from "next-themes";
 

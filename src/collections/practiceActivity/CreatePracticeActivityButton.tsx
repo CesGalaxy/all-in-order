@@ -1,7 +1,7 @@
 "use client";
 
-import { Modal, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
+import { Modal, useDisclosure } from "@heroui/modal";
+import { Button } from "@heroui/button";
 import type { ReactNode } from "react";
 import { IconPencilPlus } from "@tabler/icons-react";
 

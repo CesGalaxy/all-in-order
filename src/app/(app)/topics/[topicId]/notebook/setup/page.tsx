@@ -5,11 +5,11 @@ import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 import { redirect } from "next/navigation";
 import required from "@/lib/helpers/required";
-import { Divider } from "@nextui-org/divider";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
+import { Divider } from "@heroui/divider";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
+import { Input } from "@heroui/input";
 import { IconDatabase, IconNotebook, IconVocabulary } from "@tabler/icons-react";
 import setupNotebook from "@/modules/notebook/app/actions/setupNotebook";
 

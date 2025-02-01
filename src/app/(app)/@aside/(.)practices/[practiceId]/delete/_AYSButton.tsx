@@ -1,9 +1,9 @@
 "use client";
 
 import { IconTrash } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Button } from "@heroui/button";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import ModalButton from "@/components/utils/ModalButton";
 
 export default function AYSButton() {

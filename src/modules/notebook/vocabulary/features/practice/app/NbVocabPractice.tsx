@@ -2,8 +2,8 @@
 
 import useNbVocabPractice from "@/modules/notebook/vocabulary/features/practice/reactivity/hooks/useNbVocabPractice";
 import PageContainer from "@/components/containers/PageContainer";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Card, CardBody, CardHeader } from "@heroui/card";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";

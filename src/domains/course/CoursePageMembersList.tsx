@@ -1,10 +1,10 @@
 "use server";
 
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardFooter, CardHeader } from "@heroui/card";
 import Image from "next/image";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconCrown, IconDots, IconUser } from "@tabler/icons-react";
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { notFound } from "next/navigation";
 import { getCourseMembers } from "@/collections/course/query";
 import ErrorView from "@/components/views/ErrorView";

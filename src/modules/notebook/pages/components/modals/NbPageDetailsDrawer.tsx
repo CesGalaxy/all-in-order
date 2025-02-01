@@ -1,9 +1,9 @@
 "use client";
 
-import { DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@nextui-org/drawer";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button";
-import { Select, SelectItem } from "@nextui-org/select";
+import { DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@heroui/drawer";
+import { Divider } from "@heroui/divider";
+import { Button } from "@heroui/button";
+import { Select, SelectItem } from "@heroui/select";
 import useNotebookPage from "@/modules/notebook/pages/reactivity/hooks/useNotebookPage";
 import { useState } from "react";
 import { toast } from "react-toastify";

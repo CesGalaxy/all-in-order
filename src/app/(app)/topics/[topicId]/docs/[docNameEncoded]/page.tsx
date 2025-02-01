@@ -1,6 +1,6 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconArrowBack, IconMaximize, IconPencil } from "@tabler/icons-react";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import { Link as TransitionLink } from "next-view-transitions";
 import getSupabase from "@/lib/supabase/server";
 import { redirect } from "next/navigation";

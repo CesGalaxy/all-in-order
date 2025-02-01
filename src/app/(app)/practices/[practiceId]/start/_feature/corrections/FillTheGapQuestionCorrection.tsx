@@ -6,9 +6,9 @@ import {
     QuestionFillTheGapData
 } from "@/modules/learn/question/FillTheGap";
 import { useCallback } from "react";
-import { Chip } from "@nextui-org/chip";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Divider } from "@nextui-org/divider";
+import { Chip } from "@heroui/chip";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Divider } from "@heroui/divider";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 export default function FillTheGapQuestionCorrection({

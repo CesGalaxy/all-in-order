@@ -1,7 +1,7 @@
 import { NotebookEntity } from "@/modules/notebook/app/supabase/db/NotebookData";
-import { Card, CardHeader } from "@nextui-org/card";
+import { Card, CardHeader } from "@heroui/card";
 import { Topic } from "@/lib/supabase/entities";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 
 export interface NotebookCardProps {
     notebook: Pick<NotebookEntity, "alias"> & { topic: Pick<Topic, "id" | "title"> };

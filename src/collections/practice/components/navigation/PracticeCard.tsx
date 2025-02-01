@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Link } from "@heroui/link";
 import PracticeButton from "@/collections/practice/components/navigation/PracticeButton";
 
 export default function PracticeCard({ practice }: {

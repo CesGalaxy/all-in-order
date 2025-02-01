@@ -1,9 +1,9 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
 import { useTranslations } from "next-intl";
 import { IconDatabase, IconNotebook, IconSparkles, IconVocabulary } from "@tabler/icons-react";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 
 export default function Page() {
     const t = useTranslations();

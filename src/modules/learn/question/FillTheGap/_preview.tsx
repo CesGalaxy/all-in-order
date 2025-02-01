@@ -1,7 +1,7 @@
 import { QuestionFillTheGapAttempt } from "@/modules/learn/question/FillTheGap";
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { IconChevronUp } from "@tabler/icons-react";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 
 export default function PreviewFillTheGapQuestion({ attempt }: { attempt: QuestionFillTheGapAttempt }) {
     return <ul className="flex items-center gap-1 flex-wrap">

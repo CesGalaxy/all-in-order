@@ -6,12 +6,12 @@ import { commonmark } from '@milkdown/kit/preset/commonmark';
 import '@milkdown/kit/prose/view/style/prosemirror.css'
 import "@milkdown/kit/prose/tables/style/tables.css";
 import "@/modules/docs/markdown/styles/MDDocEditor.css";
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
-import { Input } from "@nextui-org/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Navbar, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Input } from "@heroui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import DocTypeIcon from "@/modules/docs/app/components/DocTypeIcon";
-import { Alert } from "@nextui-org/alert";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Alert } from "@heroui/alert";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconChevronDown, IconDeviceFloppy } from "@tabler/icons-react";
 import useDocEditor from "@/modules/docs/app/reactivity/hooks/useDocEditor";
 import placeholderPlugin from "@/modules/docs/markdown/plugins/placeholder";

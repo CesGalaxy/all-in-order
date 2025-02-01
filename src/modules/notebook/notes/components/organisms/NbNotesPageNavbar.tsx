@@ -1,9 +1,9 @@
 "use client";
 
 import { IconChevronDown, IconNote } from "@tabler/icons-react";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import NbNotesPageSearchbar from "@/modules/notebook/notes/components/molecules/NbNotesPageSearchbar";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 import useNotebookNotes from "@/modules/notebook/notes/reactivity/hooks/useNotebookNotes";
 
 export default function NbNotesPageNavbar() {

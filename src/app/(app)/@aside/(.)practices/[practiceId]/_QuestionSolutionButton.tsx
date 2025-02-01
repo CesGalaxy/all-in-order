@@ -1,8 +1,8 @@
 "use client";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Button } from "@nextui-org/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Tooltip } from "@heroui/tooltip";
+import { Button } from "@heroui/button";
 import { IconEye } from "@tabler/icons-react";
 import { Question, QUESTION_SOLUTIONS, QuestionType } from "@/modules/learn/question";
 

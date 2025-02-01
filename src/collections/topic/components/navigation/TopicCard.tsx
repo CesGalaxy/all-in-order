@@ -1,11 +1,11 @@
 "use client";
 
 import { Topic } from "@/lib/supabase/entities";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { Divider } from "@nextui-org/divider";
+import { Card, CardFooter, CardHeader } from "@heroui/card";
+import { Link } from "@heroui/link";
+import { Divider } from "@heroui/divider";
 import { useTranslations } from "next-intl";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconDownload, IconEdit, IconPrinter, IconShare } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 

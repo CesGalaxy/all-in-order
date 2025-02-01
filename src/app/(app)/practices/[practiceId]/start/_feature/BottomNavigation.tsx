@@ -1,7 +1,7 @@
 "use client";
 
 import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import {
     IconCheck,
     IconChevronLeft,
@@ -11,8 +11,8 @@ import {
     IconQuestionMark,
     IconX
 } from "@tabler/icons-react";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Chip } from "@nextui-org/chip";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
+import { Chip } from "@heroui/chip";
 import { useCallback, useMemo } from "react";
 import SubmitExamButton from "@/app/(app)/practices/[practiceId]/start/_feature/SubmitExamButton";
 import { QUESTION_ANSWER_VALIDATORS } from "@/modules/learn/question";

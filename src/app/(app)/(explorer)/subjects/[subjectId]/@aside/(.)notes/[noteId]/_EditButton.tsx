@@ -1,10 +1,10 @@
 "use client";
 
 import { IconDeviceFloppy, IconEdit } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
+import { Button } from "@heroui/button";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
 import { useState } from "react";
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { SubjectNote } from "@/lib/supabase/entities";

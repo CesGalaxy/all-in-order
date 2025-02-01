@@ -1,7 +1,7 @@
 "use client";
 
 import ModalForm from "@/components/utils/ModalForm";
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import useNotebookNotes from "@/modules/notebook/notes/reactivity/hooks/useNotebookNotes";
 
 export default function NbAddNoteModal() {

@@ -3,9 +3,10 @@
 import React from "react";
 import { IconArrowUp, IconMicrophone, IconNotes, IconPaperclip } from "@tabler/icons-react";
 import AIChatPromptInput from "@/modules/ai/chat/components/AIChatPromptInput";
-import { Button } from "@nextui-org/button";
-import { Tooltip } from "@nextui-org/tooltip";
-import { cn } from "@nextui-org/theme";
+import { Button } from "@heroui/button";
+import { Tooltip } from "@heroui/tooltip";
+import { cn } from "@heroui/theme";
+import { ScrollShadow } from "@heroui/scroll-shadow";
 
 export default function AIChatPromptInputWithActions({}) {
     const ideas = [
@@ -31,16 +32,16 @@ export default function AIChatPromptInputWithActions({}) {
 
     return (
         <div className="flex w-full flex-col gap-4">
-            {/*<ScrollShadow hideScrollBar className="flex flex-nowrap gap-2" orientation="horizontal">*/}
-            <div className="flex gap-2">
-                {ideas.map(({ title, description }, index) => (
-                    <Button key={index} className="flex h-14 flex-col items-start gap-0" variant="flat">
-                        <p>{title}</p>
-                        <p className="text-default-500">{description}</p>
-                    </Button>
-                ))}
-            </div>
-            {/*</ScrollShadow>*/}
+            <ScrollShadow hideScrollBar className="flex flex-nowrap gap-2 max-w-full" orientation="horizontal">
+                <div className="flex gap-2">
+                    {ideas.map(({ title, description }, index) => (
+                        <Button key={index} className="flex h-14 flex-col items-start gap-0" variant="flat">
+                            <p>{title}</p>
+                            <p className="text-default-500">{description}</p>
+                        </Button>
+                    ))}
+                </div>
+            </ScrollShadow>
             <form
                 className="flex w-full flex-col items-start rounded-medium bg-default-100 transition-colors hover:bg-default-200/70">
                 <AIChatPromptInput
@@ -77,7 +78,7 @@ export default function AIChatPromptInputWithActions({}) {
                     variant="flat"
                     onValueChange={setPrompt}
                 />
-                <div className="flex w-full items-center justify-between  gap-2 overflow-scroll px-4 pb-4">
+                <div className="flex w-full items-center justify-between gap-8 overflow-x-auto px-4 pb-4">
                     <div className="flex w-full gap-1 md:gap-3">
                         <Button
                             size="sm"

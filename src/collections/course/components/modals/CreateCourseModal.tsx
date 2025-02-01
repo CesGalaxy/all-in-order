@@ -1,8 +1,8 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
-import { Checkbox } from "@nextui-org/checkbox";
-import { Link } from "@nextui-org/link";
+import { Input, Textarea } from "@heroui/input";
+import { Checkbox } from "@heroui/checkbox";
+import { Link } from "@heroui/link";
 import { useState } from "react";
 import { createCourseAction, CreateCourseActionResponse, CreateCourseFields } from "@/collections/course/actions";
 import useValidation from "@/reactivity/hooks/useValidation";

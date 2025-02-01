@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { Tab, Tabs } from "@heroui/tabs";
 import { useMemo } from "react";
 
 export default function PracticePageNavigation({ practiceId }: { practiceId: number | string }) {

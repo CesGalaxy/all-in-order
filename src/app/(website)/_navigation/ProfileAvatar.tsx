@@ -1,14 +1,14 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Avatar } from "@nextui-org/avatar";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Avatar } from "@heroui/avatar";
 import { createSupabaseClient } from "@/lib/supabase/client";
 import { useTranslations } from "next-intl";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Input, Textarea } from "@nextui-org/input";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
+import { Button } from "@heroui/button";
+import { Input, Textarea } from "@heroui/input";
 import { IconAt, IconBrightness, IconLayoutDashboard, IconLogout, IconTool, IconUser } from "@tabler/icons-react";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { Profile } from "@/lib/supabase/entities";
 import { useTheme } from "next-themes";
 

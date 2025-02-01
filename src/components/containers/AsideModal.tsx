@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconArrowBack, IconArrowsMaximize } from "@tabler/icons-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { ReactNode } from "react";
-import { cn } from "@nextui-org/theme";
+import { cn } from "@heroui/theme";
 
 export default function AsideModalContainer({
                                                 children,

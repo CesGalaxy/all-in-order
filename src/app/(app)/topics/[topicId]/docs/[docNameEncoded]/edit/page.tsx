@@ -6,7 +6,7 @@ import ErrorView from "@/components/views/ErrorView";
 import { getUser } from "@/lib/supabase/auth/user";
 import Image from "next/image";
 import LogoIcoCol from "@/assets/logo/IcoCol.svg";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { cookies } from "next/headers";
 import EditorToolbar
     from "@/app/(app)/topics/[topicId]/docs/[docNameEncoded]/edit/_components/navigation/EditorToolbar";

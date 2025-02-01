@@ -1,9 +1,9 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import updateTopicSettings from "@/app/(app)/topics/[topicId]/(hub)/settings/action";
 import { Topic } from "@/lib/supabase/entities";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { z } from "zod";
 import useValidatedState from "@/reactivity/hooks/useValidatedState";

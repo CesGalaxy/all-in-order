@@ -3,11 +3,11 @@
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import NoPracticeActivities from "@/collections/practiceActivity/NoPracticeActivities";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
 import { TopicActivity } from "@/lib/supabase/entities";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Divider } from "@nextui-org/divider";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Tooltip } from "@heroui/tooltip";
+import { Divider } from "@heroui/divider";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import QuestionSolutionButton from "@/app/(app)/@aside/(.)practices/[practiceId]/_QuestionSolutionButton";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";

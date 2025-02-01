@@ -9,7 +9,7 @@ import SubjectPageTasksSection
 import SubjectPageNotesSection
     from "@/app/(app)/(explorer)/subjects/[subjectId]/_components/organisms/SubjectPageNotesSection";
 import SectionContainer from "@/components/containers/SectionContainer";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconArrowsMaximize } from "@tabler/icons-react";
 import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import PageContainer from "@/components/containers/PageContainer";

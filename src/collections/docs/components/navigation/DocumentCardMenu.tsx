@@ -1,7 +1,7 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import { IconCopy, IconCopyCheck, IconDots, IconEdit, IconShare, IconTool, IconTrash } from "@tabler/icons-react";
 
 export default function DocumentCardMenu() {

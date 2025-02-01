@@ -1,18 +1,18 @@
 "use client";
 
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import { TopicActivity } from "@/lib/supabase/entities";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconChevronUp, IconCopy, IconEdit, IconPlus, IconPrinter, IconTrash } from "@tabler/icons-react";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Alert } from "@nextui-org/alert";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Tooltip } from "@heroui/tooltip";
+import { Alert } from "@heroui/alert";
 import QuestionSolutionButton from "@/app/(app)/@aside/(.)practices/[practiceId]/_QuestionSolutionButton";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeActivityModal from "@/collections/practiceActivity/components/modals/EditPracticeActivityModal";
 import createPracticeActivity, { updatePracticeActivity } from "@/collections/practiceActivity/actions";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";
 import {
     Question,

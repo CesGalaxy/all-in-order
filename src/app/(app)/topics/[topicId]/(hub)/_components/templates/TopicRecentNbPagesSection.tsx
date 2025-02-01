@@ -5,8 +5,8 @@ import { getNotebookRootPath } from "@/modules/notebook/pages/lib/helpers/names"
 import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import ContentGallery from "@/components/navigation/ContentGallery";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 
 export default async function TopicRecentNbPagesSection({ topicId }: { topicId: number }) {
     const user = await getUser();

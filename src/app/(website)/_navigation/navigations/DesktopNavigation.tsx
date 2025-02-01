@@ -1,6 +1,6 @@
-import { NavbarItem } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { NavbarItem } from "@heroui/navbar";
+import { Link } from "@heroui/link";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import AppNavbarCourses from "@/app/(website)/_navigation/navigations/AppNavbarCourses";

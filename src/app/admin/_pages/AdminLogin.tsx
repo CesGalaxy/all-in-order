@@ -1,12 +1,12 @@
 "use client";
 
-import { Checkbox } from "@nextui-org/checkbox";
-import { Input } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
+import { Checkbox } from "@heroui/checkbox";
+import { Input } from "@heroui/input";
+import { Link } from "@heroui/link";
 import React from "react";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
-import { Form } from "@nextui-org/form";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/divider";
+import { Form } from "@heroui/form";
 import { IconBrandGithub, IconBrandGoogle, IconEye, IconEyeOff } from "@tabler/icons-react";
 import Image from "next/image";
 import NameCol from "@/assets/logo/NameCol.svg";

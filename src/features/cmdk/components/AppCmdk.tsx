@@ -1,13 +1,13 @@
 "use client";
 
 import { Command } from "cmdk";
-import { Modal, ModalContent } from "@nextui-org/modal";
+import { Modal, ModalContent } from "@heroui/modal";
 import { useCmdkStore } from "@/features/cmdk/store";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
+import { Button } from "@heroui/button";
+import { Kbd } from "@heroui/kbd";
 import CmdkHome from "@/features/cmdk/components/pages/CmdkHome";
 import "@/features/cmdk/styles/cmdk.css";
 

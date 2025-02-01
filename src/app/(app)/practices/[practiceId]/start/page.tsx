@@ -1,13 +1,13 @@
 "use server";
 
-import { Navbar, NavbarBrand, NavbarContent } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
+import { Link } from "@heroui/link";
 import Image from "next/image";
 import LogoIcoCol from "@/assets/logo/IcoCol.svg";
 import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconDoorExit } from "@tabler/icons-react";
 import { Activity, ExamProvider } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
 import Counter from "@/app/(app)/practices/[practiceId]/start/_feature/Counter";

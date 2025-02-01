@@ -1,8 +1,8 @@
 "use client";
 
 import { EditorBubbleItem, useEditor } from "novel";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Button } from "@nextui-org/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Button } from "@heroui/button";
 import {
     IconCheck,
     IconCheckbox,

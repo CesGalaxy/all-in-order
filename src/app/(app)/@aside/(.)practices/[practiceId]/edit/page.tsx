@@ -4,7 +4,7 @@ import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import EditPracticeForm from "@/app/(app)/@aside/(.)practices/[practiceId]/edit/_form";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string, practiceId: string }> }) {
     const { topicId, practiceId } = await params;

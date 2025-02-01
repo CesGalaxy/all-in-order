@@ -5,9 +5,9 @@ import {
     NavbarMenu,
     NavbarMenuItem,
     NavbarMenuToggle
-} from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+} from "@heroui/navbar";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import Logo from "@/assets/logo/NameCol.svg";
 import Image from "next/image";
 import { getMaybeMyProfile } from "@/lib/supabase/auth/profile";
@@ -18,7 +18,7 @@ import {
     ToggleLocaleButton,
     ToggleThemeButton
 } from "@/app/(website)/_navigation/buttons";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import DesktopNavigation from "@/app/(website)/_navigation/navigations/DesktopNavigation";
 import { IconHome } from "@tabler/icons-react";
 import ProfileAvatar from "@/app/(website)/_navigation/ProfileAvatar";

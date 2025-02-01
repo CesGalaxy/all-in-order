@@ -2,8 +2,8 @@
 
 import { useParams, useRouter } from "next/navigation";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
-import { PopoverContent } from "@nextui-org/popover";
-import { Link } from "@nextui-org/link";
+import { PopoverContent } from "@heroui/popover";
+import { Link } from "@heroui/link";
 
 const FORMATS = ["json", "csv"] as const;
 

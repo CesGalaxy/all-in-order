@@ -1,6 +1,6 @@
 "use client";
 
-import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/table";
+import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
 import { useCallback } from "react";
 
 export interface SimpleAttempt {

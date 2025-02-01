@@ -1,10 +1,10 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
+import { Link } from "@heroui/link";
+import { Button } from "@heroui/button";
 import { IconFolderPlus, IconPencilPlus, IconTextPlus } from "@tabler/icons-react";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Tooltip } from "@heroui/tooltip";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
 import useNotebookVocabulary from "@/modules/notebook/vocabulary/reactivity/hooks/useNotebookVocabulary";
 

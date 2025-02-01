@@ -2,8 +2,8 @@
 
 import getNotionClient from "@/modules/notebook/notion/lib/getNotionClient";
 import ContentGallery from "@/components/navigation/ContentGallery";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
+import { Card, CardFooter, CardHeader } from "@heroui/card";
+import { Button } from "@heroui/button";
 import { addNotionPageToNotebook } from "@/modules/notebook/notion/actions";
 
 export default async function NotionPagesList({ topicId }: { topicId: number }) {

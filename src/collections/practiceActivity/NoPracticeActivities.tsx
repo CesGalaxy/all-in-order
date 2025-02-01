@@ -1,6 +1,6 @@
 import addPracticeImage from "@/assets/pictures/add_practice.svg";
 import BlankView from "@/components/views/BlankView";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconRecycle, IconSparkles } from "@tabler/icons-react";
 import CreatePracticeActivityButton from "@/collections/practiceActivity/CreatePracticeActivityButton";
 import CreatePracticeActivityModal from "@/collections/practiceActivity/CreatePracticeActivityModal";

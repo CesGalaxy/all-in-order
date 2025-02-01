@@ -1,8 +1,8 @@
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Card, CardBody, CardHeader } from "@heroui/card";
+import { Button, ButtonGroup } from "@heroui/button";
 import { Link as TransitionLink } from "next-view-transitions";
 import NoteOptions from "@/collections/note/components/navigation/NoteOptions";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { SubjectNote } from "@/lib/supabase/entities";
 import ModalButton from "@/components/utils/ModalButton";
 import NoteModal from "@/collections/note/components/modals/NoteModal";

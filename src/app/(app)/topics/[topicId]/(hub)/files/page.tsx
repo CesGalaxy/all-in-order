@@ -11,14 +11,27 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
     const { data, error } = await getAllTopicDocs(parseInt(topicId));
     if (error) return <ErrorView message={error.message}/>;
 
-    return <div
-        className="w-full xl:h-full flex-grow flex flex-col xl:flex-row overflow-auto items-stretch gap-4 md:p-4 xl:p-8">
-        <main
-            className="bg-content1 text-content1-foreground w-full xl:h-full flex-grow rounded-xl border-content2 border-2">
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-        </main>
-        <aside className="md:bg-content1 md:text-content1-foreground min-w-64 xl:h-full rounded-xl">
-            hi
-        </aside>
-    </div>;
+    return <>
+        <div
+            className="w-full lg:h-full flex-grow flex flex-col lg:flex-row items-stretch gap-4 md:p-4 lg:p-8">
+            <main
+                className="bg-content1 text-content1-foreground w-full --lg:h-full flex-grow rounded-xl border-content2 border-2">
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+            </main>
+            <aside className="md:bg-content1 md:text-content1-foreground min-w-64 --xl:h-full rounded-xl">
+                hi
+            </aside>
+        </div>
+    </>;
 }

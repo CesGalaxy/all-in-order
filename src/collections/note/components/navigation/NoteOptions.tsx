@@ -1,8 +1,8 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { IconChevronDown, IconCopy, IconEdit, IconPin, IconTrash } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useTranslations } from "next-intl";
 
 export default function NoteOptions() {

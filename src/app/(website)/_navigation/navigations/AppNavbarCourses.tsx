@@ -1,10 +1,10 @@
 "use server";
 
 import ErrorView from "@/components/views/ErrorView";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconArrowRight } from "@tabler/icons-react";
-import { Link } from "@nextui-org/link";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Link } from "@heroui/link";
+import { Card, CardBody, CardHeader } from "@heroui/card";
 import getHexColor from "@/lib/utils/color";
 import CourseCardTopics from "@/collections/course/components/navigation/CourseCardTopics";
 import { getAllMyCourses } from "@/collections/course/query";

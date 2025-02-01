@@ -1,4 +1,4 @@
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { QuestionChoiceAttempt } from "@/modules/learn/question/Choice";
 
 export default function PreviewChoiceQuestion({ attempt }: { attempt: QuestionChoiceAttempt }) {

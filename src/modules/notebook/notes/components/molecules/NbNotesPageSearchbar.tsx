@@ -1,7 +1,7 @@
 "use client";
 
 import { IconSearch } from "@tabler/icons-react";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 

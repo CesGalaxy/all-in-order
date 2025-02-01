@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import {
     IconAccessible,
     IconArrowBack,
@@ -21,12 +21,12 @@ import {
     IconUsers,
     IconX
 } from "@tabler/icons-react";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import NotebookSidebarPages from "@/modules/notebook/app/components/navigation/NotebookSidebarPages";
 import Image from "next/image";
 import LogoNameCol from "@/assets/logo/NameCol.svg";
-import { Link } from "@nextui-org/link";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
+import { Link } from "@heroui/link";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import NotebookSidebarVocabulary from "@/modules/notebook/app/components/navigation/NotebookSidebarVocabulary";

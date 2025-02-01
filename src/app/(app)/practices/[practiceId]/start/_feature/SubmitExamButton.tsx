@@ -1,12 +1,12 @@
 "use client";
 
 import { IconCheck } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useCallback, useState } from "react";
 import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
 import { toast } from "react-toastify";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { QuestionAnswer } from "@/modules/learn/question";
 
 export default function SubmitExamButton() {

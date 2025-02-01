@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 import CalendarDay from "@/features/calendar/components/CalendarDay";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@heroui/select";
 import TodoInfo from "@/components/dev/TodoInfo";
 
 export interface MonthCalendarProps {

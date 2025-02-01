@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import {
     IconAt,
     IconBold,
@@ -24,11 +24,11 @@ import {
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Converter } from "showdown";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 import { toast } from "react-toastify";
 import { useTransitionRouter } from "next-view-transitions";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Tab, Tabs } from "@heroui/tabs";
 
 export interface MDEditorProps {
     docName: string;

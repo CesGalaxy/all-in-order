@@ -1,8 +1,8 @@
 "use client";
 
 import { IconSettings } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import { Button } from "@heroui/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 
 export default function EditorConfigBtn() {
     return <Dropdown>

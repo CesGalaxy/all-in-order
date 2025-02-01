@@ -1,10 +1,10 @@
 "use server";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconBrandAndroid } from "@tabler/icons-react";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import PageContainer from "@/components/containers/PageContainer";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { getTranslations } from "next-intl/server";
 import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";

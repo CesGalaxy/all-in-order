@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
 import { useEffect, useState } from "react";
 import { IconClock } from "@tabler/icons-react";

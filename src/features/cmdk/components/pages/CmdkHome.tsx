@@ -3,7 +3,7 @@
 import { Command } from "cmdk";
 import { ComponentProps } from "react";
 import { type Icon, IconLayoutGrid, IconPlus, IconPresentation } from "@tabler/icons-react";
-import { Kbd, KbdKey } from "@nextui-org/kbd";
+import { Kbd, KbdKey } from "@heroui/kbd";
 import { useRouter } from "next/navigation";
 
 export default function CmdkHome() {

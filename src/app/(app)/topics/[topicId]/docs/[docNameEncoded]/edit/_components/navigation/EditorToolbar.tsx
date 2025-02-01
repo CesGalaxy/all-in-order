@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconFolders, IconList, IconSearch, IconSparkles } from "@tabler/icons-react";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 
 export default function EditorToolbar() {
     return <ul className="w-full flex lg:flex-col items-center gap-4">

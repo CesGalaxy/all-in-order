@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { type ReactNode } from "react";
-import { Navbar } from "@nextui-org/navbar";
+import { Navbar } from "@heroui/navbar";
 
 export default function DynamicNavbar({ children }: { children: ReactNode }) {
     const pathname = usePathname();

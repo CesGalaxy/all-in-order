@@ -2,7 +2,7 @@ import { ReactNode, Suspense, use } from "react";
 import PracticePreviewTabs from "@/app/(app)/topics/[topicId]/(hub)/_components/navigation/PracticePreviewTabs";
 import AsideModalContainer from "@/components/containers/AsideModal";
 import { getTopicAsidePractice } from "@/app/(app)/@aside/(.)practices/[practiceId]/query";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from "@heroui/skeleton";
 
 interface Params {
     topicId: string,

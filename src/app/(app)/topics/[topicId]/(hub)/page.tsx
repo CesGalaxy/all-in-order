@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import LoadingSpinnerPage from "@/components/pages/LoadingSpinnerPage";
 import TopicRecentNbPagesSection
     from "@/app/(app)/topics/[topicId]/(hub)/_components/templates/TopicRecentNbPagesSection";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from "@heroui/skeleton";
 
 export default async function Page({ params }: {
     params: Promise<{ topicId: string }>,

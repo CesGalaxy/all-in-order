@@ -4,7 +4,7 @@ import { type ReactNode, useActionState, useCallback, useEffect, useOptimistic, 
 import NotebookContext from "@/modules/notebook/app/reactivity/context/NotebookContext";
 import createNotebookPage, { CreateNotebookPageResponse } from "@/modules/notebook/pages/actions/createNotebookPage";
 import { FileObject } from "@supabase/storage-js";
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Modal, useDisclosure } from "@heroui/modal";
 import DeleteNotebookPageModal from "@/modules/notebook/pages/components/modals/DeleteNotebookPageModal";
 import NotebookVocabularyProvider from "@/modules/notebook/vocabulary/reactivity/providers/NotebookVocabularyProvider";
 import { NotebookData } from "@/modules/notebook/app/supabase/db/NotebookData";

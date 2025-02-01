@@ -1,8 +1,8 @@
 "use client";
 
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Input, Textarea } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Input, Textarea } from "@heroui/input";
+import { Button } from "@heroui/button";
 import { IconPlus } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useState } from "react";

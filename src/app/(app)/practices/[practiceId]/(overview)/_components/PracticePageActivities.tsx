@@ -1,8 +1,8 @@
 "use client";
 
 import { TopicActivity } from "@/lib/supabase/entities";
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Accordion, AccordionItem } from "@heroui/accordion";
+import { Tooltip } from "@heroui/tooltip";
 import {
     Question,
     QUESTION_ATTEMPT_GENERATORS,

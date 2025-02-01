@@ -1,12 +1,12 @@
 "use server";
 
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { Card, CardBody, CardHeader } from "@heroui/card";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
 import { redirect } from "next/navigation";
 import { getMaybeUser } from "@/lib/supabase/auth/user";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { login } from "@/modules/user/auth/actions";
 
 export interface SearchParams {

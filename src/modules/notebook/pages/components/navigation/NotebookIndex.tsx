@@ -1,7 +1,7 @@
-import { Divider } from "@nextui-org/divider";
-import { Link } from "@nextui-org/link";
+import { Divider } from "@heroui/divider";
+import { Link } from "@heroui/link";
 import { FileObject } from "@supabase/storage-js";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconBrandNotion } from "@tabler/icons-react";
 
 export default function NotebookIndex({ files }: { files: FileObject[] }) {

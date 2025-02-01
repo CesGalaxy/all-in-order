@@ -1,8 +1,8 @@
 "use client";
 
-import { DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@nextui-org/drawer";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button";
+import { DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@heroui/drawer";
+import { Divider } from "@heroui/divider";
+import { Button } from "@heroui/button";
 
 export default function NotebookShareDrawer({ name }: { name: string }) {
     return <DrawerContent>{onClose => <>

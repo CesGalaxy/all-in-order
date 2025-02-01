@@ -15,9 +15,9 @@ import {
     SuccessfulActionResponse
 } from "@/lib/helpers/form";
 import { type ComponentProps, type ReactElement, type ReactNode, useCallback, useEffect, useState } from "react";
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Button, ButtonProps } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Button, ButtonProps } from "@heroui/button";
+import { Divider } from "@heroui/divider";
 import useActionFunction, { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
 import useInitialWait from "@/reactivity/hooks/useInitialWait";

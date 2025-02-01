@@ -1,7 +1,7 @@
 import DocType from "@/modules/docs/app/DocType";
 import EditSmartDoc from "@/modules/docs/smartdoc/app/EditSmartDoc";
 import ErrorView from "@/components/views/ErrorView";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { IconDownload } from "@tabler/icons-react";
 import EditMdDoc from "@/modules/docs/markdown/components/EditMdDoc";
 

@@ -1,10 +1,10 @@
 "use client";
 
-import type { TextAreaProps } from "@nextui-org/input";
-import { Textarea } from "@nextui-org/input";
+import type { TextAreaProps } from "@heroui/input";
+import { Textarea } from "@heroui/input";
 
 import React from "react";
-import { cn } from "@nextui-org/theme";
+import { cn } from "@heroui/theme";
 
 export default function AIChatPromptInput({ classNames = {}, ...props }: TextAreaProps) {
     return <Textarea

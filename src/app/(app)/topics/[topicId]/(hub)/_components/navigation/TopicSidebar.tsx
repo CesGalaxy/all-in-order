@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import {
     IconFolders,
     IconHome,
@@ -12,9 +12,9 @@ import {
     IconPlayerPlay,
     IconTool
 } from "@tabler/icons-react";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { usePathname } from "next/navigation";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useState } from "react";
 
 const DESTINATIONS = [
@@ -51,6 +51,8 @@ export default function TopicSidebar({ topicId, topicTitle, topicDescription }: 
             <ul className="w-fit flex flex-wrap lg:flex-col sm:gap-1 lg:gap-4">
                 {DESTINATIONS.map(({ name, path, icon }) => <li key={path}>
                     <Link
+                        aria-label={name}
+                        title={collapsed ? name : undefined}
                         href={topicPath + "/" + path}
                         className={DESTINATION_CLASS}
                         color={pathname === topicPath + "/" + (path ? path + "/" : "") ? "primary" : "foreground"}

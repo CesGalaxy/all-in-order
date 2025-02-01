@@ -1,4 +1,4 @@
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from "@heroui/skeleton";
 
 export default function Loading() {
     return <div className="w-full space-y-5 p-4">
