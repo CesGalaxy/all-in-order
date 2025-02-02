@@ -13,7 +13,7 @@ export default function AIChat() {
         <div className="flex flex-col gap-2 bg-background rounded-md p-2 w-full sticky bottom-0">
             <AIChatPromptInputWithActionsBottom/>
             <p className="px-2 text-tiny text-default-400">
-                Acme AI can make mistakes. Consider checking important information.
+                AI-0 can make mistakes. Consider checking important information.
             </p>
         </div>
     </div>;

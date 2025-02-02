@@ -54,7 +54,7 @@ export default function DocumentCard({
                         startContent={<IconEdit/>}>
                     {t("Global.edit")}
                 </Button>
-                <DocumentCardMenu/>
+                <DocumentCardMenu topicId={Number(topicId)} path={doc.name}/>
             </CardFooter>
         </Card>
     );

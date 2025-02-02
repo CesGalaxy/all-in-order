@@ -18,11 +18,11 @@ import placeholderPlugin from "@/modules/docs/markdown/plugins/placeholder";
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 
 export default function EditMdDoc() {
-    const { name, save } = useDocEditor();
+    const { name, save, latestSave, changesSinceSave } = useDocEditor();
 
     return <MilkdownProvider>
-        <div className="border-l border-l-divider w-full grow z-50">
-            <Navbar isBordered shouldHideOnScroll isBlurred={false} maxWidth="full">
+        <div className="border-l border-l-default w-full grow z-50">
+            <Navbar isBordered shouldHideOnScroll={false} isBlurred={false} maxWidth="full">
                 <NavbarContent>
                     <NavbarItem>
                         <Popover>
@@ -45,12 +45,19 @@ export default function EditMdDoc() {
                 </NavbarContent>
                 <NavbarContent justify="end">
                     <ButtonGroup as={NavbarItem} color="primary">
-                        <Button startContent={<IconDeviceFloppy/>} onPress={() => save(true)}>Save</Button>
+                        <Button
+                            startContent={<IconDeviceFloppy/>}
+                            onPress={() => save(true)}
+                            isDisabled={!changesSinceSave}
+                        >Save</Button>
                         <Button isIconOnly><IconChevronDown/></Button>
                     </ButtonGroup>
                 </NavbarContent>
             </Navbar>
             <MilkdownEditor/>
+            <footer className="bg-gradient-to-t from-content2 to-content1 text-content2-foreground py-2 px-4">
+                <p>Saved at: {latestSave}</p>
+            </footer>
         </div>
     </MilkdownProvider>;
 }
@@ -68,7 +75,7 @@ const MilkdownEditor: React.FC = () => {
 
                 ctx.update(editorViewOptionsCtx, prev => ({
                     ...prev,
-                    attributes: { class: 'milkdown-theme-my-theme', },
+                    attributes: { class: 'milkdown-theme-my-theme vt-name-[vt-doc-content]', },
                 }))
 
                 ctx.set(defaultValueCtx, initialContent || "");

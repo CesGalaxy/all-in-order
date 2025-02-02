@@ -30,7 +30,7 @@
         "./src/lib/supabase/database"
       ]
     },
-    "target": "ES2017",
+    "target": "ES2018",
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "declarationMap": true,

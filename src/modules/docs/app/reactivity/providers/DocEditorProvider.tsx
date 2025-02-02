@@ -5,11 +5,12 @@ import { type ReactNode, useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { useThrottledCallback } from "use-debounce";
 
-function DocEditorProvider({ name, initialContent, children, saveAction }: {
+function DocEditorProvider({ name, initialContent, children, saveAction, signedUrl }: {
     name: string,
     children: ReactNode,
     initialContent: string,
-    saveAction: (content: string) => Promise<boolean>
+    saveAction: (content: string) => Promise<boolean>,
+    signedUrl: string,
 }) {
     const rename = useCallback(async (newName: string) => {
         toast("Cannot rename document: " + newName);
@@ -21,7 +22,6 @@ function DocEditorProvider({ name, initialContent, children, saveAction }: {
 
     const save = useThrottledCallback(async (force: boolean = false) => {
         if (!force && !changesSinceSave) return;
-        setChangesSinceSave(false);
         const success = saveAction(unsavedContent);
 
         if (force) await toast.promise(success, {
@@ -34,6 +34,7 @@ function DocEditorProvider({ name, initialContent, children, saveAction }: {
         });
 
         if (await success) {
+            setChangesSinceSave(false);
             setLatestSave(Date.now());
         } else if (!force) {
             toast.error("Error while saving content!");
@@ -42,12 +43,12 @@ function DocEditorProvider({ name, initialContent, children, saveAction }: {
 
     const updateContent = useThrottledCallback((newContent: string) => {
         setUnsavedContent(newContent);
-        if (!changesSinceSave) setChangesSinceSave(true);
+        setChangesSinceSave(true);
         save();
     }, 1000);
 
     return <DocEditorContext.Provider value={{
-        name, rename, initialContent, unsavedContent, updateContent, save,
+        name, rename, initialContent, unsavedContent, updateContent, save, latestSave, changesSinceSave, signedUrl,
     }}>
         {children}
     </DocEditorContext.Provider>
