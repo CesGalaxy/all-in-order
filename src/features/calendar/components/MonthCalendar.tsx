@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, ButtonGroup } from "@heroui/button";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { IconCalendarEvent, IconCalendarPlus, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useState } from "react";
 import CalendarDay from "@/features/calendar/components/CalendarDay";
 import { Select, SelectItem } from "@heroui/select";
@@ -69,7 +69,8 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
     };
 
     return <div className="w-full flex flex-col items-stretch gap-4">
-        <nav className="w-full flex items-center justify-between bg-content2 text-content2-foreground rounded-xl">
+        <nav
+            className="w-full flex items-center justify-between bg-content2 text-content2-foreground rounded-xl flex-wrap gap-2">
             <ButtonGroup>
                 <Button isIconOnly onPress={previousMonth}><IconChevronLeft/></Button>
                 <Select
@@ -103,6 +104,14 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                 </Select>
                 <Button isIconOnly onPress={nextMonth}><IconChevronRight/></Button>
             </ButtonGroup>
+            <ul className="flex items-center gap-4">
+                <li>
+                    <Button isIconOnly><IconCalendarEvent/></Button>
+                </li>
+                <li>
+                    <Button color="primary" startContent={<IconCalendarPlus/>}>Add event</Button>
+                </li>
+            </ul>
         </nav>
         <div className="relative overflow-x-clip">
             <AnimatePresence initial={false} custom={direction}>
