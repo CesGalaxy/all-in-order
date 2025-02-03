@@ -16,7 +16,82 @@ const messages = [
         id: 3,
         text: 'Hello',
         sender: 'AI',
-    }
+    },
+    {
+        id: 4,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 5,
+        text: 'Hello',
+        sender: 'User',
+    },
+    {
+        id: 6,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 7,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 8,
+        text: 'Hello',
+        sender: 'User',
+    },
+    {
+        id: 9,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 11,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 12,
+        text: 'Hello',
+        sender: 'User',
+    },
+    {
+        id: 13,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 14,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 15,
+        text: 'Hello',
+        sender: 'User',
+    },
+    {
+        id: 16,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 17,
+        text: 'Hello',
+        sender: 'AI',
+    },
+    {
+        id: 18,
+        text: 'Hello',
+        sender: 'User',
+    },
+    {
+        id: 19,
+        text: 'Hello',
+        sender: 'AI',
+    },
 ]
 
 export default function AIChatConversation() {

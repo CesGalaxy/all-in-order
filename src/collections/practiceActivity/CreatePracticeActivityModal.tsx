@@ -128,7 +128,7 @@ function CreatePracticeActivityModal({ action }: {
                     <Button
                         color="primary"
                         startContent={<IconPlus/>}
-                        isDisabled={!title}
+                        isDisabled={!title || !draft}
                         isLoading={loading}
                         onPress={async () => {
                             if (typeof draft !== "object" || loading || !title || tags.length > 5) return;

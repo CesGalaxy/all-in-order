@@ -7,6 +7,15 @@ import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
 import { cn } from "@heroui/theme";
 import { ScrollShadow } from "@heroui/scroll-shadow";
+import { Drawer } from "@heroui/drawer";
+import AIChatPromptAttachments from "@/modules/ai/chat/components/modal/AIChatPromptAttachments";
+import { useDisclosure } from "@heroui/modal";
+
+export type PromptAttachment = {
+    type: "notebook-page" | "doc" | "upload",
+    name: string,
+    data: Blob
+};
 
 export default function AIChatPromptInputWithActions({}) {
     const ideas = [
@@ -30,7 +39,10 @@ export default function AIChatPromptInputWithActions({}) {
 
     const [prompt, setPrompt] = React.useState<string>("");
 
-    return (
+    const [attachments, setAttachments] = React.useState<PromptAttachment[]>([]);
+    const attachmentsDisclosure = useDisclosure();
+
+    return <>
         <div className="flex w-full flex-col gap-4">
             <ScrollShadow hideScrollBar className="flex flex-nowrap gap-2 max-w-full" orientation="horizontal">
                 <div className="flex gap-2">
@@ -82,10 +94,11 @@ export default function AIChatPromptInputWithActions({}) {
                     <div className="flex w-full gap-1 md:gap-3">
                         <Button
                             size="sm"
-                            startContent={
-                                <IconPaperclip className="text-default-500" width={18}/>
-                            }
+                            startContent={<IconPaperclip className="text-default-500" width={18}/>}
+                            endContent={attachments.length && <span>({attachments.length})</span>}
                             variant="flat"
+                            color={attachments.length === 0 ? "default" : "primary"}
+                            onPress={attachmentsDisclosure.onOpen}
                         >
                             Attach
                         </Button>
@@ -112,5 +125,8 @@ export default function AIChatPromptInputWithActions({}) {
                 </div>
             </form>
         </div>
-    );
+        <Drawer isOpen={attachmentsDisclosure.isOpen} onOpenChange={attachmentsDisclosure.onOpenChange}>
+            <AIChatPromptAttachments attachments={attachments}/>
+        </Drawer>
+    </>;
 }

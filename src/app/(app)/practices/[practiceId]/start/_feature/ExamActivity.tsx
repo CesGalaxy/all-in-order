@@ -12,6 +12,10 @@ import ExaminateFillTheGapQuestion
 import FillTheGapQuestionCorrection
     from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/FillTheGapQuestionCorrection";
 import { QuestionAnswer, QuestionType } from "@/modules/learn/question";
+import ExaminateRelationQuestion
+    from "@/app/(app)/practices/[practiceId]/start/_feature/questions/ExaminateRelationQuestion";
+import RelationQuestionCorrection
+    from "@/app/(app)/practices/[practiceId]/start/_feature/corrections/RelationQuestionCorrection";
 
 const variants = {
     "enter": (direction: number) => ({
@@ -36,11 +40,13 @@ const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velo
 const QUESTION_EXAMINATIONS = {
     choice: ExaminateChoiceQuestion,
     fill_the_gap: ExaminateFillTheGapQuestion,
+    relation: ExaminateRelationQuestion,
 }
 
 const QUESTION_CORRECTIONS = {
     choice: ChoiceQuestionCorrection,
     fill_the_gap: FillTheGapQuestionCorrection,
+    relation: RelationQuestionCorrection,
 }
 
 export default function ExamActivity() {

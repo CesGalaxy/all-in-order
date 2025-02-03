@@ -12,10 +12,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import DocTypeIcon from "@/modules/docs/app/components/DocTypeIcon";
 import { Alert } from "@heroui/alert";
 import { Button, ButtonGroup } from "@heroui/button";
-import { IconChevronDown, IconDeviceFloppy } from "@tabler/icons-react";
+import { IconChevronDown, IconDeviceFloppy, IconDownload, IconPrinter } from "@tabler/icons-react";
 import useDocEditor from "@/modules/docs/app/reactivity/hooks/useDocEditor";
 import placeholderPlugin from "@/modules/docs/markdown/plugins/placeholder";
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 
 export default function EditMdDoc() {
     const { name, save, latestSave, changesSinceSave } = useDocEditor();
@@ -50,7 +51,15 @@ export default function EditMdDoc() {
                             onPress={() => save(true)}
                             isDisabled={!changesSinceSave}
                         >Save</Button>
-                        <Button isIconOnly><IconChevronDown/></Button>
+                        <Dropdown>
+                            <DropdownTrigger>
+                                <Button isIconOnly><IconChevronDown/></Button>
+                            </DropdownTrigger>
+                            <DropdownMenu>
+                                <DropdownItem key="download" startContent={<IconDownload/>}>Download</DropdownItem>
+                                <DropdownItem key="print" startContent={<IconPrinter/>}>Print</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
                     </ButtonGroup>
                 </NavbarContent>
             </Navbar>
