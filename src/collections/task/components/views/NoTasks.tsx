@@ -2,7 +2,7 @@
 
 import tasksImage from "@/assets/pictures/tasks.svg";
 import BlankView, { BlankViewProps } from "@/components/views/BlankView";
-import { getMaybeMyProfile } from "@/supabase/auth/profile";
+import { getMaybeMyProfile } from "@/lib/supabase/auth/profile";
 import CreateTaskButton from "@/collections/task/components/CreateTaskButton";
 
 export default async function NoTasks({ subjectId, extraViewProps }: {

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import { getUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 
 export type NotebookVocabularyAreaDownloadFormat = "json" | "csv";
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, { params }: {
     const { data, error } = await supabaseClient
         .from("notebooks")
         .select("area:nb_vocab_areas(id, icon, name, description, definitions: nb_vocab_definitions(*))")
-        .eq("topic", topicId)
+        .eq("topic", parseInt(topicId))
         .eq("user", user.id)
         .eq("area.name", areaName)
         .maybeSingle();

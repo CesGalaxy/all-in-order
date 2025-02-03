@@ -1,5 +1,5 @@
-import getSupabase from "@/supabase/server";
-import { getUser } from "@/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 import { notFound } from "next/navigation";
 import NbVocabPageNavbar
@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     const { data, error } = await supabaseClient
         .from("notebooks")
         .select("area:nb_vocab_areas(id, icon, name, description, definitions: nb_vocab_definitions(*))")
-        .eq("topic", topicId)
+        .eq("topic", parseInt(topicId))
         .eq("user", user.id)
         .eq("area.name", areaName)
         .maybeSingle();

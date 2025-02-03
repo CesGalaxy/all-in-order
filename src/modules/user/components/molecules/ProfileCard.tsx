@@ -1,12 +1,15 @@
-import { Profile } from "@aio/db/entities";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { IconUserEdit } from "@tabler/icons-react";
+"use server";
 
-export default function ProfileCard({ profile }: {
-    profile: Pick<Profile, "name" | "username" | "bio" | "avatar_url">
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { IconUserEdit } from "@tabler/icons-react";
+import { getMyProfile } from "@/lib/supabase/auth/profile";
+
+export default async function ProfileCard({}: {
+    //profile: Pick<Profile, "name" | "username" | "bio" | "avatar_url">
 }) {
+    const profile = await getMyProfile();
     return <Card className="w-full">
         <CardHeader className="justify-between">
             <div className="flex gap-4">

@@ -40,4 +40,4 @@ next-env.d.ts
 
 # monorepo
 packages/*/node_modules
-modules/*/node_modules
+src/modules/*/node_modules

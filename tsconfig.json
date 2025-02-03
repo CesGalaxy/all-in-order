@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@aio/ts/base.json",
   "compilerOptions": {
     "lib": [
       "dom",
@@ -26,9 +25,16 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@aio/db/supabase": [
+        "./src/lib/supabase/database"
       ]
     },
-    "target": "ES2017"
+    "target": "ES2018",
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",

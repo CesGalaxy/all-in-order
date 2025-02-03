@@ -1,7 +1,7 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { Input, Textarea } from "@heroui/input";
+import { Button } from "@heroui/button";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
 import { ActionResponse } from "@/lib/helpers/form";

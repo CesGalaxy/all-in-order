@@ -1,11 +1,11 @@
 "use client";
 
 import ModalForm from "@/components/utils/ModalForm";
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import { useState } from "react";
 import useNotebookVocabulary from "@/modules/notebook/vocabulary/reactivity/hooks/useNotebookVocabulary";
 import { wrapActionFunctionState } from "@/reactivity/hooks/useActionFunction";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@heroui/select";
 import { IconFolder } from "@tabler/icons-react";
 
 export default function NbAddDefinitionsModal({ defaultArea }: { defaultArea?: string }) {

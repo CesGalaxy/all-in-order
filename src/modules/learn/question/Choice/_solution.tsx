@@ -1,4 +1,4 @@
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { QuestionChoiceData } from "@/modules/learn/question/Choice";
 

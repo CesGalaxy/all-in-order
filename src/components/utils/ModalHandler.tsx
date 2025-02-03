@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Modal, useDisclosure } from "@heroui/modal";
 import type { ReactNode } from "react";
 
 export interface ModalHandlerProps {

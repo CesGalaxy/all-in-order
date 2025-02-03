@@ -1,10 +1,10 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { IconDatabaseImport, IconDots, IconDownload, IconEdit, IconShare, IconTrash } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
-import { cn } from "@nextui-org/theme";
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Button } from "@heroui/button";
+import { cn } from "@heroui/theme";
+import { Modal, useDisclosure } from "@heroui/modal";
 import DeleteSubjectModal from "@/collections/subject/components/modals/DeleteSubjectModal";
 import { useTranslations } from "next-intl";
 

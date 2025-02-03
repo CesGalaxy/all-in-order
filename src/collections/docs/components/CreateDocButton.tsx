@@ -1,5 +1,5 @@
 import { IconFilePlus, IconUpload } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useTranslations } from "next-intl";
 import ModalButton from "@/components/utils/ModalButton";
 import CreateDocModal from "@/collections/docs/components/modals/CreateDocModal";

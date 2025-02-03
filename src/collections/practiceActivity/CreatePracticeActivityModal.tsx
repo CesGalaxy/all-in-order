@@ -1,15 +1,15 @@
 "use client";
 
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Input, Textarea } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Input, Textarea } from "@heroui/input";
+import { Button } from "@heroui/button";
 import { IconLine, IconListCheck, IconMist, IconPlayCard, IconPlus, IconSquareRoundedCheck } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
 import { Question, QUESTION_CREATORS, QuestionDraft, QuestionType } from "@/modules/learn/question";
-import { Select, SelectItem } from "@nextui-org/select";
-import { Divider } from "@nextui-org/divider";
-import { Chip } from "@nextui-org/chip";
+import { Select, SelectItem } from "@heroui/select";
+import { Divider } from "@heroui/divider";
+import { Chip } from "@heroui/chip";
 
 function CreatePracticeActivityModal({ action }: {
     action: (data: Question, tags: string[]) => Promise<string | undefined>
@@ -67,10 +67,10 @@ function CreatePracticeActivityModal({ action }: {
                             <SelectItem key="true_or_false" startContent={<IconSquareRoundedCheck/>}>
                                 True or false
                             </SelectItem>
-                            <SelectItem key="fill_the_gap3" startContent={<IconLine/>}>
+                            <SelectItem key="relation" startContent={<IconLine/>}>
                                 Relation
                             </SelectItem>
-                            <SelectItem key="fill_the_gap4" startContent={<IconPlayCard/>}>
+                            <SelectItem key="pairs" startContent={<IconPlayCard/>}>
                                 Pairs
                             </SelectItem>
                         </Select>
@@ -128,7 +128,7 @@ function CreatePracticeActivityModal({ action }: {
                     <Button
                         color="primary"
                         startContent={<IconPlus/>}
-                        isDisabled={!title}
+                        isDisabled={!title || !draft}
                         isLoading={loading}
                         onPress={async () => {
                             if (typeof draft !== "object" || loading || !title || tags.length > 5) return;

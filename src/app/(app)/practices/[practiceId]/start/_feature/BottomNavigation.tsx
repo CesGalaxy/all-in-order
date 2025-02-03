@@ -1,7 +1,7 @@
 "use client";
 
 import { useExam } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@heroui/button";
 import {
     IconCheck,
     IconChevronLeft,
@@ -11,8 +11,8 @@ import {
     IconQuestionMark,
     IconX
 } from "@tabler/icons-react";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Chip } from "@nextui-org/chip";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
+import { Chip } from "@heroui/chip";
 import { useCallback, useMemo } from "react";
 import SubmitExamButton from "@/app/(app)/practices/[practiceId]/start/_feature/SubmitExamButton";
 import { QUESTION_ANSWER_VALIDATORS } from "@/modules/learn/question";
@@ -23,7 +23,10 @@ export default function BottomNavigation() {
         currentActivity: { data, answer, answerDraft, correct },
         currentActivityIndex,
         setCurrentActivityIndex,
-        updateCurrentActivity
+        setAnimationDirection,
+        updateCurrentActivity,
+        nextActivity,
+        prevActivity,
     } = useExam();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -34,9 +37,9 @@ export default function BottomNavigation() {
         // @ts-ignore
         const correct = QUESTION_ANSWER_VALIDATORS[data.type](data, answerDraft);
 
+        setAnimationDirection(0);
         updateCurrentActivity({ answerDraft: undefined, answer: answerDraft, correct });
-        console.log(correct);
-    }, [answerDraft, data, updateCurrentActivity]);
+    }, [answerDraft, data, setAnimationDirection, updateCurrentActivity]);
 
     const modal = useMemo(() => <Modal isOpen={isOpen} onClose={onOpenChange}>
         <ModalContent className="overflow-y-auto max-h-full">
@@ -52,6 +55,7 @@ export default function BottomNavigation() {
                         }
                         color={activity.correct === true ? "success" : activity.correct === false ? "danger" : "default"}
                         onPress={() => {
+                            setAnimationDirection(currentActivityIndex < i ? 1 : -1);
                             setCurrentActivityIndex(i);
                             onClose();
                         }}
@@ -94,7 +98,7 @@ export default function BottomNavigation() {
     return <>
         <ButtonGroup className="w-full" color={statusColor}>
             <Button
-                onPress={() => setCurrentActivityIndex(currentActivityIndex - 1)}
+                onPress={prevActivity}
                 isDisabled={currentActivityIndex === 0}
             >
                 <IconChevronLeft/>
@@ -112,7 +116,7 @@ export default function BottomNavigation() {
             </Button>
             <Button
                 isDisabled={!answer || currentActivityIndex === activities.length - 1}
-                onPress={() => setCurrentActivityIndex(currentActivityIndex + 1)}
+                onPress={nextActivity}
             >
                 <IconChevronRight/>
             </Button>

@@ -1,14 +1,14 @@
 "use client";
 
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Input, Textarea } from "@nextui-org/input";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@heroui/modal";
+import { Button } from "@heroui/button";
+import { Input, Textarea } from "@heroui/input";
 import { IconDeviceFloppy, IconEdit } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { PostgrestError } from "@supabase/supabase-js";
-import { Checkbox } from "@nextui-org/checkbox";
-import { Course } from "@aio/db/entities";
+import { Checkbox } from "@heroui/checkbox";
+import { Course } from "@/lib/supabase/entities";
 
 export type RequiredCourse = Pick<Course, "name" | "description" | "is_public">
 

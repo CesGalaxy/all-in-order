@@ -1,5 +1,5 @@
 import PageContainer from "@/components/containers/PageContainer";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from "@heroui/skeleton";
 
 export default function Loading() {
     return <PageContainer className="flex flex-col h-full items-center justify-center">

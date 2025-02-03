@@ -1,9 +1,9 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import { IconList } from "@tabler/icons-react";
-import { Topic } from "@aio/db/entities";
+import { Topic } from "@/lib/supabase/entities";
 
 export type RequiredTopic = Pick<Topic, "id" | "title">;
 

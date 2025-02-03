@@ -1,8 +1,8 @@
 "use client";
 
 import PageContainer from "@/components/containers/PageContainer";
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/table";
-import { Spinner } from "@nextui-org/spinner";
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
+import { Spinner } from "@heroui/spinner";
 
 const COLUMNS = [
     {

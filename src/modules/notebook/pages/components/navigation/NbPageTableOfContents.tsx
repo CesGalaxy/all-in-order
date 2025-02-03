@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { EditorInstance } from "novel";
 
 const LEVEL_CLASS = [

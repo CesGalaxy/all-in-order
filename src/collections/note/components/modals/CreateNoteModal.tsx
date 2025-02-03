@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import { IconPlus } from "@tabler/icons-react";
 import ModalForm from "@/components/utils/ModalForm";
 import useValidatedState from "@/reactivity/hooks/useValidatedState";

@@ -87,6 +87,11 @@
       "other": {
         "desc": "We couldn't find the doc type.",
         "name": "Unknown"
+      },
+      "sd": {
+        "desc": "A rich text format with tons of features for writting docs",
+        "desc_short": "A rich text format with tons of features",
+        "name": "SmartDoc"
       }
     },
     "error_occurred": "An error occurred",
@@ -108,8 +113,10 @@
     "delete": "Delete",
     "download": "Download",
     "edit": "Edit",
+    "email": "Email",
     "open": "Open",
     "options": "Options",
+    "password": "Password",
     "save": "Save",
     "settings": "Settings",
     "share": "Share",

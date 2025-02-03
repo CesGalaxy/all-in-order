@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconArrowBack, IconX } from "@tabler/icons-react";
 import { useTransitionRouter } from "next-view-transitions";
 

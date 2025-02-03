@@ -1,5 +1,5 @@
 import { AuthProvider } from "@refinedev/core";
-import { getMaybeUser } from "@/supabase/auth/user";
+import { getMaybeUser } from "@/lib/supabase/auth/user";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 const authProvider: (sb: () => SupabaseClient) => AuthProvider = (sb) => ({

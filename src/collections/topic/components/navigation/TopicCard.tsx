@@ -1,13 +1,14 @@
 "use client";
 
-import { Topic } from "@aio/db/entities";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { Divider } from "@nextui-org/divider";
+import { Topic } from "@/lib/supabase/entities";
+import { Card, CardFooter, CardHeader } from "@heroui/card";
+import { Link } from "@heroui/link";
+import { Divider } from "@heroui/divider";
 import { useTranslations } from "next-intl";
-import { useTransitionRouter } from "next-view-transitions";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconDownload, IconEdit, IconPrinter, IconShare } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { Tooltip } from "@heroui/tooltip";
 
 export type RequiredTopic = Pick<Topic, "id" | "title" | "description">;
 
@@ -17,11 +18,12 @@ export interface TopicCardProps {
 
 export default function TopicCard({ topic }: TopicCardProps) {
     const t = useTranslations();
-    const router = useTransitionRouter();
+    const router = useRouter();
 
     const topicPath = '/topics/' + topic.id;
 
-    return <Card as="section" isPressable onPress={() => router.push(topicPath)}>
+    return <Card as="section" isPressable onPress={() => router.push(topicPath)}
+                 onMouseEnter={() => router.prefetch(topicPath)}>
         <CardHeader className="flex-col items-start" as="header">
             <h2 className="font-bold text-3xl">{topic.title}</h2>
             {topic.description && <small className="text-default-500">{topic.description}</small>}
@@ -32,10 +34,18 @@ export default function TopicCard({ topic }: TopicCardProps) {
                 {t('AI.chat_with')}
             </Link>
             <nav className="flex items-center gap-4">
-                <Button isIconOnly variant="light"><IconPrinter/></Button>
-                <Button isIconOnly variant="light"><IconDownload/></Button>
-                <Button isIconOnly variant="light"><IconShare/></Button>
-                <Button isIconOnly><IconEdit/></Button>
+                <Tooltip content={t('Global.content')}>
+                    <Button isIconOnly variant="light" as={Link} href={topicPath + "/summary"}><IconPrinter/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.download')}>
+                    <Button isIconOnly variant="light"><IconDownload/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.share')}>
+                    <Button isIconOnly variant="light"><IconShare/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.settings')}>
+                    <Button isIconOnly as={Link} href={topicPath + "/settings"}><IconEdit/></Button>
+                </Tooltip>
             </nav>
         </CardFooter>
     </Card>;

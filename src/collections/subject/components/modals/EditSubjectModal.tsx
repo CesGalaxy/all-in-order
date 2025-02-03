@@ -1,7 +1,7 @@
 "use client";
 
 import ModalForm from "@/components/utils/ModalForm";
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import useValidatedState from "@/reactivity/hooks/useValidatedState";
 import { SUBJECT_DESCRIPTION, SUBJECT_NAME } from "@/collections/subject/schemas";
 import { ActionResponse } from "@/lib/helpers/form";

@@ -1,7 +1,7 @@
 import addPracticeImage from "@/assets/pictures/add_practice.svg";
 import BlankView from "@/components/views/BlankView";
 import CreatePracticeButton from "@/collections/practice/components/CreatePracticeButton";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconSparkles } from "@tabler/icons-react";
 
 export interface NoPracticesProps {

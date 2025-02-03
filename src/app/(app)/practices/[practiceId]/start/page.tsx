@@ -1,20 +1,20 @@
 "use server";
 
-import { Navbar, NavbarBrand, NavbarContent } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
+import { Link } from "@heroui/link";
 import Image from "next/image";
 import LogoIcoCol from "@/assets/logo/IcoCol.svg";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { IconDoorExit } from "@tabler/icons-react";
 import { Activity, ExamProvider } from "@/app/(app)/practices/[practiceId]/start/_feature/ExamContext";
 import Counter from "@/app/(app)/practices/[practiceId]/start/_feature/Counter";
 import BottomNavigation from "@/app/(app)/practices/[practiceId]/start/_feature/BottomNavigation";
 import CurrentQuestionTitle from "@/app/(app)/practices/[practiceId]/start/_feature/CurrentQuestionTitle";
 import ExamActivity from "@/app/(app)/practices/[practiceId]/start/_feature/ExamActivity";
-import { getMaybeMyProfile } from "@/supabase/auth/profile";
+import { getMaybeMyProfile } from "@/lib/supabase/auth/profile";
 import { redirect } from "next/navigation";
 import { Json } from "@aio/db/supabase";
 import { Question, QUESTION_ATTEMPT_GENERATORS, QuestionAnswer, QuestionType } from "@/modules/learn/question";
@@ -73,7 +73,8 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
 
         if (error) return error.message;
 
-        redirect(`/practices/${id}/results/${data.id}`);
+        redirect(`/topics/${topic_id}`);
+        // redirect(`/practices/${id}/results/${data.id}`);
     }
 
     return <ExamProvider
@@ -94,7 +95,7 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
                             <IconDoorExit/>
                         </Button>
                         <NavbarBrand>
-                            <Link href="/">
+                            <Link href="/public">
                                 <Image src={LogoIcoCol} alt="All In Order" height={64} priority/>
                             </Link>
                         </NavbarBrand>

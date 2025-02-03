@@ -1,8 +1,8 @@
 "use server";
 
 import ErrorView from "@/components/views/ErrorView";
-import { getUser } from "@/supabase/auth/user";
-import { createSupabaseServerClient } from "@/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getNotebookRootPath } from "@/modules/notebook/pages/lib/helpers/names";
 import NbPageEditTemplate from "@/modules/notebook/pages/components/pages/NbPageEditTemplate";
 import NotebookPageData from "@/modules/notebook/app/supabase/storage/NotebookPageData";
@@ -16,10 +16,11 @@ interface SearchParams {
     viewMode?: string;
 }
 
-// export async function generateMetadata({ params }: { params: Promise<Params> }) {
-//     const { fileName } = await getRouteData(params);
-//     return { title: `${atob(fileName)} - Notebook`, }
-// }
+export async function generateMetadata({ params }: { params: Promise<Params> }) {
+    const { nbPage } = await params;
+    const fileName = decodeURIComponent(nbPage);
+    return { title: `${atob(fileName)} - Notebook` };
+}
 
 export default async function Page({ params }: { params: Promise<Params>, searchParams: Promise<SearchParams> }) {
     const { topicId, nbPage } = await params;
@@ -36,13 +37,15 @@ export default async function Page({ params }: { params: Promise<Params>, search
     if (infoError) return <ErrorView message={infoError.message}/>;
     if (downloadError) return <ErrorView message={downloadError.message}/>;
 
-    // try {
-    const rawContent = await download.text();
-    const data = JSON.parse(rawContent) as NotebookPageData;
+    let data: NotebookPageData;
+
+    try {
+        const rawContent = await download.text();
+        data = JSON.parse(rawContent) as NotebookPageData;
+    } catch (e) {
+        console.log(e)
+        return <ErrorView message={"Error reading file contents"}/>;
+    }
 
     return <NbPageEditTemplate data={data} file={info} path={path}/>;
-    // } catch (e) {
-    //     console.log(e)
-    //     return <ErrorView message={"Error reading file contents"}/>;
-    // }
 }

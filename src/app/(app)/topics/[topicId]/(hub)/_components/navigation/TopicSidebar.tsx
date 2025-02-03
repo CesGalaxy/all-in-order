@@ -1,9 +1,10 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import {
     IconFolders,
     IconHome,
+    IconLayoutSidebarLeftCollapse,
     IconMessage,
     IconMessages,
     IconNotebook,
@@ -11,8 +12,10 @@ import {
     IconPlayerPlay,
     IconTool
 } from "@tabler/icons-react";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { usePathname } from "next/navigation";
+import { Button } from "@heroui/button";
+import { useState } from "react";
 
 const DESTINATIONS = [
     { name: "Overview", path: "", icon: <IconHome/> },
@@ -29,32 +32,37 @@ const DESTINATION_CLASS = "w-full md:text-lg gap-1 sm:gap-2 md:gap-4 rounded-ful
 
 export interface TopicSidebarProps {
     topicId: number | string;
-    topicTitle?: string;
+    topicTitle: string;
     topicDescription?: string | null;
 }
 
 export default function TopicSidebar({ topicId, topicTitle, topicDescription }: TopicSidebarProps) {
     const topicPath = "/topics/" + topicId;
     const pathname = usePathname();
+    const [collapsed, setCollapsed] = useState(false);
 
-    return <div className="w-full h-full">
-        <header>
-            <h1 className="text-2xl">{topicTitle || "LOADING..."}</h1>
+    return <div className="w-full h-full space-y-4">
+        {collapsed || <header className="lg:min-w-48">
+            <h1 className="text-2xl">{topicTitle}</h1>
             <p className="text-foreground-500">{topicDescription}</p>
-        </header>
-        <Divider className="my-4"/>
+        </header>}
+        {collapsed || <Divider/>}
         <nav>
-            <ul className="w-full flex flex-wrap lg:flex-col sm:gap-1 lg:gap-4">
+            <ul className="w-fit flex flex-wrap lg:flex-col sm:gap-1 lg:gap-4">
                 {DESTINATIONS.map(({ name, path, icon }) => <li key={path}>
                     <Link
+                        aria-label={name}
+                        title={collapsed ? name : undefined}
                         href={topicPath + "/" + path}
                         className={DESTINATION_CLASS}
                         color={pathname === topicPath + "/" + (path ? path + "/" : "") ? "primary" : "foreground"}
                     >
-                        {icon}{name}
+                        {icon}{collapsed || name}
                     </Link>
                 </li>)}
             </ul>
         </nav>
+        <Button isIconOnly variant="light" className="ml-2 hidden lg:flex"
+                onPress={() => setCollapsed(!collapsed)}><IconLayoutSidebarLeftCollapse/></Button>
     </div>
 }

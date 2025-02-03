@@ -1,5 +1,5 @@
-import { Divider } from "@nextui-org/divider";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Divider } from "@heroui/divider";
+import { Skeleton } from "@heroui/skeleton";
 
 export default function Loading() {
     return <div className="w-full h-full flex-grow overflow-auto flex items-center justify-center">

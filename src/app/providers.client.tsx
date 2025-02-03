@@ -1,7 +1,8 @@
 'use client'
 
-import { ToastContainer } from "react-toastify";
 import { ReactNode, useEffect } from "react";
+import { HeroUIProvider } from "@heroui/system";
+import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 declare global {
@@ -10,8 +11,11 @@ declare global {
     }
 }
 
-export function RootProvidersClient({ children }: { children: ReactNode }) {
+export default function RootProvidersClient({ children }: { children: ReactNode }) {
     const router = useRouter();
+
+    // Prevent initial flash of white background
+    useEffect(() => document.body.classList.add("transition-background"));
 
     useEffect(() => {
         if (typeof window == undefined) return;
@@ -32,8 +36,8 @@ export function RootProvidersClient({ children }: { children: ReactNode }) {
         });
     }, []);
 
-    return <>
-        <ToastContainer position="bottom-right"/>
+    return <HeroUIProvider navigate={router.push} className="w-full h-full">
         {children}
-    </>;
+        <ToastContainer position="bottom-right"/>
+    </HeroUIProvider>;
 }

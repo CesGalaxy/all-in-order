@@ -1,8 +1,8 @@
 "use server";
 
 import NbVocabPractice from "@/modules/notebook/vocabulary/features/practice/app/NbVocabPractice";
-import { getUser } from "@/supabase/auth/user";
-import getSupabase from "@/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import { notFound } from "next/navigation";
 import NbVocabPracticeProvider

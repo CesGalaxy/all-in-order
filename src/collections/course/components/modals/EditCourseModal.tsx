@@ -1,7 +1,7 @@
 "use client";
 
-import { Input, Textarea } from "@nextui-org/input";
-import { Checkbox } from "@nextui-org/checkbox";
+import { Input, Textarea } from "@heroui/input";
+import { Checkbox } from "@heroui/checkbox";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
 import { COURSE_DESCRIPTION, COURSE_NAME } from "@/collections/course/schemas";

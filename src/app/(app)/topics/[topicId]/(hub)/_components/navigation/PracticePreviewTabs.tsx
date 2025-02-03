@@ -1,6 +1,6 @@
 "use client";
 
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { Tab, Tabs } from "@heroui/tabs";
 import { usePathname } from "next/navigation";
 
 export type PracticeTab = "overview" | "edit" | "attempts" | "stats";

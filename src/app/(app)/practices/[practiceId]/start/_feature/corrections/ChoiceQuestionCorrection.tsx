@@ -1,8 +1,8 @@
 "use client";
 
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Accordion, AccordionItem } from "@heroui/accordion";
 import { IconCheck, IconChevronLeft, IconX } from "@tabler/icons-react";
-import { Checkbox } from "@nextui-org/checkbox";
+import { Checkbox } from "@heroui/checkbox";
 import { QuestionChoiceAnswer, QuestionChoiceAttempt, QuestionChoiceData } from "@/modules/learn/question/Choice";
 
 export default function ChoiceQuestionCorrection({

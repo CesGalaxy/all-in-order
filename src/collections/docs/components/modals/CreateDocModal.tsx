@@ -2,19 +2,19 @@
 
 import ModalForm from "@/components/utils/ModalForm";
 import { useTranslations } from "next-intl";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import useValidatedState from "@/reactivity/hooks/useValidatedState";
 import { TOPIC_DOC_NAME } from "@/collections/docs/schemas";
-import { Switch } from "@nextui-org/switch";
+import { Switch } from "@heroui/switch";
 import { IconLock, IconLockOff } from "@tabler/icons-react";
-import { cn } from "@nextui-org/theme";
+import { cn } from "@heroui/theme";
 import { useState } from "react";
-import { createTopicDocument } from "@/supabase/storage/topicDoc";
-import DocType from "@/features/docs/DocType";
-import { Select, SelectItem, SelectSection } from "@nextui-org/select";
-import DocTypeIcon from "@/features/docs/components/DocTypeIcon";
-import { Divider } from "@nextui-org/divider";
-import { Checkbox } from "@nextui-org/checkbox";
+import { createTopicDocument } from "@/lib/supabase/storage/topicDoc";
+import DocType from "@/modules/docs/app/DocType";
+import { Select, SelectItem, SelectSection } from "@heroui/select";
+import DocTypeIcon from "@/modules/docs/app/components/DocTypeIcon";
+import { Divider } from "@heroui/divider";
+import { Checkbox } from "@heroui/checkbox";
 
 const AVAILABLE_TYPES = [DocType.MD];
 

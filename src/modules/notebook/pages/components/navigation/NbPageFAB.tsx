@@ -1,9 +1,9 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import { IconCategory, IconDeviceFloppy, IconDownload, IconListTree, IconPrinter } from "@tabler/icons-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import useNotebookPage from "@/modules/notebook/pages/reactivity/hooks/useNotebookPage";
 import NbPageTableOfContents from "@/modules/notebook/pages/components/navigation/NbPageTableOfContents";
 

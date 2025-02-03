@@ -1,4 +1,4 @@
-import { SubjectNote } from "@aio/db/entities";
+import { SubjectNote } from "@/lib/supabase/entities";
 import NoNotes from "@/collections/note/components/views/NoNotes";
 import SectionContainer from "@/components/containers/SectionContainer";
 import { useTranslations } from "next-intl";
@@ -18,6 +18,7 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
 
     return <SectionContainer
         title={t("App.notes")}
+        className="w-full"
         trailing={(notes.length !== 0) && createNoteAction && <ModalButton
             modal={<CreateNoteModal action={createNoteAction}/>}
             color="primary"
@@ -27,13 +28,13 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
         >
             {t("Dash.Note.create")}
         </ModalButton>}
-        className="w-full flex flex-col"
     >
         <ContentGallery
             items={notes}
             getItemKey={note => note.id}
             renderItem={note => <NoteCard note={note} subjectId={subjectId}/>}
             emptyView={<NoNotes subjectId={subjectId} extraViewProps={{ small: true }} action={createNoteAction}/>}
+            className="space-y-4"
         />
     </SectionContainer>;
 }

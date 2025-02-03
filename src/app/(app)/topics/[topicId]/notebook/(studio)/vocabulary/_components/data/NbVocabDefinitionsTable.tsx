@@ -1,6 +1,6 @@
 "use client";
 
-import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/table";
+import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
 
 const COLUMNS = [
     { key: "term", label: "Term" },

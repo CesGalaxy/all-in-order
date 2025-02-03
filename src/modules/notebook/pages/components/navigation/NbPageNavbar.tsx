@@ -1,13 +1,13 @@
 "use client";
 
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+import { Navbar, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Link } from "@heroui/link";
 import useNotebookPage from "@/modules/notebook/pages/reactivity/hooks/useNotebookPage";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { toast } from "react-toastify";
 import { IconAdjustments } from "@tabler/icons-react";
-import { useDisclosure } from "@nextui-org/modal";
-import { Drawer } from "@nextui-org/drawer";
+import { useDisclosure } from "@heroui/modal";
+import { Drawer } from "@heroui/drawer";
 import type { Camelize, FileObjectV2 } from "@supabase/storage-js";
 import NbPageDetailsDrawer from "@/modules/notebook/pages/components/modals/NbPageDetailsDrawer";
 

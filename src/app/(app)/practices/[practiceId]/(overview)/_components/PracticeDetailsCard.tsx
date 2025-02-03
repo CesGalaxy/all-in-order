@@ -1,6 +1,6 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
-import { Chip } from "@nextui-org/chip";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Link } from "@heroui/link";
+import { Chip } from "@heroui/chip";
 import {
     IconBooks,
     IconCalendar,
@@ -10,12 +10,12 @@ import {
     IconRobot,
     IconUser
 } from "@tabler/icons-react";
-import { Divider } from "@nextui-org/divider";
-import { Button } from "@nextui-org/button";
-import { Avatar } from "@nextui-org/avatar";
+import { Divider } from "@heroui/divider";
+import { Button } from "@heroui/button";
+import { Avatar } from "@heroui/avatar";
 import ModalButton from "@/components/utils/ModalButton";
 import EditPracticeModal from "@/app/(app)/practices/[practiceId]/(overview)/_components/EditPracticeModal";
-import { TopicActivity } from "@aio/db/entities";
+import { TopicActivity } from "@/lib/supabase/entities";
 
 export interface PracticeDetailsCardProps {
     title: string;

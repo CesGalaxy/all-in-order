@@ -1,11 +1,12 @@
 import ConfirmActionModal from "@/components/modals/ConfirmActionModal";
 import { IconTrash } from "@tabler/icons-react";
-import { ModalFormAction } from "@/components/utils/ModalForm";
-import { deleteCourseAction } from "@/collections/course/actions";
+import { deleteNoteAction } from "@/collections/note/action";
 
-export default function DeleteNoteModal({ action }: { action: number | ModalFormAction<any, any> }) {
+export default function DeleteNoteModal({ id, subjectId }: { id: number, subjectId?: number }) {
     return <ConfirmActionModal
         confirmIcon={<IconTrash/>}
-        onConfirm={typeof action === "number" ? deleteCourseAction.bind(null, action) : action}
+        onConfirm={deleteNoteAction.bind(null, id, subjectId)}
+        requireConfirmation={false}
+        initialWait={null}
     />;
 }

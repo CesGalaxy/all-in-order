@@ -1,7 +1,7 @@
 "use client";
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import {
     IconChartHistogram,
     IconEdit,

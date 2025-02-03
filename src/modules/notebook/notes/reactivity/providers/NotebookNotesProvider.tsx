@@ -2,7 +2,7 @@
 
 import { ReactNode, useCallback, useMemo, useOptimistic } from "react";
 import NotebookNotesContext from "@/modules/notebook/notes/reactivity/context/NotebookNotesContext";
-import { Modal, useDisclosure } from "@nextui-org/modal";
+import { Modal, useDisclosure } from "@heroui/modal";
 import NbAddNoteModal from "@/modules/notebook/notes/components/modals/NbAddNoteModal";
 import createNotebookNote from "@/modules/notebook/notes/actions/createNotebookNote";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";

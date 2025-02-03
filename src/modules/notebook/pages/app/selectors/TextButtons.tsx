@@ -3,7 +3,7 @@
 import { EditorBubbleItem, useEditor } from "novel";
 import type { SelectorItem } from "./NodeSelector";
 import { IconBold, IconCode, IconItalic, IconStrikethrough, IconUnderline } from "@tabler/icons-react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 
 const TextButtons = () => {
     const { editor } = useEditor();

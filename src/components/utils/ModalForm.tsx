@@ -15,11 +15,12 @@ import {
     SuccessfulActionResponse
 } from "@/lib/helpers/form";
 import { type ComponentProps, type ReactElement, type ReactNode, useCallback, useEffect, useState } from "react";
-import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
-import { Button, ButtonProps } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
+import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Button, ButtonProps } from "@heroui/button";
+import { Divider } from "@heroui/divider";
 import useActionFunction, { ActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import ErrorListView from "@/components/views/ErrorListView";
+import useInitialWait from "@/reactivity/hooks/useInitialWait";
 
 /**
  * Type definition for the action function used in the ModalForm component.
@@ -44,7 +45,7 @@ export type ModalFormAction<T, E extends string> = (formData: FormData) => (
 export interface ModalFormProps<T, E extends string> {
     // Modal settings
     title: ReactNode;
-    modalProps?: Partial<Omit<ComponentProps<typeof ModalContent>, "children">>;
+    modalProps?: Partial<Omit<ComponentProps<typeof ModalContent>, "children" | "as">>;
 
     // Action function
     action?: ModalFormAction<T, E> | null;
@@ -84,7 +85,7 @@ function ModalForm<T, E extends string>({
                                             title,
                                             action,
                                             altActionState,
-                                            modalProps: { as: modalAs = "form", ...modalProps } = {},
+                                            modalProps,
                                             buttonLabel = "Ok",
                                             buttonIcon,
                                             buttonProps: {
@@ -131,78 +132,66 @@ function ModalForm<T, E extends string>({
     const [loading, result, formAction] = altActionState || automaticActionState;
 
     // Submission confirmation state
-    const [waiting, setWaiting] = useState(Boolean(buttonInitialWait));
+    const waiting = useInitialWait(buttonInitialWait);
     const [pendingConfirmation, setPendingConfirmation] = useState(false);
-
-    // Handle initial wait for the button
-    useEffect(() => {
-        if (buttonInitialWait && waiting) setTimeout(() => setWaiting(false), buttonInitialWait);
-    }, [buttonInitialWait, waiting]);
 
     // Handle confirmation timeout for the button
     useEffect(() => {
         if (pendingConfirmation) setTimeout(() => setPendingConfirmation(false), buttonConfirmationTimeout);
     }, [buttonConfirmationTimeout, pendingConfirmation]);
 
-    return <ModalContent as={modalAs} {...modalProps}>
-        {onClose => <>
-            <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
-            {(children || (result?.ok === false && result.errors)) && <ModalBody>
-                {children}
-                {result?.ok === false && result.errors && <ErrorListView errors={result.errors}/>}
-            </ModalBody>}
-            {showFooterDivider && <Divider/>}
-            <ModalFooter>
-                {footer && <div className="self-center flex-grow w-full">{footer}</div>}
-                {!hideCancelButton && <Button color="danger" variant="flat" onPress={onClose} type="button">
-                    Cancel
-                </Button>}
-                <Button
-                    color="primary"
-                    startContent={buttonIcon}
-                    isDisabled={forceDisable || !isFormValid}
-                    isLoading={forceLoad || loading || waiting}
-                    type="submit"
-                    formAction={async (formData) => {
-                        if (buttonRequireConfirmation && !pendingConfirmation) {
-                            setPendingConfirmation(true);
-                            return;
-                        }
+    return <ModalContent as={"form"} {...modalProps}>{onClose => <>
+        <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+        {(children || (result?.ok === false && result.errors)) && <ModalBody>
+            {children}
+            {result?.ok === false && result.errors && <ErrorListView errors={result.errors}/>}
+        </ModalBody>}
+        {showFooterDivider && <Divider/>}
+        <ModalFooter>
+            {footer && <div className="self-center flex-grow w-full">{footer}</div>}
+            {!hideCancelButton && <Button color="danger" variant="flat" onPress={onClose} type="button">
+                Cancel
+            </Button>}
+            <Button
+                color="primary"
+                startContent={buttonIcon}
+                isDisabled={forceDisable || !isFormValid}
+                isLoading={forceLoad || loading || waiting}
+                type="submit"
+                formAction={async (formData: FormData) => {
+                    if (buttonRequireConfirmation && !pendingConfirmation) return setPendingConfirmation(true);
 
-                        setPendingConfirmation(false);
+                    setPendingConfirmation(false);
 
-                        const response = await formAction(formData);
+                    const response = await formAction(formData);
 
-                        console.debug(response);
+                    console.debug(response);
 
-                        if (!response) {
-                            if (handleResponse === "close") onClose();
-                            return;
-                        }
-
+                    if (!response) {
                         if (handleResponse === "close") onClose();
-                        else if (handleResponse) handleResponse(response, onClose);
+                        return;
+                    }
 
-                        if (response.ok) {
-                            if (handleSuccess === "close") onClose();
-                            else if (handleSuccess) handleSuccess(response, onClose);
-                        } else if (handleError === "close") {
-                            onClose();
-                        } else if (handleError) {
-                            handleError(response, onClose);
-                        }
-                    }}
-                    {...buttonProps}
-                >
-                    {pendingConfirmation
-                        ? "Confirm"
-                        : waiting
-                            ? `Please wait ${Math.round(buttonInitialWait! / 1000)}s`
-                            : buttonLabel}
-                </Button>
-            </ModalFooter>
-        </>}
-    </ModalContent>
+                    if (handleResponse === "close") onClose();
+                    else if (handleResponse) handleResponse(response, onClose);
+
+                    if (response.ok) {
+                        if (handleSuccess === "close") onClose();
+                        else if (handleSuccess) handleSuccess(response, onClose);
+                    } else if (handleError === "close") {
+                        onClose();
+                    } else if (handleError) {
+                        handleError(response, onClose);
+                    }
+                }}
+                {...buttonProps}
+            >
+                {pendingConfirmation
+                    ? "Confirm"
+                    : waiting ? `Please wait ${Math.round(buttonInitialWait! / 1000)}s` : buttonLabel}
+            </Button>
+        </ModalFooter>
+    </>}</ModalContent>
 }
 
 export default ModalForm;

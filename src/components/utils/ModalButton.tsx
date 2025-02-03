@@ -1,8 +1,8 @@
 "use client";
 
-import { Button, ButtonGroupProvider, ButtonProps } from "@nextui-org/button";
+import { Button, ButtonGroupProvider, ButtonProps } from "@heroui/button";
 import React, { ReactNode } from "react";
-import { Modal, ModalProps, useDisclosure } from "@nextui-org/modal";
+import { Modal, ModalProps, useDisclosure } from "@heroui/modal";
 
 export interface ModalButtonProps extends ButtonProps {
     modal: ReactNode;

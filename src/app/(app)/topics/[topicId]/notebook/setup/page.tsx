@@ -1,15 +1,15 @@
 "use server";
 
-import getSupabase from "@/supabase/server";
-import { getUser } from "@/supabase/auth/user";
+import getSupabase from "@/lib/supabase/server";
+import { getUser } from "@/lib/supabase/auth/user";
 import ErrorView from "@/components/views/ErrorView";
 import { redirect } from "next/navigation";
 import required from "@/lib/helpers/required";
-import { Divider } from "@nextui-org/divider";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
+import { Divider } from "@heroui/divider";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
+import { Input } from "@heroui/input";
 import { IconDatabase, IconNotebook, IconVocabulary } from "@tabler/icons-react";
 import setupNotebook from "@/modules/notebook/app/actions/setupNotebook";
 
@@ -25,14 +25,14 @@ export default async function Page({ params, searchParams }: {
     const topicRequest = supabaseClient
         .from("topics")
         .select('title')
-        .eq('id', topicId)
+        .eq('id', parseInt(topicId))
         .maybeSingle();
 
     const user = await getUser();
     const { data: nbData, error: nbError } = await supabaseClient
         .from("notebooks")
         .select('count')
-        .eq('topic', topicId)
+        .eq('topic', parseInt(topicId))
         .eq('user', user.id)
         .single();
 

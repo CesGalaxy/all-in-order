@@ -6,11 +6,17 @@ export const FORM_SCHEMAS = {
     PASSWORD: z.string().min(8).max(64),
 }
 
+/**
+ * Get a specific list of fields from a FormData object
+ * @param formData The FormData object from which to get the fields
+ * @param fields The name of the fields to get
+ * @returns An object with the fields and their respective values
+ */
 export function getFormFields<T extends string>(formData: FormData, fields: T[]) {
     const formFields: Record<T, File | string | null> = {} as Record<T, File | string | null>;
     fields.forEach(field => {
         formFields[field] = formData.get(field)
-    })
+    });
     return formFields
 }
 
@@ -30,6 +36,11 @@ export function validateForm<F extends string, S extends z.ZodType>(schema: S, f
     };
 }
 
+/**
+ * Handle a Zod error and return a FailedActionResponse with the respective field/type errors
+ * @param error The Zod error
+ * @returns The FailedActionResponse with the errors
+ */
 export function handleZodError<T extends string>(error: z.ZodError<{ [K in T]: any }>): FailedActionResponse<T | "form"> {
     const { formErrors, fieldErrors } = error.flatten();
     return mountActionError({ form: formErrors, ...fieldErrors } as any) as FailedActionResponse<T | "form">;

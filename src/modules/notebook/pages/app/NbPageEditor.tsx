@@ -15,7 +15,7 @@ import { handleCommandNavigation } from "novel/extensions";
 import { slashCommand, suggestionItems } from "@/modules/notebook/pages/app/suggestions";
 import NodeSelector from "@/modules/notebook/pages/app/selectors/NodeSelector";
 import TextButtons from "@/modules/notebook/pages/app/selectors/TextButtons";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { useMemo } from "react";
 import configureExtensions from "@/modules/notebook/pages/app/configureExtensions";
 

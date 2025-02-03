@@ -1,6 +1,6 @@
 "use server";
 
-import { createSupabaseServerClient } from "@/supabase/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { UPDATE_TOPICS_SETTINGS_SCHEMA } from "@/app/(app)/topics/[topicId]/(hub)/settings/schema";
 import { getFormFields, mountActionError } from "@/lib/helpers/form";
 import { revalidatePath } from "next/cache";

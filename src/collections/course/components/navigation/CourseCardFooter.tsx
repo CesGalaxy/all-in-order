@@ -1,4 +1,4 @@
-import { CardFooter } from "@nextui-org/card";
+import { CardFooter } from "@heroui/card";
 import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 import CreateSubjectModal, {
     CreateSubjectModalAction

@@ -1,14 +1,14 @@
 "use client";
 
 import ModalForm from "@/components/utils/ModalForm";
-import { Input, Textarea } from "@nextui-org/input";
+import { Input, Textarea } from "@heroui/input";
 import { useState } from "react";
 import useNotebookVocabulary from "@/modules/notebook/vocabulary/reactivity/hooks/useNotebookVocabulary";
 import { wrapActionFunctionState } from "@/reactivity/hooks/useActionFunction";
 import dynamic from "next/dynamic";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Button } from "@nextui-org/button";
-import { Spinner } from "@nextui-org/spinner";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import { Button } from "@heroui/button";
+import { Spinner } from "@heroui/spinner";
 
 const Picker = dynamic(
     () => import('emoji-picker-react'),

@@ -1,7 +1,7 @@
 "use server";
 
 import PageContainer from "@/components/containers/PageContainer";
-import getSupabase from "@/supabase/server";
+import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
 import SimpleAttemptsTable from "@/app/(app)/practices/[practiceId]/(overview)/_components/SimpleAttemptsTable";
@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ practiceId: s
         .select("id, attempts:practice_attempts(id, perfection, started_at, ended_at)")
         .order("started_at", { referencedTable: 'practice_attempts', ascending: true })
         .limit(10, { referencedTable: 'practice_attempts' })
-        .eq("id", practiceId)
+        .eq("id", parseInt(practiceId))
         .maybeSingle();
 
     if (error) return <ErrorView message={error.message}/>;

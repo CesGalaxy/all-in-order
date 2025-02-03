@@ -1,9 +1,9 @@
 "use client";
 
-import ModalForm from "@/components/utils/ModalForm";
 import { IconTrash } from "@tabler/icons-react";
 import { useCallback } from "react";
 import { deleteCourseAction, DeleteCourseActionResponse } from "@/collections/course/actions";
+import ConfirmActionModal from "@/components/modals/ConfirmActionModal";
 
 export type DeleteCourseModalAction = () => Promise<DeleteCourseActionResponse>;
 
@@ -12,19 +12,16 @@ function DeleteCourseModal({ action }: { action: number | DeleteCourseModalActio
         ? deleteCourseAction(action)
         : action(), [action]);
 
-    return <ModalForm
+    return <ConfirmActionModal
         title={"Are you sure?"}
-        action={deleteCourse}
-        isFormValid={true}
-        handleSuccess="close"
-        buttonLabel="Yes, delete"
-        buttonIcon={<IconTrash/>}
-        buttonProps={{ color: "danger", variant: "shadow" }}
-        buttonInitialWait={5000}
-        buttonRequireConfirmation
+        onConfirm={deleteCourse}
+        confirmText="Yes, delete"
+        confirmIcon={<IconTrash/>}
+        initialWait={5000}
+        requireConfirmation
     >
         This action cannot be undone
-    </ModalForm>
+    </ConfirmActionModal>
 }
 
 export default DeleteCourseModal;
