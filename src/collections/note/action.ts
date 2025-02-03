@@ -1,10 +1,11 @@
 "use server";
 
-import { ActionResponse, mountActionError } from "@/lib/helpers/form";
+import { ActionResponse, mountActionError, mountActionSuccess } from "@/lib/helpers/form";
 import { CREATE_NOTE_SCHEMA } from "@/collections/note/schemas";
 import { getMyProfile } from "@/lib/supabase/auth/profile";
 import getSupabase from "@/lib/supabase/server";
-import { handleCustomSingleResponse, handleSingleResponse } from "@/lib/helpers/supabase";
+import { handleCustomSingleResponse } from "@/lib/helpers/supabase";
+import { revalidatePath } from "next/cache";
 
 export type CreateNoteActionResponse = ActionResponse<number, "title" | "content" | "form" | "db">;
 
@@ -31,7 +32,10 @@ export async function createNoteAction(subjectId: number, formData: FormData): P
     return handleCustomSingleResponse(response, data => data.id);
 }
 
-export async function deleteNoteAction(noteId: number) {
+export async function deleteNoteAction(noteId: number, subjectId?: number) {
     const supabaseClient = await getSupabase();
-    return handleSingleResponse(await supabaseClient.from("subject_notes").delete().eq("id", noteId));
+    const { data, error } = await supabaseClient.from("subject_notes").delete().eq("id", noteId);
+    if (error) return mountActionError({ db: [error.message] });
+    if (subjectId) revalidatePath(`/subjects/${subjectId}`, "page");
+    return mountActionSuccess(data);
 }

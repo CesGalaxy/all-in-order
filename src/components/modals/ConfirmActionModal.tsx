@@ -7,7 +7,7 @@ export interface ConfirmActionModalProps {
     onConfirm?: ModalFormAction<any, any>;
     confirmText?: ReactNode;
     confirmIcon?: ReactNode;
-    initialWait?: number;
+    initialWait?: number | null;
     requireConfirmation?: boolean;
     extraFormProps?: Partial<ModalFormProps<any, any>>;
 }

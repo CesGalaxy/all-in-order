@@ -8,6 +8,7 @@ import { updateLocale } from "@/app/(website)/_navigation/actions";
 import { Kbd } from "@heroui/kbd";
 import { useCmdkStore } from "@/features/cmdk/store";
 import { useTheme } from "next-themes";
+import { Chip } from "@heroui/chip";
 
 export function ToggleLocaleButton() {
     return <Dropdown>
@@ -26,12 +27,14 @@ export function ToggleLocaleButton() {
                 key="es"
                 onPress={() => updateLocale('es')}
                 startContent={<Avatar alt="Español" className="w-6 h-6" src="https://flagcdn.com/es.svg"/>}
+                endContent={<Chip color="warning">BETA</Chip>}
             >Español</DropdownItem>
             <DropdownItem
                 key="val"
                 onPress={() => updateLocale('val')}
                 startContent={<Avatar alt="Valencià" className="w-6 h-6"
                                       src="https://upload.wikimedia.org/wikipedia/commons/1/16/Flag_of_the_Valencian_Community_%282x3%29.svg"/>}
+                endContent={<Chip color="warning">BETA</Chip>}
             >Valencià</DropdownItem>
         </DropdownMenu>
     </Dropdown>;

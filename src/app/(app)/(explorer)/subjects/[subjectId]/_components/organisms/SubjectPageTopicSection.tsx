@@ -7,6 +7,7 @@ import ContentGallery from "@/components/navigation/ContentGallery";
 import { IconPlus } from "@tabler/icons-react";
 import ModalButton from "@/components/utils/ModalButton";
 import CreateTopicModal from "@/collections/topic/components/modals/CreateTopicModal";
+import { Tooltip } from "@heroui/tooltip";
 
 export type RequiredTopic = Pick<Topic, "id" | "title" | "description">;
 
@@ -26,7 +27,9 @@ export default function SubjectPageTopicSection({ subjectId, topics }: SubjectPa
         variant="flat"
         isIconOnly
     >
-        <IconPlus/>
+        <Tooltip content={t('Dash.Topic.new')} placement="left">
+            <IconPlus/>
+        </Tooltip>
     </ModalButton>}>
         <ContentGallery
             className="flex flex-col items-stretch justify-start gap-8 px-4"

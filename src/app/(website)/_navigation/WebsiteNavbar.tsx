@@ -1,11 +1,4 @@
-import {
-    NavbarBrand,
-    NavbarContent,
-    NavbarItem,
-    NavbarMenu,
-    NavbarMenuItem,
-    NavbarMenuToggle
-} from "@heroui/navbar";
+import { NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@heroui/navbar";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import Logo from "@/assets/logo/NameCol.svg";
@@ -35,7 +28,7 @@ export default async function AppNavbar() {
         <NavbarContent className="gap-1 lg:gap-4">
             <NavbarMenuToggle className="lg:hidden"/>
             <NavbarBrand className="grow-0 shrink-0 min-w-32 sm:min-w-[187px] h-16">
-                <Link href="/public">
+                <Link href="/">
                     <Image src={Logo} alt="All In Order" height={64} width={187} priority className="w-32 sm:w-auto"/>
                 </Link>
             </NavbarBrand>

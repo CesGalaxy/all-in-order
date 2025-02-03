@@ -96,7 +96,7 @@ function DocEditorChat() {
                 name="prompt"
             />
         </form>
-        <ScrollShadow orientation="horizontal" hideScrollBar as={"ul"} className="flex items-center w-full gap-2">
+        <ScrollShadow orientation="horizontal" hideScrollBar as="ul" className="flex items-center w-full gap-2 h-14">
             {IDEAS.map(({ title, description }, i) => <li key={i}>
                 <Button className="flex h-14 flex-col items-start gap-0" variant="flat"
                         onPress={() => setInput(title + " " + description)}>

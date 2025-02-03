@@ -18,6 +18,7 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
 
     return <SectionContainer
         title={t("App.notes")}
+        className="w-full"
         trailing={(notes.length !== 0) && createNoteAction && <ModalButton
             modal={<CreateNoteModal action={createNoteAction}/>}
             color="primary"
@@ -27,7 +28,6 @@ export default function SubjectPageNotesSection({ notes, createNoteAction, subje
         >
             {t("Dash.Note.create")}
         </ModalButton>}
-        className="w-full"
     >
         <ContentGallery
             items={notes}

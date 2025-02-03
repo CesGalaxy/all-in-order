@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { IconDownload, IconEdit, IconPrinter, IconShare } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { Tooltip } from "@heroui/tooltip";
 
 export type RequiredTopic = Pick<Topic, "id" | "title" | "description">;
 
@@ -33,10 +34,18 @@ export default function TopicCard({ topic }: TopicCardProps) {
                 {t('AI.chat_with')}
             </Link>
             <nav className="flex items-center gap-4">
-                <Button isIconOnly variant="light"><IconPrinter/></Button>
-                <Button isIconOnly variant="light"><IconDownload/></Button>
-                <Button isIconOnly variant="light"><IconShare/></Button>
-                <Button isIconOnly><IconEdit/></Button>
+                <Tooltip content={t('Global.content')}>
+                    <Button isIconOnly variant="light" as={Link} href={topicPath + "/summary"}><IconPrinter/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.download')}>
+                    <Button isIconOnly variant="light"><IconDownload/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.share')}>
+                    <Button isIconOnly variant="light"><IconShare/></Button>
+                </Tooltip>
+                <Tooltip content={t('Global.settings')}>
+                    <Button isIconOnly as={Link} href={topicPath + "/settings"}><IconEdit/></Button>
+                </Tooltip>
             </nav>
         </CardFooter>
     </Card>;
