@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import getSupabase from "@/lib/supabase/server";
 
 export async function GET(req: NextRequest) {
     const query = req.nextUrl.searchParams;
@@ -19,12 +19,12 @@ export async function GET(req: NextRequest) {
 
     // Fetch to the notion api
     try {
-        const unencodedAuth = process.env.NOTION_CLIENT_ID + ":" + process.env.NOTION_CLIENT_SECRET;
+        const decodedAuth = process.env.NOTION_CLIENT_ID + ":" + process.env.NOTION_CLIENT_SECRET;
         const response = await fetch("https://api.notion.com/v1/oauth/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Basic " + Buffer.from(unencodedAuth).toString("base64"),
+                "Authorization": "Basic " + Buffer.from(decodedAuth).toString("base64"),
             },
             body: JSON.stringify({
                 grant_type: "authorization_code",
@@ -38,8 +38,12 @@ export async function GET(req: NextRequest) {
 
         console.log(data);
 
-        const cookieStore = await cookies();
-        cookieStore.set("notion_token", data.access_token);
+        const sb = await getSupabase();
+        const { error } = await sb.auth.updateUser({
+            data: { notion_token: data.access_token },
+        });
+
+        if (error) return new NextResponse("Error: " + error.message, { status: 500 });
 
         return NextResponse.redirect(query.get("state") || "/");
     } catch (e) {

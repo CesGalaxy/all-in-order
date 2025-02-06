@@ -26,8 +26,6 @@ export default async function TopicRecentNbPagesSection({ topicId }: { topicId: 
         return 0;
     });
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     return <ContentGallery
         className="flex gap-4 w-full overflow-x-auto"
         items={shorted}

@@ -3,21 +3,15 @@
 import { Client } from "@notionhq/client";
 import { cache } from "react";
 import { unauthorized } from "next/navigation";
-import { cookies } from "next/headers";
 import "server-only";
+import { getUser } from "@/lib/supabase/auth/user";
 
 const getNotionClient = cache(async () => {
-    const cookieStore = await cookies();
-    const notionToken = cookieStore.get("notion_token")?.value;
+    const user = await getUser();
+    const notionToken = user.user_metadata?.notion_token;
 
     if (!notionToken) unauthorized();
 
-    // const { results: pages } = await notion.search({
-    //     // filter: {
-    //     //     property: "object",
-    //     //     value: "database",
-    //     // },
-    // })
     return new Client({ auth: notionToken });
 });
 

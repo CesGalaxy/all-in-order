@@ -2,8 +2,16 @@ import { getUser } from "@/lib/supabase/auth/user";
 import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
-import getNotionClient from "@/modules/notebook/notion/lib/getNotionClient";
 import NotionPagesList from "@/modules/notebook/notion/components/NotionPagesList";
+import PageContainer from "@/components/containers/PageContainer";
+import { Button } from "@heroui/button";
+import { IconArrowBack, IconUnlink } from "@tabler/icons-react";
+import Image from "next/image";
+import tasksImage from "@/assets/pictures/tasks.svg";
+import { Tooltip } from "@heroui/tooltip";
+import { Link } from "@heroui/link";
+import { Suspense } from "react";
+import LoadingSpinnerPage from "@/components/pages/LoadingSpinnerPage";
 
 const NOTION_API_URL = "https://api.notion.com/v1/oauth/authorize?client_id=178d872b-594c-8089-9682-00378b143de0";
 
@@ -11,8 +19,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
     const { topicId } = await params;
     const user = await getUser();
 
-    const cookieStore = await cookies();
-    const notionToken = cookieStore.get("notion_token")?.value;
+    const notionToken = user.user_metadata?.notion_token;
 
     if (!notionToken) {
         const notebookPath = `/topics/${topicId}/notebook`;
@@ -29,16 +36,34 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
         redirect(`${NOTION_API_URL}&response_type=code&owner=user&redirect_uri=${redirectTo}&state=${state}`);
     }
 
-    const notion = await getNotionClient();
-
-    return <div>
-        <button onClick={async () => {
-            "use server";
-            const cookieStore = await cookies();
-            cookieStore.delete("notion_token");
-            revalidatePath("/", "layout");
-        }}>Unlink Notion
-        </button>
-        <NotionPagesList topicId={parseInt(topicId)}/>
-    </div>
+    return <PageContainer className="flex flex-col lg:flex-row gap-4">
+        <aside className="bg-content2 rounded-xl p-4 h-fit lg:sticky top-20 left-0 w-full lg:w-96 shrink-0 space-y-8">
+            <header>
+                <h1 className="text-4xl font-medium text-pretty">Live sync your Notion pages</h1>
+            </header>
+            <div className="flex justify-center">
+                <Image src={tasksImage} alt="" width={300}/>
+            </div>
+            <footer className="flex items-center gap-2 flex-wrap">
+                <Button
+                    color="danger"
+                    startContent={<IconUnlink/>}
+                    onPress={async () => {
+                        "use server";
+                        const cookieStore = await cookies();
+                        cookieStore.delete("notion_token");
+                        revalidatePath("/", "layout");
+                    }}
+                >Unlink Notion</Button>
+                <Tooltip content={"Go back to the notebook"}>
+                    <Button as={Link} href={`/topics/${topicId}/notebook`} isIconOnly><IconArrowBack/></Button>
+                </Tooltip>
+            </footer>
+        </aside>
+        <div className="flex-grow">
+            <Suspense fallback={<LoadingSpinnerPage/>}>
+                <NotionPagesList topicId={parseInt(topicId)}/>
+            </Suspense>
+        </div>
+    </PageContainer>
 }
