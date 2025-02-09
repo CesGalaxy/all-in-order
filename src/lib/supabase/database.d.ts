@@ -158,16 +158,19 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          name: string
           notebook: number
         }
         Insert: {
           created_at?: string
           id: string
+          name: string
           notebook: number
         }
         Update: {
           created_at?: string
           id?: string
+          name?: string
           notebook?: number
         }
         Relationships: [
@@ -487,6 +490,7 @@ export type Database = {
           created_at: string
           id: number
           last_online: string | null
+          metadata: Json | null
           name: string
           user_id: string
           username: string
@@ -498,6 +502,7 @@ export type Database = {
           created_at?: string
           id?: number
           last_online?: string | null
+          metadata?: Json | null
           name: string
           user_id: string
           username: string
@@ -509,6 +514,7 @@ export type Database = {
           created_at?: string
           id?: number
           last_online?: string | null
+          metadata?: Json | null
           name?: string
           user_id?: string
           username?: string

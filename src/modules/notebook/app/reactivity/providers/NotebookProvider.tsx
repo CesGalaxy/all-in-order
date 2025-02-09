@@ -23,6 +23,7 @@ export interface NotebookProviderProps {
     initialPages?: FileObject[];
     userId: string;
     children: ReactNode;
+    initialNotionPages: { created_at: string, id: string, notebook: number, name: string }[] | null;
 }
 
 export default function NotebookProvider({
@@ -31,6 +32,7 @@ export default function NotebookProvider({
                                              initialPages,
                                              topicId,
                                              userId,
+                                             initialNotionPages,
                                          }: NotebookProviderProps) {
     const [{ pages, optimisticPage }, addOptimisticPage] = useOptimistic<PagesOptimistic, string>(
         { pages: initialPages ?? [] },
@@ -93,6 +95,7 @@ export default function NotebookProvider({
         topicId,
         // TODO: Add realtime updates
         entity: initialData,
+        notionPages: initialNotionPages,
     }}>
         <NotebookVocabularyProvider initialVocabularyAreas={initialVocabularyAreas} userId={userId}>
             {children}

@@ -1,7 +1,7 @@
 import type { HTMLAttributes, Key, ReactNode } from "react";
 
 export interface ContentGalleryProps<T> extends Omit<HTMLAttributes<HTMLUListElement>, "children"> {
-    items?: T[];
+    items?: T[] | null;
     // FIXME: Prevent keys with a non Key value
     getItemKey: keyof T | ((item: T) => Key);
     renderItem: (item: T) => ReactNode;

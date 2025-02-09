@@ -1,8 +1,20 @@
 "use client";
 
 import { Accordion, AccordionItem } from "@heroui/accordion";
-import { IconDots, IconFile, IconFilePlus, IconLoader, IconTool, IconTrash, IconWriting } from "@tabler/icons-react";
-import { Button } from "@heroui/button";
+import {
+    IconCursorText,
+    IconDots,
+    IconExternalLink,
+    IconFile,
+    IconFilePlus,
+    IconLink,
+    IconLinkPlus,
+    IconLoader,
+    IconTool,
+    IconTrash,
+    IconWriting
+} from "@tabler/icons-react";
+import { Button, ButtonGroup } from "@heroui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 import { Input } from "@heroui/input";
 import useNotebook from "@/modules/notebook/app/reactivity/hooks/useNotebook";
@@ -11,6 +23,7 @@ import { Link } from "@heroui/link";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from "@heroui/dropdown";
 import { FileObject } from "@supabase/storage-js";
 import { useCallback } from "react";
+import ContentGallery from "@/components/navigation/ContentGallery";
 
 export default function NotebookSidebarPages() {
     const {
@@ -21,7 +34,8 @@ export default function NotebookSidebarPages() {
         createPageState,
         isCreatingPage,
         deletePage,
-        topicId
+        topicId,
+        notionPages,
     } = useNotebook();
 
     const pageNavigation = useCallback((page: FileObject) => {
@@ -31,7 +45,7 @@ export default function NotebookSidebarPages() {
             <AccordionItem
                 key={page.id}
                 title={<Link href={`/topics/${topicId}/notebook/${page.name.replace(/\.json$/, "")}`} underline="hover"
-                             color="foreground">
+                             color="foreground" size="sm">
                     {name}
                 </Link>}
                 textValue={name}
@@ -58,7 +72,8 @@ export default function NotebookSidebarPages() {
                     </Dropdown>
                 </div>}
             >
-                <Button className="w-full" size="sm" startContent={<IconFilePlus/>} radius="full" variant="flat" isDisabled>
+                <Button className="w-full" size="sm" startContent={<IconFilePlus/>} radius="full" variant="flat"
+                        isDisabled>
                     Add subpage
                 </Button>
             </AccordionItem>
@@ -99,18 +114,68 @@ export default function NotebookSidebarPages() {
                 </PopoverContent>
             </Popover>
         </header>
-        <nav className="flex-grow">
-            <Accordion isCompact>
-                {[
-                    optimisticPage && <AccordionItem
-                        key="optimistic"
-                        title={optimisticPage}
-                        classNames={{ heading: "group" }}
-                        startContent={<IconLoader className="animate-spin"/>}
-                    /> as any,
-                    ...pages.map(page => pageNavigation(page))
-                ]}
-            </Accordion>
+        <nav className="flex-grow space-y-4">
+            <div>
+                <Accordion isCompact>
+                    {[
+                        optimisticPage && <AccordionItem
+                            key="optimistic"
+                            title={optimisticPage}
+                            classNames={{ heading: "group" }}
+                            startContent={<IconLoader className="animate-spin"/>}
+                        /> as any,
+                        ...pages.map(page => pageNavigation(page))
+                    ]}
+                </Accordion>
+            </div>
+            <section>
+                <header className="text-sm pl-4 pr-2 mb-2 flex items-center justify-between">
+                    <span>Notion pages</span>
+                    <Button size="sm" isIconOnly variant="light" as={Link} href={`/topics/${topicId}/notebook/notion`}>
+                        <IconLinkPlus/>
+                    </Button>
+                </header>
+                <ContentGallery
+                    items={notionPages}
+                    getItemKey={page => page.id}
+                    renderItem={page => <ButtonGroup as="section" className="w-full" radius="none" variant="flat">
+                        <Button className="grow justify-start" as={Link}
+                                href={`/topics/${topicId}/notebook/notion/${page.id}`}>
+                            {page.name}
+                        </Button>
+                        <Dropdown>
+                            <DropdownTrigger>
+                                <Button isIconOnly><IconDots/></Button>
+                            </DropdownTrigger>
+                            <DropdownMenu>
+                                <DropdownItem
+                                    key="copy-link"
+                                    startContent={<IconLink/>}
+                                >Copy link</DropdownItem>
+                                <DropdownItem
+                                    key="rename"
+                                    startContent={<IconCursorText/>}
+                                >Rename</DropdownItem>
+                                <DropdownItem
+                                    key="external"
+                                    startContent={<IconExternalLink/>}
+                                >Open in Notion</DropdownItem>
+                                <DropdownItem
+                                    key="props"
+                                    startContent={<IconTool/>}
+                                >Properties</DropdownItem>
+                                <DropdownItem
+                                    key="delete"
+                                    color="danger"
+                                    startContent={<IconTrash/>}
+                                    className="text-danger"
+                                >Unlink</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </ButtonGroup>}
+                    emptyView={<p className="text-default-400 text-center">No pages linked</p>}
+                />
+            </section>
         </nav>
         <footer className="w-full px-2 flex">
             <Input

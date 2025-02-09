@@ -4,9 +4,22 @@
   "description": "Resume things with AI",
   "start_url": "/app",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#FFFFFF",
   "theme_color": "#E41B5B",
+  "categories": [
+    "productivity",
+    "utilities",
+    "education"
+  ],
+  "shortcuts": [
+    {
+      "name": "All my courses",
+      "short_name": "Courses",
+      "description": "View all my courses",
+      "url": "/courses"
+    }
+  ],
   "icons": [
     {
       "src": "/android-chrome-36x36.png",

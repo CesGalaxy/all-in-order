@@ -11,10 +11,13 @@ import SubjectPageNotesSection
 import SectionContainer from "@/components/containers/SectionContainer";
 import { Button } from "@heroui/button";
 import { IconArrowsMaximize } from "@tabler/icons-react";
-import MonthCalendar from "@/features/calendar/components/MonthCalendar";
 import PageContainer from "@/components/containers/PageContainer";
 import { getTranslations } from "next-intl/server";
 import { getSubjectWithContent } from "@/app/(app)/(explorer)/subjects/[subjectId]/query";
+import SubjectCalendarSection
+    from "@/app/(app)/(explorer)/subjects/[subjectId]/_components/organisms/SubjectCalendarSection";
+import { Suspense } from "react";
+import LoadingSpinnerPage from "@/components/pages/LoadingSpinnerPage";
 
 export default async function Page({ params }: { params: Promise<{ subjectId: string }> }) {
     const { subjectId } = await params;
@@ -46,7 +49,9 @@ export default async function Page({ params }: { params: Promise<{ subjectId: st
                 className="flex flex-col col-span-2 row-span-2 relative"
                 trailing={<Button isIconOnly size="sm" variant="flat"><IconArrowsMaximize/></Button>}
             >
-                <MonthCalendar/>
+                <Suspense fallback={<LoadingSpinnerPage/>}>
+                    <SubjectCalendarSection id={id}/>
+                </Suspense>
             </SectionContainer>
         </div>
     </PageContainer>;

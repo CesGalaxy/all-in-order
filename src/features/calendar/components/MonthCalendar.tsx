@@ -7,9 +7,13 @@ import CalendarDay from "@/features/calendar/components/CalendarDay";
 import { Select, SelectItem } from "@heroui/select";
 import TodoInfo from "@/components/dev/TodoInfo";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDisclosure } from "@heroui/modal";
+import { Drawer } from "@heroui/drawer";
+import CreateSubjectEventDrawer from "@/collections/subjectEvent/components/modals/CreateSubjectEventDrawer";
 
 export interface MonthCalendarProps {
     initialDate?: Date;
+    subjectId: number;
 }
 
 const variants = {
@@ -34,7 +38,7 @@ const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
 };
 
-export default function MonthCalendar({ initialDate = new Date(), }: MonthCalendarProps) {
+export default function MonthCalendar({ initialDate = new Date(), subjectId }: MonthCalendarProps) {
     // FIXME: Linter error
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [selectedDate, setSelectedDate] = useState(initialDate);
@@ -68,7 +72,12 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
         setDirection(1);
     };
 
+    const createDisclosure = useDisclosure();
+
     return <div className="w-full flex flex-col items-stretch gap-4">
+        <Drawer isOpen={createDisclosure.isOpen} onOpenChange={createDisclosure.onOpenChange}>
+            <CreateSubjectEventDrawer/>
+        </Drawer>
         <nav
             className="w-full flex items-center justify-between bg-content2 text-content2-foreground rounded-xl flex-wrap gap-2">
             <ButtonGroup>
@@ -109,7 +118,9 @@ export default function MonthCalendar({ initialDate = new Date(), }: MonthCalend
                     <Button isIconOnly><IconCalendarEvent/></Button>
                 </li>
                 <li>
-                    <Button color="primary" startContent={<IconCalendarPlus/>}>Add event</Button>
+                    <Button color="primary" startContent={<IconCalendarPlus/>} onPress={createDisclosure.onOpen}>
+                        Add event
+                    </Button>
                 </li>
             </ul>
         </nav>

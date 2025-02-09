@@ -1,5 +1,5 @@
 import { getUser } from "@/lib/supabase/auth/user";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import NotionPagesList from "@/modules/notebook/notion/components/NotionPagesList";
@@ -12,6 +12,8 @@ import { Tooltip } from "@heroui/tooltip";
 import { Link } from "@heroui/link";
 import { Suspense } from "react";
 import LoadingSpinnerPage from "@/components/pages/LoadingSpinnerPage";
+import getSupabase from "@/lib/supabase/server";
+import ErrorView from "@/components/views/ErrorView";
 
 const NOTION_API_URL = "https://api.notion.com/v1/oauth/authorize?client_id=178d872b-594c-8089-9682-00378b143de0";
 
@@ -35,6 +37,17 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
         // Link the Notion identity
         redirect(`${NOTION_API_URL}&response_type=code&owner=user&redirect_uri=${redirectTo}&state=${state}`);
     }
+
+    const sb = await getSupabase();
+    const { data, error } = await sb
+        .from("notebooks")
+        .select("id")
+        .eq("topic", parseInt(topicId))
+        .eq("user", user.id)
+        .maybeSingle();
+
+    if (error) return <ErrorView message={error.message}/>;
+    if (!data) return notFound();
 
     return <PageContainer className="flex flex-col lg:flex-row gap-4">
         <aside className="bg-content2 rounded-xl p-4 h-fit lg:sticky top-20 left-0 w-full lg:w-96 shrink-0 space-y-8">
@@ -62,7 +75,7 @@ export default async function Page({ params }: { params: Promise<{ topicId: stri
         </aside>
         <div className="flex-grow">
             <Suspense fallback={<LoadingSpinnerPage/>}>
-                <NotionPagesList topicId={parseInt(topicId)}/>
+                <NotionPagesList notebookId={data.id}/>
             </Suspense>
         </div>
     </PageContainer>

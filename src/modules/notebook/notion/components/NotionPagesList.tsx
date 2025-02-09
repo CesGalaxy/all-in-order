@@ -10,7 +10,7 @@ import { Divider } from "@heroui/divider";
 import { Link } from "@heroui/link";
 import { IconEye, IconLinkPlus } from "@tabler/icons-react";
 
-export default async function NotionPagesList({ topicId }: { topicId: number }) {
+export default async function NotionPagesList({ notebookId }: { notebookId: number }) {
     const notion = await getNotionClient();
 
     const { results } = await notion.search({});
@@ -54,7 +54,7 @@ export default async function NotionPagesList({ topicId }: { topicId: number }) 
                 <Button
                     color="primary"
                     startContent={<IconLinkPlus/>}
-                    onPress={addNotionPageToNotebook.bind(null, topicId, page.id)}
+                    onPress={addNotionPageToNotebook.bind(null, notebookId, page.id)}
                 >Add to notebook</Button>
                 {page.public_url && <Button as={Link} href={page.public_url} startContent={<IconEye/>}>Preview</Button>}
             </CardFooter>

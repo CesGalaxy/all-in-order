@@ -18,6 +18,7 @@ export interface NotebookContextData {
     topicId: number;
     topic?: Topic;
     entity: NotebookEntity;
+    notionPages: { created_at: string, id: string, notebook: number, name: string }[] | null;
 }
 
 const NotebookContext = createContext<NotebookContextData | null>(null);
