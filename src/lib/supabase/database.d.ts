@@ -39,6 +39,48 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_conversations: {
+        Row: {
+          archived: boolean
+          created_at: string
+          data: Json
+          environment: string
+          id: string
+          messages: Json[]
+          summary: string | null
+          tags: string[]
+          title: string
+          updated_at: string | null
+          user: string
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          data: Json
+          environment: string
+          id?: string
+          messages: Json[]
+          summary?: string | null
+          tags: string[]
+          title: string
+          updated_at?: string | null
+          user: string
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          data?: Json
+          environment?: string
+          id?: string
+          messages?: Json[]
+          summary?: string | null
+          tags?: string[]
+          title?: string
+          updated_at?: string | null
+          user?: string
+        }
+        Relationships: []
+      }
       course_members: {
         Row: {
           course: number

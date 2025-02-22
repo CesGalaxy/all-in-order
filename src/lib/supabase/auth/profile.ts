@@ -14,15 +14,16 @@ export const getMaybeMyProfile = cache(async (): Promise<Profile | null> => {
     return await getProfileByUser(user.id);
 });
 
-// export const getProfileById = cache(async (id: number): Promise<Profile | null> => {
-//     const { data } = await getSupabase()
-//         .from("profiles")
-//         .select()
-//         .eq("id", id)
-//         .single();
-//
-//     return data;
-// });
+export const getProfileById = cache(async (id: number): Promise<Profile | null> => {
+    const sb = await getSupabase();
+    const { data } = await sb
+        .from("profiles")
+        .select()
+        .eq("id", id)
+        .single();
+
+    return data;
+});
 
 export const getProfileByUser = cache(async (user_id: string): Promise<Profile | null> => {
     const supabaseClient = await getSupabase();

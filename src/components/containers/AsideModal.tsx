@@ -33,7 +33,7 @@ export default function AsideModalContainer({
         <div className="fixed w-full h-full top-0 left-0 bg-black/50 z-40" onClick={close}/>
         <aside className={cn(
             "flex flex-col vt-name-[aside-modal] w-full h-full top-0 right-0",
-            "bg-content2 text-content2-foreground max-w-full z-50 fixed",
+            "bg-content1 text-content1-foreground max-w-full z-50 fixed",
             "sm:mx-8 sm:w-[calc(100%-64px)] sm:h-[calc(100%-32px)] sm:rounded-xl",
             "md:m-0 md:min-w-80 md:w-min md:h-full md:rounded-none",
             animate && "animate-[0.2s_ease-out_0s_1_from-left]",

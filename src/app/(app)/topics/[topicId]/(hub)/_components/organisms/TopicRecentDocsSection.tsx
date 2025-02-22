@@ -12,6 +12,7 @@ import ErrorView from "@/components/views/ErrorView";
 import { getAllTopicDocs } from "@/collections/docs/query";
 import getSupabase from "@/lib/supabase/server";
 import { FileObject, StorageError } from "@supabase/storage-js";
+import type { ReactNode } from "react";
 
 export interface TopicRecentDocsSectionProps {
     topicId: number;
@@ -28,40 +29,8 @@ export default async function TopicRecentDocsSection({ topicId }: TopicRecentDoc
     const { data, error } = await getAllTopicDocs(topicId);
 
     if (error) return <ErrorView message={error.message}/>;
-    if (!data) return <p>No files</p>;
 
-    // Get all unique root folders (_public / user ids)
-    const rootFolders = [...new Set(data.map(doc => doc.Key!.split("/")[1]))];
-    const userIds = rootFolders.filter(folder => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(folder));
-
-    const sb = await getSupabase();
-
-    const [{ data: profiles, error: profilesError }, ...rootFoldersResponses] = await Promise.all([
-        sb.from("profiles").select("id, username").in("user_id", userIds),
-        ...rootFolders.map(folder => sb.storage.from("topic_documents").list(topicId + '/' + folder)),
-    ]);
-
-    const { rootFoldersContents, rootFoldersErrors } = rootFoldersResponses.reduce<{
-        rootFoldersContents: (FileObject & { isPublic: boolean })[][];
-        rootFoldersErrors: StorageError[];
-    }>((acc, response) => {
-        if (response.error) {
-            acc.rootFoldersErrors.push(response.error);
-        } else {
-            acc.rootFoldersContents.push(response.data.map(object => ({ ...object, isPublic: false })));
-        }
-
-        return acc;
-    }, { rootFoldersContents: [], rootFoldersErrors: [] });
-
-    // const [filter, setFilter] = useState<"all" | "public" | "private">("all");
-    // const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-
-    const viewMode = "grid";
-
-    const docs = rootFoldersContents.flat();
-
-    return <SectionContainer
+    const Wrapper = ({ children }: { children?: ReactNode }) => <SectionContainer
         title={t("App.documents")}
         expanded
         className="flex-grow"
@@ -95,7 +64,42 @@ export default async function TopicRecentDocsSection({ topicId }: TopicRecentDoc
             {/*</Popover>*/}
             {/*<nav className="xl:hidden"><DocsVisibilityFilter filter={filter} setFilter={setFilter}/></nav>*/}
         </nav>}
-    >
+    >{children}</SectionContainer>
+
+    if (!data) return <Wrapper><NoDocuments topicId={topicId}/></Wrapper>;
+
+    // Get all unique root folders (_public / user ids)
+    const rootFolders = [...new Set(data.map(doc => doc.Key!.split("/")[1]))];
+    const userIds = rootFolders.filter(folder => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(folder));
+
+    const sb = await getSupabase();
+
+    const [{ data: profiles, error: profilesError }, ...rootFoldersResponses] = await Promise.all([
+        sb.from("profiles").select("id, username").in("user_id", userIds),
+        ...rootFolders.map(folder => sb.storage.from("topic_documents").list(topicId + '/' + folder)),
+    ]);
+
+    const { rootFoldersContents, rootFoldersErrors } = rootFoldersResponses.reduce<{
+        rootFoldersContents: (FileObject & { isPublic: boolean })[][];
+        rootFoldersErrors: StorageError[];
+    }>((acc, response) => {
+        if (response.error) {
+            acc.rootFoldersErrors.push(response.error);
+        } else {
+            acc.rootFoldersContents.push(response.data.map(object => ({ ...object, isPublic: false })));
+        }
+
+        return acc;
+    }, { rootFoldersContents: [], rootFoldersErrors: [] });
+
+    // const [filter, setFilter] = useState<"all" | "public" | "private">("all");
+    // const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+    const viewMode = "grid";
+
+    const docs = rootFoldersContents.flat();
+
+    return <Wrapper>
         {rootFoldersErrors.length > 0 && <ul className="text-danger">
             {rootFoldersErrors.map((error, i) => <li key={i}>{error.message}</li>)}
         </ul>}
@@ -117,7 +121,7 @@ export default async function TopicRecentDocsSection({ topicId }: TopicRecentDoc
                 </AnimatePresence>
             </ul>
         }
-    </SectionContainer>;
+    </Wrapper>;
 }
 
 async function WithUsers() {

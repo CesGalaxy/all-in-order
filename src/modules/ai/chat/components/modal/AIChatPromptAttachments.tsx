@@ -1,4 +1,4 @@
-import { PromptAttachment } from "@/modules/ai/chat/components/AIChatPromptInputWithActionsBottom";
+import { PromptAttachment } from "@/modules/ai/chat/app/AIChatPromptInputWithActionsBottom";
 import { DrawerBody, DrawerContent, DrawerFooter, DrawerHeader } from "@heroui/drawer";
 import { Button } from "@heroui/button";
 import { IconDeviceFloppy, IconTrash } from "@tabler/icons-react";

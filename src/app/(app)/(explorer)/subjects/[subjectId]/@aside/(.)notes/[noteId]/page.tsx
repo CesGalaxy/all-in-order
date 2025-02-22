@@ -3,10 +3,10 @@
 import getSupabase from "@/lib/supabase/server";
 import ErrorView from "@/components/views/ErrorView";
 import required from "@/lib/helpers/required";
-import ShareButton from "@/app/(app)/(explorer)/subjects/[subjectId]/@aside/(.)notes/[noteId]/_ShareButton";
 import EditButton from "@/app/(app)/(explorer)/subjects/[subjectId]/@aside/(.)notes/[noteId]/_EditButton";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { ShareButton } from "@/components/ui/buttons";
 
 export default async function Page(props: { params: Promise<{ subjectId: string, noteId: string }> }) {
     const { subjectId, noteId } = await props.params;
@@ -51,8 +51,8 @@ export default async function Page(props: { params: Promise<{ subjectId: string,
         <br/>
         <nav className="flex items-center gap-4">
             <EditButton note={note} action={editNote}/>
-            {/* `undefined` makes sure the title isn't used when "" */}
-            <ShareButton title={note.title || undefined} content={note.content}/>
+            {/* `undefined` makes sure the title isn't used when "" (empty) */}
+            <ShareButton title={note.title || undefined} text={note.content}>{t('Global.share')}</ShareButton>
         </nav>
     </div>;
 }

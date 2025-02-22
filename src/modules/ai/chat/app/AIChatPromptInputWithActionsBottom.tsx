@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { IconArrowUp, IconMicrophone, IconNotes, IconPaperclip } from "@tabler/icons-react";
 import AIChatPromptInput from "@/modules/ai/chat/components/AIChatPromptInput";
 import { Button } from "@heroui/button";
@@ -9,7 +9,28 @@ import { cn } from "@heroui/theme";
 import { ScrollShadow } from "@heroui/scroll-shadow";
 import { Drawer } from "@heroui/drawer";
 import AIChatPromptAttachments from "@/modules/ai/chat/components/modal/AIChatPromptAttachments";
-import { useDisclosure } from "@heroui/modal";
+import { Modal, useDisclosure } from "@heroui/modal";
+import AIChatCreateConversationModal from "@/modules/ai/chat/components/modal/AIChatCreateConversationModal";
+import useAIChatConversation from "@/modules/ai/chat/reactivity/hooks/useAIChatConversation";
+
+const ideas = [
+    {
+        title: "Create a blog post about HeroUI",
+        description: "explain it in simple terms",
+    },
+    {
+        title: "Give me 10 ideas for my next blog post",
+        description: "include only the best ideas",
+    },
+    {
+        title: "Compare HeroUI with other UI libraries",
+        description: "be as objective as possible",
+    },
+    {
+        title: "Write a text message to my friend",
+        description: "be polite and friendly",
+    },
+];
 
 export type PromptAttachment = {
     type: "notebook-page" | "doc" | "upload",
@@ -17,33 +38,19 @@ export type PromptAttachment = {
     data: Blob
 };
 
-export default function AIChatPromptInputWithActions({}) {
-    const ideas = [
-        {
-            title: "Create a blog post about HeroUI",
-            description: "explain it in simple terms",
-        },
-        {
-            title: "Give me 10 ideas for my next blog post",
-            description: "include only the best ideas",
-        },
-        {
-            title: "Compare HeroUI with other UI libraries",
-            description: "be as objective as possible",
-        },
-        {
-            title: "Write a text message to my friend",
-            description: "be polite and friendly",
-        },
-    ];
-
-    const [prompt, setPrompt] = React.useState<string>("");
+export default function AIChatPromptInputWithActions() {
+    const { chat: { input: prompt, setInput: setPrompt, handleSubmit, isLoading } } = useAIChatConversation();
 
     const [attachments, setAttachments] = React.useState<PromptAttachment[]>([]);
     const attachmentsDisclosure = useDisclosure();
+    const creationDisclosure = useDisclosure();
+
+    const submit = useCallback(() => {
+        handleSubmit();
+    }, [handleSubmit]);
 
     return <>
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 container mx-auto">
             <ScrollShadow hideScrollBar className="flex flex-nowrap gap-2 max-w-full" orientation="horizontal">
                 <div className="flex gap-2">
                     {ideas.map(({ title, description }, index) => (
@@ -69,9 +76,11 @@ export default function AIChatPromptInputWithActions({}) {
                                     isIconOnly
                                     color={!prompt ? "default" : "primary"}
                                     isDisabled={!prompt}
+                                    isLoading={isLoading}
                                     radius="lg"
                                     size="sm"
                                     variant="solid"
+                                    onPress={submit}
                                 >
                                     <IconArrowUp
                                         className={cn(
@@ -89,6 +98,12 @@ export default function AIChatPromptInputWithActions({}) {
                     value={prompt}
                     variant="flat"
                     onValueChange={setPrompt}
+                    onKeyDown={e => {
+                        if (e.ctrlKey && e.key === "Enter") {
+                            e.preventDefault();
+                            submit();
+                        }
+                    }}
                 />
                 <div className="flex w-full items-center justify-between gap-8 overflow-x-auto px-4 pb-4">
                     <div className="flex w-full gap-1 md:gap-3">
@@ -104,18 +119,14 @@ export default function AIChatPromptInputWithActions({}) {
                         </Button>
                         <Button
                             size="sm"
-                            startContent={
-                                <IconMicrophone className="text-default-500" width={18}/>
-                            }
+                            startContent={<IconMicrophone className="text-default-500" width={18}/>}
                             variant="flat"
                         >
                             Voice Commands
                         </Button>
                         <Button
                             size="sm"
-                            startContent={
-                                <IconNotes className="text-default-500" width={18}/>
-                            }
+                            startContent={<IconNotes className="text-default-500" width={18}/>}
                             variant="flat"
                         >
                             Templates
@@ -128,5 +139,8 @@ export default function AIChatPromptInputWithActions({}) {
         <Drawer isOpen={attachmentsDisclosure.isOpen} onOpenChange={attachmentsDisclosure.onOpenChange}>
             <AIChatPromptAttachments attachments={attachments}/>
         </Drawer>
+        <Modal isOpen={creationDisclosure.isOpen} onOpenChange={creationDisclosure.onOpenChange}>
+            <AIChatCreateConversationModal/>
+        </Modal>
     </>;
 }

@@ -19,11 +19,11 @@ export default async function Layout({ children, params }: {
     const { id, title, description } = required(data, false);
 
     // Note: it works, don't touch it
-    return <div className="w-full grow flex flex-col lg:flex-row p-2 md:p-4 lg:pr-8 gap-x-4 gap-y-8">
-        <aside className="w-full lg:w-fit lg:max-w-96 lg:pr-8 sticky top-24 h-min">
+    return <div className="w-full grow flex flex-col">
+        <aside className="w-full sticky top-0 z-20 border-b border-b-divider">
             <TopicSidebar topicId={id} topicTitle={title} topicDescription={description}/>
         </aside>
-        <div className="w-full lg:min-h-full grow bg-content2 text-content2-foreground rounded-xl z-10">
+        <div className="w-full min-h-full grow bg-content2 text-content2-foreground rounded-xl flex flex-col">
             {children}
         </div>
     </div>;

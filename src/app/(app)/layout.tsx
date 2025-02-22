@@ -7,7 +7,7 @@ export default function Layout({ children, aside }: Readonly<{
     aside: React.ReactNode;
 }>) {
     return <>
-        <div className="w-full min-h-full flex flex-col items-stretch justify-stretch">
+        <div className="w-full min-h-full flex flex-col items-stretch">
             <AppNavbar/>
             {children}
         </div>

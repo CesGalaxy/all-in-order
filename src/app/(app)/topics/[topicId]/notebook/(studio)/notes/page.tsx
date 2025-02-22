@@ -6,7 +6,7 @@ import required from "@/lib/helpers/required";
 import PageContainer from "@/components/containers/PageContainer";
 import NbNotesPageNavbar from "@/modules/notebook/notes/components/organisms/NbNotesPageNavbar";
 import NotebookNotesProvider from "@/modules/notebook/notes/reactivity/providers/NotebookNotesProvider";
-import NotebookNotesGallery from "@/modules/notebook/notes/components/data/NotebookNotesGallery";
+import NotebookNotesGallery from "@/modules/notebook/notes/components/gallery/NotebookNotesGallery";
 
 export default async function Page({ params }: { params: Promise<{ topicId: string }> }) {
     const { topicId } = await params;
