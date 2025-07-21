@@ -1,5 +1,5 @@
-import { ExplorerPage } from "@/components/explorer/page";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-    return <ExplorerPage title={"App"}>Hello world!</ExplorerPage>
+    redirect("/w/_")
 }
