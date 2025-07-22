@@ -24,5 +24,4 @@ export function ExplorerPage({ children, title }: { children: ReactNode, title: 
             {children}
         </div>
     </>;
-
 }

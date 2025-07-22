@@ -10,12 +10,14 @@ import {
     Trash2
 } from "lucide-react";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@repo/ui/components/sidebar";
-import ExplorerNavFavorites from "@/modules/app/explorer/nav-favorites";
+import NavRecentNotebooks from "@/modules/app/explorer/nav-recent-notebooks";
 import ExplorerNavMain from "@/modules/app/explorer/nav-main";
 import ExplorerNavSecondary from "@/modules/app/explorer/nav-secondary";
-import ExplorerNavSubjects from "@/modules/app/explorer/nav-subjects";
 import WorkspaceSwitcher from "@/modules/app/explorer/workspace-switcher";
 import { getMyWorkspaces } from "@/modules/app/workspace/queries";
+import { getMyNotebooks } from "@/modules/app/notebook/queries";
+import { Suspense } from "react";
+import { Skeleton } from "@repo/ui/components/skeleton";
 
 const data = {
     teams: [
@@ -81,58 +83,6 @@ const data = {
             title: "Help",
             url: "#",
             icon: MessageCircleQuestion,
-        },
-    ],
-    favorites: [
-        {
-            name: "Project Management & Task Tracking",
-            url: "#",
-            emoji: "📊",
-        },
-        {
-            name: "Family Recipe Collection & Meal Planning",
-            url: "#",
-            emoji: "🍳",
-        },
-        {
-            name: "Fitness Tracker & Workout Routines",
-            url: "#",
-            emoji: "💪",
-        },
-        {
-            name: "Book Notes & Reading List",
-            url: "#",
-            emoji: "📚",
-        },
-        {
-            name: "Sustainable Gardening Tips & Plant Care",
-            url: "#",
-            emoji: "🌱",
-        },
-        {
-            name: "Language Learning Progress & Resources",
-            url: "#",
-            emoji: "🗣️",
-        },
-        {
-            name: "Home Renovation Ideas & Budget Tracker",
-            url: "#",
-            emoji: "🏠",
-        },
-        {
-            name: "Personal Finance & Investment Portfolio",
-            url: "#",
-            emoji: "💰",
-        },
-        {
-            name: "Movie & TV Show Watchlist with Reviews",
-            url: "#",
-            emoji: "🎬",
-        },
-        {
-            name: "Daily Habit Tracker & Goal Setting",
-            url: "#",
-            emoji: "✅",
         },
     ],
     workspaces: [
@@ -244,16 +194,22 @@ const data = {
     ],
 }
 
-export default function ExplorerSidebarLeft({ workspaceId, ...props }: {workspaceId: string} & React.ComponentProps<typeof Sidebar>) {
+export default function ExplorerSidebarLeft({ workspaceId, workspacesQuery, notebooksQuery, ...props }: {
+    workspaceId: string,
+    workspacesQuery: ReturnType<typeof getMyWorkspaces>,
+    notebooksQuery: ReturnType<typeof getMyNotebooks>,
+} & React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar className="border-r-0" collapsible="icon" {...props}>
             <SidebarHeader>
-                <WorkspaceSwitcher currentWorkspaceId={workspaceId} workspacesQuery={getMyWorkspaces()}/>
+                <WorkspaceSwitcher currentWorkspaceId={workspaceId} workspacesQuery={workspacesQuery}/>
                 <ExplorerNavMain/>
             </SidebarHeader>
             <SidebarContent>
-                <ExplorerNavFavorites favorites={data.favorites}/>
-                <ExplorerNavSubjects workspaces={data.workspaces}/>
+                <Suspense fallback={<Skeleton className="h-[125px] w-full rounded-xl" />}>
+                    <NavRecentNotebooks notebooksQuery={notebooksQuery} workspaceId={workspaceId}/>
+                </Suspense>
+                {/*<ExplorerNavSubjects workspaces={data.workspaces}/>*/}
             </SidebarContent>
             <SidebarFooter>
                 <ExplorerNavSecondary className="--mt-auto"/>

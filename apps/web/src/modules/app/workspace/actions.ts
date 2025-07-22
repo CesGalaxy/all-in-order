@@ -27,7 +27,7 @@ export const createWorkspace = actionClient
 
         // Insert the new workspace
         const userId = user.id;
-        const sbAdmin = sbAdminClient();
+        const sbAdmin = await sbAdminClient();
         const {data, error} = await sbAdmin
             .from("workspaces")
             .insert({ name, owner: userId, created_by: userId })

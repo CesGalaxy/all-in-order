@@ -6,13 +6,10 @@ import ErrorCard from "@repo/ui/components/molecules/error-card";
 import WorkspaceCard from "@/modules/app/workspace/components/workspace-card";
 
 export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
+    // TODO: Handle slug if needed, currently unused
     const { slug } = await params;
 
     const {data, error} = await getMyWorkspaces();
-
-    console.log(data, error);
-
-    // if (data && data.length === 0) redirect("/welcome");
 
     return <>
         <Navigation/>

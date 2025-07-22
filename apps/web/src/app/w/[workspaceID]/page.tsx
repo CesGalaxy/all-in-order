@@ -1,3 +1,7 @@
+import { ExplorerPage } from "@/modules/app/explorer/page";
+
 export default function Page() {
-    return <p>helloooooo!</p>
+    return <ExplorerPage title={"Dashboard"}>
+        Hello world!
+    </ExplorerPage>
 }

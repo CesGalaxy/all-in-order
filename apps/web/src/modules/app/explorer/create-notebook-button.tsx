@@ -22,8 +22,10 @@ import {
     DrawerTrigger,
 } from "@repo/ui/components/drawer"
 import CreateNotebookForm from "@/modules/app/notebook/components/create-notebook-form";
+import { BookPlus } from "lucide-react";
+import { SidebarMenuButton } from "@repo/ui/components/sidebar";
 
-export function CreateNotebookButton() {
+export function CreateNotebookButton({workspaceId}: {workspaceId: string}) {
     const [open, setOpen] = React.useState(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -31,17 +33,19 @@ export function CreateNotebookButton() {
         return (
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Edit Profile</Button>
+                    <SidebarMenuButton className="text-primary-foreground! transition-all duration-300 bg-gradient-to-r from-primary via-primary to-brand-pink bg-[position:_0%_0%] hover:bg-[position:_100%_100%] bg-[size:_200%]">
+                        <BookPlus/>
+                        <span>Create your first notebook</span>
+                    </SidebarMenuButton>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogTitle>Create a new notebook</DialogTitle>
                         <DialogDescription>
-                            Make changes to your profile here. Click save when you&apos;re
-                            done.
+                            Your current plan only allows you to create up to 3 notebooks per workspace.
                         </DialogDescription>
                     </DialogHeader>
-                    <CreateNotebookForm />
+                    <CreateNotebookForm  workspaceId={workspaceId}/>
                 </DialogContent>
             </Dialog>
         )
@@ -50,16 +54,19 @@ export function CreateNotebookButton() {
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
-                <Button variant="outline">Edit Profile</Button>
+                <SidebarMenuButton className="text-primary-foreground! transition-all duration-300 bg-gradient-to-r from-primary via-primary to-brand-pink bg-[position:_0%_0%] hover:bg-[position:_100%_100%] bg-[size:_200%]">
+                    <BookPlus/>
+                    <span>Create your first notebook</span>
+                </SidebarMenuButton>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader className="text-left">
-                    <DrawerTitle>Edit profile</DrawerTitle>
+                    <DrawerTitle>Create a new notebook</DrawerTitle>
                     <DrawerDescription>
-                        Make changes to your profile here. Click save when you&apos;re done.
+                        Your current plan only allows you to create up to 3 notebooks per workspace.
                     </DrawerDescription>
                 </DrawerHeader>
-                <CreateNotebookForm className="px-4" />
+                <CreateNotebookForm workspaceId="workspaceId" className="px-4"/>
                 <DrawerFooter className="pt-2">
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>

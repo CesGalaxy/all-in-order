@@ -7,4 +7,4 @@ export const getMyWorkspaces = cache(async () => {
     const sb = await sbServerClient();
 
     return sb.from("workspaces").select("id, name, owner");
-})
+});

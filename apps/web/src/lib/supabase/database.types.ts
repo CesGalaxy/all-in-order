@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      notebooks: {
+        Row: {
+          background: Json | null
+          created_at: string
+          details: string | null
+          id: string
+          name: string
+          updated_at: string | null
+          workspace: string
+        }
+        Insert: {
+          background?: Json | null
+          created_at?: string
+          details?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+          workspace: string
+        }
+        Update: {
+          background?: Json | null
+          created_at?: string
+          details?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
+          workspace?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notebooks_workspace_fkey"
+            columns: ["workspace"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           bio: string | null

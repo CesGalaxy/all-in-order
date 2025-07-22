@@ -1,8 +1,8 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "../card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../card";
 import * as React from "react";
 import { cn } from "../../lib/utils";
 
-export default function ErrorCard({title, message, className, ...props}: React.ComponentProps<"div"> & {
+export default function ErrorCard({title, message, className, children, ...props}: React.ComponentProps<"div"> & {
     title?: string;
     message?: string;
 }) {
@@ -18,5 +18,6 @@ export default function ErrorCard({title, message, className, ...props}: React.C
             <CardDescription>{message}</CardDescription>
             {/*<CardAction>Card Action</CardAction>*/}
         </CardHeader>
+        {children && <CardContent>{children}</CardContent>}
     </Card>;
 }
