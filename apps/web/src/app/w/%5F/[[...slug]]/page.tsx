@@ -6,7 +6,6 @@ import ErrorCard from "@repo/ui/components/molecules/error-card";
 import WorkspaceCard from "@/modules/app/workspace/components/workspace-card";
 
 export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
-    // TODO: Handle slug if needed, currently unused
     const { slug } = await params;
 
     const {data, error} = await getMyWorkspaces();
@@ -18,7 +17,7 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
             : <ul className="mx-auto max-w-3xl grid sm:grid-cols-1 md:grid-cols-2 gap-6 px-2 py-4 md:px-4 md:py-16">
                 {data?.map(workspace => (
                     <li key={workspace.id}>
-                        <WorkspaceCard {...workspace}/>
+                        <WorkspaceCard slug={slug?.join("/")} {...workspace}/>
                     </li>
                 ))}
             </ul>}

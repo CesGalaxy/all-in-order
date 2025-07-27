@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@repo/ui/components/card"
 import { Badge } from "@repo/ui/components/badge"
 import { Calculator, FileText, PenTool, Puzzle } from "lucide-react"
+import Link from "next/link";
 
 export function IntegrationSection() {
   const tools = [
@@ -9,6 +10,7 @@ export function IntegrationSection() {
       title: "Notion Sync",
       description: "Seamlessly sync with your Notion workspace",
       color: "bg-gray-100 text-gray-700",
+      href: "/integrations/notion",
     },
     {
       icon: <PenTool className="w-8 h-8" />,
@@ -45,18 +47,17 @@ export function IntegrationSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tools.map((tool, index) => (
-            <Card
-              key={index}
-              className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-            >
-              <CardContent className="p-6 text-center">
-                <div className={`w-16 h-16 ${tool.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
-                  {tool.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{tool.title}</h3>
-                <p className="text-gray-600 text-sm">{tool.description}</p>
-              </CardContent>
-            </Card>
+            <Link href={tool.href || "#"} key={index}>
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full">
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 ${tool.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+                    {tool.icon}
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{tool.title}</h3>
+                  <p className="text-gray-600 text-sm">{tool.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

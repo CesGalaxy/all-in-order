@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Suspense, use } from "react"
-import { ChevronDown, GalleryVerticalEnd, Plus } from "lucide-react"
+import { Book, BookPlus, ChevronDown } from "lucide-react"
 
 import {
     DropdownMenu,
@@ -15,12 +15,12 @@ import {
 } from "@repo/ui/components/dropdown-menu"
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, } from "@repo/ui/components/sidebar"
 import Link from "next/link";
-import { getMyWorkspaces } from "@/modules/app/workspace/queries";
 import { Skeleton } from "@repo/ui/components/skeleton";
+import { getMyNotebooks } from "@/modules/app/notebook/queries";
 
-export default function WorkspaceSwitcher({ currentWorkspaceId, workspacesQuery }: {
-    currentWorkspaceId: string;
-    workspacesQuery: ReturnType<typeof getMyWorkspaces>;
+export default function NotebookSwitcher({ currentNotebookId, notebookQuery }: {
+    currentNotebookId: string;
+    notebookQuery: ReturnType<typeof getMyNotebooks>;
 }) {
     return (
         <SidebarMenu>
@@ -29,11 +29,11 @@ export default function WorkspaceSwitcher({ currentWorkspaceId, workspacesQuery 
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton className="w-fit px-1.5 group-data-[state=collapsed]:p-1.5!">
                             <div
-                                className="flex aspect-square size-5 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-                                <GalleryVerticalEnd className="size-3"/>
+                                className="flex aspect-square size-5 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                                <Book className="size-3"/>
                             </div>
                             <Suspense fallback={<Skeleton className="h-5 w-20"/>}>
-                                <WorkspaceSwitcherName id={currentWorkspaceId} query={workspacesQuery}/>
+                                <NotebookSwitcherName id={currentNotebookId} query={notebookQuery}/>
                             </Suspense>
                             <ChevronDown className="opacity-50"/>
                         </SidebarMenuButton>
@@ -45,15 +45,15 @@ export default function WorkspaceSwitcher({ currentWorkspaceId, workspacesQuery 
                         sideOffset={4}
                     >
                         <DropdownMenuLabel className="text-xs text-muted-foreground">
-                            Workspaces
+                            Notebooks
                         </DropdownMenuLabel>
-                        <Suspense><WorkspaceSwitcherList query={workspacesQuery}/></Suspense>
+                        <Suspense><NotebookSwitcherList query={notebookQuery}/></Suspense>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem className="gap-2 p-2">
                             <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-                                <Plus className="size-4"/>
+                                <BookPlus className="size-4"/>
                             </div>
-                            <div className="font-medium text-muted-foreground">Add workspace</div>
+                            <div className="font-medium text-muted-foreground">Add notebook</div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -62,35 +62,30 @@ export default function WorkspaceSwitcher({ currentWorkspaceId, workspacesQuery 
     )
 }
 
-export function WorkspaceSwitcherName({ id, query }: { id: string, query: ReturnType<typeof getMyWorkspaces> }) {
+export function NotebookSwitcherName({ id, query }: { id: string, query: ReturnType<typeof getMyNotebooks> }) {
     const { data, error } = use(query);
 
     return error
         ? <span className="truncate font-semibold text-destructive-foreground">{error.message}</span>
         : <span className="truncate font-semibold">
-            {data?.find(workspace => workspace.id === id)!.name}
+            {data?.find(notebook => notebook.id === id)!.name}
         </span>;
 }
 
-export function WorkspaceSwitcherList({query}: { query: ReturnType<typeof getMyWorkspaces> }) {
+export function NotebookSwitcherList({query}: { query: ReturnType<typeof getMyNotebooks> }) {
     const { data, error } = use(query);
 
     return error
         ? <span className="truncate font-semibold text-destructive-foreground">{error.message}</span>
-        : data.map((workspace, index) => (
-        <DropdownMenuItem
-            key={workspace.id}
-            // onClick={() => setActiveTeam(team)}
-            className="gap-2 p-2"
-            asChild
-        >
-            <Link href={"/w/" + workspace.id}>
-                <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <GalleryVerticalEnd className="size-4 shrink-0"/>
-                </div>
-                {workspace.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-            </Link>
-        </DropdownMenuItem>
+        : data.map((notebook, index) => (
+            <DropdownMenuItem key={notebook.id} className="gap-2 p-2" asChild>
+                <Link href={"/notebooks/" + notebook.id}>
+                    <div className="flex size-6 items-center justify-center rounded-sm border">
+                        <Book className="size-4 shrink-0"/>
+                    </div>
+                    {notebook.name}
+                    <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                </Link>
+            </DropdownMenuItem>
     ))
 }

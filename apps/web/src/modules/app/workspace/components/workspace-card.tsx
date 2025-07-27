@@ -5,7 +5,7 @@ import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/button";
 
-export default function WorkspaceCard({name, owner, id}: Pick<Tables<"workspaces">, "id" | "name" | "owner"> & {}) {
+export default function WorkspaceCard({name, id, slug}: {slug?: string} & Pick<Tables<"workspaces">, "id" | "name" | "owner"> & {}) {
     return <Card>
         <CardHeader>
             <CardTitle>{name}</CardTitle>
@@ -20,7 +20,7 @@ export default function WorkspaceCard({name, owner, id}: Pick<Tables<"workspaces
         </CardHeader>
         <CardFooter>
             <Button asChild className="w-full">
-                <Link href={"/w/" + id}>Go to workspace <ArrowRight/></Link>
+                <Link href={"/w/" + id + slug}>Go to workspace <ArrowRight/></Link>
             </Button>
         </CardFooter>
     </Card>

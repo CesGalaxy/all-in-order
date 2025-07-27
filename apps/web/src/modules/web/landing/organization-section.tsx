@@ -53,7 +53,7 @@ export function OrganizationSection() {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Progress Tracking</h3>
                   <p className="text-gray-600">
-                    Visual progress indicators help you stay motivated and see how far you've come.
+                    Visual progress indicators help you stay motivated and see how far you&#39;ve come.
                   </p>
                 </div>
               </div>

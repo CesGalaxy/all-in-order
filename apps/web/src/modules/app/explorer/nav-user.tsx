@@ -1,6 +1,6 @@
 "use client"
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles, } from "lucide-react"
+import { BadgeCheck, Bell, Blocks, ChevronsUpDown, CreditCard, LogOut, Sparkles, } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage, } from "@repo/ui/components/avatar"
 import {
@@ -14,15 +14,48 @@ import {
 } from "@repo/ui/components/dropdown-menu"
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar, } from "@repo/ui/components/sidebar"
 import { getMyProfile } from "@/modules/user/auth/server";
-import { use } from "react";
+import { use, useCallback } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import createSupabaseClient from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 export default function ExplorerNavUser({ query }: {
     query: ReturnType<typeof getMyProfile>
 }) {
     const { isMobile } = useSidebar();
     const { error, user, data } = use(query);
+    const pathname = usePathname();
 
-    if (error) return <p>Error</p>
+    const connectNotion = useCallback(async () => {
+        const sb = createSupabaseClient();
+
+        const {data, error} = await sb.auth.linkIdentity({
+            provider: "notion",
+            options: {
+                redirectTo: `${window.location.origin}/auth/callback?next=` + encodeURIComponent(pathname),
+            },
+        });
+
+        console.log(data, error);
+    }, [pathname]);
+
+    if (error) return <p>Error getting profile</p>;
+
+    const { email, identities } = user;
+
+    const notionConnected = identities?.some(identity => identity.provider === "notion") || false;
+
+    const unlinkNotion = () => {
+        const notionIdentity = user.identities?.find(identity => identity.provider === "notion");
+        if (notionIdentity) {
+            const sb = createSupabaseClient();
+            sb.auth.unlinkIdentity(notionIdentity)
+                .then(({ error }) => error ? toast.error("Error unlinking Notion identity:" + error.message) : toast("Notion identity unlinked successfully"))
+                .then(() => window.location.reload())
+                .catch(console.error);
+        }
+    }
 
     return (
         <SidebarMenu>
@@ -35,11 +68,11 @@ export default function ExplorerNavUser({ query }: {
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage src={"user.avatar"} alt={data.name}/>
-                                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                <AvatarFallback className="rounded-lg">{data.name[0]}</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">{data.name}</span>
-                                <span className="truncate text-xs">{user.email}</span>
+                                <span className="truncate text-xs">{email}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4"/>
                         </SidebarMenuButton>
@@ -54,26 +87,29 @@ export default function ExplorerNavUser({ query }: {
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage src={"user.avatar"} alt={data.name}/>
-                                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                    <AvatarFallback className="rounded-lg">{data.name[0]}</AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">{data.name}</span>
-                                    <span className="truncate text-xs">{user.email}</span>
+                                    <span className="truncate text-xs">{email}</span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator/>
                         <DropdownMenuGroup>
-                            <DropdownMenuItem className="hover:bg-gradient-to-r from-primary to-brand-pink hover:text-white! hover:*:text-white!">
+                            <DropdownMenuItem
+                                className="hover:bg-gradient-to-r from-primary to-brand-pink hover:text-white! hover:*:text-white!">
                                 <Sparkles/>
                                 Upgrade to Pro
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator/>
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck/>
-                                Account
+                            <DropdownMenuItem asChild>
+                                <Link href={"/me?from=" + pathname}>
+                                    <BadgeCheck/>
+                                    Account
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <CreditCard/>
@@ -83,6 +119,19 @@ export default function ExplorerNavUser({ query }: {
                                 <Bell/>
                                 Notifications
                             </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator/>
+                        <DropdownMenuGroup>
+                            {notionConnected
+                                ? <DropdownMenuItem onClick={unlinkNotion} variant="destructive">
+                                    <Sparkles/>
+                                    Unlink Notion
+                                </DropdownMenuItem>
+                                : <DropdownMenuItem onClick={connectNotion}>
+                                    <Blocks/>
+                                    Connect to Notion
+                                </DropdownMenuItem>
+                            }
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem variant="destructive">

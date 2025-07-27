@@ -13,4 +13,9 @@ export const getMyProfile = cache(async () => {
     const query = await sb.from("profiles").select("*").eq("id", user.data.user.id).single();
 
     return { user: user.data.user, ...query };
-})
+});
+
+export const getMyIdentities = cache(async () => {
+    const sb = await sbServerClient();
+    return await sb.auth.getUserIdentities();
+});
