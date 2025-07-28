@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react"
-import { createContext, use, useMemo, useState } from "react"
+import { Suspense, useMemo, useState } from "react"
 import {
     Bell,
     Globe,
@@ -78,18 +78,6 @@ const PAGES = {
 type PageIdentifier<G extends keyof typeof PAGES = keyof typeof PAGES> = {
     group: G;
     page: number; // keyof typeof PAGES[G]["pages"];
-}
-
-interface WorkspaceSettingsContextProps {
-
-}
-
-const WorkspaceSettingsContext = createContext<WorkspaceSettingsContextProps | null>(null);
-
-export function useWorkspaceSettings() {
-    const ctx = use(WorkspaceSettingsContext);
-    if (!ctx) throw new Error("useWorkspaceSettings must be used within a WorkspaceSettingsProvider");
-    return ctx;
 }
 
 export function WorkspaceSettings() {
@@ -173,7 +161,9 @@ export function WorkspaceSettings() {
                         </header>
                         <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
                             {active.Component
-                                ? <active.Component/>
+                                ? <Suspense fallback={<div className="bg-muted/50 aspect-video max-w-3xl rounded-xl"/>}>
+                                    <active.Component/>
+                                </Suspense>
                                 : Array.from({ length: 10 }).map((_, i) => (
                                 <div
                                     key={i}
@@ -186,13 +176,4 @@ export function WorkspaceSettings() {
             </DialogContent>
         </Dialog>
     )
-}
-
-export function WorkspaceSettingsProvider({ children }: { children: React.ReactNode }) {
-    const value = useMemo(() => ({}), []);
-    return (
-        <WorkspaceSettingsContext.Provider value={value}>
-            {children}
-        </WorkspaceSettingsContext.Provider>
-    );
 }

@@ -4,7 +4,6 @@ import SidebarWorkspace from "@/modules/app/workspace/components/sidebar-workspa
 import ExplorerSidebarRight from "@/modules/app/explorer/sidebar-right";
 import { getMyWorkspaces } from "@/modules/app/workspace/queries";
 import { getMyNotebooks } from "@/modules/app/notebook/queries";
-import { getMyProfile } from "@/modules/user/auth/server";
 
 export default async function Layout({ children, params }: { children: ReactNode, params: Promise<{workspaceID: string}> }) {
     const { workspaceID } = await params;
@@ -15,7 +14,6 @@ export default async function Layout({ children, params }: { children: ReactNode
             workspaceId={workspaceID}
             workspacesQuery={getMyWorkspaces()}
             notebooksQuery={getMyNotebooks()}
-            profileQuery={getMyProfile()}
         />
         <SidebarInset>
             {children}

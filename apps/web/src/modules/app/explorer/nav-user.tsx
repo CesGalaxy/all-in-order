@@ -19,6 +19,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import createSupabaseClient from "@/lib/supabase/client";
 import { toast } from "sonner";
+import { buildAuthRedirectUrl } from "@/modules/user/auth/utils";
 
 export default function ExplorerNavUser({ query }: {
     query: ReturnType<typeof getMyProfile>
@@ -32,9 +33,7 @@ export default function ExplorerNavUser({ query }: {
 
         const {data, error} = await sb.auth.linkIdentity({
             provider: "notion",
-            options: {
-                redirectTo: `${window.location.origin}/auth/callback?next=` + encodeURIComponent(pathname),
-            },
+            options: { redirectTo: buildAuthRedirectUrl(pathname) },
         });
 
         console.log(data, error);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@repo/ui/components/sonner";
 import { Kanit } from "next/font/google";
+import { TRPCReactProvider } from "@/trpc/react";
 
 const kanit = Kanit({
     subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${kanit.variable} w-full h-dvh min-h-dvh`}>
-        {children}
+        <TRPCReactProvider>
+            {children}
+        </TRPCReactProvider>
         <Toaster/>
       </body>
     </html>

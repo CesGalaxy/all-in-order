@@ -5,7 +5,7 @@ import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@repo/ui/components/button";
 
-export default function WorkspaceCard({name, id, slug}: {slug?: string} & Pick<Tables<"workspaces">, "id" | "name" | "owner"> & {}) {
+export default function WorkspaceCard({name, id, slug = ""}: {slug?: string} & Pick<Tables<"workspaces">, "id" | "name" | "owner"> & {}) {
     return <Card>
         <CardHeader>
             <CardTitle>{name}</CardTitle>

@@ -7,14 +7,11 @@ import { getMyWorkspaces } from "@/modules/app/workspace/queries";
 import { getMyNotebooks } from "@/modules/app/notebook/queries";
 import { Suspense } from "react";
 import { Skeleton } from "@repo/ui/components/skeleton";
-import { getMyProfile } from "@/modules/user/auth/server";
 
 export default function SidebarWorkspace({ workspaceId, workspacesQuery, notebooksQuery, ...props }: {
     workspaceId: string,
     workspacesQuery: ReturnType<typeof getMyWorkspaces>,
     notebooksQuery: ReturnType<typeof getMyNotebooks>,
-    // TODO: Why?
-    profileQuery: ReturnType<typeof getMyProfile>,
 } & React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar className="border-r-0" collapsible="icon" {...props}>
