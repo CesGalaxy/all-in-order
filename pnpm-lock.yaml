@@ -93,9 +93,6 @@ importers:
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.4.3(typescript@5.8.2)
-      '@trpc/tanstack-react-query':
-        specifier: ^11.4.3
-        version: 11.4.3(@tanstack/react-query@5.83.0(react@19.1.0))(@trpc/client@11.4.3(@trpc/server@11.4.3(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.4.3(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)
       chalk:
         specifier: ^5.4.1
         version: 5.4.1
@@ -1769,16 +1766,6 @@ packages:
   '@trpc/server@11.4.3':
     resolution: {integrity: sha512-wnWq3wiLlMOlYkaIZz+qbuYA5udPTLS4GVVRyFkr6aT83xpdCHyVtURT+u4hSoIrOXQM9OPCNXSXsAujWZDdaw==}
     peerDependencies:
-      typescript: '>=5.7.2'
-
-  '@trpc/tanstack-react-query@11.4.3':
-    resolution: {integrity: sha512-aYPp12wE9IrakccGWoQU/waZuWr3FLw9RtagsqJmX9NKHpQOVzoDvHA1W0amwyTQSAfL98Bn5rWmD7KTdr5AWg==}
-    peerDependencies:
-      '@tanstack/react-query': ^5.80.3
-      '@trpc/client': 11.4.3
-      '@trpc/server': 11.4.3
-      react: '>=18.2.0'
-      react-dom: '>=18.2.0'
       typescript: '>=5.7.2'
 
   '@ts-morph/common@0.19.0':
@@ -5849,15 +5836,6 @@ snapshots:
 
   '@trpc/server@11.4.3(typescript@5.8.2)':
     dependencies:
-      typescript: 5.8.2
-
-  '@trpc/tanstack-react-query@11.4.3(@tanstack/react-query@5.83.0(react@19.1.0))(@trpc/client@11.4.3(@trpc/server@11.4.3(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.4.3(typescript@5.8.2))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.2)':
-    dependencies:
-      '@tanstack/react-query': 5.83.0(react@19.1.0)
-      '@trpc/client': 11.4.3(@trpc/server@11.4.3(typescript@5.8.2))(typescript@5.8.2)
-      '@trpc/server': 11.4.3(typescript@5.8.2)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
       typescript: 5.8.2
 
   '@ts-morph/common@0.19.0':
