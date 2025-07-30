@@ -26,7 +26,7 @@ export default function SidebarNotebook({ notebookId, workspaceId, workspacesQue
             </SidebarHeader>
             <SidebarContent>
                 <Suspense fallback={<Skeleton className="h-[125px] w-full rounded-xl" />}>
-                    <NavNotebookContent profileQuery={profileQuery}/>
+                    <NavNotebookContent profileQuery={profileQuery} notebookId={notebookId}/>
                 </Suspense>
             </SidebarContent>
             <SidebarFooter>

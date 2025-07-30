@@ -14,10 +14,52 @@ export type Database = {
   }
   public: {
     Tables: {
+      notebook_pages: {
+        Row: {
+          alias: string | null
+          archived: boolean
+          cache: Json | null
+          created_at: string
+          created_by: string | null
+          id: string
+          notebook_id: string
+          position: number
+        }
+        Insert: {
+          alias?: string | null
+          archived?: boolean
+          cache?: Json | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notebook_id: string
+          position: number
+        }
+        Update: {
+          alias?: string | null
+          archived?: boolean
+          cache?: Json | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notebook_id?: string
+          position?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notebook_pages_notebook_id_fkey"
+            columns: ["notebook_id"]
+            isOneToOne: false
+            referencedRelation: "notebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notebooks: {
         Row: {
           background: Json | null
           created_at: string
+          created_by: string | null
           details: string | null
           id: string
           name: string
@@ -27,6 +69,7 @@ export type Database = {
         Insert: {
           background?: Json | null
           created_at?: string
+          created_by?: string | null
           details?: string | null
           id?: string
           name: string
@@ -36,6 +79,7 @@ export type Database = {
         Update: {
           background?: Json | null
           created_at?: string
+          created_by?: string | null
           details?: string | null
           id?: string
           name?: string

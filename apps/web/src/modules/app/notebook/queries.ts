@@ -17,3 +17,12 @@ export const getNotebook = cache(async (notebookId: string) => {
         .eq("id", notebookId)
         .maybeSingle();
 });
+
+export const getNotebookPages = cache(async (notebookId: string) => {
+    const sb = await sbServerClient();
+    return sb
+        .from("notebook_pages")
+        .select("id, alias, cache")
+        .eq("notebook_id", notebookId)
+        .order("position", { ascending: true });
+});

@@ -7,7 +7,7 @@ export function getNotionClient(token: string) {
 export function getNotionPages(client: Client) {
     return client.search({
         sort: {
-            direction: "ascending",
+            direction: "descending",
             timestamp: "last_edited_time",
         },
         filter: {

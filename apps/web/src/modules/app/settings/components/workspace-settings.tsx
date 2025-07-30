@@ -4,6 +4,7 @@ import * as React from "react"
 import { Suspense, useMemo, useState } from "react"
 import {
     Bell,
+    CircleUser,
     Globe,
     Home,
     Keyboard,
@@ -62,6 +63,11 @@ const PAGES = {
     'account': {
         name: "Account",
         pages: [
+            {
+                name: "My profile",
+                Icon: CircleUser,
+                Component: dynamic(() => import("./settings-profile"))
+            },
             {
                 name: "Connected accounts",
                 Icon: Link,
