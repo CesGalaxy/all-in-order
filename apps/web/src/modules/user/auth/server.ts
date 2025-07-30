@@ -4,9 +4,14 @@ import { cache } from "react";
 import { sbServerClient } from "@/lib/supabase/server";
 import { AuthError } from "@supabase/supabase-js";
 
+export const getMyUser = cache(async () => {
+    const sb = await sbServerClient();
+    return sb.auth.getUser();
+});
+
 export const getMyProfile = cache(async () => {
     const sb = await sbServerClient();
-    const user = await sb.auth.getUser();
+    const user = await getMyUser();
 
     if (user.error) return { data: null, user: null, error: user.error } as {data: null, user: null, error: AuthError};
 

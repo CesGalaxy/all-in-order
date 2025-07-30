@@ -29,9 +29,9 @@ import AddNotionPage from "@/modules/app/notebook/components/add-notion-page";
 import { getNotionClient, getNotionPages } from "@/modules/integrations/notion/api";
 import { Suspense } from "react";
 import Link from "next/link";
-import { getPageTitle } from "@/modules/integrations/notion/utils";
 import { getNotebookPages } from "@/modules/app/notebook/queries";
 import { Client } from "@notionhq/client";
+import { getPageName } from "@/modules/app/notebook/server";
 
 const items = [
     {
@@ -211,20 +211,9 @@ async function PageItem({ id, alias, cache, notebookId, notionClient }: {
     notebookId: string;
     notionClient: Client;
 } & NonNullable<Awaited<ReturnType<typeof getNotebookPages>>["data"]>[number]) {
-    const isCacheValid = cache !== null && typeof cache === "object" && "properties" in cache && typeof cache.properties === "object";
+    const title = await getPageName(notionClient, { id, alias, cache });
 
-    let title = alias;
-    if (!title && isCacheValid) title = getPageTitle(cache as never);
-    if (!title) {
-        try {
-            const page = await notionClient.pages.retrieve({ page_id: id });
-            if (!("properties" in page)) return <SidebarMenuSubItem key={id} className="text-destructive">Page not
-                found</SidebarMenuSubItem>;
-            title = getPageTitle(page as never) || "Can't get title";
-        } catch {
-            return <SidebarMenuSubItem key={id} className="text-destructive">Error getting name</SidebarMenuSubItem>
-        }
-    }
+    if (!title) return <SidebarMenuSubItem key={id} className="text-destructive">Error getting name</SidebarMenuSubItem>;
 
     return <SidebarMenuSubItem key={id}>
         <SidebarMenuSubButton asChild>

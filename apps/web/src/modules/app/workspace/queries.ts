@@ -8,3 +8,13 @@ export const getMyWorkspaces = cache(async () => {
 
     return sb.from("workspaces").select("id, name, owner");
 });
+
+export const getWorkspace = cache(async (workspaceId: string) => {
+    const sb = await sbServerClient();
+
+    return sb
+        .from("workspaces")
+        .select("id, name, owner")
+        .eq("id", workspaceId)
+        .maybeSingle();
+});

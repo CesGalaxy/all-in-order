@@ -18,6 +18,15 @@ export const getNotebook = cache(async (notebookId: string) => {
         .maybeSingle();
 });
 
+export const getNotebookPage = cache(async (pageId: string) => {
+    const sb = await sbServerClient();
+
+    return sb.from("notebook_pages")
+        .select("id, alias, cache, notebook_id")
+        .eq("id", pageId)
+        .maybeSingle();
+});
+
 export const getNotebookPages = cache(async (notebookId: string) => {
     const sb = await sbServerClient();
     return sb
