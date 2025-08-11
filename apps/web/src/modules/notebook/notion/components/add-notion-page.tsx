@@ -9,8 +9,6 @@ import { Input } from "@repo/ui/components/input";
 import { useHookFormAction } from "@next-safe-action/adapter-react-hook-form/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { LINK_NOTION_PAGE_SCHEMA } from "@/modules/notebook/app/schemas";
-import { linkNotionPage } from "@/modules/notebook/app/actions";
 import {
     Form,
     FormControl,
@@ -22,6 +20,8 @@ import {
 } from "@repo/ui/components/form";
 import { getPageTitle } from "@/modules/integrations/notion/utils";
 import { useWatch } from "react-hook-form";
+import { linkNotionPage } from "@/modules/notebook/notion/actions";
+import { LINK_NOTION_PAGE_SCHEMA } from "@/modules/notebook/notion/schemas";
 
 export default function AddNotionPage({ pagesQuery, notebookId }: {
     pagesQuery: Promise<SearchResponse>;

@@ -1,15 +1,5 @@
 "use server";
 import 'react-notion-x/src/styles.css';
-
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator
-} from "@repo/ui/components/breadcrumb";
-import { NotebookPage } from "@/modules/notebook/app/components/notebook-page";
 import { getNotebook, getNotebookPage, getNotebookPageContent } from "@/modules/notebook/app/queries";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
@@ -19,8 +9,10 @@ import { Alert, AlertTitle } from "@repo/ui/components/alert";
 import { getPageName } from "@/modules/notebook/app/server";
 import { ClientNotionRenderer } from "@/app/notebooks/[notebookId]/p/[pageId]/ClientNotionRenderer";
 import Image from "next/image";
+import NotebookPageLayout from "@/modules/notebook/notion/components/notebook-page-layout";
 
 export default async function Page({ params }: { params: Promise<{ notebookId: string, pageId: string }> }) {
+    // return <Loading/>
     const { notebookId, pageId } = await params;
 
     const {data: { user }, error: userError} = await getMyUser();
@@ -35,14 +27,14 @@ export default async function Page({ params }: { params: Promise<{ notebookId: s
     if (!pData) notFound();
 
     const notionClient = notionClientFromUser(user);
-    if (!notionClient) return <Alert>
+    if (!notionClient) return <Alert variant="destructive" className="max-w-sm mx-auto mt-16">
         <AlertTitle>
             You need to connect your Notion account to access this page.
         </AlertTitle>
     </Alert>;
 
     const title = await getPageName(notionClient, pData as never);
-    if (!title) return <p>Error loading page title</p>; // a133ad7a-0a99-48c4-93d2-64d87eb9ae15
+    if (!title) return <p>Error loading page title</p>;
 
     const {data: content, error: contentError} = await getNotebookPageContent(pageId);
     // console.log("================================")
@@ -50,35 +42,7 @@ export default async function Page({ params }: { params: Promise<{ notebookId: s
     // console.log(contentError?.stack)
     if (contentError) return <p>Error loading page content: {contentError.message}</p>;
 
-    const breadcrumb = <>
-        <Breadcrumb>
-            <BreadcrumbList>
-                <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                        <Link href={"/w/" + nbData.workspace.id}>
-                            {nbData.workspace.name}
-                        </Link>
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator/>
-                <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                        <Link href={"/notebooks/" + nbData.id}>
-                            {nbData.name}
-                        </Link>
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator/>
-                <BreadcrumbItem>
-                    <BreadcrumbPage className="line-clamp-1">
-                        {title}
-                    </BreadcrumbPage>
-                </BreadcrumbItem>
-            </BreadcrumbList>
-        </Breadcrumb>
-    </>;
-
-    return <NotebookPage breadcrumb={breadcrumb}>
+    return <NotebookPageLayout notebookData={nbData} pageData={pData} pageTitle={title}>
         <ClientNotionRenderer
             recordMap={content}
             className="--prose"
@@ -87,5 +51,5 @@ export default async function Page({ params }: { params: Promise<{ notebookId: s
                 nextLink: Link
             }}
         />
-    </NotebookPage>
+    </NotebookPageLayout>
 }

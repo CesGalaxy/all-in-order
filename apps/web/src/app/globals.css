@@ -12,4 +12,8 @@
     [role="button"]:not([disabled]) {
         cursor: pointer;
     }
+
+    [data-scroll-locked][data-scroll-locked] {
+        overflow-y: scroll !important;
+    }
 }

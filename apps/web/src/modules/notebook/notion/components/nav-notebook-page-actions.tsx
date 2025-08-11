@@ -2,16 +2,22 @@
 
 import * as React from "react"
 import {
+    Bell,
     CornerUpRight,
+    FileText,
     GalleryVerticalEnd,
     LineChart,
+    Link,
     LinkIcon,
     MoreHorizontal,
+    PenLine,
+    Printer,
     Settings,
     Share2,
     Star,
     Trash,
     Trash2,
+    Unlink,
 } from "lucide-react"
 
 import { Button } from "@repo/ui/components/button"
@@ -25,15 +31,51 @@ import {
     DropdownMenuTrigger
 } from "@repo/ui/components/dropdown-menu";
 import { Avatar, AvatarFallback } from "@repo/ui/components/avatar";
-import { QueryData } from "@supabase/supabase-js";
-import { getNotebook } from "@/modules/notebook/app/queries";
 import { toast } from "sonner";
+import { QueryData } from "@supabase/supabase-js";
+import { getNotebook, getNotebookPage } from "@/modules/notebook/app/queries";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from "@repo/ui/components/alert-dialog";
+import { unlinkNotionPage } from "@/modules/notebook/notion/actions";
 
-export function NavNotebookActions({ data: {id, name, details, workspace} }: {
-    data: QueryData<ReturnType<typeof getNotebook>>
+const data = [
+    [
+        { label: "Customize", icon: Settings },
+        { label: "Generate PDF", icon: FileText },
+        { label: "Print", icon: Printer },
+    ],
+    [
+        { label: "Copy Link", icon: Link },
+        { label: "Move to", icon: CornerUpRight },
+        { label: "Move to Trash", icon: Trash2 },
+    ],
+    [
+        { label: "View analytics", icon: LineChart },
+        { label: "Version History", icon: GalleryVerticalEnd },
+        { label: "Show deleted pages", icon: Trash },
+        { label: "Notifications", icon: Bell },
+    ],
+]
+
+export default function NavNotebookPageActions({ notebook, page: {id}, pageTitle }: {
+    notebook: QueryData<ReturnType<typeof getNotebook>>,
+    page: QueryData<ReturnType<typeof getNotebookPage>>,
+    pageTitle: string,
 }) {
     return (
         <div className="flex items-center gap-2 text-sm">
+            <div className="text-muted-foreground hidden font-medium md:inline-block">
+                Edit Oct 08
+            </div>
             <Button variant="ghost" size="icon" className="h-7 w-7">
                 <Star />
             </Button>
@@ -50,14 +92,14 @@ export function NavNotebookActions({ data: {id, name, details, workspace} }: {
                                 <AvatarFallback className="rounded-lg">✏️</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">{name}</span>
-                                <span className="truncate text-xs">{details}</span>
+                                <span className="truncate font-semibold">{pageTitle}</span>
+                                <span className="truncate text-xs">{notebook.name}</span>
                             </div>
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={() => {
-                        navigator.clipboard.writeText(window.location.origin + "/notebooks/" + id)
+                        navigator.clipboard.writeText(window.location.origin + "/notebooks/" + notebook.id + "/pages/" + id)
                             .then(() => toast.success("Link copied to clipboard!"))
                             .catch(() => toast.error("Failed to copy link!"));
                     }}>
@@ -74,8 +116,8 @@ export function NavNotebookActions({ data: {id, name, details, workspace} }: {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="min-w-56" side="bottom" align="end" sideOffset={4}>
                     <DropdownMenuItem>
-                        <Settings/>
-                        Settings
+                        <PenLine/>
+                        Rename
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
                     <DropdownMenuGroup>
@@ -87,10 +129,6 @@ export function NavNotebookActions({ data: {id, name, details, workspace} }: {
                             <GalleryVerticalEnd/>
                             Version History
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Trash/>
-                            Show deleted pages
-                        </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator/>
                     <DropdownMenuGroup>
@@ -98,10 +136,30 @@ export function NavNotebookActions({ data: {id, name, details, workspace} }: {
                             <CornerUpRight/>
                             Move to
                         </DropdownMenuItem>
-                        <DropdownMenuItem variant="destructive">
-                            <Trash2/>
-                            Move to Trash
-                        </DropdownMenuItem>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <DropdownMenuItem variant="destructive" onSelect={(e) => e.preventDefault()}>
+                                    <Unlink/>
+                                    Unlink
+                                </DropdownMenuItem>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Don&#39;t worry, you can always link it back later.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction variant="destructive" onClick={() => unlinkNotionPage(notebook.id, id)
+                                        .catch(e => e.message === "NEXT_REDIRECT" ? toast.success("Page unlinked successfully!") : toast.error("Error unlinking page: " + e.message))
+                                    }>
+                                        Continue
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
             </DropdownMenu>

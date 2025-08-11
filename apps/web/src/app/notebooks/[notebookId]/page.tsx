@@ -8,7 +8,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@repo/ui/components/breadcrumb";
-import { NotebookPage } from "@/modules/notebook/app/components/notebook-page";
+import { NotebookLayout } from "@/modules/notebook/app/components/notebook-layout";
 import { getNotebook } from "@/modules/notebook/app/queries";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: Promise<{ notebookId: s
         </Breadcrumb>
     </>;
 
-    return <NotebookPage breadcrumb={breadcrumb}>
+    return <NotebookLayout breadcrumb={breadcrumb} data={data}>
         Hello world!
-    </NotebookPage>
+    </NotebookLayout>
 }

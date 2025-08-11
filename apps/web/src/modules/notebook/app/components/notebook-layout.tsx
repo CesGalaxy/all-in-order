@@ -5,8 +5,14 @@ import { SidebarTrigger } from "@repo/ui/components/sidebar";
 import { Separator } from "@repo/ui/components/separator";
 import { useIsMobile } from "@repo/ui/hooks/use-mobile";
 import { NavNotebookActions } from "@/modules/notebook/app/components/nav-notebook-actions";
+import { QueryData } from "@supabase/supabase-js";
+import { getNotebook } from "@/modules/notebook/app/queries";
 
-export function NotebookPage({ children, breadcrumb }: { children: ReactNode, breadcrumb?: ReactNode }) {
+export function NotebookLayout({ children, breadcrumb, data }: {
+    children: ReactNode,
+    breadcrumb?: ReactNode,
+    data: QueryData<ReturnType<typeof getNotebook>>
+}) {
     const isMobile = useIsMobile();
 
     return <>
@@ -17,7 +23,7 @@ export function NotebookPage({ children, breadcrumb }: { children: ReactNode, br
                 {breadcrumb}
             </div>
             <div className="ml-auto px-3">
-                <NavNotebookActions/>
+                <NavNotebookActions data={data}/>
             </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
