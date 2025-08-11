@@ -9,8 +9,8 @@ import { Input } from "@repo/ui/components/input";
 import { useHookFormAction } from "@next-safe-action/adapter-react-hook-form/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { LINK_NOTION_PAGE_SCHEMA } from "@/modules/app/notebook/schemas";
-import { linkNotionPage } from "@/modules/app/notebook/actions";
+import { LINK_NOTION_PAGE_SCHEMA } from "@/modules/notebook/app/schemas";
+import { linkNotionPage } from "@/modules/notebook/app/actions";
 import {
     Form,
     FormControl,

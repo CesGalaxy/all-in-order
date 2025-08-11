@@ -4,13 +4,17 @@ import { WorkspacePage } from "@/modules/app/workspace/components/workspace-page
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@repo/ui/components/breadcrumb";
 import { getWorkspace } from "@/modules/app/workspace/queries";
 import { notFound } from "next/navigation";
+import { validate, version } from "uuid";
 
 export default async function Page({ params }: { params: Promise<{ workspaceID: string }> }) {
     const { workspaceID } = await params;
+    
+    const isValidId = validate(workspaceID) && version(workspaceID) === 4;
+    if (!isValidId) notFound();
 
-    const { data, error } =await getWorkspace(workspaceID);
+    const { data, error } = await getWorkspace(workspaceID);
 
-    if (error) return <p>Error loading workspace</p>;
+    if (error) return <p>Error loading workspace!</p>;
     if (!data) notFound();
 
     const breadcrumb = <Breadcrumb>

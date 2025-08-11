@@ -1,14 +1,21 @@
 import { Client } from "@notionhq/client";
 import { User } from "@supabase/supabase-js";
+import { NotionCompatAPI } from "notion-compat";
 
-export function notionClientFromUser(user: User) {
-    const notionToken = user.app_metadata.notion_access_token;
+export function getNotionTokenFromUser(user: User) {
+    const notionToken = user.app_metadata?.notion_access_token;
     if (!notionToken || typeof notionToken !== "string") return null;
-    return new Client({ auth: notionToken });
+    else return notionToken;
 }
 
 export function getNotionClient(token: string) {
-    return new Client({ auth: token, fetch: fetch });
+    return new Client({ auth: token });
+}
+
+export function notionClientFromUser(user: User) {
+    const notionToken = getNotionTokenFromUser(user);
+    if (!notionToken) return null;
+    return getNotionClient(notionToken);
 }
 
 export function getNotionPages(client: Client) {
@@ -23,4 +30,13 @@ export function getNotionPages(client: Client) {
         },
         page_size: 100,
     });
+}
+
+// UNOFFICIAL API
+
+export function getNotionXClientFromUser(user: User) {
+    const officialNotionClient = notionClientFromUser(user);
+    if (!officialNotionClient) return null;
+
+    return new NotionCompatAPI(officialNotionClient);
 }

@@ -8,8 +8,8 @@ import { useHookFormAction } from "@next-safe-action/adapter-react-hook-form/hoo
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/components/form";
-import { CREATE_NOTEBOOK_SCHEMA } from "@/modules/app/notebook/schemas";
-import { createNotebook } from "@/modules/app/notebook/actions";
+import { CREATE_NOTEBOOK_SCHEMA } from "@/modules/notebook/app/schemas";
+import { createNotebook } from "@/modules/notebook/app/actions";
 import { Textarea } from "@repo/ui/components/textarea";
 
 export default function CreateNotebookForm({ workspaceId, className }: {workspaceId: string} & React.ComponentProps<"form">) {

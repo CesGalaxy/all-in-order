@@ -26,9 +26,18 @@ export async function sbServerClient() {
                         // The `setAll` method was called from a Server Component.
                         // This can be ignored if you have middleware refreshing
                         // user sessions.
+                        console.error("FUck")
                     }
                 },
             },
+            // auth: {
+            //     debug: (msg, ...args) => {
+            //         console.log(args[0]);
+            //         if (args[0] === "#_recoverAndRefresh()") {
+            //             console.log("Supabase auth debug:", msg, ...args);
+            //         }
+            //     }
+            // }
         }
     );
 }

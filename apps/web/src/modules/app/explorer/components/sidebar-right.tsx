@@ -12,9 +12,9 @@ import {
     SidebarMenuItem,
     SidebarSeparator,
 } from "@repo/ui/components/sidebar"
-import ExplorerNavUser from "@/modules/app/explorer/nav-user";
-import ExplorerDatePicker from "@/modules/app/explorer/date-picker";
-import ExplorerCalendars from "@/modules/app/explorer/calendars";
+import ExplorerNavUser from "@/modules/app/explorer/components/nav-user";
+import ExplorerDatePicker from "@/modules/app/explorer/components/date-picker";
+import ExplorerCalendars from "@/modules/app/explorer/components/calendars";
 import { getMyProfile } from "@/modules/user/auth/server";
 
 // This is sample data.

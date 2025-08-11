@@ -21,7 +21,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@repo/ui/components/drawer"
-import CreateNotebookForm from "@/modules/app/notebook/components/create-notebook-form";
+import CreateNotebookForm from "@/modules/notebook/app/components/create-notebook-form";
 import { BookPlus } from "lucide-react";
 import { SidebarMenuButton } from "@repo/ui/components/sidebar";
 

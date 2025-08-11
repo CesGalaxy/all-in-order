@@ -1,6 +1,10 @@
 @import "tailwindcss";
+
 @import "@repo/tailwind-config";
 @import "@repo/ui/globals.css";
+
+@plugin "@tailwindcss/typography";
+
 @source "../**/*.{ts,tsx}";
 
 @layer base {

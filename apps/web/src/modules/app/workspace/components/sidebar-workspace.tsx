@@ -1,10 +1,10 @@
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@repo/ui/components/sidebar";
-import NavRecentNotebooks from "@/modules/app/explorer/nav-recent-notebooks";
-import ExplorerNavMain from "@/modules/app/explorer/nav-main";
-import NavWorkspace from "@/modules/app/explorer/nav-workspace";
-import WorkspaceSwitcher from "@/modules/app/explorer/workspace-switcher";
+import NavRecentNotebooks from "@/modules/app/explorer/components/nav-recent-notebooks";
+import ExplorerNavMain from "@/modules/app/explorer/components/nav-main";
+import NavWorkspace from "@/modules/app/explorer/components/nav-workspace";
+import WorkspaceSwitcher from "@/modules/app/explorer/components/workspace-switcher";
 import { getMyWorkspaces } from "@/modules/app/workspace/queries";
-import { getMyNotebooks } from "@/modules/app/notebook/queries";
+import { getMyNotebooks } from "@/modules/notebook/app/queries";
 import { Suspense } from "react";
 import { Skeleton } from "@repo/ui/components/skeleton";
 

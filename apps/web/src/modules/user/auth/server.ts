@@ -5,11 +5,13 @@ import { sbServerClient } from "@/lib/supabase/server";
 import { AuthError } from "@supabase/supabase-js";
 
 export const getMyUser = cache(async () => {
+    console.log("CALLED getMyUser");
     const sb = await sbServerClient();
     return sb.auth.getUser();
 });
 
 export const getMyProfile = cache(async () => {
+    console.log("CALLED getMyProfile");
     const sb = await sbServerClient();
     const user = await getMyUser();
 

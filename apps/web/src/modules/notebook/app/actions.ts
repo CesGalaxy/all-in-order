@@ -4,9 +4,9 @@ import { actionClient } from "@/lib/helpers/form";
 import { sbAdminClient, sbServerClient } from "@/lib/supabase/server";
 import { returnValidationErrors } from "next-safe-action";
 import { redirect } from "next/navigation";
-import { CREATE_NOTEBOOK_SCHEMA, LINK_NOTION_PAGE_SCHEMA } from "@/modules/app/notebook/schemas";
+import { CREATE_NOTEBOOK_SCHEMA, LINK_NOTION_PAGE_SCHEMA } from "@/modules/notebook/app/schemas";
 import z from "zod";
-import { canUserAccessNotebook } from "@/modules/app/notebook/server";
+import { canUserAccessNotebook } from "@/modules/notebook/app/server";
 import { getNotionClient } from "@/modules/integrations/notion/api";
 import { isNotionClientError } from "@notionhq/client";
 

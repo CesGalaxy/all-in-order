@@ -25,13 +25,13 @@ import { getMyProfile } from "@/modules/user/auth/server";
 import { isNotionLinked } from "@/modules/user/auth/utils";
 import { Alert, AlertTitle } from "@repo/ui/components/alert";
 import { Sheet, SheetTrigger } from "@repo/ui/components/sheet";
-import AddNotionPage from "@/modules/app/notebook/components/add-notion-page";
+import AddNotionPage from "@/modules/notebook/notion/components/add-notion-page";
 import { getNotionClient, getNotionPages } from "@/modules/integrations/notion/api";
 import { Suspense } from "react";
 import Link from "next/link";
-import { getNotebookPages } from "@/modules/app/notebook/queries";
+import { getNotebookPages } from "@/modules/notebook/app/queries";
 import { Client } from "@notionhq/client";
-import { getPageName } from "@/modules/app/notebook/server";
+import { getPageName } from "@/modules/notebook/app/server";
 
 const items = [
     {

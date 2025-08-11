@@ -18,10 +18,10 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@repo/ui/components/sidebar"
-import { getMyNotebooks } from "@/modules/app/notebook/queries";
+import { getMyNotebooks } from "@/modules/notebook/app/queries";
 import { use } from "react";
 import ErrorCard from "@repo/ui/components/molecules/error-card";
-import { CreateNotebookButton } from "@/modules/app/explorer/create-notebook-button";
+import { CreateNotebookButton } from "@/modules/app/explorer/components/create-notebook-button";
 import Link from "next/link";
 import { toast } from "sonner";
 

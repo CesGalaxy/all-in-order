@@ -8,8 +8,8 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@repo/ui/components/breadcrumb";
-import { NotebookPage } from "@/modules/app/notebook/components/notebook-page";
-import { getNotebook } from "@/modules/app/notebook/queries";
+import { NotebookPage } from "@/modules/notebook/app/components/notebook-page";
+import { getNotebook } from "@/modules/notebook/app/queries";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 

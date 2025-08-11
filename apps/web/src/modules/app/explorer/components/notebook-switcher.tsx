@@ -16,7 +16,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, } from "@repo/ui/components/sidebar"
 import Link from "next/link";
 import { Skeleton } from "@repo/ui/components/skeleton";
-import { getMyNotebooks } from "@/modules/app/notebook/queries";
+import { getMyNotebooks } from "@/modules/notebook/app/queries";
 
 export default function NotebookSwitcher({ currentNotebookId, notebookQuery }: {
     currentNotebookId: string;

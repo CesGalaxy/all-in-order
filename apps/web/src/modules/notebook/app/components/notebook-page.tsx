@@ -4,13 +4,13 @@ import { ReactNode } from "react";
 import { SidebarTrigger } from "@repo/ui/components/sidebar";
 import { Separator } from "@repo/ui/components/separator";
 import { useIsMobile } from "@repo/ui/hooks/use-mobile";
-import { NavNotebookActions } from "@/modules/app/notebook/components/nav-notebook-actions";
+import { NavNotebookActions } from "@/modules/notebook/app/components/nav-notebook-actions";
 
 export function NotebookPage({ children, breadcrumb }: { children: ReactNode, breadcrumb?: ReactNode }) {
     const isMobile = useIsMobile();
 
     return <>
-        <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background justify-between">
+        <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background z-10 justify-between">
             <div className="flex flex-1 items-center gap-2 px-3">
                 <SidebarTrigger name={isMobile ? ["left"] : ["left", "right"]}/>
                 <Separator orientation="vertical" className="mr-2 h-4"/>

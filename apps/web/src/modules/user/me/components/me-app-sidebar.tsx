@@ -26,7 +26,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@repo/ui/components/sidebar"
-import ExplorerNavUser from "@/modules/app/explorer/nav-user";
+import ExplorerNavUser from "@/modules/app/explorer/components/nav-user";
 import { getMyProfile } from "@/modules/user/auth/server";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
