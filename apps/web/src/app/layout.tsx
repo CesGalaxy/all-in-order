@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${kanit.variable} w-full h-dvh min-h-dvh`}>
+      <body className={`${kanit.variable} w-full h-dvh min-h-dvh dark`}>
         <TRPCReactProvider>
             {children}
         </TRPCReactProvider>

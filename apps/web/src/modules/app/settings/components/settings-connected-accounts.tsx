@@ -26,7 +26,7 @@ export default function SettingsConnectedAccounts() {
 
         const { error: linkError } = await sb.auth.linkIdentity({
             provider: "notion",
-            options: { redirectTo: buildAuthRedirectUrl(pathname) },
+            options: { redirectTo: buildAuthRedirectUrl("notion", pathname) },
         });
 
         if (linkError) {

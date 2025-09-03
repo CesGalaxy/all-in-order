@@ -16,6 +16,7 @@ import {
     BreadcrumbSeparator
 } from "@repo/ui/components/breadcrumb";
 import Link from "next/link";
+import NotionPageMenubar from "@/modules/notebook/notion/components/notion-page-menubar";
 
 export default function NotebookPageLayout({ children, notebookData, pageData, pageTitle }: {
     children: ReactNode,
@@ -56,7 +57,8 @@ export default function NotebookPageLayout({ children, notebookData, pageData, p
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="ml-auto px-3">
+            <div className="ml-auto px-3 flex items-center gap-8">
+                <NotionPageMenubar/>
                 <NavNotebookPageActions notebook={notebookData} page={pageData} pageTitle={pageTitle}/>
             </div>
         </header>

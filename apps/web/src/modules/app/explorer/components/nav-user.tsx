@@ -33,7 +33,7 @@ export default function ExplorerNavUser({ query }: {
 
         const {data, error} = await sb.auth.linkIdentity({
             provider: "notion",
-            options: { redirectTo: buildAuthRedirectUrl(pathname) },
+            options: { redirectTo: buildAuthRedirectUrl("notion", pathname) },
         });
 
         console.log(data, error);

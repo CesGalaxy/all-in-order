@@ -1,6 +1,5 @@
 import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { ReactNode } from "react";
-import ExplorerSidebarRight from "@/modules/app/explorer/components/sidebar-right";
 import { getMyWorkspaces } from "@/modules/app/workspace/queries";
 import { getMyNotebooks, getNotebook } from "@/modules/notebook/app/queries";
 import { notFound } from "next/navigation";
@@ -28,6 +27,6 @@ export default async function Layout({ children, params }: { children: ReactNode
         <SidebarInset>
             {children}
         </SidebarInset>
-        <ExplorerSidebarRight name="right"/>
+        {/*<ExplorerSidebarRight name="right"/>*/}
     </SidebarProvider>;
 }

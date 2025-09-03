@@ -59,7 +59,7 @@ export default function AddNotionPage({ pagesQuery, notebookId }: {
     const pages = search.results.filter(p => p.object === "page" && "properties" in p);
     const selectedPage = pages.find(({id}) => id === selectedPageId);
 
-    // TODO: Add form
+    // TODO: Auto close when page is linked
     return <SheetContent>
         <SheetHeader>
             <SheetTitle>Link a page from Notion</SheetTitle>
