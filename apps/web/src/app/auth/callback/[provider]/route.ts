@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { notionAuthCallback, notionMCPAuthCallback } from "@/modules/integrations/notion/callback";
 
-export const AUTH_CALLBACK_ERROR_URL = '/auth/auth-code-error';
-
 export async function GET(request: NextRequest, { params }: { params: Promise<{ provider: string }> }) {
     const { provider } = await params;
     const { searchParams, origin } = new URL(request.url);

@@ -2,9 +2,9 @@
 
 import { sbAdminClient, sbServerClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
-import { AUTH_CALLBACK_ERROR_URL } from "@/app/auth/callback/[provider]/route";
 import { exchangeNotionMCPCodeForToken } from "@/modules/integrations/notion/ai/oauth";
 import { cookies } from "next/headers";
+import { AUTH_CALLBACK_ERROR_URL } from "@/modules/user/auth/const";
 
 export async function notionAuthCallback(request: NextRequest, next: string, searchParams: URLSearchParams) {
     const code = searchParams.get('code');

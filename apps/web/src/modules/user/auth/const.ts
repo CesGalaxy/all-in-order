@@ -1,0 +1,1 @@
+export const AUTH_CALLBACK_ERROR_URL = '/auth/auth-code-error';

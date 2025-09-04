@@ -19,7 +19,6 @@ export async function summarizeNotionPage(pageId: string) {
     try {
         const ntMCP = await createNotionMcpClient(ntToken.value);
 
-
         const tools = await ntMCP.tools();
         console.log("Available tools:", tools);
 
