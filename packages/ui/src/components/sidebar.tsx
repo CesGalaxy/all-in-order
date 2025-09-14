@@ -167,12 +167,14 @@ function Sidebar({
   collapsible = "offcanvas",
   className,
   children,
+    gap,
   ...props
 }: React.ComponentProps<"div"> & {
     name: string
   side?: "left" | "right"
   variant?: "sidebar" | "floating" | "inset"
-  collapsible?: "offcanvas" | "icon" | "none"
+  collapsible?: "offcanvas" | "icon" | "none",
+    gap?: string,
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
@@ -242,7 +244,8 @@ function Sidebar({
           "group-data-[side=right]:rotate-180",
           variant === "floating" || variant === "inset"
             ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
-            : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
+            : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+          gap
         )}
       />
       <div

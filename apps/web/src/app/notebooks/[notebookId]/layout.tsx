@@ -24,7 +24,7 @@ export default async function Layout({ children, params }: { children: ReactNode
             workspaceId={data.workspace.id}
             {...{notebookId, workspacesQuery, notebooksQuery, profileQuery}}
         />
-        <SidebarInset>
+        <SidebarInset className="grow max-h-full overflow-auto">
             {children}
         </SidebarInset>
     </SidebarProvider>;

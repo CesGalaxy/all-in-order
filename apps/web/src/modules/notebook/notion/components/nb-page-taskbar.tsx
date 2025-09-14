@@ -9,46 +9,24 @@ import {
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem,
-    useSidebar
+    SidebarMenuItem
 } from "@repo/ui/components/sidebar";
 import { Sparkles } from "lucide-react";
-import { useIsMobile } from "@repo/ui/hooks/use-mobile";
 import { useTasks } from "@repo/ui/context/taskbar";
+import { cn } from "@repo/ui/lib/utils";
 
 export default function NbPageTaskbar() {
-    const isMobile = useIsMobile();
     const { tasks, toggleTask, openTask, closeTask, currentTask, currentTaskId } = useTasks();
 
-    const {toggleSidebar} = useSidebar();
-
-    return <Sidebar
-        collapsible="icon"
-        className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
-        name="nb-page-taskbar"
-        side="right"
+    return <div
+        className="flex w-auto overflow-hidden"
     >
-        {/* This is the second sidebar */}
-        {/* We disable collapsible and let it fill remaining space */}
-        <Sidebar collapsible="none" className="hidden flex-1 md:flex" name="nb-page-taskbar-content">
-            {/*<SidebarHeader className="gap-3.5 border-b p-4">*/}
-            {/*    <div className="flex w-full items-center justify-between">*/}
-            {/*        <div className="text-foreground text-base font-medium">*/}
-            {/*            {currentTask?.name}*/}
-            {/*        </div>*/}
-            {/*        <Label className="flex items-center gap-2 text-sm">*/}
-            {/*            <span>Unreads</span>*/}
-            {/*        </Label>*/}
-            {/*    </div>*/}
-            {/*    <SidebarInput placeholder="Type to search..." />*/}
-            {/*</SidebarHeader>*/}
-            <SidebarContent>
-                {currentTask?.component}
-            </SidebarContent>
-        </Sidebar>
-        {/* This is the first sidebar */}
-        {/* We disable collapsible and adjust width to icon. */}
-        {/* This will make the sidebar appear as icons. */}
+        <div className={cn(
+            "flex h-full shrink-0 flex-col transition-all duration-300 ease-in-out",
+            currentTaskId ? "w-96" : "w-0",
+        )}>
+            {currentTask?.component}
+        </div>
         <Sidebar
             collapsible="none"
             className="w-[calc(var(--sidebar-width-icon)+1px)]! border-l"
@@ -82,12 +60,13 @@ export default function NbPageTaskbar() {
                                             children: item.name,
                                             hidden: false,
                                         }}
-                                        onClick={() => {
-                                            toggleTask(item.id)
-                                            toggleSidebar(["nb-page-taskbar"])
-                                        }}
+                                        onClick={() => toggleTask(item.id)}
                                         isActive={currentTaskId === item.id}
                                         className="px-2.5 md:px-2"
+                                        onContextMenu={(e) => {
+                                            e.preventDefault();
+                                            closeTask(item.id);
+                                        }}
                                     >
                                         {item.icon}
                                         <span>{item.name}</span>
@@ -103,5 +82,5 @@ export default function NbPageTaskbar() {
                 hellooo
             </SidebarFooter>
         </Sidebar>
-    </Sidebar>
+    </div>
 }
