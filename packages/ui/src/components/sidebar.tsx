@@ -116,7 +116,7 @@ function SidebarProvider({
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [toggleSidebar])
+  }, [sidebarNames, toggleSidebar])
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
@@ -571,6 +571,7 @@ function SidebarMenuButton({
         side="right"
         align="center"
         hidden={isCollapsed || isMobile}
+        {...tooltip}
       />
     </Tooltip>
   )

@@ -17,6 +17,8 @@ import {
 } from "@repo/ui/components/breadcrumb";
 import Link from "next/link";
 import NotionPageMenubar from "@/modules/notebook/notion/components/notion-page-menubar";
+import { TaskProvider } from "@repo/ui/context/taskbar";
+import NbPageTaskbar from "@/modules/notebook/notion/components/nb-page-taskbar";
 
 export default function NotebookPageLayout({ children, notebookData, pageData, pageTitle }: {
     children: ReactNode,
@@ -26,44 +28,49 @@ export default function NotebookPageLayout({ children, notebookData, pageData, p
 }) {
     const isMobile = useIsMobile();
 
-    return <>
-        <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background z-10 justify-between">
-            <div className="flex flex-1 items-center gap-2 px-3">
-                <SidebarTrigger name={isMobile ? ["left"] : ["left", "right"]}/>
-                <Separator orientation="vertical" className="mr-2 h-4"/>
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link href={"/w/" + notebookData.workspace.id}>
-                                    {notebookData.workspace.name}
-                                </Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink asChild>
-                                <Link href={"/notebooks/" + notebookData.id}>
-                                    {notebookData.name}
-                                </Link>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
-                        <BreadcrumbItem>
-                            <BreadcrumbPage className="line-clamp-1">
-                                {pageTitle}
-                            </BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+    return <TaskProvider>
+        <div className="flex max-h-full">
+            <div className="grow overflow-y-scroll">
+                <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background z-10 justify-between">
+                    <div className="flex flex-1 items-center gap-2 px-3">
+                        <SidebarTrigger name={isMobile ? ["left"] : ["left", "right"]}/>
+                        <Separator orientation="vertical" className="mr-2 h-4"/>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink asChild>
+                                        <Link href={"/w/" + notebookData.workspace.id}>
+                                            {notebookData.workspace.name}
+                                        </Link>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator/>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink asChild>
+                                        <Link href={"/notebooks/" + notebookData.id}>
+                                            {notebookData.name}
+                                        </Link>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator/>
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage className="line-clamp-1">
+                                        {pageTitle}
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+                    <div className="ml-auto px-3 flex items-center gap-8">
+                        <NotionPageMenubar pageId={pageData.id}/>
+                        <NavNotebookPageActions notebook={notebookData} page={pageData} pageTitle={pageTitle}/>
+                    </div>
+                </header>
+                <div className="flex flex-1 flex-col gap-4 p-4">
+                    {children}
+                </div>
             </div>
-            <div className="ml-auto px-3 flex items-center gap-8">
-                <NotionPageMenubar/>
-                <NavNotebookPageActions notebook={notebookData} page={pageData} pageTitle={pageTitle}/>
-            </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-            {children}
+            <NbPageTaskbar/>
         </div>
-    </>;
+    </TaskProvider>;
 }

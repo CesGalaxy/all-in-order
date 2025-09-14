@@ -1,23 +1,19 @@
 "use server";
 
-import { generateText } from "ai";
+import { generateText, stepCountIs } from "ai";
 import { google } from "@ai-sdk/google";
 import { createNotionMcpClient } from "@/modules/integrations/notion/ai/mcp";
 import { cookies } from "next/headers";
-import { mountNotionMCPRegistrationUrl } from "@/modules/integrations/notion/ai/oauth";
-import { redirect } from "next/navigation";
 
-export async function summarizeNotionPage(pageId: string) {
+export async function summarizeNotionPage(pageId: string, prompt: string = "Summarize this document.") {
     const cookieStore = await cookies();
 
     const ntToken = cookieStore.get("nt-mcp-token");
-    if (!ntToken) {
-        const ru = mountNotionMCPRegistrationUrl("http://localhost:3000/notebooks/1f947a78-f5f4-4834-bcfd-5d2e2e48de62/p/23ca9650-f165-80b5-acd5-d29888c73ac2");
-        redirect(ru);
-    }
+    if (!ntToken) throw new Error("Notion token not found. Please connect your Notion account.");
 
+    let ntMCP;
     try {
-        const ntMCP = await createNotionMcpClient(ntToken.value);
+        ntMCP = await createNotionMcpClient(ntToken.value);
 
         const tools = await ntMCP.tools();
         console.log("Available tools:", tools);
@@ -31,16 +27,24 @@ export async function summarizeNotionPage(pageId: string) {
             // the page. Do not include any unnecessary details or explanations.
             // The summary should be in markdown format, with headings and bullet points if necessary.
             // If the page is empty, return "No content to summarize."`,
-            prompt: "List all the Notion-related things you can do with the tools provided. For each tool, provide a brief description of what it does and how to use it. Use markdown format with headings and bullet points.",
+            system: `You are a helpful assistant that will summarize the Notion page (${pageId}) content as the user specifies.`,
+            prompt,
+            stopWhen: stepCountIs(3),
             // prompt: input,
         });
 
-        await ntMCP.close();
+        console.log("TEXT ================================")
+        console.log(text);
 
         return text;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
     } catch (e: Error) {
+        if (e.message === "MCP SSE Transport Error: 401 Unauthorized") {
+            cookieStore.delete("nt-mcp-token");
+            throw new Error("Notion token not found. Please connect your Notion account.");
+        }
+
         console.log("========================================")
         console.log(e.message)
         console.log(e.name)
@@ -48,5 +52,7 @@ export async function summarizeNotionPage(pageId: string) {
         console.log(e.stack)
         console.log("========================================")
         throw e;
+    } finally {
+        await ntMCP?.close().catch();
     }
 }

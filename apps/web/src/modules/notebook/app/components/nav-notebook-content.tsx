@@ -22,16 +22,14 @@ import {
     Plus
 } from "lucide-react";
 import { getMyProfile } from "@/modules/user/auth/server";
-import { isNotionLinked } from "@/modules/user/auth/utils";
 import { Alert, AlertTitle } from "@repo/ui/components/alert";
 import { Sheet, SheetTrigger } from "@repo/ui/components/sheet";
 import AddNotionPage from "@/modules/notebook/notion/components/add-notion-page";
-import { getNotionClient, getNotionPages } from "@/modules/integrations/notion/api";
+import { getNotionPages, notionClientFromUser } from "@/modules/integrations/notion/api";
 import { Suspense } from "react";
 import Link from "next/link";
 import { getNotebookPages } from "@/modules/notebook/app/queries";
-import { Client } from "@notionhq/client";
-import { getPageName } from "@/modules/notebook/app/server";
+import { NotionPageCache } from "@/modules/notebook/notion/types";
 
 const items = [
     {
@@ -105,20 +103,21 @@ export default async function NavNotebookContent({ profileQuery, notebookId }: {
     profileQuery: ReturnType<typeof getMyProfile>;
     notebookId: string;
 }) {
-    const { user, error: userError } = await profileQuery;
+    // Get the user data
+    const {user, error: userError} = await profileQuery;
     if (userError) return <p>Error loading profile</p>;
 
-    const notionLinked = isNotionLinked(user.identities);
+    // Get the Notion client with user's token
+    const notionClient = notionClientFromUser(user);
+    if (!notionClient) return <p>Error connecting to Notion</p>;
 
+    // Get all the notebook pages
     const { data: pages, error } = await getNotebookPages(notebookId);
-
     if (error) return <p>Error getting pages</p>;
-
-    const notionClient = getNotionClient(user.app_metadata!.notion_access_token);
 
     return <SidebarGroup className="group-data-[collapsible=icon]:hidden">
         <SidebarGroupLabel>Content</SidebarGroupLabel>
-        {!notionLinked && <Alert variant="destructive" className="mb-2">
+        {!notionClient && <Alert variant="destructive" className="mb-2">
             <AlertCircleIcon/>
             <AlertTitle className="line-clamp-2">You haven&#39;t connected your Notion account yet!</AlertTitle>
         </Alert>}
@@ -155,9 +154,9 @@ export default async function NavNotebookContent({ profileQuery, notebookId }: {
                         <SidebarMenuSub>
                             {pages
                                 ? pages.map(p => <Suspense key={p.id}>
-                                    <PageItem {...p} notebookId={notebookId} notionClient={notionClient}/>
+                                    <PageItem {...p} notebookId={notebookId}/>
                                 </Suspense>)
-                                : notionLinked
+                                : notionClient
                                     ? <p className="text-muted-foreground text-sm">There are no pages yet.</p>
                                     : <Alert>
                                         <AlertTitle className="line-clamp-2">Connect your Notion account for linking
@@ -207,11 +206,10 @@ export default async function NavNotebookContent({ profileQuery, notebookId }: {
     </SidebarGroup>;
 }
 
-async function PageItem({ id, alias, cache, notebookId, notionClient }: {
+async function PageItem({ id, alias, cache, notebookId }: {
     notebookId: string;
-    notionClient: Client;
 } & NonNullable<Awaited<ReturnType<typeof getNotebookPages>>["data"]>[number]) {
-    const title = await getPageName(notionClient, { id, alias, cache });
+    const title = alias || (cache as NotionPageCache | null)?.title;
 
     if (!title) return <SidebarMenuSubItem key={id} className="text-destructive">Error getting name</SidebarMenuSubItem>;
 

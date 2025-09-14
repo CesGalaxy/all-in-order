@@ -2,8 +2,10 @@
 
 import "server-only";
 import { sbAdminClient } from "@/lib/supabase/server";
-import { getPageTitle } from "@/modules/integrations/notion/utils";
-import { Client } from "@notionhq/client";
+import { generatePageCache, getPageTitle } from "@/modules/integrations/notion/utils";
+import { Client, PageObjectResponse } from "@notionhq/client";
+import { getNotionClient, getNotionTokenFromUser } from "@/modules/integrations/notion/api";
+import { getMyUser } from "@/modules/user/auth/server";
 
 export async function canUserAccessNotebook(userId: string, notebookId: string): Promise<boolean> {
     const sbAdmin = await sbAdminClient();
@@ -18,7 +20,7 @@ export async function canUserAccessNotebook(userId: string, notebookId: string):
     return !!data;
 }
 
-export async function getPageName(notionClient: Client, { alias, cache, id }: {
+export async function getPageNameLEGACY(notionClient: Client, { alias, cache, id }: {
     alias?: string | null,
     cache?: unknown,
     id: string
@@ -38,4 +40,24 @@ export async function getPageName(notionClient: Client, { alias, cache, id }: {
     }
 
     return title;
+}
+
+export async function updatePageCache(pageId: string, page?: PageObjectResponse) {
+    if (!page) {
+        const {data: { user }} = await getMyUser();
+        if (!user) throw new Error("User not authenticated");
+        const notionToken = getNotionTokenFromUser(user);
+        if (!notionToken) throw new Error("User has not connected their Notion account");
+        const notionClient = getNotionClient(notionToken);
+
+        const pageResponse = await notionClient.pages.retrieve({ page_id: pageId });
+        if (pageResponse && "properties" in pageResponse) page = pageResponse;
+        else throw new Error("Failed to fetch page data from Notion");
+    }
+
+    const cache = generatePageCache(page);
+
+    const sbAdmin = await sbAdminClient();
+    await sbAdmin.from("notebook_pages").update({ cache }).eq("id", pageId);
+    return cache;
 }

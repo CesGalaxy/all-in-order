@@ -18,15 +18,14 @@ export default async function Layout({ children, params }: { children: ReactNode
     if (error) return <p>Error</p>;
     if (!data) notFound();
 
-    return <SidebarProvider sidebarNames={["left", "right"]}>
+    return <SidebarProvider sidebarNames={["nb-main"]} defaultOpen={["nb-main"]} className="grow max-h-full">
         <SidebarNotebook
-            name="left"
+            name="nb-main"
             workspaceId={data.workspace.id}
             {...{notebookId, workspacesQuery, notebooksQuery, profileQuery}}
         />
         <SidebarInset>
             {children}
         </SidebarInset>
-        {/*<ExplorerSidebarRight name="right"/>*/}
     </SidebarProvider>;
 }

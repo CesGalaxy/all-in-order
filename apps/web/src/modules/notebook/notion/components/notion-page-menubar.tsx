@@ -16,9 +16,13 @@ import {
     MenubarTrigger
 } from "@repo/ui/components/menubar";
 import { Sparkles } from "lucide-react";
+import { useTasks } from "@repo/ui/context/taskbar";
+import SinglePrompt from "@/modules/ai/chat/components/single-prompt";
 import { summarizeNotionPage } from "@/modules/integrations/notion/ai/summarize";
 
-export default function NotionPageMenubar() {
+export default function NotionPageMenubar({pageId}: {pageId: string}) {
+    const {openTask} = useTasks();
+
     return <Menubar>
         <MenubarMenu>
             <MenubarTrigger>File</MenubarTrigger>
@@ -112,8 +116,12 @@ export default function NotionPageMenubar() {
             </MenubarTrigger>
             <MenubarContent>
                 <MenubarItem onClick={async () => {
-                    const a = await summarizeNotionPage("23ca9650-f165-80b5-acd5-d29888c73ac2")
-                    console.log(a);
+                    openTask({
+                        id: "summary",
+                        name: "Document summary",
+                        icon: <Sparkles/>,
+                        component: <SinglePrompt action={p => summarizeNotionPage(pageId, p)} initialPrompt="Summarize this"/>
+                    });
                 }}>
                     Summarize content
                 </MenubarItem>

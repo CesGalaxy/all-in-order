@@ -7,18 +7,18 @@
  *
  * ~ César 4 Sept. 2025
  */
-
 // TODO: Change this. Instead, get it from the manifest
 const AUTHORIZATION_ENDPOINT = "https://mcp.notion.com/authorize";
 const TOKEN_ENDPOINT = "https://mcp.notion.com/token";
-const REGISTRATION_ENPOINT = "https://mcp.notion.com/register";
+// const REGISTRATION_ENPOINT = "https://mcp.notion.com/register";
 const SCOPE = "read write";
 const REDIRECT_URI = "http://localhost:3000/auth/callback/notion-mcp";
 
-export function mountNotionMCPRegistrationUrl(redirectUri: string) {
+export function mountNotionMCPAuthorizationUrl(redirectUri: string) {
+    console.log("MOUNT:", process.env.NEXT_PUBLIC_NOTION_MCP_CLIENT_ID)
     const url = new URL(AUTHORIZATION_ENDPOINT);
     url.searchParams.set("response_type", "code");
-    url.searchParams.set("client_id", process.env.NOTION_MCP_CLIENT_ID! as string);
+    url.searchParams.set("client_id", process.env.NEXT_PUBLIC_NOTION_MCP_CLIENT_ID! as string);
     url.searchParams.set("redirect_uri", REDIRECT_URI);
     url.searchParams.set("scope", SCOPE);
     url.searchParams.set("state", encodeURIComponent(redirectUri));
@@ -35,7 +35,7 @@ export async function exchangeNotionMCPCodeForToken(code: string) {
             grant_type: "authorization_code",
             code,
             redirect_uri: REDIRECT_URI,
-            client_id: process.env.NOTION_MCP_CLIENT_ID! as string,
+            client_id: process.env.NEXT_PUBLIC_NOTION_MCP_CLIENT_ID! as string,
             client_secret: process.env.NOTION_MCP_CLIENT_SECRET! as string,
         }),
     });

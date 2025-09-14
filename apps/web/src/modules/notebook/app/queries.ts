@@ -29,7 +29,7 @@ export const getNotebookPage = cache(async (pageId: string) => {
         .maybeSingle();
 });
 
-export const getNotebookPageContent = cache(async (pageId: string) => {
+export const getNotebookPageERM = cache(async (pageId: string) => {
     const { data: { user }, error: authError } = await getMyUser();
     if (authError) return { data: null, error: authError };
     if (!user) return { data: null, error: new Error("User not authenticated") };

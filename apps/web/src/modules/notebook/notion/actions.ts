@@ -5,7 +5,7 @@ import z from "zod";
 import { sbAdminClient, sbServerClient } from "@/lib/supabase/server";
 import { returnValidationErrors } from "next-safe-action";
 import { canUserAccessNotebook } from "@/modules/notebook/app/server";
-import { getNotionClient } from "@/modules/integrations/notion/api";
+import { getNotionClient, getNotionTokenFromUser } from "@/modules/integrations/notion/api";
 import { redirect } from "next/navigation";
 import { isNotionClientError } from "@notionhq/client";
 import { LINK_NOTION_PAGE_SCHEMA } from "@/modules/notebook/notion/schemas";
@@ -52,8 +52,8 @@ export const linkNotionPage = actionClient
         if (existingPage) returnValidationErrors(LINK_NOTION_PAGE_SCHEMA, { _errors: ["This page is already linked to this notebook"] });
 
         // Check that the page exists in Notion
-        const notionToken = user.app_metadata.notion_access_token;
-        if (typeof notionToken !== "string" || notionToken.length === 0) returnValidationErrors(LINK_NOTION_PAGE_SCHEMA, { _errors: ["You need to connect your Notion account first"] });
+        const notionToken = getNotionTokenFromUser(user);
+        if (!notionToken) returnValidationErrors(LINK_NOTION_PAGE_SCHEMA, { _errors: ["You need to connect your Notion account first"] });
         const notionClient = getNotionClient(notionToken);
 
         try {
